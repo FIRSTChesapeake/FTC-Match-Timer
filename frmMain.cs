@@ -220,7 +220,7 @@ namespace FTC_Timer_Display
                 c.matchData.matchType = _currentMatchType;
             }
             numMatchNumberMajor.Value = 1;
-            if(MatchData.TypeUsesMinor(_currentMatchType)){
+            if(MatchData.TypeUsesMinor(_currentMatchType) && tableFieldControl.Enabled){
                 numMatchNumberMinor.Value = 1;
                 numMatchNumberMinor.Minimum = 1;
             }
