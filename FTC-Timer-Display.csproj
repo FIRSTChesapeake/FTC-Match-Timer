@@ -1,0 +1,241 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{75029ACA-8261-4202-AAF6-9918D7A274B5}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FTC_Timer_Display</RootNamespace>
+    <AssemblyName>FTC-Timer-Display</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>FTC_Timer_Display.Program</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevComponents.DotNetBar2, Version=12.5.0.3, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="frmRemoteFieldCreate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRemoteFieldCreate.Designer.cs">
+      <DependentUpon>frmRemoteFieldCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MatchTimeData.cs" />
+    <Compile Include="frmDisplay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDisplay.Designer.cs">
+      <DependentUpon>frmDisplay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMain.Designer.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmModeSelection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmModeSelection.Designer.cs">
+      <DependentUpon>frmModeSelection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InitialData.cs" />
+    <Compile Include="MatchData.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SingleClient.cs" />
+    <Compile Include="UdpComms.cs" />
+    <EmbeddedResource Include="frmDisplay.resx">
+      <DependentUpon>frmDisplay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMain.resx">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmModeSelection.resx">
+      <DependentUpon>frmModeSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRemoteFieldCreate.resx">
+      <DependentUpon>frmRemoteFieldCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DisplayBackgroundHD.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FTClogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gamelogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Wdigitoff.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Wcolon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Wcolonoff.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\B0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\B1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\B2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\B4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\B5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\B6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\B7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\B8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\B9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\R0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\R1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\R2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\R3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\R4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\R5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\R6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\R7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\R8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\R9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Rcolon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Rcolonoff.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Rdigitoff.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

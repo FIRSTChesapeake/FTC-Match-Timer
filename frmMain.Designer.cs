@@ -1,0 +1,778 @@
+﻿namespace FTC_Timer_Display
+{
+    partial class frmMain
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lblMode = new System.Windows.Forms.Label();
+            this.lblDivID = new System.Windows.Forms.Label();
+            this.lblDivName = new System.Windows.Forms.Label();
+            this.lblFieldID = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.listFields = new System.Windows.Forms.ListBox();
+            this.tableFieldControl = new System.Windows.Forms.TableLayoutPanel();
+            this.lblFieldHead = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.lblCurrentPeriod = new System.Windows.Forms.Label();
+            this.lblMatchStatus = new System.Windows.Forms.Label();
+            this.lblTimerValue = new System.Windows.Forms.Label();
+            this.numMatchNumberMajor = new System.Windows.Forms.NumericUpDown();
+            this.numMatchNumberMinor = new System.Windows.Forms.NumericUpDown();
+            this.cboMatchType = new System.Windows.Forms.ComboBox();
+            this.btnStart = new DevComponents.DotNetBar.ButtonX();
+            this.btnPause = new DevComponents.DotNetBar.ButtonX();
+            this.btnStop = new DevComponents.DotNetBar.ButtonX();
+            this.btnReset = new DevComponents.DotNetBar.ButtonX();
+            this.btnAdvance = new DevComponents.DotNetBar.ButtonX();
+            this.btnAddField = new DevComponents.DotNetBar.ButtonX();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.lblListenStatus = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.lblLastSvrIP = new System.Windows.Forms.Label();
+            this.lblLastRecvTime = new System.Windows.Forms.Label();
+            this.btnCycleListener = new DevComponents.DotNetBar.ButtonX();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnShowDisplay = new DevComponents.DotNetBar.ButtonX();
+            this.btnSizeDisplay = new DevComponents.DotNetBar.ButtonX();
+            this.displayTimer = new System.Windows.Forms.Timer(this.components);
+            this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.tableFieldControl.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numMatchNumberMajor)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMatchNumberMinor)).BeginInit();
+            this.tableLayoutPanel4.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.listFields, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.tableFieldControl, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.btnAddField, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel4, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 1, 2);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 75F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(741, 571);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Controls.Add(this.label1, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.label2, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.label3, 0, 3);
+            this.tableLayoutPanel2.Controls.Add(this.label4, 0, 4);
+            this.tableLayoutPanel2.Controls.Add(this.lblMode, 1, 1);
+            this.tableLayoutPanel2.Controls.Add(this.lblDivID, 1, 2);
+            this.tableLayoutPanel2.Controls.Add(this.lblDivName, 1, 3);
+            this.tableLayoutPanel2.Controls.Add(this.lblFieldID, 1, 4);
+            this.tableLayoutPanel2.Controls.Add(this.label9, 0, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 5;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(216, 124);
+            this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(3, 24);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(92, 25);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "System Mode:";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(3, 49);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(92, 25);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Division ID:";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(3, 74);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(92, 25);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Division Name:";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(3, 99);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(92, 25);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "This Field ID:";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblMode
+            // 
+            this.lblMode.AutoSize = true;
+            this.lblMode.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblMode.Location = new System.Drawing.Point(101, 24);
+            this.lblMode.Name = "lblMode";
+            this.lblMode.Size = new System.Drawing.Size(112, 25);
+            this.lblMode.TabIndex = 4;
+            this.lblMode.Text = "Unknown";
+            this.lblMode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblDivID
+            // 
+            this.lblDivID.AutoSize = true;
+            this.lblDivID.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblDivID.Location = new System.Drawing.Point(101, 49);
+            this.lblDivID.Name = "lblDivID";
+            this.lblDivID.Size = new System.Drawing.Size(112, 25);
+            this.lblDivID.TabIndex = 5;
+            this.lblDivID.Text = "Unknown";
+            this.lblDivID.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblDivName
+            // 
+            this.lblDivName.AutoSize = true;
+            this.lblDivName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblDivName.Location = new System.Drawing.Point(101, 74);
+            this.lblDivName.Name = "lblDivName";
+            this.lblDivName.Size = new System.Drawing.Size(112, 25);
+            this.lblDivName.TabIndex = 6;
+            this.lblDivName.Text = "Unknown";
+            this.lblDivName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblFieldID
+            // 
+            this.lblFieldID.AutoSize = true;
+            this.lblFieldID.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblFieldID.Location = new System.Drawing.Point(101, 99);
+            this.lblFieldID.Name = "lblFieldID";
+            this.lblFieldID.Size = new System.Drawing.Size(112, 25);
+            this.lblFieldID.TabIndex = 7;
+            this.lblFieldID.Text = "Unknown";
+            this.lblFieldID.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.tableLayoutPanel2.SetColumnSpan(this.label9, 2);
+            this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(3, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(210, 24);
+            this.label9.TabIndex = 8;
+            this.label9.Text = "Current Configuration";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // listFields
+            // 
+            this.listFields.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listFields.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listFields.FormattingEnabled = true;
+            this.listFields.ItemHeight = 20;
+            this.listFields.Location = new System.Drawing.Point(3, 133);
+            this.listFields.Name = "listFields";
+            this.listFields.Size = new System.Drawing.Size(216, 384);
+            this.listFields.TabIndex = 1;
+            // 
+            // tableFieldControl
+            // 
+            this.tableFieldControl.ColumnCount = 4;
+            this.tableFieldControl.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableFieldControl.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableFieldControl.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableFieldControl.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableFieldControl.Controls.Add(this.lblFieldHead, 0, 0);
+            this.tableFieldControl.Controls.Add(this.label6, 0, 1);
+            this.tableFieldControl.Controls.Add(this.label7, 0, 2);
+            this.tableFieldControl.Controls.Add(this.label8, 0, 3);
+            this.tableFieldControl.Controls.Add(this.label10, 0, 4);
+            this.tableFieldControl.Controls.Add(this.label11, 0, 5);
+            this.tableFieldControl.Controls.Add(this.label12, 0, 6);
+            this.tableFieldControl.Controls.Add(this.lblCurrentPeriod, 2, 2);
+            this.tableFieldControl.Controls.Add(this.lblMatchStatus, 2, 3);
+            this.tableFieldControl.Controls.Add(this.lblTimerValue, 2, 6);
+            this.tableFieldControl.Controls.Add(this.numMatchNumberMajor, 2, 4);
+            this.tableFieldControl.Controls.Add(this.numMatchNumberMinor, 2, 5);
+            this.tableFieldControl.Controls.Add(this.cboMatchType, 2, 1);
+            this.tableFieldControl.Controls.Add(this.btnStart, 0, 7);
+            this.tableFieldControl.Controls.Add(this.btnPause, 1, 7);
+            this.tableFieldControl.Controls.Add(this.btnStop, 2, 7);
+            this.tableFieldControl.Controls.Add(this.btnReset, 3, 7);
+            this.tableFieldControl.Controls.Add(this.btnAdvance, 3, 8);
+            this.tableFieldControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableFieldControl.Location = new System.Drawing.Point(225, 133);
+            this.tableFieldControl.Name = "tableFieldControl";
+            this.tableFieldControl.RowCount = 10;
+            this.tableFieldControl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableFieldControl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableFieldControl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableFieldControl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableFieldControl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableFieldControl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableFieldControl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableFieldControl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.tableFieldControl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this.tableFieldControl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableFieldControl.Size = new System.Drawing.Size(513, 384);
+            this.tableFieldControl.TabIndex = 3;
+            // 
+            // lblFieldHead
+            // 
+            this.lblFieldHead.AutoSize = true;
+            this.tableFieldControl.SetColumnSpan(this.lblFieldHead, 4);
+            this.lblFieldHead.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblFieldHead.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFieldHead.Location = new System.Drawing.Point(3, 0);
+            this.lblFieldHead.Name = "lblFieldHead";
+            this.lblFieldHead.Size = new System.Drawing.Size(507, 30);
+            this.lblFieldHead.TabIndex = 0;
+            this.lblFieldHead.Text = "No Selected Field";
+            this.lblFieldHead.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.tableFieldControl.SetColumnSpan(this.label6, 2);
+            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(3, 30);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(250, 35);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "Match Type:";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.tableFieldControl.SetColumnSpan(this.label7, 2);
+            this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(3, 65);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(250, 30);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "Current Period:";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.tableFieldControl.SetColumnSpan(this.label8, 2);
+            this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(3, 95);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(250, 30);
+            this.label8.TabIndex = 3;
+            this.label8.Text = "Match Status:";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.tableFieldControl.SetColumnSpan(this.label10, 2);
+            this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(3, 125);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(250, 30);
+            this.label10.TabIndex = 4;
+            this.label10.Text = "Match Number Major:";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.tableFieldControl.SetColumnSpan(this.label11, 2);
+            this.label11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(3, 155);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(250, 30);
+            this.label11.TabIndex = 5;
+            this.label11.Text = "Match Number Minor:";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.tableFieldControl.SetColumnSpan(this.label12, 2);
+            this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(3, 185);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(250, 30);
+            this.label12.TabIndex = 6;
+            this.label12.Text = "Timer Value:";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblCurrentPeriod
+            // 
+            this.lblCurrentPeriod.AutoSize = true;
+            this.tableFieldControl.SetColumnSpan(this.lblCurrentPeriod, 2);
+            this.lblCurrentPeriod.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblCurrentPeriod.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentPeriod.Location = new System.Drawing.Point(259, 65);
+            this.lblCurrentPeriod.Name = "lblCurrentPeriod";
+            this.lblCurrentPeriod.Size = new System.Drawing.Size(251, 30);
+            this.lblCurrentPeriod.TabIndex = 8;
+            this.lblCurrentPeriod.Text = "Unknown";
+            this.lblCurrentPeriod.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblMatchStatus
+            // 
+            this.lblMatchStatus.AutoSize = true;
+            this.tableFieldControl.SetColumnSpan(this.lblMatchStatus, 2);
+            this.lblMatchStatus.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblMatchStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMatchStatus.Location = new System.Drawing.Point(259, 95);
+            this.lblMatchStatus.Name = "lblMatchStatus";
+            this.lblMatchStatus.Size = new System.Drawing.Size(251, 30);
+            this.lblMatchStatus.TabIndex = 9;
+            this.lblMatchStatus.Text = "Unknown";
+            this.lblMatchStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblTimerValue
+            // 
+            this.lblTimerValue.AutoSize = true;
+            this.tableFieldControl.SetColumnSpan(this.lblTimerValue, 2);
+            this.lblTimerValue.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblTimerValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTimerValue.Location = new System.Drawing.Point(259, 185);
+            this.lblTimerValue.Name = "lblTimerValue";
+            this.lblTimerValue.Size = new System.Drawing.Size(251, 30);
+            this.lblTimerValue.TabIndex = 12;
+            this.lblTimerValue.Text = "Unknown";
+            this.lblTimerValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // numMatchNumberMajor
+            // 
+            this.tableFieldControl.SetColumnSpan(this.numMatchNumberMajor, 2);
+            this.numMatchNumberMajor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numMatchNumberMajor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numMatchNumberMajor.Location = new System.Drawing.Point(259, 128);
+            this.numMatchNumberMajor.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numMatchNumberMajor.Name = "numMatchNumberMajor";
+            this.numMatchNumberMajor.Size = new System.Drawing.Size(251, 26);
+            this.numMatchNumberMajor.TabIndex = 13;
+            this.numMatchNumberMajor.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numMatchNumberMajor.ValueChanged += new System.EventHandler(this.MatchNumberChangeHandler);
+            // 
+            // numMatchNumberMinor
+            // 
+            this.tableFieldControl.SetColumnSpan(this.numMatchNumberMinor, 2);
+            this.numMatchNumberMinor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numMatchNumberMinor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numMatchNumberMinor.Location = new System.Drawing.Point(259, 158);
+            this.numMatchNumberMinor.Name = "numMatchNumberMinor";
+            this.numMatchNumberMinor.Size = new System.Drawing.Size(251, 26);
+            this.numMatchNumberMinor.TabIndex = 14;
+            this.numMatchNumberMinor.ValueChanged += new System.EventHandler(this.MatchNumberChangeHandler);
+            // 
+            // cboMatchType
+            // 
+            this.tableFieldControl.SetColumnSpan(this.cboMatchType, 2);
+            this.cboMatchType.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cboMatchType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboMatchType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboMatchType.FormattingEnabled = true;
+            this.cboMatchType.Location = new System.Drawing.Point(259, 33);
+            this.cboMatchType.Name = "cboMatchType";
+            this.cboMatchType.Size = new System.Drawing.Size(251, 28);
+            this.cboMatchType.TabIndex = 15;
+            this.cboMatchType.SelectedIndexChanged += new System.EventHandler(this.MatchTypeChangeHandler);
+            // 
+            // btnStart
+            // 
+            this.btnStart.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnStart.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnStart.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnStart.Location = new System.Drawing.Point(3, 218);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(122, 64);
+            this.btnStart.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnStart.TabIndex = 16;
+            this.btnStart.Text = "Start Match";
+            this.btnStart.Click += new System.EventHandler(this.FieldControlButtonsHandler);
+            // 
+            // btnPause
+            // 
+            this.btnPause.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnPause.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnPause.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnPause.Location = new System.Drawing.Point(131, 218);
+            this.btnPause.Name = "btnPause";
+            this.btnPause.Size = new System.Drawing.Size(122, 64);
+            this.btnPause.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnPause.TabIndex = 17;
+            this.btnPause.Text = "Pause Match";
+            this.btnPause.Click += new System.EventHandler(this.FieldControlButtonsHandler);
+            // 
+            // btnStop
+            // 
+            this.btnStop.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnStop.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnStop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnStop.Location = new System.Drawing.Point(259, 218);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(122, 64);
+            this.btnStop.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnStop.TabIndex = 18;
+            this.btnStop.Text = "Stop Match";
+            this.btnStop.Click += new System.EventHandler(this.FieldControlButtonsHandler);
+            // 
+            // btnReset
+            // 
+            this.btnReset.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnReset.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnReset.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnReset.Location = new System.Drawing.Point(387, 218);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(123, 64);
+            this.btnReset.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnReset.TabIndex = 19;
+            this.btnReset.Text = "Reset Match";
+            this.btnReset.Click += new System.EventHandler(this.FieldControlButtonsHandler);
+            // 
+            // btnAdvance
+            // 
+            this.btnAdvance.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnAdvance.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnAdvance.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnAdvance.Location = new System.Drawing.Point(387, 288);
+            this.btnAdvance.Name = "btnAdvance";
+            this.btnAdvance.Size = new System.Drawing.Size(123, 64);
+            this.btnAdvance.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnAdvance.TabIndex = 20;
+            this.btnAdvance.Text = "Advance to\r\nNext Match";
+            this.btnAdvance.Click += new System.EventHandler(this.AutoAdvanceHandler);
+            // 
+            // btnAddField
+            // 
+            this.btnAddField.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnAddField.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnAddField.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnAddField.Location = new System.Drawing.Point(3, 523);
+            this.btnAddField.Name = "btnAddField";
+            this.btnAddField.Size = new System.Drawing.Size(216, 45);
+            this.btnAddField.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnAddField.TabIndex = 0;
+            this.btnAddField.Text = "Add Field";
+            this.btnAddField.Click += new System.EventHandler(this.HandleFieldMgmtButtons);
+            // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.ColumnCount = 2;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55.55556F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 44.44444F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel4.Controls.Add(this.label5, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.label13, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.lblListenStatus, 1, 1);
+            this.tableLayoutPanel4.Controls.Add(this.label14, 0, 2);
+            this.tableLayoutPanel4.Controls.Add(this.label15, 0, 3);
+            this.tableLayoutPanel4.Controls.Add(this.lblLastSvrIP, 1, 2);
+            this.tableLayoutPanel4.Controls.Add(this.lblLastRecvTime, 1, 3);
+            this.tableLayoutPanel4.Controls.Add(this.btnCycleListener, 0, 4);
+            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(225, 3);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 5;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(513, 124);
+            this.tableLayoutPanel4.TabIndex = 4;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.tableLayoutPanel4.SetColumnSpan(this.label5, 2);
+            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(3, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(507, 20);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Communications Status";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label13.Location = new System.Drawing.Point(3, 20);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(279, 25);
+            this.label13.TabIndex = 1;
+            this.label13.Text = "Listener Status:";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblListenStatus
+            // 
+            this.lblListenStatus.AutoSize = true;
+            this.lblListenStatus.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblListenStatus.Location = new System.Drawing.Point(288, 20);
+            this.lblListenStatus.Name = "lblListenStatus";
+            this.lblListenStatus.Size = new System.Drawing.Size(222, 25);
+            this.lblListenStatus.TabIndex = 2;
+            this.lblListenStatus.Text = "Unknown";
+            this.lblListenStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label14.Location = new System.Drawing.Point(3, 45);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(279, 25);
+            this.label14.TabIndex = 4;
+            this.label14.Text = "Last Received From:";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label15.Location = new System.Drawing.Point(3, 70);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(279, 25);
+            this.label15.TabIndex = 5;
+            this.label15.Text = "Last Receive Time:";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblLastSvrIP
+            // 
+            this.lblLastSvrIP.AutoSize = true;
+            this.lblLastSvrIP.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblLastSvrIP.Location = new System.Drawing.Point(288, 45);
+            this.lblLastSvrIP.Name = "lblLastSvrIP";
+            this.lblLastSvrIP.Size = new System.Drawing.Size(222, 25);
+            this.lblLastSvrIP.TabIndex = 6;
+            this.lblLastSvrIP.Text = "Never";
+            this.lblLastSvrIP.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblLastRecvTime
+            // 
+            this.lblLastRecvTime.AutoSize = true;
+            this.lblLastRecvTime.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblLastRecvTime.Location = new System.Drawing.Point(288, 70);
+            this.lblLastRecvTime.Name = "lblLastRecvTime";
+            this.lblLastRecvTime.Size = new System.Drawing.Size(222, 25);
+            this.lblLastRecvTime.TabIndex = 7;
+            this.lblLastRecvTime.Text = "Never";
+            this.lblLastRecvTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // btnCycleListener
+            // 
+            this.btnCycleListener.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnCycleListener.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.tableLayoutPanel4.SetColumnSpan(this.btnCycleListener, 2);
+            this.btnCycleListener.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnCycleListener.Enabled = false;
+            this.btnCycleListener.Location = new System.Drawing.Point(3, 98);
+            this.btnCycleListener.Name = "btnCycleListener";
+            this.btnCycleListener.Size = new System.Drawing.Size(507, 23);
+            this.btnCycleListener.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnCycleListener.TabIndex = 3;
+            this.btnCycleListener.Text = "Chg";
+            this.btnCycleListener.Click += new System.EventHandler(this.btnCycleListener_Click);
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.btnShowDisplay);
+            this.flowLayoutPanel1.Controls.Add(this.btnSizeDisplay);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(225, 523);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(513, 45);
+            this.flowLayoutPanel1.TabIndex = 5;
+            // 
+            // btnShowDisplay
+            // 
+            this.btnShowDisplay.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnShowDisplay.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnShowDisplay.Location = new System.Drawing.Point(3, 3);
+            this.btnShowDisplay.Name = "btnShowDisplay";
+            this.btnShowDisplay.Size = new System.Drawing.Size(184, 33);
+            this.btnShowDisplay.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnShowDisplay.TabIndex = 5;
+            this.btnShowDisplay.Text = "Show / Hide Timer Display";
+            this.btnShowDisplay.Click += new System.EventHandler(this.HandleDisplayBtns);
+            // 
+            // btnSizeDisplay
+            // 
+            this.btnSizeDisplay.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnSizeDisplay.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnSizeDisplay.Location = new System.Drawing.Point(193, 3);
+            this.btnSizeDisplay.Name = "btnSizeDisplay";
+            this.btnSizeDisplay.Size = new System.Drawing.Size(186, 33);
+            this.btnSizeDisplay.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnSizeDisplay.TabIndex = 21;
+            this.btnSizeDisplay.Text = "Max / Restore Timer";
+            this.btnSizeDisplay.Click += new System.EventHandler(this.HandleDisplayBtns);
+            // 
+            // displayTimer
+            // 
+            this.displayTimer.Enabled = true;
+            this.displayTimer.Interval = 200;
+            this.displayTimer.Tick += new System.EventHandler(this.displayTimer_Tick);
+            // 
+            // frmMain
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(741, 571);
+            this.Controls.Add(this.tableLayoutPanel1);
+            this.Name = "frmMain";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "VirginiaFIRST FTC Match Timer Controller";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
+            this.Load += new System.EventHandler(this.frmMain_Load);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
+            this.tableFieldControl.ResumeLayout(false);
+            this.tableFieldControl.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numMatchNumberMajor)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMatchNumberMinor)).EndInit();
+            this.tableLayoutPanel4.ResumeLayout(false);
+            this.tableLayoutPanel4.PerformLayout();
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblMode;
+        private System.Windows.Forms.Label lblDivID;
+        private System.Windows.Forms.Label lblDivName;
+        private System.Windows.Forms.Label lblFieldID;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ListBox listFields;
+        private System.Windows.Forms.Timer displayTimer;
+        private System.Windows.Forms.TableLayoutPanel tableFieldControl;
+        private System.Windows.Forms.Label lblFieldHead;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label lblCurrentPeriod;
+        private System.Windows.Forms.Label lblMatchStatus;
+        private System.Windows.Forms.Label lblTimerValue;
+        private System.Windows.Forms.NumericUpDown numMatchNumberMajor;
+        private System.Windows.Forms.NumericUpDown numMatchNumberMinor;
+        private System.Windows.Forms.ComboBox cboMatchType;
+        private DevComponents.DotNetBar.ButtonX btnStart;
+        private DevComponents.DotNetBar.ButtonX btnPause;
+        private DevComponents.DotNetBar.ButtonX btnStop;
+        private DevComponents.DotNetBar.ButtonX btnReset;
+        private DevComponents.DotNetBar.ButtonX btnAdvance;
+        private DevComponents.DotNetBar.ButtonX btnAddField;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label lblListenStatus;
+        private DevComponents.DotNetBar.ButtonX btnCycleListener;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label lblLastRecvTime;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label lblLastSvrIP;
+        private DevComponents.DotNetBar.ButtonX btnShowDisplay;
+        private DevComponents.DotNetBar.ButtonX btnSizeDisplay;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+
+    }
+}
