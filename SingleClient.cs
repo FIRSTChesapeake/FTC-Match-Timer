@@ -81,7 +81,7 @@ namespace FTC_Timer_Display
         {
             _data.matchStatus = MatchData.MatchStatus.Stopped;
             _data.matchPeriod = MatchData.MatchPeriods.NotStarted;
-            _data.timerValue = MatchTimeData.matchLength;
+            _data.timerValue = MatchTimingData.matchLength;
         }
 
         public void MatchPower(bool running)
@@ -116,19 +116,20 @@ namespace FTC_Timer_Display
             {
                 TimeSpan ts = _data.timerValue.Subtract(new TimeSpan(0, 0, 1));
                 _data.timerValue = ts;
-                if (ts.TotalSeconds == MatchTimeData.whenNoCross.TotalSeconds)
+                if (ts.TotalSeconds == MatchTimingData.whenNoCross.TotalSeconds)
                 {
                     // Special case for No Cross Alert
                     _data.playSound = "factwhistle";
                 }
-                else if (ts.TotalSeconds == MatchTimeData.whenAutoEnd.TotalSeconds)
+                else if (ts.TotalSeconds == MatchTimingData.whenAutoEnd.TotalSeconds)
                 {
                     // Auto hads ended.
+                    TimeSpan driverOnly = MatchTimingData.driverLength - MatchTimingData.endgameLength;
                     _data.matchStatus = MatchData.MatchStatus.Paused;
                     _data.matchPeriod = MatchData.MatchPeriods.DriverControlled;
                     _data.playSound = "endauto";
                 }
-                else if (ts.TotalSeconds == MatchTimeData.whenEndgame.TotalSeconds)
+                else if (ts.TotalSeconds == MatchTimingData.whenEndgame.TotalSeconds)
                 {
                     // Entering Endgame
                     _data.matchPeriod = MatchData.MatchPeriods.EndGame;

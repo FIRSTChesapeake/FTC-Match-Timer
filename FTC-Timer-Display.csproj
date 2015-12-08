@@ -40,6 +40,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,13 +52,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ctrlTimeLengthEntry.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ctrlTimeLengthEntry.Designer.cs">
+      <DependentUpon>ctrlTimeLengthEntry.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmRemoteFieldCreate.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmRemoteFieldCreate.Designer.cs">
       <DependentUpon>frmRemoteFieldCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="MatchTimeData.cs" />
+    <Compile Include="frmTimings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTimings.Designer.cs">
+      <DependentUpon>frmTimings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MatchTimingData.cs" />
     <Compile Include="frmDisplay.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,7 +94,11 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SingleClient.cs" />
+    <Compile Include="SoundGenerator.cs" />
     <Compile Include="UdpComms.cs" />
+    <EmbeddedResource Include="ctrlTimeLengthEntry.resx">
+      <DependentUpon>ctrlTimeLengthEntry.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmDisplay.resx">
       <DependentUpon>frmDisplay.cs</DependentUpon>
     </EmbeddedResource>
@@ -92,6 +110,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmRemoteFieldCreate.resx">
       <DependentUpon>frmRemoteFieldCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTimings.resx">
+      <DependentUpon>frmTimings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -229,6 +250,26 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Rdigitoff.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Sounds\charge.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\endauto.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\endmatch.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\factwhistle.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\firebell.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sounds\fogblast.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

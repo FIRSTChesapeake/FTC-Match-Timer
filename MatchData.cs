@@ -17,8 +17,10 @@ namespace FTC_Timer_Display
         public MatchStatus matchStatus = MatchStatus.Stopped;
         public int matchNumberMajor = 1;
         public int matchNumberMinor = 0;
+        public int matchLength = 0;
 
         public string playSound = "";
+        public SoundLocations soundLocation = SoundLocations.Off;
 
         public TimeSpan timerValue = new TimeSpan();
 
@@ -31,7 +33,28 @@ namespace FTC_Timer_Display
             }
         }
 
+        public int ticksPassed
+        {
+            get
+            {
+                if (matchLength == 0) return 0;
+                int i = matchLength - (int)timerValue.TotalSeconds;
+                if (i < 0) return 0;
+                return i;
+            }
+        }
 
+        public int percentComplete
+        {
+            get
+            {
+                if (ticksPassed == 0) return 0;
+                if (matchStatus == MatchStatus.Stopped && matchPeriod == MatchPeriods.Complete) return 100;
+                double d = (double)ticksPassed / (double)matchLength;
+                int i = (int)(d * 100);
+                return i;
+            }
+        }
 
         public MatchData() { }
 
@@ -63,17 +86,24 @@ namespace FTC_Timer_Display
         }
         public enum MatchPeriods
         {
-            NotStarted,
-            Autonomous,
-            DriverControlled,
-            EndGame,
-            Complete
+            NotStarted = 0,
+            Autonomous = 1,
+            DriverControlled = 2,
+            EndGame = 3,
+            Complete = 4
         }
         public enum MatchStatus
         {
             Stopped,
             Running,
             Paused
+        }
+
+        public enum SoundLocations
+        {
+            Off = 0,
+            Server = 1,
+            Client = 2
         }
 
         public bool usesMinor

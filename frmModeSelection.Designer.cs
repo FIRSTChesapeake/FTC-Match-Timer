@@ -144,7 +144,7 @@
             this.numDivID.Dock = System.Windows.Forms.DockStyle.Fill;
             this.numDivID.Location = new System.Drawing.Point(176, 3);
             this.numDivID.Maximum = new decimal(new int[] {
-            4,
+            9,
             0,
             0,
             0});
@@ -178,7 +178,7 @@
             this.numField.Dock = System.Windows.Forms.DockStyle.Fill;
             this.numField.Location = new System.Drawing.Point(176, 153);
             this.numField.Maximum = new decimal(new int[] {
-            4,
+            9,
             0,
             0,
             0});

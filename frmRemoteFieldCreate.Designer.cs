@@ -72,6 +72,11 @@
             this.numNewID.Dock = System.Windows.Forms.DockStyle.Fill;
             this.numNewID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numNewID.Location = new System.Drawing.Point(183, 3);
+            this.numNewID.Maximum = new decimal(new int[] {
+            9,
+            0,
+            0,
+            0});
             this.numNewID.Minimum = new decimal(new int[] {
             1,
             0,

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace FTC_Timer_Display
 {
@@ -14,6 +15,12 @@ namespace FTC_Timer_Display
         [STAThread]
         static void Main()
         {
+            if (Control.ModifierKeys == Keys.Shift)
+            {
+                Properties.Settings.Default.Reset();
+                Properties.Settings.Default.Save();
+                Debug.WriteLine("Settings Reset");
+            }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new frmMain());

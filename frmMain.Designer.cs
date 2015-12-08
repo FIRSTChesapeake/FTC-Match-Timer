@@ -71,16 +71,34 @@
             this.lblLastRecvTime = new System.Windows.Forms.Label();
             this.btnCycleListener = new DevComponents.DotNetBar.ButtonX();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnShowDisplay = new DevComponents.DotNetBar.ButtonX();
-            this.btnSizeDisplay = new DevComponents.DotNetBar.ButtonX();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.grpSoundOptions = new System.Windows.Forms.GroupBox();
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.rdoSoundOff = new System.Windows.Forms.RadioButton();
+            this.rdoSoundLocal = new System.Windows.Forms.RadioButton();
+            this.rdoSoundRemote = new System.Windows.Forms.RadioButton();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
+            this.chkLocalMute = new System.Windows.Forms.CheckBox();
+            this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
+            this.linkToggleDisplay = new System.Windows.Forms.LinkLabel();
+            this.linkReInit = new System.Windows.Forms.LinkLabel();
+            this.linkSetMatchTimes = new System.Windows.Forms.LinkLabel();
             this.displayTimer = new System.Windows.Forms.Timer(this.components);
+            this.matchProgress = new DevComponents.DotNetBar.Controls.StepIndicator();
+            this.matchPercent = new DevComponents.DotNetBar.Controls.CircularProgress();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableFieldControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMatchNumberMajor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMatchNumberMinor)).BeginInit();
             this.tableLayoutPanel4.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
+            this.grpSoundOptions.SuspendLayout();
+            this.flowLayoutPanel2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.flowLayoutPanel3.SuspendLayout();
+            this.flowLayoutPanel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -91,15 +109,17 @@
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.listFields, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.tableFieldControl, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.btnAddField, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.btnAddField, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel4, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 0, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 75F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 37.5F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 37.5F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(741, 571);
             this.tableLayoutPanel1.TabIndex = 0;
@@ -243,7 +263,7 @@
             this.listFields.ItemHeight = 20;
             this.listFields.Location = new System.Drawing.Point(3, 133);
             this.listFields.Name = "listFields";
-            this.listFields.Size = new System.Drawing.Size(216, 384);
+            this.listFields.Size = new System.Drawing.Size(216, 189);
             this.listFields.TabIndex = 1;
             // 
             // tableFieldControl
@@ -266,15 +286,18 @@
             this.tableFieldControl.Controls.Add(this.numMatchNumberMajor, 2, 4);
             this.tableFieldControl.Controls.Add(this.numMatchNumberMinor, 2, 5);
             this.tableFieldControl.Controls.Add(this.cboMatchType, 2, 1);
-            this.tableFieldControl.Controls.Add(this.btnStart, 0, 7);
-            this.tableFieldControl.Controls.Add(this.btnPause, 1, 7);
-            this.tableFieldControl.Controls.Add(this.btnStop, 2, 7);
-            this.tableFieldControl.Controls.Add(this.btnReset, 3, 7);
-            this.tableFieldControl.Controls.Add(this.btnAdvance, 3, 8);
+            this.tableFieldControl.Controls.Add(this.btnStart, 0, 8);
+            this.tableFieldControl.Controls.Add(this.btnPause, 3, 8);
+            this.tableFieldControl.Controls.Add(this.btnStop, 3, 9);
+            this.tableFieldControl.Controls.Add(this.btnReset, 1, 9);
+            this.tableFieldControl.Controls.Add(this.btnAdvance, 0, 9);
+            this.tableFieldControl.Controls.Add(this.matchProgress, 0, 7);
+            this.tableFieldControl.Controls.Add(this.matchPercent, 3, 4);
             this.tableFieldControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableFieldControl.Location = new System.Drawing.Point(225, 133);
             this.tableFieldControl.Name = "tableFieldControl";
-            this.tableFieldControl.RowCount = 10;
+            this.tableFieldControl.RowCount = 11;
+            this.tableLayoutPanel1.SetRowSpan(this.tableFieldControl, 2);
             this.tableFieldControl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableFieldControl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableFieldControl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
@@ -282,6 +305,7 @@
             this.tableFieldControl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableFieldControl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableFieldControl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableFieldControl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableFieldControl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
             this.tableFieldControl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
             this.tableFieldControl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -408,19 +432,17 @@
             // lblTimerValue
             // 
             this.lblTimerValue.AutoSize = true;
-            this.tableFieldControl.SetColumnSpan(this.lblTimerValue, 2);
             this.lblTimerValue.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTimerValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTimerValue.Location = new System.Drawing.Point(259, 185);
             this.lblTimerValue.Name = "lblTimerValue";
-            this.lblTimerValue.Size = new System.Drawing.Size(251, 30);
+            this.lblTimerValue.Size = new System.Drawing.Size(122, 30);
             this.lblTimerValue.TabIndex = 12;
             this.lblTimerValue.Text = "Unknown";
             this.lblTimerValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // numMatchNumberMajor
             // 
-            this.tableFieldControl.SetColumnSpan(this.numMatchNumberMajor, 2);
             this.numMatchNumberMajor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.numMatchNumberMajor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numMatchNumberMajor.Location = new System.Drawing.Point(259, 128);
@@ -430,7 +452,7 @@
             0,
             0});
             this.numMatchNumberMajor.Name = "numMatchNumberMajor";
-            this.numMatchNumberMajor.Size = new System.Drawing.Size(251, 26);
+            this.numMatchNumberMajor.Size = new System.Drawing.Size(122, 26);
             this.numMatchNumberMajor.TabIndex = 13;
             this.numMatchNumberMajor.Value = new decimal(new int[] {
             1,
@@ -441,12 +463,11 @@
             // 
             // numMatchNumberMinor
             // 
-            this.tableFieldControl.SetColumnSpan(this.numMatchNumberMinor, 2);
             this.numMatchNumberMinor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.numMatchNumberMinor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numMatchNumberMinor.Location = new System.Drawing.Point(259, 158);
             this.numMatchNumberMinor.Name = "numMatchNumberMinor";
-            this.numMatchNumberMinor.Size = new System.Drawing.Size(251, 26);
+            this.numMatchNumberMinor.Size = new System.Drawing.Size(122, 26);
             this.numMatchNumberMinor.TabIndex = 14;
             this.numMatchNumberMinor.ValueChanged += new System.EventHandler(this.MatchNumberChangeHandler);
             // 
@@ -467,13 +488,16 @@
             // 
             this.btnStart.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnStart.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.tableFieldControl.SetColumnSpan(this.btnStart, 2);
             this.btnStart.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnStart.Location = new System.Drawing.Point(3, 218);
+            this.btnStart.Location = new System.Drawing.Point(3, 238);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(122, 64);
+            this.btnStart.PulseSpeed = 35;
+            this.btnStart.Size = new System.Drawing.Size(250, 64);
+            this.btnStart.StopPulseOnMouseOver = false;
             this.btnStart.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnStart.TabIndex = 16;
-            this.btnStart.Text = "Start Match";
+            this.btnStart.Text = "Start Match\r\n(F1)";
             this.btnStart.Click += new System.EventHandler(this.FieldControlButtonsHandler);
             // 
             // btnPause
@@ -481,12 +505,14 @@
             this.btnPause.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnPause.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnPause.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnPause.Location = new System.Drawing.Point(131, 218);
+            this.btnPause.Location = new System.Drawing.Point(387, 238);
             this.btnPause.Name = "btnPause";
-            this.btnPause.Size = new System.Drawing.Size(122, 64);
+            this.btnPause.PulseSpeed = 35;
+            this.btnPause.Size = new System.Drawing.Size(123, 64);
+            this.btnPause.StopPulseOnMouseOver = false;
             this.btnPause.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnPause.TabIndex = 17;
-            this.btnPause.Text = "Pause Match";
+            this.btnPause.Text = "Pause Match\r\n(F11)";
             this.btnPause.Click += new System.EventHandler(this.FieldControlButtonsHandler);
             // 
             // btnStop
@@ -494,12 +520,14 @@
             this.btnStop.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnStop.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnStop.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnStop.Location = new System.Drawing.Point(259, 218);
+            this.btnStop.Location = new System.Drawing.Point(387, 308);
             this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(122, 64);
+            this.btnStop.PulseSpeed = 35;
+            this.btnStop.Size = new System.Drawing.Size(123, 64);
+            this.btnStop.StopPulseOnMouseOver = false;
             this.btnStop.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnStop.TabIndex = 18;
-            this.btnStop.Text = "Stop Match";
+            this.btnStop.Text = "Stop Match\r\n(F12)";
             this.btnStop.Click += new System.EventHandler(this.FieldControlButtonsHandler);
             // 
             // btnReset
@@ -507,12 +535,14 @@
             this.btnReset.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnReset.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnReset.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnReset.Location = new System.Drawing.Point(387, 218);
+            this.btnReset.Location = new System.Drawing.Point(131, 308);
             this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(123, 64);
+            this.btnReset.PulseSpeed = 35;
+            this.btnReset.Size = new System.Drawing.Size(122, 64);
+            this.btnReset.StopPulseOnMouseOver = false;
             this.btnReset.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnReset.TabIndex = 19;
-            this.btnReset.Text = "Reset Match";
+            this.btnReset.Text = "Reset Match\r\n(F3)";
             this.btnReset.Click += new System.EventHandler(this.FieldControlButtonsHandler);
             // 
             // btnAdvance
@@ -520,13 +550,15 @@
             this.btnAdvance.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnAdvance.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnAdvance.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnAdvance.Location = new System.Drawing.Point(387, 288);
+            this.btnAdvance.Location = new System.Drawing.Point(3, 308);
             this.btnAdvance.Name = "btnAdvance";
-            this.btnAdvance.Size = new System.Drawing.Size(123, 64);
+            this.btnAdvance.PulseSpeed = 35;
+            this.btnAdvance.Size = new System.Drawing.Size(122, 64);
+            this.btnAdvance.StopPulseOnMouseOver = false;
             this.btnAdvance.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnAdvance.TabIndex = 20;
-            this.btnAdvance.Text = "Advance to\r\nNext Match";
-            this.btnAdvance.Click += new System.EventHandler(this.AutoAdvanceHandler);
+            this.btnAdvance.Text = "Advance to\r\nNext Match\r\n(F2)";
+            this.btnAdvance.Click += new System.EventHandler(this.FieldControlButtonsHandler);
             // 
             // btnAddField
             // 
@@ -539,7 +571,7 @@
             this.btnAddField.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnAddField.TabIndex = 0;
             this.btnAddField.Text = "Add Field";
-            this.btnAddField.Click += new System.EventHandler(this.HandleFieldMgmtButtons);
+            this.btnAddField.Click += new System.EventHandler(this.HandleFieldListMgmtButtons);
             // 
             // tableLayoutPanel4
             // 
@@ -663,43 +695,195 @@
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Controls.Add(this.btnShowDisplay);
-            this.flowLayoutPanel1.Controls.Add(this.btnSizeDisplay);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(225, 523);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(513, 45);
             this.flowLayoutPanel1.TabIndex = 5;
             // 
-            // btnShowDisplay
+            // tableLayoutPanel3
             // 
-            this.btnShowDisplay.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnShowDisplay.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnShowDisplay.Location = new System.Drawing.Point(3, 3);
-            this.btnShowDisplay.Name = "btnShowDisplay";
-            this.btnShowDisplay.Size = new System.Drawing.Size(184, 33);
-            this.btnShowDisplay.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnShowDisplay.TabIndex = 5;
-            this.btnShowDisplay.Text = "Show / Hide Timer Display";
-            this.btnShowDisplay.Click += new System.EventHandler(this.HandleDisplayBtns);
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Controls.Add(this.grpSoundOptions, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.groupBox1, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.flowLayoutPanel4, 1, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 328);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 2;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(216, 189);
+            this.tableLayoutPanel3.TabIndex = 6;
             // 
-            // btnSizeDisplay
+            // grpSoundOptions
             // 
-            this.btnSizeDisplay.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnSizeDisplay.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnSizeDisplay.Location = new System.Drawing.Point(193, 3);
-            this.btnSizeDisplay.Name = "btnSizeDisplay";
-            this.btnSizeDisplay.Size = new System.Drawing.Size(186, 33);
-            this.btnSizeDisplay.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnSizeDisplay.TabIndex = 21;
-            this.btnSizeDisplay.Text = "Max / Restore Timer";
-            this.btnSizeDisplay.Click += new System.EventHandler(this.HandleDisplayBtns);
+            this.grpSoundOptions.Controls.Add(this.flowLayoutPanel2);
+            this.grpSoundOptions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpSoundOptions.Location = new System.Drawing.Point(3, 3);
+            this.grpSoundOptions.Name = "grpSoundOptions";
+            this.grpSoundOptions.Size = new System.Drawing.Size(102, 88);
+            this.grpSoundOptions.TabIndex = 0;
+            this.grpSoundOptions.TabStop = false;
+            this.grpSoundOptions.Text = "Sound";
+            // 
+            // flowLayoutPanel2
+            // 
+            this.flowLayoutPanel2.Controls.Add(this.rdoSoundOff);
+            this.flowLayoutPanel2.Controls.Add(this.rdoSoundLocal);
+            this.flowLayoutPanel2.Controls.Add(this.rdoSoundRemote);
+            this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 16);
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(96, 69);
+            this.flowLayoutPanel2.TabIndex = 0;
+            // 
+            // rdoSoundOff
+            // 
+            this.rdoSoundOff.AutoSize = true;
+            this.rdoSoundOff.Checked = true;
+            this.rdoSoundOff.Location = new System.Drawing.Point(3, 3);
+            this.rdoSoundOff.Name = "rdoSoundOff";
+            this.rdoSoundOff.Size = new System.Drawing.Size(39, 17);
+            this.rdoSoundOff.TabIndex = 0;
+            this.rdoSoundOff.TabStop = true;
+            this.rdoSoundOff.Text = "Off";
+            this.rdoSoundOff.UseVisualStyleBackColor = true;
+            this.rdoSoundOff.CheckedChanged += new System.EventHandler(this.SoundSettingChangeHandler);
+            // 
+            // rdoSoundLocal
+            // 
+            this.rdoSoundLocal.AutoSize = true;
+            this.rdoSoundLocal.Location = new System.Drawing.Point(3, 26);
+            this.rdoSoundLocal.Name = "rdoSoundLocal";
+            this.rdoSoundLocal.Size = new System.Drawing.Size(58, 17);
+            this.rdoSoundLocal.TabIndex = 1;
+            this.rdoSoundLocal.Text = "Locally";
+            this.rdoSoundLocal.UseVisualStyleBackColor = true;
+            this.rdoSoundLocal.CheckedChanged += new System.EventHandler(this.SoundSettingChangeHandler);
+            // 
+            // rdoSoundRemote
+            // 
+            this.rdoSoundRemote.AutoSize = true;
+            this.rdoSoundRemote.Location = new System.Drawing.Point(3, 49);
+            this.rdoSoundRemote.Name = "rdoSoundRemote";
+            this.rdoSoundRemote.Size = new System.Drawing.Size(69, 17);
+            this.rdoSoundRemote.TabIndex = 2;
+            this.rdoSoundRemote.Text = "Remotely";
+            this.rdoSoundRemote.UseVisualStyleBackColor = true;
+            this.rdoSoundRemote.CheckedChanged += new System.EventHandler(this.SoundSettingChangeHandler);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.flowLayoutPanel3);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(3, 97);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(102, 89);
+            this.groupBox1.TabIndex = 4;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Misc Options";
+            // 
+            // flowLayoutPanel3
+            // 
+            this.flowLayoutPanel3.Controls.Add(this.chkLocalMute);
+            this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel3.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 16);
+            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(96, 70);
+            this.flowLayoutPanel3.TabIndex = 0;
+            // 
+            // chkLocalMute
+            // 
+            this.chkLocalMute.AutoSize = true;
+            this.chkLocalMute.Location = new System.Drawing.Point(3, 3);
+            this.chkLocalMute.Name = "chkLocalMute";
+            this.chkLocalMute.Size = new System.Drawing.Size(79, 17);
+            this.chkLocalMute.TabIndex = 3;
+            this.chkLocalMute.Text = "Local Mute";
+            this.chkLocalMute.UseVisualStyleBackColor = true;
+            this.chkLocalMute.CheckedChanged += new System.EventHandler(this.LocalMuteHandler);
+            // 
+            // flowLayoutPanel4
+            // 
+            this.flowLayoutPanel4.Controls.Add(this.linkToggleDisplay);
+            this.flowLayoutPanel4.Controls.Add(this.linkReInit);
+            this.flowLayoutPanel4.Controls.Add(this.linkSetMatchTimes);
+            this.flowLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel4.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanel4.Location = new System.Drawing.Point(111, 3);
+            this.flowLayoutPanel4.Name = "flowLayoutPanel4";
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(102, 88);
+            this.flowLayoutPanel4.TabIndex = 5;
+            // 
+            // linkToggleDisplay
+            // 
+            this.linkToggleDisplay.AutoSize = true;
+            this.linkToggleDisplay.Location = new System.Drawing.Point(3, 0);
+            this.linkToggleDisplay.Name = "linkToggleDisplay";
+            this.linkToggleDisplay.Size = new System.Drawing.Size(77, 13);
+            this.linkToggleDisplay.TabIndex = 0;
+            this.linkToggleDisplay.TabStop = true;
+            this.linkToggleDisplay.Text = "Toggle Display";
+            this.linkToggleDisplay.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.HandleOptionsLinkLabels);
+            // 
+            // linkReInit
+            // 
+            this.linkReInit.AutoSize = true;
+            this.linkReInit.Enabled = false;
+            this.linkReInit.Location = new System.Drawing.Point(3, 13);
+            this.linkReInit.Name = "linkReInit";
+            this.linkReInit.Size = new System.Drawing.Size(65, 13);
+            this.linkReInit.TabIndex = 1;
+            this.linkReInit.TabStop = true;
+            this.linkReInit.Text = "Reconfigure";
+            this.linkReInit.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.HandleOptionsLinkLabels);
+            // 
+            // linkSetMatchTimes
+            // 
+            this.linkSetMatchTimes.AutoSize = true;
+            this.linkSetMatchTimes.Location = new System.Drawing.Point(3, 26);
+            this.linkSetMatchTimes.Name = "linkSetMatchTimes";
+            this.linkSetMatchTimes.Size = new System.Drawing.Size(92, 13);
+            this.linkSetMatchTimes.TabIndex = 2;
+            this.linkSetMatchTimes.TabStop = true;
+            this.linkSetMatchTimes.Text = "Edit Match Timing";
+            this.linkSetMatchTimes.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.HandleOptionsLinkLabels);
             // 
             // displayTimer
             // 
             this.displayTimer.Enabled = true;
             this.displayTimer.Interval = 200;
-            this.displayTimer.Tick += new System.EventHandler(this.displayTimer_Tick);
+            this.displayTimer.Tick += new System.EventHandler(this.PerodicTick);
+            // 
+            // matchProgress
+            // 
+            this.tableFieldControl.SetColumnSpan(this.matchProgress, 4);
+            this.matchProgress.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.matchProgress.Location = new System.Drawing.Point(3, 218);
+            this.matchProgress.Name = "matchProgress";
+            this.matchProgress.Size = new System.Drawing.Size(507, 14);
+            this.matchProgress.StepCount = 5;
+            this.matchProgress.TabIndex = 21;
+            // 
+            // matchPercent
+            // 
+            // 
+            // 
+            // 
+            this.matchPercent.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.matchPercent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.matchPercent.Location = new System.Drawing.Point(387, 128);
+            this.matchPercent.Name = "matchPercent";
+            this.matchPercent.ProgressTextVisible = true;
+            this.tableFieldControl.SetRowSpan(this.matchPercent, 3);
+            this.matchPercent.Size = new System.Drawing.Size(123, 84);
+            this.matchPercent.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeXP;
+            this.matchPercent.TabIndex = 22;
             // 
             // frmMain
             // 
@@ -707,11 +891,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(741, 571);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.KeyPreview = true;
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "VirginiaFIRST FTC Match Timer Controller";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Load += new System.EventHandler(this.frmMain_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmMain_KeyDown);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
@@ -721,7 +907,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.numMatchNumberMinor)).EndInit();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
-            this.flowLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.grpSoundOptions.ResumeLayout(false);
+            this.flowLayoutPanel2.ResumeLayout(false);
+            this.flowLayoutPanel2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.flowLayoutPanel3.ResumeLayout(false);
+            this.flowLayoutPanel3.PerformLayout();
+            this.flowLayoutPanel4.ResumeLayout(false);
+            this.flowLayoutPanel4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -770,9 +964,22 @@
         private System.Windows.Forms.Label lblLastRecvTime;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label lblLastSvrIP;
-        private DevComponents.DotNetBar.ButtonX btnShowDisplay;
-        private DevComponents.DotNetBar.ButtonX btnSizeDisplay;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.GroupBox grpSoundOptions;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
+        private System.Windows.Forms.RadioButton rdoSoundOff;
+        private System.Windows.Forms.RadioButton rdoSoundLocal;
+        private System.Windows.Forms.RadioButton rdoSoundRemote;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
+        private System.Windows.Forms.CheckBox chkLocalMute;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel4;
+        private System.Windows.Forms.LinkLabel linkToggleDisplay;
+        private System.Windows.Forms.LinkLabel linkReInit;
+        private System.Windows.Forms.LinkLabel linkSetMatchTimes;
+        private DevComponents.DotNetBar.Controls.StepIndicator matchProgress;
+        private DevComponents.DotNetBar.Controls.CircularProgress matchPercent;
 
     }
 }

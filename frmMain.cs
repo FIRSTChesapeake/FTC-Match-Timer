@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
+using DevComponents.DotNetBar;
 
 namespace FTC_Timer_Display
 {
@@ -27,38 +29,145 @@ namespace FTC_Timer_Display
             }
         }
 
-        public frmMain()
+        public MatchData.SoundLocations soundLocation
         {
-            InitializeComponent();
+            get
+            {
+                if (this.initData.isServer)
+                {
+                    if (rdoSoundLocal.Checked) return MatchData.SoundLocations.Server;
+                    if (rdoSoundRemote.Checked) return MatchData.SoundLocations.Client;
+                }
+                else
+                {
+                    if (rdoSoundLocal.Checked) return MatchData.SoundLocations.Client;
+                    if (rdoSoundRemote.Checked) return MatchData.SoundLocations.Server;
+                }
+                return MatchData.SoundLocations.Off;
+            }
+            set
+            {
+                if (value == MatchData.SoundLocations.Off) rdoSoundOff.Checked = true;
+                else if (this.initData.isServer)
+                {
+                    if (value == MatchData.SoundLocations.Client) rdoSoundRemote.Checked = true;
+                    else if (value == MatchData.SoundLocations.Server) rdoSoundLocal.Checked = true;
+                }
+                else
+                {
+                    if (value == MatchData.SoundLocations.Server) rdoSoundRemote.Checked = true;
+                    else if (value == MatchData.SoundLocations.Client) rdoSoundLocal.Checked = true;
+                }
+            }
         }
 
-        private void frmMain_Load(object sender, EventArgs e)
+        private void SaveSettings()
         {
-            if (initData == null) GetInitialData();
-            // Display config.
+            if (initData == null) return;
+            // Only saved if we're in server mode.
+            if (initData.isServer)
+            {
+                // Save the fields we have added.
+                if (_allClients.Count > 0)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    bool first = true;
+                    Debug.WriteLine("Saving Fields:");
+                    Debug.Indent();
+                    foreach (SingleClient c in _allClients)
+                    {
+                        Debug.WriteLine(string.Format("Saving Field: {0}", c.matchData.fieldID.ToString()));
+                        if (!first) sb.Append(",");
+                        first = false;
+                        sb.Append(c.matchData.fieldID.ToString());
+                    }
+                    Debug.Unindent();
+                    Debug.WriteLine(string.Format("Save String: {0}", sb.ToString()));
+                    Properties.Settings.Default.FieldList = sb.ToString();
+                }
+                // Save the sould mode we're using.
+                Properties.Settings.Default.SoundLocation = (int)soundLocation;
+            }
+            else
+            {
+                Properties.Settings.Default.FieldList = "";
+            }
+            // Save these settings
+            Properties.Settings.Default.Save();
+            // Tell initData to save it's settings
+            initData.SaveSettings();
+        }
+        private void LoadSettings()
+        {
+            // Load stored settings or request settings from user.
+            int AppSettingsError = 0;
+            initData = InitialData.LoadAppSettings(out AppSettingsError);
+            // Handle the missing Data error. Without it, we cant' continue.
+            if (initData == null || AppSettingsError != 0) ErrorCodeExit(AppSettingsError, "Error loading Settings Data");
+
+            // Display config that relates to all the settings.
             lblMode.Text = initData.runType.ToString();
             lblDivID.Text = initData.divID.ToString();
             lblDivName.Text = initData.divName;
 
+            if (initData.isServer)
+            {
+                string csv = Properties.Settings.Default.FieldList;
+                string[] list = csv.Split(',');
+                if (list.Length > 0)
+                {
+                    Debug.WriteLine("Loading Saved Fields:");
+                    Debug.Indent();
+                    foreach (string s in list)
+                    {
+                        //try
+                        //{
+                            if (s == "") continue;
+                            Debug.Write(string.Format("Loading Field: {0}.. ", s));
+                            int i = int.Parse(s);
+                            this.AddField(i);
+                            Debug.WriteLine("Done.");
+                        //}
+                        //catch { }
+                    }
+                    Debug.Unindent();
+                    Debug.WriteLine("Done Loading Fields.");
+                }
+            }
+        }
+
+        public frmMain()
+        {
+            InitializeComponent();
             // Init the MatchType dropdown, default to qualification
             cboMatchType.DataSource = Enum.GetValues(typeof(MatchData.MatchTypes));
             cboMatchType.SelectedIndex = 2;
+            // Init the sound generator
+            SoundGenerator.init();
+        }
+
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+            // Load all settings
+            this.LoadSettings();
 
             // Init the local timer if needed.
             if (initData.runType == InitialData.RunType.Server)
             {
                 lblFieldID.Text = "No Local Timer";
-                btnShowDisplay.Enabled = false;
-                btnSizeDisplay.Enabled = false;
+                linkToggleDisplay.Enabled = false;
             }
             else
             {
-                bool timerStart = initData.runType == InitialData.RunType.ServerClient;
+                
                 display = new frmDisplay(initData);
                 lblFieldID.Text = initData.fieldID.ToString();
-                SingleClient localClient = new SingleClient(initData.divID, initData.divName, initData.fieldID, SendFieldDataHandler, timerStart);
-                AddRemoveField(localClient);
+                AddField(initData.fieldID);
             }
+
+            // Select default sound setting based on init.
+            rdoSoundLocal.Checked = initData.isServer;
+            rdoSoundRemote.Checked = !initData.isServer;
 
             // Setup Comms if needed
             if (initData.runType != InitialData.RunType.Local)
@@ -72,21 +181,38 @@ namespace FTC_Timer_Display
             }
         }
 
-        private void AddRemoveField(SingleClient client, bool add = true)
+        private void AddField(int fieldID)
         {
+            if (FieldExists(fieldID)) return;
+
             listFields.DataSource = null;
-            if (add)
-            {
-                client.matchData.matchType = _currentMatchType;
-                _allClients.Add(client);
-            }
-            if (!add)
-            {
-                _allClients.Remove(client);
-            }
+            SingleClient client = new SingleClient(initData.divID, initData.divName, fieldID, SendFieldDataHandler, initData.isServer);
+
+            client.matchData.matchType = _currentMatchType;
+            _allClients.Add(client);
 
             listFields.DisplayMember = "DisplayString";
             listFields.DataSource = _allClients;
+            //listFields.Sorted = true;
+        }
+
+        private void RemoveField(SingleClient client)
+        {
+            if (!_allClients.Contains(client)) return;
+            listFields.DataSource = null;
+            _allClients.Remove(client);
+            listFields.DisplayMember = "DisplayString";
+            listFields.DataSource = _allClients;
+            listFields.Sorted = true;
+        }
+
+        private bool FieldExists(int fieldID)
+        {
+            foreach (SingleClient c in _allClients)
+            {
+                if (c.matchData.fieldID == fieldID) return true;
+            }
+            return false;
         }
 
         private void SendFieldDataHandler(object sender, MatchData data)
@@ -99,6 +225,11 @@ namespace FTC_Timer_Display
                 }
                 else
                 {
+                    // Check for sound data and decide if we need to play it here.
+                    ProcessSoundRequests(data);
+                    // Add the match length to the package
+                    data.matchLength = (int)MatchTimingData.matchLength.TotalSeconds;
+                    // Send the data to the right field (local or remote)
                     if (initData.isForMe(data))
                     {
                         display.SetDisplay(data);
@@ -107,12 +238,26 @@ namespace FTC_Timer_Display
                     }
                     else if (comms != null)
                     {
+                        data.soundLocation = this.soundLocation;
                         SingleClient c = (SingleClient)sender;
                         comms.BroadcastMatchData(data, c.RecvPort);
                     }
                 }
             }
             catch { }
+        }
+
+        private void ProcessSoundRequests(MatchData data)
+        {
+            // Nothing to play.
+            if (data.playSound == "") return;
+            bool shouldPlay = false;
+            // If we're the server and sound should play on the server.
+            if (initData.isServer && soundLocation == MatchData.SoundLocations.Server) shouldPlay = true;
+            // If the package is for me (the client) and sound is set to play on the client.
+            else if (initData.isForMe(data) && soundLocation == MatchData.SoundLocations.Client) shouldPlay = true;
+
+            if (shouldPlay) SoundGenerator.PlaySound(data.playSound);
         }
 
         private void NewDataReceived(object sender, MatchData data)
@@ -126,11 +271,13 @@ namespace FTC_Timer_Display
             {
                 if (initData.isForMe(data))
                 {
+                    ProcessSoundRequests(data);
                     lblDivName.Text = data.divisionName;
                     _selectedClient.matchData = data;
                     cboMatchType.SelectedItem = data.matchType;
                     numMatchNumberMajor.Value = data.matchNumberMajor;
                     numMatchNumberMinor.Value = data.matchNumberMinor;
+                    soundLocation = data.soundLocation;
                     display.SetDisplay(data);
                     lblLastRecvTime.Text = DateTime.Now.ToLongTimeString();
                     lblLastSvrIP.Text = "Remote Server";
@@ -138,20 +285,17 @@ namespace FTC_Timer_Display
             }
         }
 
-        private void GetInitialData()
+        private void ErrorCodeExit(int code, string message = "")
         {
-            frmModeSelection wnd = new frmModeSelection();
-            wnd.ShowDialog();
-            if (wnd.Tag == null) CallNoDataExit(1);
-            InitialData data = (InitialData)wnd.Tag;
-            if (data.runType == InitialData.RunType.None) Application.Exit();
-            initData = data;
-        }
-
-        private void CallNoDataExit(int part)
-        {
-            string msg = String.Format("Initialization Data is Missing. Quitting." + Environment.NewLine + "Part: {0}", part);
-            MessageBox.Show(msg, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            if (code > 0)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine("There was an error that can not be handled and we must quit.");
+                if (message != "") sb.AppendFormat("Error Message was: {0}{1}", message, Environment.NewLine);
+                sb.AppendFormat("Error Code was: {0}{1}", code, Environment.NewLine);
+                MessageBox.Show(sb.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            Environment.ExitCode = code;
             Application.Exit();
         }
 
@@ -160,7 +304,7 @@ namespace FTC_Timer_Display
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void displayTimer_Tick(object sender, EventArgs e)
+        private void PerodicTick(object sender, EventArgs e)
         {
             // Listener Status
             if (comms == null)
@@ -192,6 +336,8 @@ namespace FTC_Timer_Display
             if (_selectedClient == null) return;
             // Set the header
             lblFieldHead.Text = _selectedClient.DisplayString;
+            // Set the Match Progress Display
+            
             // Allow user to edit field if it's not running
             cboMatchType.Enabled = _selectedClient.canBeChanged;
             numMatchNumberMajor.Enabled = _selectedClient.canBeChanged;
@@ -204,13 +350,58 @@ namespace FTC_Timer_Display
             btnStart.Enabled = _selectedClient.matchData.waitingForStart;
             btnPause.Enabled = _selectedClient.matchData.matchStatus == MatchData.MatchStatus.Running;
             btnStop.Enabled = _selectedClient.matchData.matchStatus == MatchData.MatchStatus.Paused;
-            btnReset.Enabled = _selectedClient.matchData.matchStatus == MatchData.MatchStatus.Stopped;
+            btnReset.Enabled = !_selectedClient.matchData.activeMatch;
             btnAdvance.Enabled = !_selectedClient.matchData.activeMatch;
+            linkSetMatchTimes.Enabled = !_selectedClient.matchData.activeMatch;
+            // Enable / Disable sound settings
+            grpSoundOptions.Enabled = initData.isServer;
             // Allow the user to pick a different field when no match is running
             bool canSelectField = _selectedClient == null || !_selectedClient.matchData.activeMatch;
-            bool handlesMultiFields = initData.runType == InitialData.RunType.Server || initData.runType == InitialData.RunType.ServerClient;
-            listFields.Enabled = canSelectField && handlesMultiFields;
-            btnAddField.Enabled = canSelectField && handlesMultiFields;
+            listFields.Enabled = canSelectField && initData.isServer;
+            btnAddField.Enabled = canSelectField && initData.isServer;
+
+            // Pulse the button we're expecting to use
+            ActivateNextButton();
+            // Update Match Progress
+            MatchProgressDisplay();
+        }
+
+        private void MatchProgressDisplay()
+        {
+            // Progress Steps
+            matchProgress.CurrentStep = ((int)_selectedClient.matchData.matchPeriod) + 1;
+            // Period Display
+            matchPercent.Value = _selectedClient.matchData.percentComplete;
+        }
+
+        private void ActivateNextButton()
+        {
+            List<ButtonX> list = new List<ButtonX>();
+            list.Add(btnStart);
+            list.Add(btnStop);
+            list.Add(btnPause);
+            list.Add(btnReset);
+            list.Add(btnAdvance);
+            ButtonX btn = null;
+            switch (_selectedClient.matchData.matchStatus)
+            {
+                case MatchData.MatchStatus.Stopped:
+                    if (btnStart.Enabled) btn = btnStart;
+                    else if (_selectedClient.matchData.matchPeriod == MatchData.MatchPeriods.Complete) btn = btnAdvance;
+                    else btn = btnReset;
+                    break;
+                case MatchData.MatchStatus.Paused:
+                    btn = btnStart;
+                    break;
+                case MatchData.MatchStatus.Running:
+                    btn = btnPause;
+                    break;
+            }
+            foreach(ButtonX b in list)
+            {
+                if (b.Equals(btn)) b.Pulse();
+                else b.StopPulse();
+            }
         }
 
         private void MatchTypeChangeHandler(object sender, EventArgs e)
@@ -261,11 +452,6 @@ namespace FTC_Timer_Display
             _selectedClient.matchData.matchNumberMinor = newMinor;
         }
 
-        private void MinorMatchNumberChangeHandler(object sender, EventArgs e)
-        {
-
-        }
-
         private void FieldControlButtonsHandler(object sender, EventArgs e)
         {
             if (sender.Equals(btnStart))
@@ -282,9 +468,13 @@ namespace FTC_Timer_Display
                 SetMatchNumber();
                 _selectedClient.ResetMatch();
             }
+            else if (sender.Equals(btnAdvance))
+            {
+                AutoAdvanceMatch();
+            }
         }
 
-        private void AutoAdvanceHandler(object sender, EventArgs e)
+        private void AutoAdvanceMatch()
         {
             if(_selectedClient == null) return;
             if (_allClients.Count == 1)
@@ -314,7 +504,7 @@ namespace FTC_Timer_Display
             _selectedClient.ResetMatch();
         }
 
-        private void HandleFieldMgmtButtons(object sender, EventArgs e)
+        private void HandleFieldListMgmtButtons(object sender, EventArgs e)
         {
             if (sender.Equals(btnAddField))
             {
@@ -322,17 +512,7 @@ namespace FTC_Timer_Display
                 wind.ShowDialog();
                 if (wind.Tag == null) return;
                 int newID = (int)wind.Tag;
-                foreach (SingleClient c in _allClients)
-                {
-                    if (c.matchData.fieldID == newID)
-                    {
-                        string msg = "This Field already exists. Can not add it again.";
-                        MessageBox.Show(msg, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                }
-                SingleClient newClient = new SingleClient(initData.divID, initData.divName, newID, SendFieldDataHandler, true);
-                AddRemoveField(newClient, true);
+                AddField(newID);
             }
             else
             {
@@ -343,7 +523,7 @@ namespace FTC_Timer_Display
                 }
                 else
                 {
-                    AddRemoveField(_selectedClient, false);
+                    RemoveField(_selectedClient);
                 }
             }
         }
@@ -367,18 +547,93 @@ namespace FTC_Timer_Display
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                // Prevent the user from closing the app while a match is running.
+                if (_selectedClient.matchData.matchStatus != MatchData.MatchStatus.Stopped)
+                {
+                    if (ModifierKeys != Keys.Shift)
+                    {
+                        string msgWarn = "Match Running!\nHold Shift and click Close if you're sure you want to quit.";
+                        MessageBox.Show(msgWarn, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        e.Cancel = true;
+                        return;
+                    }
+                }
+
+                string msgSure = "Are you sure you want to exit?";
+                DialogResult dr = MessageBox.Show(msgSure, this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                if (dr == System.Windows.Forms.DialogResult.No)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+            }
+            SaveSettings();
             if (comms != null)
             {
                 comms.ListenControl(false);
             }
         }
 
-        private void HandleDisplayBtns(object sender, EventArgs e)
+        private void SoundSettingChangeHandler(object sender, EventArgs e)
         {
-            if (sender.Equals(btnShowDisplay))
+            RadioButton rb = (RadioButton)sender;
+            if (!rb.Checked) return;
+            foreach (SingleClient c in _allClients)
+            {
+                c.matchData.soundLocation = this.soundLocation;
+            }
+        }
+
+        private void LocalMuteHandler(object sender, EventArgs e)
+        {
+            SoundGenerator.isMuted = chkLocalMute.Checked;
+        }
+
+        private void HandleOptionsLinkLabels(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (sender.Equals(linkToggleDisplay))
+            {
                 display.Visible = !display.Visible;
-            else
-                if (display.Visible) display.ChangeFullscreen();
+            }
+            else if (sender.Equals(linkReInit))
+            {
+                int SettingsError = 0;
+                InitialData data = InitialData.GetInitialData(initData, out SettingsError);
+                if (data != null && SettingsError == 0)
+                {
+                    initData = data;
+                    initData.SaveSettings();
+                }
+            }
+            else if (sender.Equals(linkSetMatchTimes))
+            {
+                if (MatchTimingData.editTiming())
+                {
+                    SetMatchNumber();
+                    _selectedClient.ResetMatch();
+                }
+            }
+        }
+
+        private void frmMain_KeyDown(object sender, KeyEventArgs e)
+        {
+            // Simulate field control button presses with Function Keys.
+            ButtonX b = null;
+            switch (e.KeyData)
+            {
+                case Keys.F1: b = btnStart; break;
+                case Keys.F2: b = btnAdvance; break;
+                case Keys.F3: b = btnReset; break;
+                case Keys.F11: b = btnPause; break;
+                case Keys.F12: b = btnStop; break;
+            }
+            if (b != null)
+            {
+                FieldControlButtonsHandler(b, new EventArgs());
+                return;
+            }
         }
     }
 }

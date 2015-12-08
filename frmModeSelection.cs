@@ -12,11 +12,24 @@ namespace FTC_Timer_Display
 {
     public partial class frmModeSelection : Form
     {
-        private InitialData.RunType runType = InitialData.RunType.ServerClient;
+        private InitialData.RunType runType = InitialData.RunType.None;
 
-        public frmModeSelection()
+        public frmModeSelection(InitialData template)
         {
             InitializeComponent();
+            numDivID.Value = template.divID;
+            txtDivName.Text = template.divName;
+            numField.Value = template.fieldID;
+
+            switch (template.runType)
+            {
+                case InitialData.RunType.Client: rdoClient.Checked = true; break;
+                case InitialData.RunType.Local: rdoLocal.Checked = true; break;
+                case InitialData.RunType.None:
+                case InitialData.RunType.ServerClient: rdoServerClient.Checked = true; break;
+                case InitialData.RunType.Server: rdoServerOnly.Checked = true; break;
+            }
+
         }
 
         private void handleButtons(object sender, EventArgs e)
@@ -49,6 +62,8 @@ namespace FTC_Timer_Display
             bool useField = true;
             bool useDivName = true;
 
+            RadioButton rb = (RadioButton)sender;
+            if (!rb.Checked) return;
             if (sender.Equals(rdoServerClient))
             {
                 runType = InitialData.RunType.ServerClient;
