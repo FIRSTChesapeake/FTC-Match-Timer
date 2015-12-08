@@ -49,6 +49,7 @@ namespace FTC_Timer_Display
             {
                 lblFieldID.Text = "No Local Timer";
                 btnShowDisplay.Enabled = false;
+                btnSizeDisplay.Enabled = false;
             }
             else
             {
@@ -143,7 +144,7 @@ namespace FTC_Timer_Display
             wnd.ShowDialog();
             if (wnd.Tag == null) CallNoDataExit(1);
             InitialData data = (InitialData)wnd.Tag;
-            if (data.runType == InitialData.RunType.None) CallNoDataExit(2);
+            if (data.runType == InitialData.RunType.None) Application.Exit();
             initData = data;
         }
 
@@ -161,30 +162,6 @@ namespace FTC_Timer_Display
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void displayTimer_Tick(object sender, EventArgs e)
         {
-            if (_selectedClient == null) return;
-            // Set the header
-            lblFieldHead.Text = _selectedClient.DisplayString;
-            // Allow user to edit field if it's not running
-            cboMatchType.Enabled = _selectedClient.canBeChanged;
-            numMatchNumberMajor.Enabled = _selectedClient.canBeChanged;
-            numMatchNumberMinor.Enabled = _selectedClient.canBeChanged;
-            // Set the readonly values
-            lblCurrentPeriod.Text = _selectedClient.matchData.matchPeriod.ToString();
-            lblMatchStatus.Text = _selectedClient.matchData.matchStatus.ToString();
-            lblTimerValue.Text = _selectedClient.matchData.timerValue.ToString();
-            // enable the proper inputs
-            numMatchNumberMinor.Enabled = MatchData.TypeUsesMinor(_currentMatchType);;
-            // enable the proper buttons
-            btnStart.Enabled = _selectedClient.matchData.waitingForStart;
-            btnPause.Enabled = _selectedClient.matchData.matchStatus == MatchData.MatchStatus.Running;
-            btnStop.Enabled = _selectedClient.matchData.matchStatus == MatchData.MatchStatus.Paused;
-            btnReset.Enabled = _selectedClient.matchData.matchStatus == MatchData.MatchStatus.Stopped;
-            btnAdvance.Enabled = !_selectedClient.matchData.activeMatch;
-            // Allow the user to pick a different field when no match is running
-            bool canSelectField = _selectedClient == null || !_selectedClient.matchData.activeMatch;
-            bool handlesMultiFields = initData.runType == InitialData.RunType.Server || initData.runType == InitialData.RunType.ServerClient;
-            listFields.Enabled = canSelectField && handlesMultiFields;
-            btnAddField.Enabled = canSelectField && handlesMultiFields;
             // Listener Status
             if (comms == null)
             {
@@ -195,6 +172,7 @@ namespace FTC_Timer_Display
             {
                 lblListenStatus.Text = "No Local Timer";
                 btnCycleListener.Text = "No Local Timer";
+                tableFieldControl.Enabled = _selectedClient != null;
             }
             else
             {
@@ -210,6 +188,29 @@ namespace FTC_Timer_Display
                     btnCycleListener.Text = "Switch to Server Control";
                 }
             }
+            ////  EVERYTHING BELOW HERE requires a selected client.
+            if (_selectedClient == null) return;
+            // Set the header
+            lblFieldHead.Text = _selectedClient.DisplayString;
+            // Allow user to edit field if it's not running
+            cboMatchType.Enabled = _selectedClient.canBeChanged;
+            numMatchNumberMajor.Enabled = _selectedClient.canBeChanged;
+            numMatchNumberMinor.Enabled = _selectedClient.canBeChanged && MatchData.TypeUsesMinor(_currentMatchType);
+            // Set the readonly values
+            lblCurrentPeriod.Text = _selectedClient.matchData.matchPeriod.ToString();
+            lblMatchStatus.Text = _selectedClient.matchData.matchStatus.ToString();
+            lblTimerValue.Text = _selectedClient.matchData.timerValue.ToString();
+            // enable the proper buttons
+            btnStart.Enabled = _selectedClient.matchData.waitingForStart;
+            btnPause.Enabled = _selectedClient.matchData.matchStatus == MatchData.MatchStatus.Running;
+            btnStop.Enabled = _selectedClient.matchData.matchStatus == MatchData.MatchStatus.Paused;
+            btnReset.Enabled = _selectedClient.matchData.matchStatus == MatchData.MatchStatus.Stopped;
+            btnAdvance.Enabled = !_selectedClient.matchData.activeMatch;
+            // Allow the user to pick a different field when no match is running
+            bool canSelectField = _selectedClient == null || !_selectedClient.matchData.activeMatch;
+            bool handlesMultiFields = initData.runType == InitialData.RunType.Server || initData.runType == InitialData.RunType.ServerClient;
+            listFields.Enabled = canSelectField && handlesMultiFields;
+            btnAddField.Enabled = canSelectField && handlesMultiFields;
         }
 
         private void MatchTypeChangeHandler(object sender, EventArgs e)
