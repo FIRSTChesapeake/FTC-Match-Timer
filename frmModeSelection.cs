@@ -20,14 +20,21 @@ namespace FTC_Timer_Display
             numDivID.Value = Math.Max(template.divID, 1);
             txtDivName.Text = template.divName;
             numField.Value = Math.Max(template.fieldID, 1);
-
-            switch (template.runType)
+            runType = template.runType == InitialData.RunType.None ? InitialData.RunType.ServerClient : template.runType;
+            switch (runType)
             {
-                case InitialData.RunType.Client: rdoClient.Checked = true; break;
-                case InitialData.RunType.Local: rdoLocal.Checked = true; break;
-                case InitialData.RunType.None:
-                case InitialData.RunType.ServerClient: rdoServerClient.Checked = true; break;
-                case InitialData.RunType.Server: rdoServerOnly.Checked = true; break;
+                case InitialData.RunType.Client:
+                    rdoClient.Checked = true;
+                    break;
+                case InitialData.RunType.Local:
+                    rdoLocal.Checked = true;
+                    break;
+                case InitialData.RunType.ServerClient:
+                    rdoServerClient.Checked = true;
+                    break;
+                case InitialData.RunType.Server:
+                    rdoServerOnly.Checked = true;
+                    break;
             }
 
         }
