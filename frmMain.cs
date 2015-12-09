@@ -550,7 +550,7 @@ namespace FTC_Timer_Display
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 // Prevent the user from closing the app while a match is running.
-                if (_selectedClient.matchData.matchStatus != MatchData.MatchStatus.Stopped)
+                if (_selectedClient != null && _selectedClient.matchData.matchStatus != MatchData.MatchStatus.Stopped)
                 {
                     if (ModifierKeys != Keys.Shift)
                     {

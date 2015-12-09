@@ -17,9 +17,9 @@ namespace FTC_Timer_Display
         public frmModeSelection(InitialData template)
         {
             InitializeComponent();
-            numDivID.Value = template.divID;
+            numDivID.Value = Math.Max(template.divID, 1);
             txtDivName.Text = template.divName;
-            numField.Value = template.fieldID;
+            numField.Value = Math.Max(template.fieldID, 1);
 
             switch (template.runType)
             {
@@ -85,6 +85,11 @@ namespace FTC_Timer_Display
             numField.Enabled = useField;
             txtDivName.Enabled = useDivName;
             if (!useDivName) txtDivName.Text = "";
+        }
+
+        private void frmModeSelection_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

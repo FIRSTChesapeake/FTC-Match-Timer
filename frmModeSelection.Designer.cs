@@ -271,6 +271,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Initial Setup";
             this.TopMost = true;
+            this.Load += new System.EventHandler(this.frmModeSelection_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDivID)).EndInit();

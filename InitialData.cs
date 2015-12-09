@@ -8,7 +8,7 @@ namespace FTC_Timer_Display
 {
     public class InitialData
     {
-        public int divID = 0;
+        public int divID = 1;
         public string divName = "";
         public int fieldID = 0;
         public RunType runType = RunType.None;

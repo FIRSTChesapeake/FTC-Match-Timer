@@ -60,6 +60,8 @@
             this.btnStop = new DevComponents.DotNetBar.ButtonX();
             this.btnReset = new DevComponents.DotNetBar.ButtonX();
             this.btnAdvance = new DevComponents.DotNetBar.ButtonX();
+            this.matchProgress = new DevComponents.DotNetBar.Controls.StepIndicator();
+            this.matchPercent = new DevComponents.DotNetBar.Controls.CircularProgress();
             this.btnAddField = new DevComponents.DotNetBar.ButtonX();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.label5 = new System.Windows.Forms.Label();
@@ -85,8 +87,6 @@
             this.linkReInit = new System.Windows.Forms.LinkLabel();
             this.linkSetMatchTimes = new System.Windows.Forms.LinkLabel();
             this.displayTimer = new System.Windows.Forms.Timer(this.components);
-            this.matchProgress = new DevComponents.DotNetBar.Controls.StepIndicator();
-            this.matchPercent = new DevComponents.DotNetBar.Controls.CircularProgress();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableFieldControl.SuspendLayout();
@@ -560,6 +560,31 @@
             this.btnAdvance.Text = "Advance to\r\nNext Match\r\n(F2)";
             this.btnAdvance.Click += new System.EventHandler(this.FieldControlButtonsHandler);
             // 
+            // matchProgress
+            // 
+            this.tableFieldControl.SetColumnSpan(this.matchProgress, 4);
+            this.matchProgress.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.matchProgress.Location = new System.Drawing.Point(3, 218);
+            this.matchProgress.Name = "matchProgress";
+            this.matchProgress.Size = new System.Drawing.Size(507, 14);
+            this.matchProgress.StepCount = 5;
+            this.matchProgress.TabIndex = 21;
+            // 
+            // matchPercent
+            // 
+            // 
+            // 
+            // 
+            this.matchPercent.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.matchPercent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.matchPercent.Location = new System.Drawing.Point(387, 128);
+            this.matchPercent.Name = "matchPercent";
+            this.matchPercent.ProgressTextVisible = true;
+            this.tableFieldControl.SetRowSpan(this.matchPercent, 3);
+            this.matchPercent.Size = new System.Drawing.Size(123, 84);
+            this.matchPercent.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeXP;
+            this.matchPercent.TabIndex = 22;
+            // 
             // btnAddField
             // 
             this.btnAddField.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
@@ -859,31 +884,6 @@
             this.displayTimer.Enabled = true;
             this.displayTimer.Interval = 200;
             this.displayTimer.Tick += new System.EventHandler(this.PerodicTick);
-            // 
-            // matchProgress
-            // 
-            this.tableFieldControl.SetColumnSpan(this.matchProgress, 4);
-            this.matchProgress.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.matchProgress.Location = new System.Drawing.Point(3, 218);
-            this.matchProgress.Name = "matchProgress";
-            this.matchProgress.Size = new System.Drawing.Size(507, 14);
-            this.matchProgress.StepCount = 5;
-            this.matchProgress.TabIndex = 21;
-            // 
-            // matchPercent
-            // 
-            // 
-            // 
-            // 
-            this.matchPercent.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.matchPercent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.matchPercent.Location = new System.Drawing.Point(387, 128);
-            this.matchPercent.Name = "matchPercent";
-            this.matchPercent.ProgressTextVisible = true;
-            this.tableFieldControl.SetRowSpan(this.matchPercent, 3);
-            this.matchPercent.Size = new System.Drawing.Size(123, 84);
-            this.matchPercent.Style = DevComponents.DotNetBar.eDotNetBarStyle.OfficeXP;
-            this.matchPercent.TabIndex = 22;
             // 
             // frmMain
             // 
