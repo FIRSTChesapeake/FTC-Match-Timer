@@ -18,6 +18,9 @@ namespace FTC_Timer_Display
         public int matchNumberMajor = 1;
         public int matchNumberMinor = 0;
         public int matchLength = 0;
+        public ClockFace.DigitSets digitSet = ClockFace.DigitSets.DigitSetJ;
+
+        public bool noCrossActive = true;
 
         public string playSound = "";
         public SoundLocations soundLocation = SoundLocations.Off;
@@ -121,6 +124,21 @@ namespace FTC_Timer_Display
             return false;
         }
 
+        public string matchNumberString
+        {
+            get
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append(this.matchNumberMajor);
+                if (this.matchNumberMinor != 0)
+                {
+                    sb.Append("-");
+                    sb.Append(this.matchNumberMinor);
+                }
+                return sb.ToString();
+            }
+        }
+
         public string matchHeaderString
         {
             get
@@ -145,12 +163,7 @@ namespace FTC_Timer_Display
                 sb.Append(Environment.NewLine);
                 sb.Append(this.matchType);
                 sb.Append(" Match ");
-                sb.Append(this.matchNumberMajor);
-                if (this.matchNumberMinor != 0)
-                {
-                    sb.Append("-");
-                    sb.Append(this.matchNumberMinor);
-                }
+                sb.Append(this.matchNumberString);
                 return sb.ToString();
             }
         }

@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DevComponents.DotNetBar;
 
 namespace FTC_Timer_Display
 {
-    public partial class frmModeSelection : Form
+    public partial class frmModeSelection : Office2007Form
     {
         private InitialData.RunType runType = InitialData.RunType.None;
 
@@ -20,6 +21,7 @@ namespace FTC_Timer_Display
             numDivID.Value = Math.Max(template.divID, 1);
             txtDivName.Text = template.divName;
             numField.Value = Math.Max(template.fieldID, 1);
+            txtPitPort.Text = template.scoringPort.ToString();
             runType = template.runType == InitialData.RunType.None ? InitialData.RunType.ServerClient : template.runType;
             switch (runType)
             {
@@ -34,6 +36,9 @@ namespace FTC_Timer_Display
                     break;
                 case InitialData.RunType.Server:
                     rdoServerOnly.Checked = true;
+                    break;
+                case InitialData.RunType.PitDisplay:
+                    rdoPit.Checked = true;
                     break;
             }
 
@@ -50,6 +55,19 @@ namespace FTC_Timer_Display
                 if (runType == InitialData.RunType.Server)
                 {
                     d.fieldID = 0;
+                }
+                else if (runType == InitialData.RunType.PitDisplay)
+                {
+                    int port = 0;
+                    bool isInt = int.TryParse(txtPitPort.Text, out port);
+                    if (!isInt || port < 1 || port > 65535)
+                    {
+                        string msg = string.Format("Invalid Scoring Broadcast Port number '{0}'.\nTry Again.", txtPitPort.Text);
+                        MessageBox.Show(msg, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtPitPort.Text = Properties.Settings.Default.DefaultScoringPort.ToString();
+                        return;
+                    }
+                    d.scoringPort = port;
                 }
                 else
                 {
@@ -68,6 +86,8 @@ namespace FTC_Timer_Display
         {
             bool useField = true;
             bool useDivName = true;
+            bool useDivID = true;
+            bool usePitPort = false;
 
             RadioButton rb = (RadioButton)sender;
             if (!rb.Checked) return;
@@ -85,12 +105,22 @@ namespace FTC_Timer_Display
                 runType = InitialData.RunType.Client;
                 useDivName = false;
             }
-            else
+            else if (sender.Equals(rdoLocal))
             {
                 runType = InitialData.RunType.Local;
             }
+            else if (sender.Equals(rdoPit))
+            {
+                runType = InitialData.RunType.PitDisplay;
+                useDivName = false;
+                useField = false;
+                useDivID = false;
+                usePitPort = true;
+            }
             numField.Enabled = useField;
             txtDivName.Enabled = useDivName;
+            numDivID.Enabled = useDivID;
+            txtPitPort.Enabled = usePitPort;
             if (!useDivName) txtDivName.Text = "";
         }
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Diagnostics;
 
 namespace FTC_Timer_Display
 {
@@ -28,34 +29,69 @@ namespace FTC_Timer_Display
         public static TimeSpan nocrossLength { get; set; }
         public static TimeSpan endgameLength { get; set; }
 
-        public static TimeSpan driverLength
+        public static TimeSpan driverLength     { get { return matchLength - autoLength; } }
+
+        public static TimeSpan whenAutoEnd      { get { return matchLength - autoLength; } }
+        public static TimeSpan whenNoCrossEnd   { get { return matchLength - nocrossLength; } }
+        public static TimeSpan whenEndgameStart { get { return endgameLength; } }
+
+        public static TimeSpan periodTimeRemaining(TimeSpan matchTimeLeft, MatchData.MatchPeriods currentPeriod)
         {
-            get
+            switch (currentPeriod)
             {
-                return matchLength - autoLength;
+                case MatchData.MatchPeriods.Autonomous:
+                    return matchTimeLeft - driverLength;
+                case MatchData.MatchPeriods.DriverControlled:
+                    return matchTimeLeft - endgameLength;
+                case MatchData.MatchPeriods.EndGame:
+                    return matchTimeLeft;
+                default:
+                    return new TimeSpan(0, 0, 0);
             }
         }
 
-        public static TimeSpan whenAutoEnd
+        public static int percentPeriodComplete(TimeSpan matchTimeLeft, MatchData.MatchPeriods currentPeriod)
         {
-            get
+            TimeSpan periodRemain = periodTimeRemaining(matchTimeLeft, currentPeriod);
+            TimeSpan periodTotal;
+            switch (currentPeriod)
             {
-                return matchLength - autoLength;
+                case MatchData.MatchPeriods.Autonomous:
+                    periodTotal = autoLength;
+                    break;
+                case MatchData.MatchPeriods.DriverControlled:
+                    periodTotal = driverLength - endgameLength;
+                    break;
+                case MatchData.MatchPeriods.EndGame:
+                    periodTotal = endgameLength;
+                    break;
+                default:
+                    return 100;
             }
+            TimeSpan periodComplete = periodTotal - periodRemain;
+            decimal p = (decimal)(periodComplete.TotalSeconds / periodTotal.TotalSeconds);
+            decimal q = p * 100;
+            return (int)q;
         }
-        public static TimeSpan whenNoCross
+
+        public static int percentAutoPartComplete(TimeSpan matchTimeLeft, bool noCrossActive)
         {
-            get
+            TimeSpan periodRemain = periodTimeRemaining(matchTimeLeft, MatchData.MatchPeriods.Autonomous);
+            decimal p = 0;
+            if (noCrossActive)
             {
-                return matchLength - nocrossLength;
+                // if we're in the no cross part, find the completed no cross time.
+                TimeSpan t = nocrossLength - (periodRemain - (autoLength - nocrossLength));
+                p = (decimal)(t.TotalSeconds / nocrossLength.TotalSeconds);
             }
-        }
-        public static TimeSpan whenEndgame
-        {
-            get
+            else
             {
-                return endgameLength;
+                // if we're not in the no cross part, find the completed non-nocross part.
+                TimeSpan t = (autoLength - nocrossLength) - periodRemain;
+                p = (decimal)(t.TotalSeconds / (autoLength - nocrossLength).TotalSeconds);
             }
+            decimal q = p * 100;
+            return (int)q;
         }
 
         static MatchTimingData()

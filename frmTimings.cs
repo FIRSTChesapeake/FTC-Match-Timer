@@ -8,10 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevComponents.DotNetBar.Validator;
+using DevComponents.DotNetBar;
 
 namespace FTC_Timer_Display
 {
-    public partial class frmTimings : Form
+    public partial class frmTimings : Office2007Form
     {
         public frmTimings()
         {

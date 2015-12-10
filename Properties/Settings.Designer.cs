@@ -94,5 +94,47 @@ namespace FTC_Timer_Display.Properties {
                 this["LastFieldID"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public int DeadFieldDelay {
+            get {
+                return ((int)(this["DeadFieldDelay"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5656")]
+        public int DefaultScoringPort {
+            get {
+                return ((int)(this["DefaultScoringPort"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ScoringServerLocation {
+            get {
+                return ((string)(this["ScoringServerLocation"]));
+            }
+            set {
+                this["ScoringServerLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int ScoringScroll {
+            get {
+                return ((int)(this["ScoringScroll"]));
+            }
+            set {
+                this["ScoringScroll"] = value;
+            }
+        }
     }
 }

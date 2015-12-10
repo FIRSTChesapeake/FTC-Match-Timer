@@ -23,7 +23,26 @@ namespace FTC_Timer_Display
             }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmMain());
+
+            // Load stored settings or request settings from user.
+            int AppSettingsError = 0;
+            InitialData initData = InitialData.LoadAppSettings(out AppSettingsError);
+            // Handle the missing Data error. Without it, we cant' continue.
+            if (initData == null || initData.runType == InitialData.RunType.None)
+            {
+                MessageBox.Show("Failed to initialize. Quitting.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                if (initData.runType == InitialData.RunType.PitDisplay)
+                {
+                    Application.Run(new frmPitDisplay(initData));
+                }
+                else
+                {
+                    Application.Run(new frmMain(initData));
+                }
+            }
         }
     }
 }

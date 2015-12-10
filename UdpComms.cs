@@ -22,6 +22,7 @@ namespace FTC_Timer_Display
         private IAsyncResult _ar = null;
 
         public event EventHandler<MatchData> NewMatchData;
+        public event EventHandler<PitData> NewPitData;
 
         public bool isListening { get { return _listening; } }
 
@@ -29,6 +30,13 @@ namespace FTC_Timer_Display
         {
             NewMatchData += NewDataHandler;
             udpPortRecv = CreateRecvPort(divID, fieldID);
+            ConfigurePort();
+        }
+
+        public UdpComms(EventHandler<PitData> NewDataHandler)
+        {
+            NewPitData += NewDataHandler;
+            udpPortRecv = CreateRecvPort(0, 0);
             ConfigurePort();
         }
 
@@ -73,7 +81,7 @@ namespace FTC_Timer_Display
         {
             try
             {
-                MatchData data = null;
+                UdpContainer data = null;
                 IPEndPoint ip = new IPEndPoint(IPAddress.Any, udpPortRecv);
                 byte[] bytes = _udp.EndReceive(ar, ref ip);
                 BinaryFormatter bf = new BinaryFormatter();
@@ -81,12 +89,26 @@ namespace FTC_Timer_Display
                 {
                     ms.Write(bytes, 0, bytes.Length);
                     ms.Seek(0, SeekOrigin.Begin);
-                    data = (MatchData)bf.Deserialize(ms);
+                    data = (UdpContainer)bf.Deserialize(ms);
                 }
-                if (NewMatchData != null && data != null)
+                // If the package contains MatchData
+                if (data.packageType == UdpContainer.UdpPackageTypes.MatchData)
                 {
-                    EventHandler<MatchData> handler = NewMatchData;
-                    handler(this, data);
+                    MatchData matchData = (MatchData)data.package;
+                    if (NewMatchData != null && matchData != null)
+                    {
+                        EventHandler<MatchData> handler = NewMatchData;
+                        handler(this, matchData);
+                    }
+                }
+                else if (data.packageType == UdpContainer.UdpPackageTypes.PitData)
+                {
+                    PitData pitData = (PitData)data.package;
+                    if (NewPitData != null && pitData != null)
+                    {
+                        EventHandler<PitData> handler = NewPitData;
+                        handler(this, pitData);
+                    }
                 }
                 StartListening();
             }
@@ -98,11 +120,20 @@ namespace FTC_Timer_Display
 
         public void BroadcastMatchData(MatchData data, int fieldPort)
         {
+            UdpContainer pack = new UdpContainer(UdpContainer.UdpPackageTypes.MatchData, data);
             IPEndPoint sendTo = new IPEndPoint(IPAddress.Broadcast, fieldPort);
-            SendObject(data, sendTo);
+            SendObject(pack, sendTo);
         }
 
-        private void SendObject(Object data, IPEndPoint sendTo)
+        public void BroadcastPitData(PitData data)
+        {
+            UdpContainer pack = new UdpContainer(UdpContainer.UdpPackageTypes.PitData, data);
+            int port = CreateRecvPort(0, 0);
+            IPEndPoint sendTo = new IPEndPoint(IPAddress.Broadcast, port);
+            SendObject(pack, sendTo);
+        }
+
+        private void SendObject(UdpContainer data, IPEndPoint sendTo)
         {
             if (_udp != null && _udp.Client != null)
             {

@@ -12,6 +12,7 @@ namespace FTC_Timer_Display
         public string divName = "";
         public int fieldID = 0;
         public RunType runType = RunType.None;
+        public int scoringPort = Properties.Settings.Default.DefaultScoringPort;
 
         public enum RunType
         {
@@ -19,7 +20,8 @@ namespace FTC_Timer_Display
             Server = 1,
             ServerClient = 2,
             Client = 3,
-            Local = 4
+            Local = 4,
+            PitDisplay =5
         }
 
         public void SaveSettings()

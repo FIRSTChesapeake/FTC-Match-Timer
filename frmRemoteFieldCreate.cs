@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DevComponents.DotNetBar;
 
 namespace FTC_Timer_Display
 {
-    public partial class frmRemoteFieldCreate : Form
+    public partial class frmRemoteFieldCreate : Office2007Form
     {
         public frmRemoteFieldCreate(int nextID = 1)
         {

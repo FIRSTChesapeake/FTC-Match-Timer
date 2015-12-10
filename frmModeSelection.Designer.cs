@@ -42,6 +42,9 @@
             this.rdoServerOnly = new System.Windows.Forms.RadioButton();
             this.rdoClient = new System.Windows.Forms.RadioButton();
             this.rdoLocal = new System.Windows.Forms.RadioButton();
+            this.rdoPit = new System.Windows.Forms.RadioButton();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtPitPort = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDivID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numField)).BeginInit();
@@ -52,23 +55,28 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.btnContinue, 0, 7);
-            this.tableLayoutPanel1.Controls.Add(this.btnCancel, 1, 7);
+            this.tableLayoutPanel1.Controls.Add(this.btnContinue, 0, 9);
+            this.tableLayoutPanel1.Controls.Add(this.btnCancel, 1, 9);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.txtDivName, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 7);
+            this.tableLayoutPanel1.Controls.Add(this.txtDivName, 1, 7);
             this.tableLayoutPanel1.Controls.Add(this.numDivID, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 6);
-            this.tableLayoutPanel1.Controls.Add(this.numField, 1, 6);
+            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 8);
+            this.tableLayoutPanel1.Controls.Add(this.numField, 1, 8);
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.rdoServerClient, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.rdoServerOnly, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.rdoClient, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.rdoLocal, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.rdoPit, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.txtPitPort, 1, 6);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 8;
+            this.tableLayoutPanel1.RowCount = 10;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
@@ -77,8 +85,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(347, 241);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(347, 276);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // btnContinue
@@ -87,9 +94,9 @@
             this.btnContinue.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnContinue.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnContinue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnContinue.Location = new System.Drawing.Point(3, 178);
+            this.btnContinue.Location = new System.Drawing.Point(3, 228);
             this.btnContinue.Name = "btnContinue";
-            this.btnContinue.Size = new System.Drawing.Size(167, 60);
+            this.btnContinue.Size = new System.Drawing.Size(167, 45);
             this.btnContinue.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnContinue.TabIndex = 0;
             this.btnContinue.Text = "Continue";
@@ -101,9 +108,9 @@
             this.btnCancel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnCancel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Location = new System.Drawing.Point(176, 178);
+            this.btnCancel.Location = new System.Drawing.Point(176, 228);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(168, 60);
+            this.btnCancel.Size = new System.Drawing.Size(168, 45);
             this.btnCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "Exit";
@@ -124,7 +131,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Location = new System.Drawing.Point(3, 125);
+            this.label2.Location = new System.Drawing.Point(3, 175);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(167, 25);
             this.label2.TabIndex = 4;
@@ -134,7 +141,7 @@
             // txtDivName
             // 
             this.txtDivName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtDivName.Location = new System.Drawing.Point(176, 128);
+            this.txtDivName.Location = new System.Drawing.Point(176, 178);
             this.txtDivName.Name = "txtDivName";
             this.txtDivName.Size = new System.Drawing.Size(168, 20);
             this.txtDivName.TabIndex = 5;
@@ -144,7 +151,7 @@
             this.numDivID.Dock = System.Windows.Forms.DockStyle.Fill;
             this.numDivID.Location = new System.Drawing.Point(176, 3);
             this.numDivID.Maximum = new decimal(new int[] {
-            9,
+            2,
             0,
             0,
             0});
@@ -166,7 +173,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Location = new System.Drawing.Point(3, 150);
+            this.label3.Location = new System.Drawing.Point(3, 200);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(167, 25);
             this.label3.TabIndex = 7;
@@ -176,7 +183,7 @@
             // numField
             // 
             this.numField.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numField.Location = new System.Drawing.Point(176, 153);
+            this.numField.Location = new System.Drawing.Point(176, 203);
             this.numField.Maximum = new decimal(new int[] {
             9,
             0,
@@ -258,11 +265,44 @@
             this.rdoLocal.UseVisualStyleBackColor = true;
             this.rdoLocal.CheckedChanged += new System.EventHandler(this.rdoSelect);
             // 
+            // rdoPit
+            // 
+            this.rdoPit.AutoSize = true;
+            this.rdoPit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rdoPit.Location = new System.Drawing.Point(176, 128);
+            this.rdoPit.Name = "rdoPit";
+            this.rdoPit.Size = new System.Drawing.Size(168, 19);
+            this.rdoPit.TabIndex = 14;
+            this.rdoPit.TabStop = true;
+            this.rdoPit.Text = "Pit Display";
+            this.rdoPit.UseVisualStyleBackColor = true;
+            this.rdoPit.CheckedChanged += new System.EventHandler(this.rdoSelect);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label5.Location = new System.Drawing.Point(3, 150);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(167, 25);
+            this.label5.TabIndex = 15;
+            this.label5.Text = "Scoring Broadcast Port:";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txtPitPort
+            // 
+            this.txtPitPort.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtPitPort.Enabled = false;
+            this.txtPitPort.Location = new System.Drawing.Point(176, 153);
+            this.txtPitPort.Name = "txtPitPort";
+            this.txtPitPort.Size = new System.Drawing.Size(168, 20);
+            this.txtPitPort.TabIndex = 16;
+            // 
             // frmModeSelection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(347, 241);
+            this.ClientSize = new System.Drawing.Size(347, 276);
             this.ControlBox = false;
             this.Controls.Add(this.tableLayoutPanel1);
             this.MaximizeBox = false;
@@ -296,5 +336,8 @@
         private System.Windows.Forms.RadioButton rdoServerOnly;
         private System.Windows.Forms.RadioButton rdoClient;
         private System.Windows.Forms.RadioButton rdoLocal;
+        private System.Windows.Forms.RadioButton rdoPit;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtPitPort;
     }
 }

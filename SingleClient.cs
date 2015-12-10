@@ -12,8 +12,11 @@ namespace FTC_Timer_Display
         private MatchData _data;
         private bool _isEnabled = true;
 
-        public MatchData matchData { get { return _data; } set { _data = value; } }
-
+        public MatchData matchData
+        {
+            get { return _data; }
+            set { _data = value; }
+        }
         public int RecvPort
         {
             get
@@ -82,6 +85,7 @@ namespace FTC_Timer_Display
             _data.matchStatus = MatchData.MatchStatus.Stopped;
             _data.matchPeriod = MatchData.MatchPeriods.NotStarted;
             _data.timerValue = MatchTimingData.matchLength;
+            _data.noCrossActive = false;
         }
 
         public void MatchPower(bool running)
@@ -92,6 +96,7 @@ namespace FTC_Timer_Display
                 {
                     _data.matchPeriod = MatchData.MatchPeriods.Autonomous;
                     _data.matchStatus = MatchData.MatchStatus.Running;
+                    _data.noCrossActive = true;
                     _data.playSound = "charge";
                 }
                 else if (_data.matchPeriod == MatchData.MatchPeriods.DriverControlled)
@@ -116,9 +121,10 @@ namespace FTC_Timer_Display
             {
                 TimeSpan ts = _data.timerValue.Subtract(new TimeSpan(0, 0, 1));
                 _data.timerValue = ts;
-                if (ts.TotalSeconds == MatchTimingData.whenNoCross.TotalSeconds)
+                if (ts.TotalSeconds == MatchTimingData.whenNoCrossEnd.TotalSeconds)
                 {
                     // Special case for No Cross Alert
+                    _data.noCrossActive = false;
                     _data.playSound = "factwhistle";
                 }
                 else if (ts.TotalSeconds == MatchTimingData.whenAutoEnd.TotalSeconds)
@@ -129,7 +135,7 @@ namespace FTC_Timer_Display
                     _data.matchPeriod = MatchData.MatchPeriods.DriverControlled;
                     _data.playSound = "endauto";
                 }
-                else if (ts.TotalSeconds == MatchTimingData.whenEndgame.TotalSeconds)
+                else if (ts.TotalSeconds == MatchTimingData.whenEndgameStart.TotalSeconds)
                 {
                     // Entering Endgame
                     _data.matchPeriod = MatchData.MatchPeriods.EndGame;
