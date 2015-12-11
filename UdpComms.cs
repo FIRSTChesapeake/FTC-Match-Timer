@@ -19,7 +19,6 @@ namespace FTC_Timer_Display
 
         private bool _listening = false;
         private UdpClient _udp = null;
-        private IAsyncResult _ar = null;
 
         public event EventHandler<MatchData> NewMatchData;
         public event EventHandler<PitData> NewPitData;
@@ -75,7 +74,7 @@ namespace FTC_Timer_Display
         private void StartListening()
         {
             _listening = true;
-            _ar = _udp.BeginReceive(ReceiveCallback, null);
+            _udp.BeginReceive(ReceiveCallback, null);
         }
         private void ReceiveCallback(IAsyncResult ar)
         {
@@ -128,7 +127,7 @@ namespace FTC_Timer_Display
         public void BroadcastPitData(PitData data)
         {
             UdpContainer pack = new UdpContainer(UdpContainer.UdpPackageTypes.PitData, data);
-            int port = CreateRecvPort(0, 0);
+            int port = udpPortRecv;
             IPEndPoint sendTo = new IPEndPoint(IPAddress.Broadcast, port);
             SendObject(pack, sendTo);
         }

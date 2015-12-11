@@ -714,7 +714,7 @@ namespace FTC_Timer_Display
                 case Keys.F11: b = btnPause; break;
                 case Keys.F12: b = btnStop; break;
             }
-            if (b != null)
+            if (b != null && b.Enabled)
             {
                 FieldControlButtonsHandler(b, new EventArgs());
                 return;

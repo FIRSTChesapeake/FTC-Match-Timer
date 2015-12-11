@@ -130,7 +130,6 @@ namespace FTC_Timer_Display
                 else if (ts.TotalSeconds == MatchTimingData.whenAutoEnd.TotalSeconds)
                 {
                     // Auto hads ended.
-                    TimeSpan driverOnly = MatchTimingData.driverLength - MatchTimingData.endgameLength;
                     _data.matchStatus = MatchData.MatchStatus.Paused;
                     _data.matchPeriod = MatchData.MatchPeriods.DriverControlled;
                     _data.playSound = "endauto";
