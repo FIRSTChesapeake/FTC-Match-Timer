@@ -19,10 +19,13 @@ namespace FTC_Timer_Display
         public int matchNumberMinor = 0;
         public int matchLength = 0;
         public ClockFace.DigitSets digitSet = ClockFace.DigitSets.DigitSetJ;
+        public string timeoutMessage = "";
+        public bool isSelectedClient = false;
 
         public bool noCrossActive = true;
 
-        public string playSound = "";
+        public SoundGenerator.SoundPackage soundPackage = null;
+
         public SoundLocations soundLocation = SoundLocations.Off;
 
         public TimeSpan timerValue = new TimeSpan();
@@ -95,8 +98,10 @@ namespace FTC_Timer_Display
             EndGame = 3,
             Complete = 4
         }
+
         public enum MatchStatus
         {
+            Timeout,
             Stopped,
             Running,
             Paused
@@ -161,9 +166,16 @@ namespace FTC_Timer_Display
                 sb.Append("Field ");
                 sb.Append(this.fieldID);
                 sb.Append(Environment.NewLine);
-                sb.Append(this.matchType);
-                sb.Append(" Match ");
-                sb.Append(this.matchNumberString);
+                if (this.matchStatus != MatchStatus.Timeout)
+                {
+                    sb.Append(this.matchType);
+                    sb.Append(" Match ");
+                    sb.Append(this.matchNumberString);
+                }
+                else
+                {
+                    sb.Append(this.timeoutMessage);
+                }
                 return sb.ToString();
             }
         }
@@ -197,12 +209,31 @@ namespace FTC_Timer_Display
             }
         }
 
+        public bool timerRunning
+        {
+            get
+            {
+                if (this.matchStatus == MatchStatus.Running) return true;
+                if (this.matchStatus == MatchStatus.Timeout) return true;
+                return false;
+            }
+        }
+
         public bool activeMatch
         {
             get
             {
                 if (this.matchStatus == MatchStatus.Stopped) return false;
+                if (this.matchStatus == MatchStatus.Timeout) return false;
                 return true;
+            }
+        }
+
+        public bool isIdle
+        {
+            get
+            {
+                return !activeMatch && !timerRunning;
             }
         }
 

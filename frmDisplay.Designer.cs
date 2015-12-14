@@ -31,16 +31,18 @@
             this.lblMatchNumber = new DevComponents.DotNetBar.LabelX();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.clockFace = new FTC_Timer_Display.ClockFace();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.matchPeriodCtrl = new FTC_Timer_Display.MatchPeriodCtrl();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.picState = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picState)).BeginInit();
             this.SuspendLayout();
             // 
             // lblMatchNumber
@@ -66,11 +68,11 @@
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.tableLayoutPanel3.Controls.Add(this.lblMatchNumber, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.clockFace, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.pictureBox2, 2, 0);
             this.tableLayoutPanel3.Controls.Add(this.pictureBox1, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.matchPeriodCtrl, 1, 2);
             this.tableLayoutPanel3.Controls.Add(this.pictureBox3, 0, 2);
             this.tableLayoutPanel3.Controls.Add(this.pictureBox4, 2, 2);
+            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel1, 2, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -78,6 +80,7 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(1047, 541);
             this.tableLayoutPanel3.TabIndex = 1;
             // 
@@ -94,16 +97,13 @@
             this.clockFace.TabIndex = 8;
             this.clockFace.Value = System.TimeSpan.Parse("00:00:00");
             // 
-            // pictureBox2
+            // matchPeriodCtrl
             // 
-            this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox2.Image = global::FTC_Timer_Display.Properties.Resources.FTClogo;
-            this.pictureBox2.Location = new System.Drawing.Point(900, 3);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(144, 144);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 1;
-            this.pictureBox2.TabStop = false;
+            this.matchPeriodCtrl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.matchPeriodCtrl.Location = new System.Drawing.Point(153, 394);
+            this.matchPeriodCtrl.Name = "matchPeriodCtrl";
+            this.matchPeriodCtrl.Size = new System.Drawing.Size(741, 144);
+            this.matchPeriodCtrl.TabIndex = 9;
             // 
             // pictureBox1
             // 
@@ -115,14 +115,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            // 
-            // matchPeriodCtrl
-            // 
-            this.matchPeriodCtrl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.matchPeriodCtrl.Location = new System.Drawing.Point(153, 394);
-            this.matchPeriodCtrl.Name = "matchPeriodCtrl";
-            this.matchPeriodCtrl.Size = new System.Drawing.Size(741, 144);
-            this.matchPeriodCtrl.TabIndex = 9;
             // 
             // pictureBox3
             // 
@@ -146,6 +138,34 @@
             this.pictureBox4.TabIndex = 11;
             this.pictureBox4.TabStop = false;
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.BackgroundImage = global::FTC_Timer_Display.Properties.Resources.ftc_logo_new;
+            this.tableLayoutPanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel1.Controls.Add(this.picState, 1, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(900, 3);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(144, 144);
+            this.tableLayoutPanel1.TabIndex = 12;
+            // 
+            // picState
+            // 
+            this.picState.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picState.Image = global::FTC_Timer_Display.Properties.Resources.indicator_red;
+            this.picState.Location = new System.Drawing.Point(112, 3);
+            this.picState.Name = "picState";
+            this.picState.Size = new System.Drawing.Size(29, 29);
+            this.picState.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picState.TabIndex = 0;
+            this.picState.TabStop = false;
+            // 
             // frmDisplay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -159,10 +179,11 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmDisplay_KeyDown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.frmDisplay_KeyPress);
             this.tableLayoutPanel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picState)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -170,13 +191,14 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.PictureBox pictureBox2;
         private DevComponents.DotNetBar.LabelX lblMatchNumber;
         private ClockFace clockFace;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private MatchPeriodCtrl matchPeriodCtrl;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.PictureBox picState;
     }
 }
 

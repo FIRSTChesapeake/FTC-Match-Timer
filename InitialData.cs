@@ -42,9 +42,10 @@ namespace FTC_Timer_Display
         {
             InitialData i = null;
             RunType runType = (RunType)Properties.Settings.Default.LastMode;
-            if (runType == RunType.None)
+            bool mutexAvailable = FtcMutex.checkRunTypeAvailable(runType);
+            if (runType == RunType.None || !mutexAvailable)
             {
-                // If we don't have a stored LastMode, ask the user for input.
+                // If we don't have a stored LastMode of that mode isn't available, ask the user for input.
                 i = GetInitialData(new InitialData(), out errorID);
                 if (i == null) return null;
             }
@@ -94,6 +95,11 @@ namespace FTC_Timer_Display
                 if (runType == RunType.ServerClient) return true;
                 return false;
             }
+        }
+
+        public void lockMutex()
+        {
+            FtcMutex.lockRunType(this.runType);
         }
     }
 }

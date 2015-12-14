@@ -75,7 +75,7 @@
             this.numMin.Dock = System.Windows.Forms.DockStyle.Fill;
             this.numMin.Location = new System.Drawing.Point(152, 3);
             this.numMin.Maximum = new decimal(new int[] {
-            59,
+            9,
             0,
             0,
             0});

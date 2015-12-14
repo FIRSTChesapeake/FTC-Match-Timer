@@ -6,24 +6,40 @@ using System.Threading.Tasks;
 using System.Media;
 using System.IO;
 using System.Diagnostics;
+using System.Speech;
+using System.Speech.Synthesis;
 
 namespace FTC_Timer_Display
 {
     public static class SoundGenerator
     {
+        // Sound player settings & objects
         public static readonly string AppPath = AppDomain.CurrentDomain.BaseDirectory;
         public static readonly string SoundsFolder = String.Format(@"{0}\{1}", AppPath, "Sounds");
-
         private static Dictionary<string, SoundPlayer> sounds = new Dictionary<string, SoundPlayer>();
-
+        // Synth Settings & Objects
+        private static SpeechSynthesizer voice;
+        public static int voiceOutputVolume
+        {
+            get { return voice == null ? 0 : voice.Volume; }
+            set { if (voice != null) voice.Volume = Math.Min(100, Math.Max(0, value)); }
+        }
+        public static int voiceOutputRate
+        {
+            get { return voice == null ? 0 : voice.Rate; }
+            set { if(voice != null) voice.Rate = Math.Min(10, Math.Max(-10, value)); }
+        }
+        // Shared
         public static bool isMuted { get; set; }
 
         public static bool isInit { get; private set; }
+        public static bool voiceReady { get { return voice != null; } }
 
         public static void init()
         {
             try
             {
+                // Sound files
                 string[] files = Directory.GetFiles(SoundsFolder);
                 foreach (string s in files)
                 {
@@ -34,6 +50,14 @@ namespace FTC_Timer_Display
                     player.LoadAsync();
                     sounds.Add(key, player);
                 }
+
+            }
+            catch { }
+            try
+            {
+                // Synth
+                voice = new SpeechSynthesizer();
+                voice.Volume = 100;
             }
             catch { }
             isInit = true;
@@ -44,10 +68,27 @@ namespace FTC_Timer_Display
             try
             {
                 foreach (SoundPlayer player in sounds.Values) player.Stop();
+                voice.SpeakAsyncCancelAll();
             }
             catch { }
         }
 
+        public static void PlaySound(SoundPackage package)
+        {
+            switch (package.soundMethod)
+            {
+                case SoundPackage.SoundMethods.SoundFile:
+                    PlaySoundFile(package.dataString);
+                    break;
+                case SoundPackage.SoundMethods.FileToSpeech:
+                    ReadFile(package.dataString);
+                    break;
+                case SoundPackage.SoundMethods.TextToSpeech:
+                    Speak(package.dataString);
+                    break;
+            }
+        }
+        // Sounce player functions
         private static void SoundLoadCompleteCallback(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
             SoundPlayer player = (SoundPlayer)sender;
@@ -56,7 +97,7 @@ namespace FTC_Timer_Display
             Debug.WriteLine(msg);
         }
 
-        public static void PlaySound(string name)
+        private static void PlaySoundFile(string name)
         {
             try
             {
@@ -69,6 +110,48 @@ namespace FTC_Timer_Display
                 }
             }
             catch { }
+        }
+        // Voice Synth Functions
+        private static void Speak(string s)
+        {
+            if (voice == null) return;
+            if (!isMuted) voice.SpeakAsync(s);
+        }
+
+        private static bool ReadFile(string path)
+        {
+            if (voice == null) return false;
+            try
+            {
+                if (isMuted) return true;
+                string s = File.ReadAllText(path);
+                Speak(s);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        [Serializable]
+        public class SoundPackage
+        {
+            public string dataString { get; private set; }
+            public SoundMethods soundMethod { get; private set; }
+
+            public SoundPackage(SoundMethods method, string str)
+            {
+                dataString = str;
+                soundMethod = method;
+            }
+
+            public enum SoundMethods
+            {
+                SoundFile,
+                FileToSpeech,
+                TextToSpeech
+            }
         }
     }
 }

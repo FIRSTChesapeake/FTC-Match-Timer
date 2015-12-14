@@ -20,30 +20,38 @@ namespace FTC_Timer_Display
 
         public void SetMatchProgress(MatchData data)
         {
-            int step = (int)data.matchPeriod;
-            int stepPercent = MatchTimingData.percentPeriodComplete(data.timerValue, data.matchPeriod);
-            foreach (StepItem b in progressSteps.Items)
+            if (data.matchStatus == MatchData.MatchStatus.Timeout)
             {
-                int i = int.Parse(b.Tag.ToString());
-                if (step == i)
+                // If we're in timeout, we'll set this to 0
+                foreach (StepItem b in progressSteps.Items) b.Value = 0;
+            }
+            else
+            {
+                int step = (int)data.matchPeriod;
+                int stepPercent = MatchTimingData.percentPeriodComplete(data.timerValue, data.matchPeriod);
+                foreach (StepItem b in progressSteps.Items)
                 {
-                    // We treat step 1 (Auto) special, because of NoCross.
-                    bool noCrossing = data.noCrossActive;
-                    int partPercent = MatchTimingData.percentAutoPartComplete(data.timerValue, noCrossing);
-                    if (step == 1 && b.Equals(stepNoCross))
+                    int i = int.Parse(b.Tag.ToString());
+                    if (step == i)
                     {
-                        if (noCrossing) b.Value = partPercent;
-                        else b.Value = 100;
+                        // We treat step 1 (Auto) special, because of NoCross.
+                        bool noCrossing = data.noCrossActive;
+                        int partPercent = MatchTimingData.percentAutoPartComplete(data.timerValue, noCrossing);
+                        if (step == 1 && b.Equals(stepNoCross))
+                        {
+                            if (noCrossing) b.Value = partPercent;
+                            else b.Value = 100;
+                        }
+                        else if (step == 1 && b.Equals(stepAuto))
+                        {
+                            if (noCrossing) b.Value = 0;
+                            else b.Value = partPercent;
+                        }
+                        else b.Value = stepPercent;
                     }
-                    else if (step == 1 && b.Equals(stepAuto))
-                    {
-                        if (noCrossing) b.Value = 0;
-                        else b.Value = partPercent;
-                    }
-                    else b.Value = stepPercent;
+                    else if (step >= i || i == 0) b.Value = 100;
+                    else b.Value = 0;
                 }
-                else if (step >= i || i == 0) b.Value = 100;
-                else b.Value = 0;
             }
         }
     }

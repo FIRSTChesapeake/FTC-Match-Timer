@@ -59,6 +59,9 @@
             this.btnStop = new DevComponents.DotNetBar.ButtonX();
             this.btnReset = new DevComponents.DotNetBar.ButtonX();
             this.btnAdvance = new DevComponents.DotNetBar.ButtonX();
+            this.cboDigitSet = new System.Windows.Forms.ComboBox();
+            this.btnTimeoutStart = new DevComponents.DotNetBar.ButtonX();
+            this.btnTimeoutCancel = new DevComponents.DotNetBar.ButtonX();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.btnCycleListener = new DevComponents.DotNetBar.ButtonX();
             this.label5 = new System.Windows.Forms.Label();
@@ -68,6 +71,7 @@
             this.lblLastSvrIP = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.lblLastRecvTime = new System.Windows.Forms.Label();
+            this.picRcvTime = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.grpSoundOptions = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
@@ -91,22 +95,22 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.picLicense = new System.Windows.Forms.PictureBox();
+            this.lblVer = new DevComponents.DotNetBar.LabelX();
             this.tableFiledListMgmt = new System.Windows.Forms.TableLayoutPanel();
             this.btnAddField = new DevComponents.DotNetBar.ButtonX();
             this.btnRemoveField = new DevComponents.DotNetBar.ButtonX();
             this.displayTimer = new System.Windows.Forms.Timer(this.components);
             this.styleMgr = new DevComponents.DotNetBar.StyleManager(this.components);
-            this.cboDigitSet = new System.Windows.Forms.ComboBox();
-            this.picRcvTime = new System.Windows.Forms.PictureBox();
-            this.picLicense = new System.Windows.Forms.PictureBox();
+            this.chkFinalsFieldsAlternate = new System.Windows.Forms.CheckBox();
             this.progressDisplay = new FTC_Timer_Display.PeriodProgressBar();
-            this.lblVer = new DevComponents.DotNetBar.LabelX();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableFieldControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMatchNumberMajor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMatchNumberMinor)).BeginInit();
             this.tableLayoutPanel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picRcvTime)).BeginInit();
             this.tableLayoutPanel3.SuspendLayout();
             this.grpSoundOptions.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
@@ -117,9 +121,8 @@
             this.flowLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
-            this.tableFiledListMgmt.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picRcvTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLicense)).BeginInit();
+            this.tableFiledListMgmt.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -313,6 +316,8 @@
             this.tableFieldControl.Controls.Add(this.btnAdvance, 0, 8);
             this.tableFieldControl.Controls.Add(this.progressDisplay, 0, 6);
             this.tableFieldControl.Controls.Add(this.cboDigitSet, 3, 5);
+            this.tableFieldControl.Controls.Add(this.btnTimeoutStart, 0, 9);
+            this.tableFieldControl.Controls.Add(this.btnTimeoutCancel, 1, 9);
             this.tableFieldControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableFieldControl.Location = new System.Drawing.Point(273, 145);
             this.tableFieldControl.Name = "tableFieldControl";
@@ -566,6 +571,45 @@
             this.btnAdvance.Text = "Advance to\r\nNext Match\r\n(F2)";
             this.btnAdvance.Click += new System.EventHandler(this.FieldControlButtonsHandler);
             // 
+            // cboDigitSet
+            // 
+            this.cboDigitSet.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cboDigitSet.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboDigitSet.FormattingEnabled = true;
+            this.cboDigitSet.Location = new System.Drawing.Point(471, 158);
+            this.cboDigitSet.Name = "cboDigitSet";
+            this.cboDigitSet.Size = new System.Drawing.Size(151, 21);
+            this.cboDigitSet.TabIndex = 22;
+            this.cboDigitSet.SelectedIndexChanged += new System.EventHandler(this.cboDigitSet_SelectedIndexChanged);
+            // 
+            // btnTimeoutStart
+            // 
+            this.btnTimeoutStart.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnTimeoutStart.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnTimeoutStart.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnTimeoutStart.Location = new System.Drawing.Point(3, 378);
+            this.btnTimeoutStart.Name = "btnTimeoutStart";
+            this.btnTimeoutStart.PulseSpeed = 35;
+            this.btnTimeoutStart.Size = new System.Drawing.Size(150, 39);
+            this.btnTimeoutStart.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnTimeoutStart.TabIndex = 23;
+            this.btnTimeoutStart.Text = "Start Timeout";
+            this.btnTimeoutStart.Click += new System.EventHandler(this.HandleTimeoutButtons);
+            // 
+            // btnTimeoutCancel
+            // 
+            this.btnTimeoutCancel.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnTimeoutCancel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnTimeoutCancel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnTimeoutCancel.Location = new System.Drawing.Point(159, 378);
+            this.btnTimeoutCancel.Name = "btnTimeoutCancel";
+            this.btnTimeoutCancel.PulseSpeed = 35;
+            this.btnTimeoutCancel.Size = new System.Drawing.Size(150, 39);
+            this.btnTimeoutCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnTimeoutCancel.TabIndex = 24;
+            this.btnTimeoutCancel.Text = "Cancel Timeout";
+            this.btnTimeoutCancel.Click += new System.EventHandler(this.HandleTimeoutButtons);
+            // 
             // tableLayoutPanel4
             // 
             this.tableLayoutPanel4.ColumnCount = 5;
@@ -689,6 +733,17 @@
             this.lblLastRecvTime.Text = "Never";
             this.lblLastRecvTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // picRcvTime
+            // 
+            this.picRcvTime.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picRcvTime.Image = global::FTC_Timer_Display.Properties.Resources.indicator_red;
+            this.picRcvTime.Location = new System.Drawing.Point(447, 48);
+            this.picRcvTime.Name = "picRcvTime";
+            this.picRcvTime.Size = new System.Drawing.Size(24, 19);
+            this.picRcvTime.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picRcvTime.TabIndex = 8;
+            this.picRcvTime.TabStop = false;
+            // 
             // tableLayoutPanel3
             // 
             this.tableLayoutPanel3.ColumnCount = 2;
@@ -779,6 +834,7 @@
             // flowLayoutPanel3
             // 
             this.flowLayoutPanel3.Controls.Add(this.chkLocalMute);
+            this.flowLayoutPanel3.Controls.Add(this.chkFinalsFieldsAlternate);
             this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel3.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 16);
@@ -968,6 +1024,33 @@
             this.linkLabel1.Text = "https://github.com/VirginiaFIRST/FTC-Match-Timer";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
+            // picLicense
+            // 
+            this.picLicense.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picLicense.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picLicense.Image = global::FTC_Timer_Display.Properties.Resources.ccShareAlike;
+            this.picLicense.Location = new System.Drawing.Point(471, 3);
+            this.picLicense.Name = "picLicense";
+            this.picLicense.Size = new System.Drawing.Size(151, 39);
+            this.picLicense.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.picLicense.TabIndex = 1;
+            this.picLicense.TabStop = false;
+            this.picLicense.Click += new System.EventHandler(this.picLicense_Click);
+            // 
+            // lblVer
+            // 
+            // 
+            // 
+            // 
+            this.lblVer.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.lblVer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblVer.Location = new System.Drawing.Point(315, 3);
+            this.lblVer.Name = "lblVer";
+            this.lblVer.Size = new System.Drawing.Size(150, 39);
+            this.lblVer.TabIndex = 2;
+            this.lblVer.Text = "Version 1.0.0.0";
+            this.lblVer.TextAlignment = System.Drawing.StringAlignment.Center;
+            // 
             // tableFiledListMgmt
             // 
             this.tableFiledListMgmt.ColumnCount = 2;
@@ -1021,40 +1104,15 @@
             this.styleMgr.ManagerStyle = DevComponents.DotNetBar.eStyle.Office2007VistaGlass;
             this.styleMgr.MetroColorParameters = new DevComponents.DotNetBar.Metro.ColorTables.MetroColorGeneratorParameters(System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255))))), System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(115)))), ((int)(((byte)(199))))));
             // 
-            // cboDigitSet
+            // chkFinalsFieldsAlternate
             // 
-            this.cboDigitSet.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cboDigitSet.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboDigitSet.FormattingEnabled = true;
-            this.cboDigitSet.Location = new System.Drawing.Point(471, 158);
-            this.cboDigitSet.Name = "cboDigitSet";
-            this.cboDigitSet.Size = new System.Drawing.Size(151, 21);
-            this.cboDigitSet.TabIndex = 22;
-            this.cboDigitSet.SelectedIndexChanged += new System.EventHandler(this.cboDigitSet_SelectedIndexChanged);
-            // 
-            // picRcvTime
-            // 
-            this.picRcvTime.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.picRcvTime.Image = global::FTC_Timer_Display.Properties.Resources.indicator_red;
-            this.picRcvTime.Location = new System.Drawing.Point(447, 48);
-            this.picRcvTime.Name = "picRcvTime";
-            this.picRcvTime.Size = new System.Drawing.Size(24, 19);
-            this.picRcvTime.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picRcvTime.TabIndex = 8;
-            this.picRcvTime.TabStop = false;
-            // 
-            // picLicense
-            // 
-            this.picLicense.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picLicense.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.picLicense.Image = global::FTC_Timer_Display.Properties.Resources.ccShareAlike;
-            this.picLicense.Location = new System.Drawing.Point(471, 3);
-            this.picLicense.Name = "picLicense";
-            this.picLicense.Size = new System.Drawing.Size(151, 39);
-            this.picLicense.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.picLicense.TabIndex = 1;
-            this.picLicense.TabStop = false;
-            this.picLicense.Click += new System.EventHandler(this.picLicense_Click);
+            this.chkFinalsFieldsAlternate.AutoSize = true;
+            this.chkFinalsFieldsAlternate.Location = new System.Drawing.Point(3, 26);
+            this.chkFinalsFieldsAlternate.Name = "chkFinalsFieldsAlternate";
+            this.chkFinalsFieldsAlternate.Size = new System.Drawing.Size(109, 17);
+            this.chkFinalsFieldsAlternate.TabIndex = 4;
+            this.chkFinalsFieldsAlternate.Text = "Alternate in Finals";
+            this.chkFinalsFieldsAlternate.UseVisualStyleBackColor = true;
             // 
             // progressDisplay
             // 
@@ -1064,20 +1122,6 @@
             this.progressDisplay.Name = "progressDisplay";
             this.progressDisplay.Size = new System.Drawing.Size(619, 44);
             this.progressDisplay.TabIndex = 21;
-            // 
-            // lblVer
-            // 
-            // 
-            // 
-            // 
-            this.lblVer.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.lblVer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblVer.Location = new System.Drawing.Point(315, 3);
-            this.lblVer.Name = "lblVer";
-            this.lblVer.Size = new System.Drawing.Size(150, 39);
-            this.lblVer.TabIndex = 2;
-            this.lblVer.Text = "Version 1.0.0.0";
-            this.lblVer.TextAlignment = System.Drawing.StringAlignment.Center;
             // 
             // frmMain
             // 
@@ -1101,6 +1145,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numMatchNumberMinor)).EndInit();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picRcvTime)).EndInit();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.grpSoundOptions.ResumeLayout(false);
             this.flowLayoutPanel2.ResumeLayout(false);
@@ -1116,9 +1161,8 @@
             this.tableLayoutPanel5.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
-            this.tableFiledListMgmt.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picRcvTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLicense)).EndInit();
+            this.tableFiledListMgmt.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1197,6 +1241,9 @@
         private System.Windows.Forms.LinkLabel linkSetScoring;
         private System.Windows.Forms.ComboBox cboDigitSet;
         private DevComponents.DotNetBar.LabelX lblVer;
+        private DevComponents.DotNetBar.ButtonX btnTimeoutStart;
+        private DevComponents.DotNetBar.ButtonX btnTimeoutCancel;
+        private System.Windows.Forms.CheckBox chkFinalsFieldsAlternate;
 
     }
 }

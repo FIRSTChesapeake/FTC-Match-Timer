@@ -21,7 +21,6 @@ namespace FTC_Timer_Display
             InitializeComponent();
             initData = data;
             lblMatchNumber.Text = String.Format("DIVISION {0} FIELD {1} INITIALIZED", data.divID, data.fieldID);
-            //lblMatchStatus.Text = "WAITING FOR FIRST DATA";
         }
 
         private void frmDisplay_KeyPress(object sender, KeyPressEventArgs e)
@@ -63,13 +62,18 @@ namespace FTC_Timer_Display
             // Timer Display
             clockFace.Value = data.timerValue;
             // Timer Display Colon
-            clockFace.blink = data.matchStatus == MatchData.MatchStatus.Running;
+            clockFace.blink = data.timerRunning;
             // Match Number
             lblMatchNumber.Text = data.matchHeaderString;
+            // Am I the selected client?
+            picState.Image = data.isSelectedClient ? Properties.Resources.indicator_green : Properties.Resources.indicator_yellow;
             // Match Progress
-            //lblMatchStatus.Text = data.matchFooterString;
-            // New Match Progress
             matchPeriodCtrl.SetDisplay(data);
+        }
+
+        public void deadField()
+        {
+            picState.Image = Properties.Resources.indicator_red;
         }
 
         private void frmDisplay_FormClosing(object sender, FormClosingEventArgs e)

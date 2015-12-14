@@ -30,10 +30,11 @@ namespace FTC_Timer_Display
             // Handle the missing Data error. Without it, we cant' continue.
             if (initData == null || initData.runType == InitialData.RunType.None)
             {
-                MessageBox.Show("Failed to initialize. Quitting.", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Close quietly.
             }
             else
             {
+                initData.lockMutex();
                 if (initData.runType == InitialData.RunType.PitDisplay)
                 {
                     Application.Run(new frmPitDisplay(initData));
@@ -42,6 +43,7 @@ namespace FTC_Timer_Display
                 {
                     Application.Run(new frmMain(initData));
                 }
+
             }
         }
     }

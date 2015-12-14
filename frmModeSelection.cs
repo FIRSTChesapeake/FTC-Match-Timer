@@ -18,11 +18,13 @@ namespace FTC_Timer_Display
         public frmModeSelection(InitialData template)
         {
             InitializeComponent();
+            CheckMutes();
             numDivID.Value = Math.Max(template.divID, 1);
             txtDivName.Text = template.divName;
             numField.Value = Math.Max(template.fieldID, 1);
             txtPitPort.Text = template.scoringPort.ToString();
             runType = template.runType == InitialData.RunType.None ? InitialData.RunType.ServerClient : template.runType;
+            if (!FtcMutex.checkRunTypeAvailable(runType)) runType = InitialData.RunType.Local;
             switch (runType)
             {
                 case InitialData.RunType.Client:
@@ -42,6 +44,17 @@ namespace FTC_Timer_Display
                     break;
             }
 
+        }
+
+        private void CheckMutes()
+        {
+            bool server = FtcMutex.checkRunTypeAvailable(InitialData.RunType.ServerClient);
+            bool client = FtcMutex.checkRunTypeAvailable(InitialData.RunType.Client);
+            bool pitdsp = FtcMutex.checkRunTypeAvailable(InitialData.RunType.PitDisplay);
+            rdoServerClient.Enabled = server;
+            rdoServerOnly.Enabled = server;
+            rdoClient.Enabled = client;
+            rdoPit.Enabled = pitdsp;
         }
 
         private void handleButtons(object sender, EventArgs e)

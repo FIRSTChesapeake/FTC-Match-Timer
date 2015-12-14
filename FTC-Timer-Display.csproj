@@ -42,6 +42,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Speech" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -83,12 +84,19 @@
     <Compile Include="frmSetScoringServer.Designer.cs">
       <DependentUpon>frmSetScoringServer.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmStartTimeout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmStartTimeout.Designer.cs">
+      <DependentUpon>frmStartTimeout.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmTimings.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmTimings.Designer.cs">
       <DependentUpon>frmTimings.cs</DependentUpon>
     </Compile>
+    <Compile Include="FtcMutex.cs" />
     <Compile Include="MatchPeriodCtrl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -116,6 +124,7 @@
     </Compile>
     <Compile Include="InitialData.cs" />
     <Compile Include="MatchData.cs" />
+    <Compile Include="MutexGenerator.cs" />
     <Compile Include="PeriodProgressBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -158,6 +167,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSetScoringServer.resx">
       <DependentUpon>frmSetScoringServer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmStartTimeout.resx">
+      <DependentUpon>frmStartTimeout.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmTimings.resx">
       <DependentUpon>frmTimings.cs</DependentUpon>
@@ -350,6 +362,7 @@
     <None Include="Resources\indicator-red.png" />
     <None Include="Resources\indicator-yellow.png" />
     <None Include="Resources\ccShareAlike.png" />
+    <None Include="Resources\ftc_logo_new.png" />
     <Content Include="Sounds\charge.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

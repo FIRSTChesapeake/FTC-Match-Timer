@@ -10,17 +10,23 @@ namespace FTC_Timer_Display
 {
     public static class MatchTimingData
     {
-        /*
-        private static readonly TimeSpan _defaultMatch = new TimeSpan(0, 0, 30);
-        private static readonly TimeSpan _defaultAuto = new TimeSpan(0, 0, 10);
-        private static readonly TimeSpan _defaultNoCross = new TimeSpan(0, 0, 5);
-        private static readonly TimeSpan _defaultEndgame = new TimeSpan(0, 0, 10);
-        */
+        public static readonly bool isDev = Process.GetCurrentProcess().ProcessName.ToLower().Contains("vshost");
+   
+        private static readonly TimeSpan _debugMatch = new TimeSpan(0, 0, 30);
+        private static readonly TimeSpan _debugAuto = new TimeSpan(0, 0, 10);
+        private static readonly TimeSpan _debugNoCross = new TimeSpan(0, 0, 5);
+        private static readonly TimeSpan _debugEndgame = new TimeSpan(0, 0, 10);
+        private static readonly TimeSpan _debugTimeout = new TimeSpan(0, 0, 15);
+        
         
         private static readonly TimeSpan _defaultMatch = new TimeSpan(0, 2, 30);
         private static readonly TimeSpan _defaultAuto = new TimeSpan(0, 0, 30);
         private static readonly TimeSpan _defaultNoCross = new TimeSpan(0, 0, 10);
         private static readonly TimeSpan _defaultEndgame = new TimeSpan(0, 0, 30);
+        private static readonly TimeSpan _defaultTimeout = new TimeSpan(0, 5, 0);
+
+        private static readonly int _defaultQuarterfinalAlliances = 8;
+        private static readonly int _defaultSemifinalAlliances = 4;
         
         private static Dictionary<MatchData.MatchPeriods, Color> periodColors = new Dictionary<MatchData.MatchPeriods, Color>();
 
@@ -28,6 +34,10 @@ namespace FTC_Timer_Display
         public static TimeSpan autoLength { get; set; }
         public static TimeSpan nocrossLength { get; set; }
         public static TimeSpan endgameLength { get; set; }
+        public static TimeSpan timeoutLength { get; set; }
+
+        public static int quarterfinalAlliances { get; set; }
+        public static int semifinalAlliances { get; set; }
 
         public static TimeSpan driverLength     { get { return matchLength - autoLength; } }
 
@@ -47,6 +57,38 @@ namespace FTC_Timer_Display
                     return matchTimeLeft;
                 default:
                     return new TimeSpan(0, 0, 0);
+            }
+        }
+
+        public static int getMatchTypeAllianceCount(MatchData.MatchTypes matchType)
+        {
+            switch (matchType)
+            {
+                case MatchData.MatchTypes.Quarterfinals:
+                    return quarterfinalAlliances;
+                case MatchData.MatchTypes.Semifinals:
+                    return semifinalAlliances;
+                default:
+                    return 2;
+            }
+        }
+
+        public static int getMatchTypeMinorMatchCount(MatchData.MatchTypes matchType, out bool usesMinor)
+        {
+            int allianceCount = getMatchTypeAllianceCount(matchType);
+            usesMinor = allianceCount > 2;
+            if (allianceCount % 2 == 0) return allianceCount / 2;
+            else return (allianceCount - 1) / 2;
+        }
+
+        public static bool matchTypeAllowsTimeout(MatchData.MatchTypes matchType)
+        {
+            switch (matchType)
+            {
+                case MatchData.MatchTypes.Quarterfinals: return true;
+                case MatchData.MatchTypes.Semifinals: return true;
+                case MatchData.MatchTypes.Finals: return true;
+                default: return false;
             }
         }
 
@@ -101,12 +143,29 @@ namespace FTC_Timer_Display
 
         public static void SetDefaults()
         {
-            matchLength = _defaultMatch;
-            autoLength = _defaultAuto;
-            nocrossLength = _defaultNoCross;
-            endgameLength = _defaultEndgame;
+            if (!isDev)
+            {
+                matchLength = _defaultMatch;
+                autoLength = _defaultAuto;
+                nocrossLength = _defaultNoCross;
+                endgameLength = _defaultEndgame;
+                timeoutLength = _defaultTimeout;
+            }
+            else
+            {
+                matchLength = _debugMatch;
+                autoLength = _debugAuto;
+                nocrossLength = _debugNoCross;
+                endgameLength = _debugEndgame;
+                timeoutLength = _debugTimeout;
+            }
+
+            // Match Counts for Finals
+            quarterfinalAlliances = _defaultQuarterfinalAlliances;
+            semifinalAlliances = _defaultSemifinalAlliances;
 
             // Insert Default Colors
+            periodColors.Clear();
             periodColors.Add(MatchData.MatchPeriods.NotStarted, Color.Yellow);
             periodColors.Add(MatchData.MatchPeriods.Autonomous, Color.Orange);
             periodColors.Add(MatchData.MatchPeriods.DriverControlled, Color.Green);

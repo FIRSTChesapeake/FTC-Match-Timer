@@ -11,6 +11,7 @@ namespace FTC_Timer_Display
         private System.Timers.Timer _timer = new System.Timers.Timer();
         private MatchData _data;
         private bool _isEnabled = true;
+        private TimeoutData.SoundTypes _timeoutSounds = TimeoutData.SoundTypes.None;
 
         public MatchData matchData
         {
@@ -77,7 +78,7 @@ namespace FTC_Timer_Display
                 handler(this, _data);
             }
             // Forget the sound we just played (if any)
-            _data.playSound = "";
+            _data.soundPackage = null;
         }
 
         public void ResetMatch()
@@ -86,6 +87,14 @@ namespace FTC_Timer_Display
             _data.matchPeriod = MatchData.MatchPeriods.NotStarted;
             _data.timerValue = MatchTimingData.matchLength;
             _data.noCrossActive = false;
+        }
+
+        public void StartTimeout(TimeoutData data)
+        {
+            _data.timeoutMessage = data.message;
+            _data.timerValue = data.value;
+            this._timeoutSounds = data.soundType;
+            _data.matchStatus = MatchData.MatchStatus.Timeout;
         }
 
         public void MatchPower(bool running)
@@ -97,11 +106,11 @@ namespace FTC_Timer_Display
                     _data.matchPeriod = MatchData.MatchPeriods.Autonomous;
                     _data.matchStatus = MatchData.MatchStatus.Running;
                     _data.noCrossActive = true;
-                    _data.playSound = "charge";
+                    _data.soundPackage = new SoundGenerator.SoundPackage(SoundGenerator.SoundPackage.SoundMethods.SoundFile, "charge");
                 }
                 else if (_data.matchPeriod == MatchData.MatchPeriods.DriverControlled)
                 {
-                    _data.playSound = "firebell";
+                    _data.soundPackage = new SoundGenerator.SoundPackage(SoundGenerator.SoundPackage.SoundMethods.SoundFile, "firebell");
                 }
                 _data.matchStatus = MatchData.MatchStatus.Running;
             }
@@ -125,28 +134,70 @@ namespace FTC_Timer_Display
                 {
                     // Special case for No Cross Alert
                     _data.noCrossActive = false;
-                    _data.playSound = "factwhistle";
+                    _data.soundPackage = new SoundGenerator.SoundPackage(SoundGenerator.SoundPackage.SoundMethods.SoundFile, "factwhistle");
                 }
                 else if (ts.TotalSeconds == MatchTimingData.whenAutoEnd.TotalSeconds)
                 {
                     // Auto hads ended.
                     _data.matchStatus = MatchData.MatchStatus.Paused;
                     _data.matchPeriod = MatchData.MatchPeriods.DriverControlled;
-                    _data.playSound = "endauto";
+                    _data.soundPackage = new SoundGenerator.SoundPackage(SoundGenerator.SoundPackage.SoundMethods.SoundFile, "endauto");
                 }
                 else if (ts.TotalSeconds == MatchTimingData.whenEndgameStart.TotalSeconds)
                 {
                     // Entering Endgame
                     _data.matchPeriod = MatchData.MatchPeriods.EndGame;
-                    _data.playSound = "factwhistle";
+                    _data.soundPackage = new SoundGenerator.SoundPackage(SoundGenerator.SoundPackage.SoundMethods.SoundFile, "factwhistle");
                 }
-                else if (ts.TotalSeconds == 0)
+                else if (ts.TotalSeconds <= 0)
                 {
                     // Match is over
+                    _data.timerValue = new TimeSpan();
                     _data.matchPeriod = MatchData.MatchPeriods.Complete;
                     _data.matchStatus = MatchData.MatchStatus.Stopped;
-                    _data.playSound = "endmatch";
+                    _data.soundPackage = new SoundGenerator.SoundPackage(SoundGenerator.SoundPackage.SoundMethods.SoundFile, "endmatch");
                 }
+            }
+            else if (_data.matchStatus == MatchData.MatchStatus.Timeout)
+            {
+                // If a match isn't running and we're on timeout, decrement that.
+                TimeSpan ts = _data.timerValue.Subtract(new TimeSpan(0, 0, 1));
+                _data.timerValue = ts;
+                if (ts.TotalSeconds <= 0)
+                {
+                    _data.matchStatus = MatchData.MatchStatus.Stopped;
+                    if (_timeoutSounds == TimeoutData.SoundTypes.Buzzer)
+                    {
+                        _data.soundPackage = new SoundGenerator.SoundPackage(SoundGenerator.SoundPackage.SoundMethods.SoundFile, "endmatch");
+                    }
+                    else if (_timeoutSounds == TimeoutData.SoundTypes.Voice)
+                    {
+                        string msg = string.Format("Time out on field {0} has ended.", _data.fieldID);
+                        _data.soundPackage = new SoundGenerator.SoundPackage(SoundGenerator.SoundPackage.SoundMethods.TextToSpeech, msg);
+                    }
+                    this.ResetMatch();
+                }
+            }
+        }
+
+        public class TimeoutData
+        {
+            public TimeSpan value = new TimeSpan();
+            public string message = "";
+            public SoundTypes soundType = SoundTypes.Voice;
+
+            public TimeoutData(TimeSpan val, string msg, SoundTypes snd)
+            {
+                this.value = val;
+                this.message = msg;
+                this.soundType = snd;
+            }
+
+            public enum SoundTypes
+            {
+                None,
+                Buzzer,
+                Voice
             }
         }
     }

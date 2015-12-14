@@ -173,6 +173,8 @@ namespace FTC_Timer_Display
             fieldButtonList.Add(btnPause);
             fieldButtonList.Add(btnReset);
             fieldButtonList.Add(btnAdvance);
+            fieldButtonList.Add(btnTimeoutStart);
+            fieldButtonList.Add(btnTimeoutCancel);
         }
 
         private void frmMain_Load(object sender, EventArgs e)
@@ -195,8 +197,9 @@ namespace FTC_Timer_Display
             }
 
             // Select default sound setting based on init.
-            rdoSoundLocal.Checked = initData.isServer;
-            rdoSoundRemote.Checked = !initData.isServer;
+            bool localSound = initData.isServer || initData.runType == InitialData.RunType.Local;
+            rdoSoundLocal.Checked = localSound;
+            rdoSoundRemote.Checked = !localSound;
 
             // Setup Comms if needed
             if (initData.runType != InitialData.RunType.Local)
@@ -221,7 +224,8 @@ namespace FTC_Timer_Display
             if (fieldExists(fieldID)) return;
 
             listFields.DataSource = null;
-            SingleClient client = new SingleClient(initData.divID, initData.divName, fieldID, sendFieldDataHandler, initData.isServer);
+            bool startClientTimer = initData.isServer || initData.runType == InitialData.RunType.Local;
+            SingleClient client = new SingleClient(initData.divID, initData.divName, fieldID, sendFieldDataHandler, startClientTimer);
 
             client.matchData.matchType = _currentMatchType;
             _allClients.Add(client);
@@ -264,6 +268,8 @@ namespace FTC_Timer_Display
                     ProcessSoundRequests(data);
                     // Add the match length to the package
                     data.matchLength = (int)MatchTimingData.matchLength.TotalSeconds;
+                    // Add whether the field is currently selected to the package
+                    data.isSelectedClient = _selectedClient.isThisField(data.divID, data.fieldID);
                     // Send the data to the right field (local or remote)
                     if (initData.isForMe(data))
                     {
@@ -286,14 +292,14 @@ namespace FTC_Timer_Display
         private void ProcessSoundRequests(MatchData data)
         {
             // Nothing to play.
-            if (data.playSound == "") return;
+            if (data.soundPackage == null) return;
             bool shouldPlay = false;
             // If we're the server and sound should play on the server.
             if (initData.isServer && soundLocation == MatchData.SoundLocations.Server) shouldPlay = true;
             // If the package is for me (the client) and sound is set to play on the client.
             else if (initData.isForMe(data) && soundLocation == MatchData.SoundLocations.Client) shouldPlay = true;
 
-            if (shouldPlay) SoundGenerator.PlaySound(data.playSound);
+            if (shouldPlay) SoundGenerator.PlaySound(data.soundPackage);
         }
 
         private void NewDataReceived(object sender, MatchData data)
@@ -380,7 +386,11 @@ namespace FTC_Timer_Display
             // Set the "last received" display
             lblLastRecvTime.Text = _lastReceiveTime.ToLongTimeString();
             if (_isReceiving) picRcvTime.Image = Properties.Resources.indicator_green;
-            else picRcvTime.Image = Properties.Resources.indicator_red;
+            else
+            {
+                picRcvTime.Image = Properties.Resources.indicator_red;
+                if (display != null) display.deadField();
+            }
 
             ////  EVERYTHING BELOW HERE requires a selected client.
             if (_selectedClient == null) return;
@@ -398,11 +408,14 @@ namespace FTC_Timer_Display
             btnStart.Enabled = _selectedClient.matchData.waitingForStart;
             btnPause.Enabled = _selectedClient.matchData.matchStatus == MatchData.MatchStatus.Running;
             btnStop.Enabled = _selectedClient.matchData.matchStatus == MatchData.MatchStatus.Paused;
-            btnReset.Enabled = !_selectedClient.matchData.activeMatch;
+            btnReset.Enabled = _selectedClient.matchData.isIdle;
             btnAdvance.Enabled = !_selectedClient.matchData.activeMatch;
-            linkSetMatchTimes.Enabled = !_selectedClient.matchData.activeMatch;
+            btnTimeoutStart.Enabled = _selectedClient.matchData.isIdle;
+            btnTimeoutCancel.Enabled = _selectedClient.matchData.matchStatus == MatchData.MatchStatus.Timeout;
+            linkSetMatchTimes.Enabled = _selectedClient.matchData.isIdle;
             // Enable / Disable sound settings
-            grpSoundOptions.Enabled = initData.isServer;
+            grpSoundOptions.Enabled = initData.isServer || initData.runType == InitialData.RunType.Local;
+            rdoSoundRemote.Enabled = initData.isServer;
             // Allow the user to pick a different field when no match is running
             bool canSelectField = _selectedClient == null || !_selectedClient.matchData.activeMatch;
             listFields.Enabled = canSelectField && initData.isServer;
@@ -460,6 +473,10 @@ namespace FTC_Timer_Display
                 case MatchData.MatchStatus.Running:
                     // If we're running, we really don't want to do do anything, but the pause buttn is the best option.
                     btn = btnPause;
+                    break;
+                case MatchData.MatchStatus.Timeout:
+                    // We're running a timeout.
+                    btn = btnTimeoutCancel;
                     break;
             }
             foreach (ButtonX b in fieldButtonList)
@@ -561,9 +578,13 @@ namespace FTC_Timer_Display
             if(_selectedClient == null) return;
             if (_allClients.Count == 1)
             {
-                // Do nothing, we're staying right here.
+                // Do nothing, we're staying right here since there is only 1 field.
             }
-            if (listFields.SelectedIndex == _allClients.Count - 1)
+            else if(_currentMatchType == MatchData.MatchTypes.Finals && !chkFinalsFieldsAlternate.Checked)
+            {
+                // Do nothing. We're in finals (which are generally only played on one field).
+            }
+            else if (listFields.SelectedIndex == _allClients.Count - 1)
             {
                 // Wrap to the first field.
                 listFields.SelectedIndex = 0;
@@ -573,17 +594,32 @@ namespace FTC_Timer_Display
                 // Move to the next field
                 listFields.SelectedIndex = listFields.SelectedIndex + 1;
             }
-            switch (_currentMatchType)
+            bool usesMinor = false;
+            int majorMax = MatchTimingData.getMatchTypeMinorMatchCount(_currentMatchType, out usesMinor);
+            if (usesMinor)
             {
-                case MatchData.MatchTypes.Unknown:
-                case MatchData.MatchTypes.Practice:
-                case MatchData.MatchTypes.Qualification:
-                case MatchData.MatchTypes.Finals:
-                    numMatchNumberMajor.Value++;
-                    break;
+                int major = (int)numMatchNumberMajor.Value;
+                int minor = (int)numMatchNumberMinor.Value;
+                if (major == majorMax)
+                {
+                    major = 1;
+                    minor++;
+                }
+                else
+                {
+                    major++;
+                }
+                numMatchNumberMajor.Value = major;
+                numMatchNumberMinor.Value = minor;
             }
+            else
+            {
+                numMatchNumberMajor.Value++;
+            }
+
             SetMatchNumber();
-            _selectedClient.ResetMatch();
+            // if the field is idle, reset for this match. (if it's not, it's likely on a timeout and that'll reset it when it ends)
+            if(_selectedClient.matchData.isIdle) _selectedClient.ResetMatch();
         }
 
         private void HandleFieldListMgmtButtons(object sender, EventArgs e)
@@ -619,6 +655,7 @@ namespace FTC_Timer_Display
             if (comms.isListening)
             {
                 comms.ListenControl(false);
+                soundLocation = MatchData.SoundLocations.Client;
             }
             else
             {
@@ -635,11 +672,13 @@ namespace FTC_Timer_Display
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 // Prevent the user from closing the app while a match is running.
-                if (_selectedClient != null && _selectedClient.matchData.matchStatus != MatchData.MatchStatus.Stopped)
+                bool anyRunningClients = false;
+                foreach (SingleClient c in _allClients) if (!c.matchData.isIdle) anyRunningClients = true;
+                if (anyRunningClients)
                 {
                     if (ModifierKeys != Keys.Shift)
                     {
-                        string msgWarn = "Match Running!\nHold Shift and click Close if you're sure you want to quit.";
+                        string msgWarn = "Matches Are Running!\nHold Shift and click Close if you're sure you want to quit.";
                         MessageBox.Show(msgWarn, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         e.Cancel = true;
                         return;
@@ -767,6 +806,23 @@ namespace FTC_Timer_Display
         private void cboDigitSet_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void HandleTimeoutButtons(object sender, EventArgs e)
+        {
+            if (sender.Equals(btnTimeoutStart))
+            {
+                frmStartTimeout wind = new frmStartTimeout(_currentMatchType);
+                wind.ShowDialog();
+                if (wind.Tag == null) return;
+                SingleClient.TimeoutData data = (SingleClient.TimeoutData)wind.Tag;
+                _selectedClient.StartTimeout(data);
+                wind.Close();
+            }
+            if (sender.Equals(btnTimeoutCancel))
+            {
+                _selectedClient.ResetMatch();
+            }
         }
     }
 }

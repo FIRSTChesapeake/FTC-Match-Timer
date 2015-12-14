@@ -30,8 +30,8 @@ namespace FTC_Timer_Display
             }
             set
             {
-                numMin.ReadOnly = value;
-                numSec.ReadOnly = value;
+                numMin.Enabled = !value;
+                numSec.Enabled = !value;
             }
         }
 
@@ -96,7 +96,7 @@ namespace FTC_Timer_Display
                 //SetMinMax();
             }
         }
-        private TimeSpan _MaximumValue = new TimeSpan(0, 59, 59);
+        private TimeSpan _MaximumValue = new TimeSpan(0, 9, 59);
         public TimeSpan MaximumValue
         {
             get { return _MaximumValue; }

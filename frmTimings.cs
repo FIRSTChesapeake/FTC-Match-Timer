@@ -26,7 +26,11 @@ namespace FTC_Timer_Display
             timingAuto.Value = MatchTimingData.autoLength;
             timingNocross.Value = MatchTimingData.nocrossLength;
             timingEndgame.Value = MatchTimingData.endgameLength;
+            timingTimeout.Value = MatchTimingData.timeoutLength;
             timingDriver.Value = driverPeriod;
+
+            numQuarterfinalCount.Value = MatchTimingData.quarterfinalAlliances;
+            numSemifinalCount.Value = MatchTimingData.semifinalAlliances;
         }
 
         private void HandleButtons(object sender, EventArgs e)
@@ -37,6 +41,10 @@ namespace FTC_Timer_Display
                 MatchTimingData.autoLength = timingAuto.Value;
                 MatchTimingData.nocrossLength = timingNocross.Value;
                 MatchTimingData.endgameLength = timingEndgame.Value;
+                MatchTimingData.timeoutLength = timingTimeout.Value;
+
+                MatchTimingData.quarterfinalAlliances = (int)numQuarterfinalCount.Value;
+                MatchTimingData.semifinalAlliances = (int)numSemifinalCount.Value;
 
                 this.Tag = true;
                 this.Visible = false;

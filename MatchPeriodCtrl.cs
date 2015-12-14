@@ -22,14 +22,14 @@ namespace FTC_Timer_Display
 
         private Color mColor2 = Color.DarkOrange;
         private Color mColor1 = Color.Green;
-        private Color mColor0 = Color.DarkRed;
+        private Color mColor0 = Color.Transparent;
         private Color mColorS = Color.OrangeRed;
         // Foreground Colors of all Indicators
         private Color fColor1 = Color.LightBlue;
-        private Color fColor0 = Color.Maroon;
+        private Color fColor0 = Color.Transparent;
         // Backbround Colors of the interperiod indicators
         private Color bColor1 = Color.Red;
-        private Color bColor0 = Color.DarkRed;
+        private Color bColor0 = Color.Transparent;
 
         public MatchPeriodCtrl()
         {
