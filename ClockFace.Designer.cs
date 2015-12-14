@@ -30,14 +30,15 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClockFace));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.lblColon = new DevComponents.DotNetBar.LabelX();
             this.digitMin = new System.Windows.Forms.PictureBox();
             this.digitSec1 = new System.Windows.Forms.PictureBox();
             this.digitSec2 = new System.Windows.Forms.PictureBox();
+            this.imgColon = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.digitMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.digitSec1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.digitSec2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgColon)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -49,10 +50,10 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.Controls.Add(this.lblColon, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.digitMin, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.digitSec1, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.digitSec2, 4, 0);
+            this.tableLayoutPanel1.Controls.Add(this.imgColon, 2, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -60,22 +61,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(879, 373);
             this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // lblColon
-            // 
-            // 
-            // 
-            // 
-            this.lblColon.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.lblColon.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblColon.Font = new System.Drawing.Font("OCR A Extended", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblColon.ForeColor = System.Drawing.Color.Red;
-            this.lblColon.Location = new System.Drawing.Point(265, 3);
-            this.lblColon.Name = "lblColon";
-            this.lblColon.Size = new System.Drawing.Size(94, 367);
-            this.lblColon.TabIndex = 1;
-            this.lblColon.Text = ":";
-            this.lblColon.TextAlignment = System.Drawing.StringAlignment.Center;
             // 
             // digitMin
             // 
@@ -110,6 +95,17 @@
             this.digitSec2.TabIndex = 4;
             this.digitSec2.TabStop = false;
             // 
+            // imgColon
+            // 
+            this.imgColon.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.imgColon.Image = global::FTC_Timer_Display.Properties.Resources.Rcolon;
+            this.imgColon.Location = new System.Drawing.Point(265, 3);
+            this.imgColon.Name = "imgColon";
+            this.imgColon.Size = new System.Drawing.Size(94, 367);
+            this.imgColon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.imgColon.TabIndex = 5;
+            this.imgColon.TabStop = false;
+            // 
             // ClockFace
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -123,6 +119,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.digitMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.digitSec1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.digitSec2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgColon)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -130,9 +127,9 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private DevComponents.DotNetBar.LabelX lblColon;
         private System.Windows.Forms.PictureBox digitMin;
         private System.Windows.Forms.PictureBox digitSec1;
         private System.Windows.Forms.PictureBox digitSec2;
+        private System.Windows.Forms.PictureBox imgColon;
     }
 }

@@ -65,6 +65,7 @@ namespace FTC_Timer_Display
                 d.divID = int.Parse(numDivID.Value.ToString());
                 d.divName = txtDivName.Text;
                 d.runType = runType;
+                d.loadPreviousFields = chkLoadFields.Checked;
                 if (runType == InitialData.RunType.Server)
                 {
                     d.fieldID = 0;
@@ -101,6 +102,7 @@ namespace FTC_Timer_Display
             bool useDivName = true;
             bool useDivID = true;
             bool usePitPort = false;
+            bool loadFields = true;
 
             RadioButton rb = (RadioButton)sender;
             if (!rb.Checked) return;
@@ -117,10 +119,12 @@ namespace FTC_Timer_Display
             {
                 runType = InitialData.RunType.Client;
                 useDivName = false;
+                loadFields = false;
             }
             else if (sender.Equals(rdoLocal))
             {
                 runType = InitialData.RunType.Local;
+                loadFields = false;
             }
             else if (sender.Equals(rdoPit))
             {
@@ -129,11 +133,14 @@ namespace FTC_Timer_Display
                 useField = false;
                 useDivID = false;
                 usePitPort = true;
+                loadFields = false;
             }
             numField.Enabled = useField;
             txtDivName.Enabled = useDivName;
             numDivID.Enabled = useDivID;
             txtPitPort.Enabled = usePitPort;
+            chkLoadFields.Enabled = loadFields;
+            chkLoadFields.Checked = loadFields;
             if (!useDivName) txtDivName.Text = "";
         }
 

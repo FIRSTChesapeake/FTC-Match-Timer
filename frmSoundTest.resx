@@ -117,12 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <data name="txtDivName.ToolTip" xml:space="preserve">
-    <value>You may optionally provide a Division Name to be displayed on the timer.
-If you do not provide one, the Division Number will be displayed instead.
-If you're running a single division event, put your event name here.</value>
-  </data>
 </root>

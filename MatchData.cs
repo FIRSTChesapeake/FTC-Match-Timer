@@ -18,7 +18,6 @@ namespace FTC_Timer_Display
         public int matchNumberMajor = 1;
         public int matchNumberMinor = 0;
         public int matchLength = 0;
-        public ClockFace.DigitSets digitSet = ClockFace.DigitSets.DigitSetJ;
         public string timeoutMessage = "";
         public bool isSelectedClient = false;
 

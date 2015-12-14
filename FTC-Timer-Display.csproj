@@ -38,6 +38,7 @@
     <Reference Include="DevComponents.DotNetBar2, Version=12.5.0.3, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
+    <Reference Include="DevComponents.Instrumentation, Version=12.5.0.3, Culture=neutral, PublicKeyToken=f90dc37c26666a67, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
@@ -83,6 +84,12 @@
     </Compile>
     <Compile Include="frmSetScoringServer.Designer.cs">
       <DependentUpon>frmSetScoringServer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSoundTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSoundTest.Designer.cs">
+      <DependentUpon>frmSoundTest.cs</DependentUpon>
     </Compile>
     <Compile Include="frmStartTimeout.cs">
       <SubType>Form</SubType>
@@ -167,6 +174,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSetScoringServer.resx">
       <DependentUpon>frmSetScoringServer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSoundTest.resx">
+      <DependentUpon>frmSoundTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmStartTimeout.resx">
       <DependentUpon>frmStartTimeout.cs</DependentUpon>
@@ -319,12 +329,6 @@
     <None Include="Resources\Rcolon.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Rcolonoff.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Rdigitoff.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\d0.png" />
     <None Include="Resources\d1.png" />
     <None Include="Resources\d2.png" />
@@ -363,6 +367,8 @@
     <None Include="Resources\indicator-yellow.png" />
     <None Include="Resources\ccShareAlike.png" />
     <None Include="Resources\ftc_logo_new.png" />
+    <None Include="Resources\Rcolonoff.png" />
+    <None Include="Resources\Rdigitoff.png" />
     <Content Include="Sounds\charge.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

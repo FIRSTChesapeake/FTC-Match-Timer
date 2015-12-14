@@ -55,10 +55,8 @@ namespace FTC_Timer_Display
             }
         }
 
-        public void SetDisplay(MatchData data, ClockFace.DigitSets digitSet)
+        public void SetDisplay(MatchData data)
         {
-            // select the right clockface
-            clockFace.digitSet = digitSet;
             // Timer Display
             clockFace.Value = data.timerValue;
             // Timer Display Colon
@@ -69,6 +67,9 @@ namespace FTC_Timer_Display
             picState.Image = data.isSelectedClient ? Properties.Resources.indicator_green : Properties.Resources.indicator_yellow;
             // Match Progress
             matchPeriodCtrl.SetDisplay(data);
+            // Set the date and time labels
+            lblDate.Text = DateTime.Now.ToShortDateString();
+            lblTime.Text = DateTime.Now.ToLongTimeString();
         }
 
         public void deadField()
@@ -83,6 +84,11 @@ namespace FTC_Timer_Display
                 e.Cancel = true;
                 this.Visible = false;
             }
+        }
+
+        private void frmDisplay_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

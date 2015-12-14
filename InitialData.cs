@@ -13,6 +13,7 @@ namespace FTC_Timer_Display
         public int fieldID = 0;
         public RunType runType = RunType.None;
         public int scoringPort = Properties.Settings.Default.DefaultScoringPort;
+        public bool loadPreviousFields = true;
 
         public enum RunType
         {
@@ -40,24 +41,20 @@ namespace FTC_Timer_Display
 
         public static InitialData LoadAppSettings(out int errorID)
         {
-            InitialData i = null;
+            InitialData i = new InitialData();
+            // If the runTime saved isn't None than try to load all the settings.
             RunType runType = (RunType)Properties.Settings.Default.LastMode;
-            bool mutexAvailable = FtcMutex.checkRunTypeAvailable(runType);
-            if (runType == RunType.None || !mutexAvailable)
+            if (runType != RunType.None)
             {
-                // If we don't have a stored LastMode of that mode isn't available, ask the user for input.
-                i = GetInitialData(new InitialData(), out errorID);
-                if (i == null) return null;
-            }
-            else
-            {
-                // If we do, fetch all the stored settings
-                i = new InitialData();
                 i.runType = (RunType)Properties.Settings.Default.LastMode;
                 i.divID = Properties.Settings.Default.LastDivision;
                 i.divName = Properties.Settings.Default.LastDivisionName;
                 i.fieldID = Properties.Settings.Default.LastFieldID;
             }
+
+            i = GetInitialData(i, out errorID);
+
+            if (i == null || i.runType == RunType.None) return null;
             errorID = 0;
             return i;
         }

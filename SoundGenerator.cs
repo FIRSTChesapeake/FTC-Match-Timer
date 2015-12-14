@@ -17,6 +17,15 @@ namespace FTC_Timer_Display
         public static readonly string AppPath = AppDomain.CurrentDomain.BaseDirectory;
         public static readonly string SoundsFolder = String.Format(@"{0}\{1}", AppPath, "Sounds");
         private static Dictionary<string, SoundPlayer> sounds = new Dictionary<string, SoundPlayer>();
+
+        public static List<string> availableSounds
+        {
+            get
+            {
+                return sounds.Keys.ToList<string>();
+            }
+        }
+
         // Synth Settings & Objects
         private static SpeechSynthesizer voice;
         public static int voiceOutputVolume
@@ -78,7 +87,7 @@ namespace FTC_Timer_Display
             switch (package.soundMethod)
             {
                 case SoundPackage.SoundMethods.SoundFile:
-                    PlaySoundFile(package.dataString);
+                    PlaySoundFile(package.dataString, package.loop);
                     break;
                 case SoundPackage.SoundMethods.FileToSpeech:
                     ReadFile(package.dataString);
@@ -97,7 +106,7 @@ namespace FTC_Timer_Display
             Debug.WriteLine(msg);
         }
 
-        private static void PlaySoundFile(string name)
+        private static void PlaySoundFile(string name, bool loop)
         {
             try
             {
@@ -106,7 +115,8 @@ namespace FTC_Timer_Display
                 name = name.ToLower();
                 if (sounds.ContainsKey(name))
                 {
-                    sounds[name].Play();
+                    if (!loop) sounds[name].Play();
+                    else sounds[name].PlayLooping();
                 }
             }
             catch { }
@@ -139,6 +149,7 @@ namespace FTC_Timer_Display
         {
             public string dataString { get; private set; }
             public SoundMethods soundMethod { get; private set; }
+            public bool loop = false;
 
             public SoundPackage(SoundMethods method, string str)
             {

@@ -125,8 +125,11 @@ namespace FTC_Timer_Display
             lblMode.Text = initData.runType.ToString();
             lblDivID.Text = initData.divID.ToString();
             lblDivName.Text = initData.divName;
-
-            if (initData.isServer)
+            // Load the help features
+            chkShowHelp.Checked = Properties.Settings.Default.showHelp;
+            toolTipMgr.Enabled = Properties.Settings.Default.showHelp;
+            // Load the last used fields
+            if (initData.isServer && initData.loadPreviousFields)
             {
                 string csv = Properties.Settings.Default.FieldList;
                 string[] list = csv.Split(',');
@@ -162,9 +165,6 @@ namespace FTC_Timer_Display
             // Init the MatchType dropdown, default to qualification
             cboMatchType.DataSource = Enum.GetValues(typeof(MatchData.MatchTypes));
             cboMatchType.SelectedIndex = 2;
-            // Init the digitSet dropdown, default to
-            cboDigitSet.DataSource = Enum.GetValues(typeof(ClockFace.DigitSets));
-            cboDigitSet.SelectedIndex = 3;
             // Init the sound generator
             SoundGenerator.init();
             // Init the list of field buttons for mass changes.
@@ -273,14 +273,13 @@ namespace FTC_Timer_Display
                     // Send the data to the right field (local or remote)
                     if (initData.isForMe(data))
                     {
-                        display.SetDisplay(data, _currentDigitSet);
+                        display.SetDisplay(data);
                         _lastReceiveTime = DateTime.Now;
                         lblLastSvrIP.Text = "Local";
                     }
                     else if (comms != null)
                     {
                         data.soundLocation = this.soundLocation;
-                        data.digitSet = _currentDigitSet;
                         SingleClient c = (SingleClient)sender;
                         comms.BroadcastMatchData(data, c.RecvPort);
                     }
@@ -317,11 +316,10 @@ namespace FTC_Timer_Display
                     lblDivName.Text = data.divisionName;
                     _selectedClient.matchData = data;
                     cboMatchType.SelectedItem = data.matchType;
-                    cboDigitSet.SelectedItem = data.digitSet;
                     numMatchNumberMajor.Value = data.matchNumberMajor;
                     numMatchNumberMinor.Value = data.matchNumberMinor;
                     soundLocation = data.soundLocation;
-                    display.SetDisplay(data, _currentDigitSet);
+                    display.SetDisplay(data);
                     _lastReceiveTime = DateTime.Now;
                     lblLastSvrIP.Text = "Remote Server";
                 }
@@ -521,22 +519,6 @@ namespace FTC_Timer_Display
             }
         }
 
-        private ClockFace.DigitSets _currentDigitSet
-        {
-            get
-            {
-                ClockFace.DigitSets digitSet;
-                if (Enum.TryParse<ClockFace.DigitSets>(cboDigitSet.SelectedValue.ToString(), out digitSet))
-                {
-                    return digitSet;
-                }
-                else
-                {
-                    return ClockFace.DigitSets.DigitSetJ;
-                }
-            }
-        }
-
         private void MatchNumberChangeHandler(object sender, EventArgs e)
         {
             SetMatchNumber();
@@ -580,7 +562,7 @@ namespace FTC_Timer_Display
             {
                 // Do nothing, we're staying right here since there is only 1 field.
             }
-            else if(_currentMatchType == MatchData.MatchTypes.Finals && !chkFinalsFieldsAlternate.Checked)
+            else if(_currentMatchType == MatchData.MatchTypes.Finals)
             {
                 // Do nothing. We're in finals (which are generally only played on one field).
             }
@@ -739,6 +721,11 @@ namespace FTC_Timer_Display
                     _selectedClient.ResetMatch();
                 }
             }
+            else if (sender.Equals(linkSoundTest))
+            {
+                frmSoundTest wind = new frmSoundTest();
+                wind.Show();
+            }
         }
 
         private void frmMain_KeyDown(object sender, KeyEventArgs e)
@@ -823,6 +810,13 @@ namespace FTC_Timer_Display
             {
                 _selectedClient.ResetMatch();
             }
+        }
+
+        private void chkShowHelp_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.showHelp = chkShowHelp.Checked;
+            Properties.Settings.Default.Save();
+            toolTipMgr.Enabled = Properties.Settings.Default.showHelp;
         }
     }
 }

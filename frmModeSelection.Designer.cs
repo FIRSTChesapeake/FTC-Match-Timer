@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmModeSelection));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btnContinue = new DevComponents.DotNetBar.ButtonX();
             this.btnCancel = new DevComponents.DotNetBar.ButtonX();
@@ -45,6 +47,8 @@
             this.rdoPit = new System.Windows.Forms.RadioButton();
             this.label5 = new System.Windows.Forms.Label();
             this.txtPitPort = new System.Windows.Forms.TextBox();
+            this.chkLoadFields = new System.Windows.Forms.CheckBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDivID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numField)).BeginInit();
@@ -55,8 +59,8 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.btnContinue, 0, 9);
-            this.tableLayoutPanel1.Controls.Add(this.btnCancel, 1, 9);
+            this.tableLayoutPanel1.Controls.Add(this.btnContinue, 0, 10);
+            this.tableLayoutPanel1.Controls.Add(this.btnCancel, 1, 10);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 7);
             this.tableLayoutPanel1.Controls.Add(this.txtDivName, 1, 7);
@@ -71,10 +75,12 @@
             this.tableLayoutPanel1.Controls.Add(this.rdoPit, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.label5, 0, 6);
             this.tableLayoutPanel1.Controls.Add(this.txtPitPort, 1, 6);
+            this.tableLayoutPanel1.Controls.Add(this.chkLoadFields, 1, 9);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 10;
+            this.tableLayoutPanel1.RowCount = 11;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
@@ -85,7 +91,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(347, 276);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(347, 305);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // btnContinue
@@ -94,9 +100,9 @@
             this.btnContinue.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnContinue.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnContinue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnContinue.Location = new System.Drawing.Point(3, 228);
+            this.btnContinue.Location = new System.Drawing.Point(3, 253);
             this.btnContinue.Name = "btnContinue";
-            this.btnContinue.Size = new System.Drawing.Size(167, 45);
+            this.btnContinue.Size = new System.Drawing.Size(167, 49);
             this.btnContinue.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnContinue.TabIndex = 0;
             this.btnContinue.Text = "Continue";
@@ -108,9 +114,9 @@
             this.btnCancel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnCancel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Location = new System.Drawing.Point(176, 228);
+            this.btnCancel.Location = new System.Drawing.Point(176, 253);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(168, 45);
+            this.btnCancel.Size = new System.Drawing.Size(168, 49);
             this.btnCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "Exit";
@@ -145,6 +151,7 @@
             this.txtDivName.Name = "txtDivName";
             this.txtDivName.Size = new System.Drawing.Size(168, 20);
             this.txtDivName.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.txtDivName, resources.GetString("txtDivName.ToolTip"));
             // 
             // numDivID
             // 
@@ -163,6 +170,8 @@
             this.numDivID.Name = "numDivID";
             this.numDivID.Size = new System.Drawing.Size(168, 20);
             this.numDivID.TabIndex = 6;
+            this.toolTip1.SetToolTip(this.numDivID, "This is the division identifier for this server.\r\nIf you are running a single div" +
+        "ision event, leave this set to 1.");
             this.numDivID.Value = new decimal(new int[] {
             1,
             0,
@@ -197,6 +206,7 @@
             this.numField.Name = "numField";
             this.numField.Size = new System.Drawing.Size(168, 20);
             this.numField.TabIndex = 8;
+            this.toolTip1.SetToolTip(this.numField, "This indicates the Field Number of the local timer.");
             this.numField.Value = new decimal(new int[] {
             1,
             0,
@@ -225,6 +235,8 @@
             this.rdoServerClient.TabIndex = 10;
             this.rdoServerClient.TabStop = true;
             this.rdoServerClient.Text = "Server && Client";
+            this.toolTip1.SetToolTip(this.rdoServerClient, "This mode allows you to control a local timer as well as a number of remote timer" +
+        "s.");
             this.rdoServerClient.UseVisualStyleBackColor = true;
             this.rdoServerClient.CheckedChanged += new System.EventHandler(this.rdoSelect);
             // 
@@ -237,6 +249,8 @@
             this.rdoServerOnly.Size = new System.Drawing.Size(168, 19);
             this.rdoServerOnly.TabIndex = 11;
             this.rdoServerOnly.Text = "Server Only";
+            this.toolTip1.SetToolTip(this.rdoServerOnly, "This mode allows you to control a number of remote timers.\r\nHowever, there is no " +
+        "local timer.");
             this.rdoServerOnly.UseVisualStyleBackColor = true;
             this.rdoServerOnly.CheckedChanged += new System.EventHandler(this.rdoSelect);
             // 
@@ -249,6 +263,7 @@
             this.rdoClient.Size = new System.Drawing.Size(168, 19);
             this.rdoClient.TabIndex = 12;
             this.rdoClient.Text = "Client";
+            this.toolTip1.SetToolTip(this.rdoClient, "This mode creates a dependent timer which is controlled by a server elsewhere.");
             this.rdoClient.UseVisualStyleBackColor = true;
             this.rdoClient.CheckedChanged += new System.EventHandler(this.rdoSelect);
             // 
@@ -262,6 +277,9 @@
             this.rdoLocal.TabIndex = 13;
             this.rdoLocal.TabStop = true;
             this.rdoLocal.Text = "Local Only";
+            this.toolTip1.SetToolTip(this.rdoLocal, "This mode creates a local timer than is only controlled locally.\r\nFurther, this m" +
+        "ode creates no sockets, allowing it to run on restricted computers\r\nthat are not" +
+        " allowed to open udp ports.");
             this.rdoLocal.UseVisualStyleBackColor = true;
             this.rdoLocal.CheckedChanged += new System.EventHandler(this.rdoSelect);
             // 
@@ -275,6 +293,7 @@
             this.rdoPit.TabIndex = 14;
             this.rdoPit.TabStop = true;
             this.rdoPit.Text = "Pit Display";
+            this.toolTip1.SetToolTip(this.rdoPit, "This mode displays a summary of all fields broadcasting from Servers.");
             this.rdoPit.UseVisualStyleBackColor = true;
             this.rdoPit.CheckedChanged += new System.EventHandler(this.rdoSelect);
             // 
@@ -297,12 +316,36 @@
             this.txtPitPort.Name = "txtPitPort";
             this.txtPitPort.Size = new System.Drawing.Size(168, 20);
             this.txtPitPort.TabIndex = 16;
+            this.toolTip1.SetToolTip(this.txtPitPort, "This is the port the scoring software broadcasts its data to.\r\nThis is not used u" +
+        "nless an IP is also specified within the application.");
+            // 
+            // chkLoadFields
+            // 
+            this.chkLoadFields.AutoSize = true;
+            this.chkLoadFields.Checked = true;
+            this.chkLoadFields.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkLoadFields.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chkLoadFields.Location = new System.Drawing.Point(176, 228);
+            this.chkLoadFields.Name = "chkLoadFields";
+            this.chkLoadFields.Size = new System.Drawing.Size(168, 19);
+            this.chkLoadFields.TabIndex = 17;
+            this.chkLoadFields.Text = "Load Previous Fields";
+            this.toolTip1.SetToolTip(this.chkLoadFields, "Should the system load previously added fields (if any are available.)");
+            this.chkLoadFields.UseVisualStyleBackColor = true;
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.AutoPopDelay = 10000;
+            this.toolTip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.toolTip1.InitialDelay = 500;
+            this.toolTip1.IsBalloon = true;
+            this.toolTip1.ReshowDelay = 100;
             // 
             // frmModeSelection
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(347, 276);
+            this.ClientSize = new System.Drawing.Size(347, 305);
             this.ControlBox = false;
             this.Controls.Add(this.tableLayoutPanel1);
             this.MaximizeBox = false;
@@ -339,5 +382,7 @@
         private System.Windows.Forms.RadioButton rdoPit;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtPitPort;
+        private System.Windows.Forms.CheckBox chkLoadFields;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
