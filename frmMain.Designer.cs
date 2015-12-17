@@ -59,7 +59,6 @@
             this.btnStop = new DevComponents.DotNetBar.ButtonX();
             this.btnReset = new DevComponents.DotNetBar.ButtonX();
             this.btnAdvance = new DevComponents.DotNetBar.ButtonX();
-            this.progressDisplay = new FTC_Timer_Display.PeriodProgressBar();
             this.btnTimeoutStart = new DevComponents.DotNetBar.ButtonX();
             this.btnTimeoutCancel = new DevComponents.DotNetBar.ButtonX();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
@@ -84,6 +83,7 @@
             this.chkShowHelp = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
             this.linkToggleDisplay = new System.Windows.Forms.LinkLabel();
+            this.linkFullscreen = new System.Windows.Forms.LinkLabel();
             this.linkSetMatchTimes = new System.Windows.Forms.LinkLabel();
             this.linkReInit = new System.Windows.Forms.LinkLabel();
             this.linkSoundTest = new System.Windows.Forms.LinkLabel();
@@ -105,6 +105,7 @@
             this.displayTimer = new System.Windows.Forms.Timer(this.components);
             this.styleMgr = new DevComponents.DotNetBar.StyleManager(this.components);
             this.toolTipMgr = new DevComponents.DotNetBar.SuperTooltip();
+            this.progressDisplay = new FTC_Timer_Display.PeriodProgressBar();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableFieldControl.SuspendLayout();
@@ -578,15 +579,6 @@
             this.btnAdvance.Text = "Advance to\r\nNext Match\r\n(F2)";
             this.btnAdvance.Click += new System.EventHandler(this.FieldControlButtonsHandler);
             // 
-            // progressDisplay
-            // 
-            this.tableFieldControl.SetColumnSpan(this.progressDisplay, 4);
-            this.progressDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.progressDisplay.Location = new System.Drawing.Point(3, 188);
-            this.progressDisplay.Name = "progressDisplay";
-            this.progressDisplay.Size = new System.Drawing.Size(619, 44);
-            this.progressDisplay.TabIndex = 21;
-            // 
             // btnTimeoutStart
             // 
             this.btnTimeoutStart.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
@@ -879,6 +871,7 @@
             // flowLayoutPanel4
             // 
             this.flowLayoutPanel4.Controls.Add(this.linkToggleDisplay);
+            this.flowLayoutPanel4.Controls.Add(this.linkFullscreen);
             this.flowLayoutPanel4.Controls.Add(this.linkSetMatchTimes);
             this.flowLayoutPanel4.Controls.Add(this.linkReInit);
             this.flowLayoutPanel4.Controls.Add(this.linkSoundTest);
@@ -901,10 +894,21 @@
             this.linkToggleDisplay.Text = "Toggle Display";
             this.linkToggleDisplay.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.HandleOptionsLinkLabels);
             // 
+            // linkFullscreen
+            // 
+            this.linkFullscreen.AutoSize = true;
+            this.linkFullscreen.Location = new System.Drawing.Point(3, 13);
+            this.linkFullscreen.Name = "linkFullscreen";
+            this.linkFullscreen.Size = new System.Drawing.Size(92, 13);
+            this.linkFullscreen.TabIndex = 4;
+            this.linkFullscreen.TabStop = true;
+            this.linkFullscreen.Text = "Display Fullscreen";
+            this.linkFullscreen.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.HandleOptionsLinkLabels);
+            // 
             // linkSetMatchTimes
             // 
             this.linkSetMatchTimes.AutoSize = true;
-            this.linkSetMatchTimes.Location = new System.Drawing.Point(3, 13);
+            this.linkSetMatchTimes.Location = new System.Drawing.Point(3, 26);
             this.linkSetMatchTimes.Name = "linkSetMatchTimes";
             this.linkSetMatchTimes.Size = new System.Drawing.Size(92, 13);
             this.toolTipMgr.SetSuperTooltip(this.linkSetMatchTimes, new DevComponents.DotNetBar.SuperTooltipInfo("Edit Match Timing", "Turn off help in Misc Options", "Allows you to set a custom match length as well as custom lengths for all periods" +
@@ -918,7 +922,7 @@
             // 
             this.linkReInit.AutoSize = true;
             this.linkReInit.Enabled = false;
-            this.linkReInit.Location = new System.Drawing.Point(3, 26);
+            this.linkReInit.Location = new System.Drawing.Point(3, 39);
             this.linkReInit.Name = "linkReInit";
             this.linkReInit.Size = new System.Drawing.Size(65, 13);
             this.linkReInit.TabIndex = 1;
@@ -930,7 +934,7 @@
             // linkSoundTest
             // 
             this.linkSoundTest.AutoSize = true;
-            this.linkSoundTest.Location = new System.Drawing.Point(3, 39);
+            this.linkSoundTest.Location = new System.Drawing.Point(3, 52);
             this.linkSoundTest.Name = "linkSoundTest";
             this.linkSoundTest.Size = new System.Drawing.Size(67, 13);
             this.toolTipMgr.SetSuperTooltip(this.linkSoundTest, new DevComponents.DotNetBar.SuperTooltipInfo("Test Sounds", "Turn off help in Misc Options", "Allows testing of loaded sound resources locally.\r\nThis is not affected by the So" +
@@ -1157,6 +1161,15 @@
             this.toolTipMgr.DefaultTooltipSettings = new DevComponents.DotNetBar.SuperTooltipInfo("", "Turn off help in Misc Options", "", null, null, DevComponents.DotNetBar.eTooltipColor.Green);
             this.toolTipMgr.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
             // 
+            // progressDisplay
+            // 
+            this.tableFieldControl.SetColumnSpan(this.progressDisplay, 4);
+            this.progressDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.progressDisplay.Location = new System.Drawing.Point(3, 188);
+            this.progressDisplay.Name = "progressDisplay";
+            this.progressDisplay.Size = new System.Drawing.Size(619, 44);
+            this.progressDisplay.TabIndex = 21;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1279,6 +1292,7 @@
         private System.Windows.Forms.CheckBox chkShowHelp;
         private DevComponents.DotNetBar.SuperTooltip toolTipMgr;
         private System.Windows.Forms.LinkLabel linkSoundTest;
+        private System.Windows.Forms.LinkLabel linkFullscreen;
 
     }
 }

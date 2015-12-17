@@ -38,7 +38,8 @@ namespace FTC_Timer_Display
 
         public void ChangeFullscreen()
         {
-            ChangeFullscreen(!this.ControlBox);
+            bool isFull = this.FormBorderStyle == System.Windows.Forms.FormBorderStyle.None;
+            ChangeFullscreen(!isFull);
         }
 
         public void ChangeFullscreen(bool val)
@@ -46,11 +47,11 @@ namespace FTC_Timer_Display
             if (val)
             {
                 this.WindowState = FormWindowState.Maximized;
-                this.ControlBox = false;
+                this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             }
             else
             {
-                this.ControlBox = true;
+                this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
                 this.WindowState = FormWindowState.Normal;
             }
         }

@@ -40,8 +40,8 @@
             this.label8 = new System.Windows.Forms.Label();
             this.lblMatchTime = new System.Windows.Forms.Label();
             this.picMainComms = new System.Windows.Forms.PictureBox();
-            this.mainTimer = new System.Windows.Forms.Timer(this.components);
             this.picMatchState = new System.Windows.Forms.PictureBox();
+            this.mainTimer = new System.Windows.Forms.Timer(this.components);
             this.mainTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picMainComms)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picMatchState)).BeginInit();
@@ -136,11 +136,12 @@
             // lblMatchNumber
             // 
             this.lblMatchNumber.AutoSize = true;
+            this.mainTable.SetColumnSpan(this.lblMatchNumber, 2);
             this.lblMatchNumber.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblMatchNumber.Location = new System.Drawing.Point(154, 54);
             this.lblMatchNumber.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblMatchNumber.Name = "lblMatchNumber";
-            this.lblMatchNumber.Size = new System.Drawing.Size(125, 38);
+            this.lblMatchNumber.Size = new System.Drawing.Size(155, 38);
             this.lblMatchNumber.TabIndex = 4;
             this.lblMatchNumber.Text = "Unknown";
             this.lblMatchNumber.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -160,11 +161,12 @@
             // lblMatchPeriod
             // 
             this.lblMatchPeriod.AutoSize = true;
+            this.mainTable.SetColumnSpan(this.lblMatchPeriod, 2);
             this.lblMatchPeriod.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblMatchPeriod.Location = new System.Drawing.Point(154, 130);
             this.lblMatchPeriod.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblMatchPeriod.Name = "lblMatchPeriod";
-            this.lblMatchPeriod.Size = new System.Drawing.Size(125, 38);
+            this.lblMatchPeriod.Size = new System.Drawing.Size(155, 38);
             this.lblMatchPeriod.TabIndex = 6;
             this.lblMatchPeriod.Text = "Unknown";
             this.lblMatchPeriod.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -204,12 +206,6 @@
             this.picMainComms.TabIndex = 9;
             this.picMainComms.TabStop = false;
             // 
-            // mainTimer
-            // 
-            this.mainTimer.Enabled = true;
-            this.mainTimer.Interval = 1000;
-            this.mainTimer.Tick += new System.EventHandler(this.mainTimer_Tick);
-            // 
             // picMatchState
             // 
             this.picMatchState.Image = global::FTC_Timer_Display.Properties.Resources.indicator_red;
@@ -219,6 +215,12 @@
             this.picMatchState.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picMatchState.TabIndex = 10;
             this.picMatchState.TabStop = false;
+            // 
+            // mainTimer
+            // 
+            this.mainTimer.Enabled = true;
+            this.mainTimer.Interval = 1000;
+            this.mainTimer.Tick += new System.EventHandler(this.mainTimer_Tick);
             // 
             // PitFieldDisplay
             // 

@@ -33,7 +33,7 @@ namespace FTC_Timer_Display
         }
 
         private List<SingleClient> _allClients = new List<SingleClient>();
-        List<ButtonX> fieldButtonList = new List<ButtonX>();
+        BindingList<ButtonX> fieldButtonList = new BindingList<ButtonX>();
 
         private SingleClient _selectedClient
         {
@@ -229,10 +229,9 @@ namespace FTC_Timer_Display
 
             client.matchData.matchType = _currentMatchType;
             _allClients.Add(client);
-
+            _allClients.Sort();
             listFields.DisplayMember = "DisplayString";
             listFields.DataSource = _allClients;
-            //listFields.Sorted = true;
         }
 
         private void RemoveField(SingleClient client)
@@ -240,9 +239,10 @@ namespace FTC_Timer_Display
             if (!_allClients.Contains(client)) return;
             listFields.DataSource = null;
             _allClients.Remove(client);
-            listFields.DisplayMember = "DisplayString";
+            _allClients.Sort();
             listFields.DataSource = _allClients;
-            //listFields.Sorted = true;
+            listFields.DisplayMember = "DisplayString";
+            listFields.SelectedIndex = 0;
         }
 
         private bool fieldExists(int fieldID)
@@ -447,7 +447,7 @@ namespace FTC_Timer_Display
             p.scrollSpeed = Properties.Settings.Default.ScoringScroll;
             if (PitData.sendClearData) p.clearData = true;
             PitData.sendClearData = false;
-            comms.BroadcastPitData(p);
+            if(comms != null) comms.BroadcastPitData(p);
         }
 
         private void ActivateNextButton()
@@ -623,10 +623,7 @@ namespace FTC_Timer_Display
                 }
                 else
                 {
-                    // This isn't working. For now, tell the user how to workaround.
-                    string msg = "This feature is bugged.\nClose the application and hold SHIFT while relaunching it to clear all fields.";
-                    MessageBox.Show(msg, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    //RemoveField(_selectedClient);
+                    RemoveField(_selectedClient);
                 }
             }
         }
@@ -702,6 +699,10 @@ namespace FTC_Timer_Display
             if (sender.Equals(linkToggleDisplay))
             {
                 display.Visible = !display.Visible;
+            }
+            else if (sender.Equals(linkFullscreen))
+            {
+                display.ChangeFullscreen();
             }
             else if (sender.Equals(linkReInit))
             {
