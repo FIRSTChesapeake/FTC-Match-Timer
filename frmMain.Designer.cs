@@ -59,7 +59,6 @@
             this.btnStop = new DevComponents.DotNetBar.ButtonX();
             this.btnReset = new DevComponents.DotNetBar.ButtonX();
             this.btnAdvance = new DevComponents.DotNetBar.ButtonX();
-            this.progressDisplay = new FTC_Timer_Display.PeriodProgressBar();
             this.btnTimeoutStart = new DevComponents.DotNetBar.ButtonX();
             this.btnTimeoutCancel = new DevComponents.DotNetBar.ButtonX();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
@@ -105,6 +104,7 @@
             this.displayTimer = new System.Windows.Forms.Timer(this.components);
             this.styleMgr = new DevComponents.DotNetBar.StyleManager(this.components);
             this.toolTipMgr = new DevComponents.DotNetBar.SuperTooltip();
+            this.progressDisplay = new FTC_Timer_Display.PeriodProgressBar();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableFieldControl.SuspendLayout();
@@ -577,15 +577,6 @@
             this.btnAdvance.TabIndex = 20;
             this.btnAdvance.Text = "Advance to\r\nNext Match\r\n(F2)";
             this.btnAdvance.Click += new System.EventHandler(this.FieldControlButtonsHandler);
-            // 
-            // progressDisplay
-            // 
-            this.tableFieldControl.SetColumnSpan(this.progressDisplay, 4);
-            this.progressDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.progressDisplay.Location = new System.Drawing.Point(3, 188);
-            this.progressDisplay.Name = "progressDisplay";
-            this.progressDisplay.Size = new System.Drawing.Size(619, 44);
-            this.progressDisplay.TabIndex = 21;
             // 
             // btnTimeoutStart
             // 
@@ -1156,6 +1147,15 @@
             // 
             this.toolTipMgr.DefaultTooltipSettings = new DevComponents.DotNetBar.SuperTooltipInfo("", "Turn off help in Misc Options", "", null, null, DevComponents.DotNetBar.eTooltipColor.Green);
             this.toolTipMgr.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
+            // 
+            // progressDisplay
+            // 
+            this.tableFieldControl.SetColumnSpan(this.progressDisplay, 4);
+            this.progressDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.progressDisplay.Location = new System.Drawing.Point(3, 188);
+            this.progressDisplay.Name = "progressDisplay";
+            this.progressDisplay.Size = new System.Drawing.Size(619, 44);
+            this.progressDisplay.TabIndex = 21;
             // 
             // frmMain
             // 

@@ -3,15 +3,51 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace FTC_Timer_Display
 {
-    public class SingleClient
+    //public static class ClientSorter : IComparer<SingleClient>
+    //{
+    //    public static int IComparer.Compare(SingleClient a, SingleClient b)
+    //    {
+    //        // Div ID first.
+    //        if (a.matchData.divID > b.matchData.divID) return 1;
+    //        if (a.matchData.divID < b.matchData.divID) return -1;
+
+    //        // Not fields
+    //        if (a.matchData.fieldID > b.matchData.fieldID) return 1;
+    //        if (a.matchData.fieldID < b.matchData.fieldID) return -1;
+    //        // they are the same? What?
+    //        return 0;
+    //    }
+    //}
+
+    public class SingleClient : IComparable
     {
         private System.Timers.Timer _timer = new System.Timers.Timer();
         private MatchData _data;
         private bool _isEnabled = true;
         private TimeoutData.SoundTypes _timeoutSounds = TimeoutData.SoundTypes.None;
+
+        
+        int IComparable.CompareTo(object otherObj)
+        {
+            try
+            {
+                SingleClient other = (SingleClient)otherObj;
+                // Div ID first.
+                if (this.matchData.divID > other.matchData.divID) return 1;
+                if (this.matchData.divID < other.matchData.divID) return -1;
+
+                // Not fields
+                if (this.matchData.fieldID > other.matchData.fieldID) return 1;
+                if (this.matchData.fieldID < other.matchData.fieldID) return -1;
+                // they are the same? What?
+                return 0;
+            }
+            catch { return 0; }
+        }
 
         public MatchData matchData
         {

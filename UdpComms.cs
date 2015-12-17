@@ -127,7 +127,7 @@ namespace FTC_Timer_Display
         public void BroadcastPitData(PitData data)
         {
             UdpContainer pack = new UdpContainer(UdpContainer.UdpPackageTypes.PitData, data);
-            int port = udpPortRecv;
+            int port = udpPortSend;
             IPEndPoint sendTo = new IPEndPoint(IPAddress.Broadcast, port);
             SendObject(pack, sendTo);
         }
