@@ -19,6 +19,7 @@ namespace FTC_Timer_Display
         UdpComms comms;
 
         frmDisplay display;
+        frmSettings settings;
 
         private DateTime _lastReceiveTime = DateTime.Now.AddMonths(-1);
 
@@ -40,46 +41,6 @@ namespace FTC_Timer_Display
             get
             {
                 return (SingleClient)listFields.SelectedItem;
-            }
-        }
-        public PitData.PitDataSelections pitDataSelection
-        {
-            get
-            {
-                if (rdoPitActive.Checked) return PitData.PitDataSelections.ActiveOnly;
-                if (rdoPitAll.Checked) return PitData.PitDataSelections.AllFields;
-                return PitData.PitDataSelections.Off;
-            }
-        }
-        public MatchData.SoundLocations soundLocation
-        {
-            get
-            {
-                if (this.initData.isServer)
-                {
-                    if (rdoSoundLocal.Checked) return MatchData.SoundLocations.Server;
-                    if (rdoSoundRemote.Checked) return MatchData.SoundLocations.Client;
-                }
-                else
-                {
-                    if (rdoSoundLocal.Checked) return MatchData.SoundLocations.Client;
-                    if (rdoSoundRemote.Checked) return MatchData.SoundLocations.Server;
-                }
-                return MatchData.SoundLocations.Off;
-            }
-            set
-            {
-                if (value == MatchData.SoundLocations.Off) rdoSoundOff.Checked = true;
-                else if (this.initData.isServer)
-                {
-                    if (value == MatchData.SoundLocations.Client) rdoSoundRemote.Checked = true;
-                    else if (value == MatchData.SoundLocations.Server) rdoSoundLocal.Checked = true;
-                }
-                else
-                {
-                    if (value == MatchData.SoundLocations.Server) rdoSoundRemote.Checked = true;
-                    else if (value == MatchData.SoundLocations.Client) rdoSoundLocal.Checked = true;
-                }
             }
         }
 
@@ -107,8 +68,6 @@ namespace FTC_Timer_Display
                     Debug.WriteLine(string.Format("Save String: {0}", sb.ToString()));
                     Properties.Settings.Default.FieldList = sb.ToString();
                 }
-                // Save the sould mode we're using.
-                Properties.Settings.Default.SoundLocation = (int)soundLocation;
             }
             else
             {
@@ -123,7 +82,15 @@ namespace FTC_Timer_Display
         {
             // Display config that relates to all the settings.
             lblMode.Text = initData.runType.ToString();
-            lblDivID.Text = initData.divID.ToString();
+            if (!initData.isMultiDivision)
+            {
+                lblDivID.Text = "No Divisions";
+                lblDivNameLabel.Text = "Event Name:";
+            }
+            else
+            {
+                lblDivID.Text = initData.divID.ToString();
+            }
             lblDivName.Text = initData.divName;
             // Load the help features
             chkShowHelp.Checked = Properties.Settings.Default.showHelp;
@@ -186,7 +153,7 @@ namespace FTC_Timer_Display
             if (initData.runType == InitialData.RunType.Server)
             {
                 lblFieldID.Text = "No Local Timer";
-                linkToggleDisplay.Enabled = false;
+                grpLocalTimer.Enabled = false;
             }
             else
             {
@@ -195,12 +162,8 @@ namespace FTC_Timer_Display
                 lblFieldID.Text = initData.fieldID.ToString();
                 AddField(initData.fieldID);
             }
-
-            // Select default sound setting based on init.
-            bool localSound = initData.isServer || initData.runType == InitialData.RunType.Local;
-            rdoSoundLocal.Checked = localSound;
-            rdoSoundRemote.Checked = !localSound;
-
+            // Init the settings window. - do this after we decide whether we need a display
+            settings = new frmSettings(ref this.initData, ref display);
             // Setup Comms if needed
             if (initData.runType != InitialData.RunType.Local)
             {
@@ -211,12 +174,6 @@ namespace FTC_Timer_Display
                     comms.ListenControl(true);
                 }
             }
-            // Only servers broadcast their pit displays
-            if (!initData.isServer)
-            {
-                rdoPitOff.Checked = true;
-                grpPit.Enabled = false;
-            }
         }
 
         private void AddField(int fieldID)
@@ -224,8 +181,7 @@ namespace FTC_Timer_Display
             if (fieldExists(fieldID)) return;
 
             listFields.DataSource = null;
-            bool startClientTimer = initData.isServer || initData.runType == InitialData.RunType.Local;
-            SingleClient client = new SingleClient(initData.divID, initData.divName, fieldID, sendFieldDataHandler, startClientTimer);
+            SingleClient client = new SingleClient(initData, fieldID, sendFieldDataHandler);
 
             client.matchData.matchType = _currentMatchType;
             _allClients.Add(client);
@@ -279,7 +235,7 @@ namespace FTC_Timer_Display
                     }
                     else if (comms != null)
                     {
-                        data.soundLocation = this.soundLocation;
+                        data.soundLocation = settings.soundLocation;
                         SingleClient c = (SingleClient)sender;
                         comms.BroadcastMatchData(data, c.RecvPort);
                     }
@@ -294,9 +250,9 @@ namespace FTC_Timer_Display
             if (data.soundPackage == null) return;
             bool shouldPlay = false;
             // If we're the server and sound should play on the server.
-            if (initData.isServer && soundLocation == MatchData.SoundLocations.Server) shouldPlay = true;
+            if (initData.isServer && settings.soundLocation == MatchData.SoundLocations.Server) shouldPlay = true;
             // If the package is for me (the client) and sound is set to play on the client.
-            else if (initData.isForMe(data) && soundLocation == MatchData.SoundLocations.Client) shouldPlay = true;
+            else if (initData.isForMe(data) && settings.soundLocation == MatchData.SoundLocations.Client) shouldPlay = true;
 
             if (shouldPlay) SoundGenerator.PlaySound(data.soundPackage);
         }
@@ -318,7 +274,7 @@ namespace FTC_Timer_Display
                     cboMatchType.SelectedItem = data.matchType;
                     numMatchNumberMajor.Value = data.matchNumberMajor;
                     numMatchNumberMinor.Value = data.matchNumberMinor;
-                    soundLocation = data.soundLocation;
+                    settings.soundLocation = data.soundLocation;
                     display.SetDisplay(data);
                     _lastReceiveTime = DateTime.Now;
                     lblLastSvrIP.Text = "Remote Server";
@@ -381,9 +337,30 @@ namespace FTC_Timer_Display
                     lblListenStatus.Text = "Controlled Locally";
                 }
             }
+            // Show the display State
+            if (display == null)
+            {
+                lblDisplayStatus.Text = "No Display";
+            }
+            else if (!display.Visible)
+            {
+                lblDisplayStatus.Text = "Hidden";
+            }
+            else if (display.FormBorderStyle == System.Windows.Forms.FormBorderStyle.None)
+            {
+                lblDisplayStatus.Text = "Fullscreen";
+            }
+            else
+            {
+                lblDisplayStatus.Text = "Windowed";
+            }
+
             // Set the "last received" display
             lblLastRecvTime.Text = _lastReceiveTime.ToLongTimeString();
-            if (_isReceiving) picRcvTime.Image = Properties.Resources.indicator_green;
+            if (_isReceiving)
+            {
+                picRcvTime.Image = Properties.Resources.indicator_green;
+            }
             else
             {
                 picRcvTime.Image = Properties.Resources.indicator_red;
@@ -395,7 +372,7 @@ namespace FTC_Timer_Display
             // Set the header
             lblFieldHead.Text = _selectedClient.DisplayString;
             // Allow user to edit field if it's not running
-            cboMatchType.Enabled = _selectedClient.canBeChanged;
+            cboMatchType.Enabled = !_anyRunningClients;
             numMatchNumberMajor.Enabled = _selectedClient.canBeChanged;
             numMatchNumberMinor.Enabled = _selectedClient.canBeChanged && MatchData.TypeUsesMinor(_currentMatchType);
             // Set the readonly values
@@ -410,10 +387,9 @@ namespace FTC_Timer_Display
             btnAdvance.Enabled = !_selectedClient.matchData.activeMatch;
             btnTimeoutStart.Enabled = _selectedClient.matchData.isIdle;
             btnTimeoutCancel.Enabled = _selectedClient.matchData.matchStatus == MatchData.MatchStatus.Timeout;
-            linkSetMatchTimes.Enabled = _selectedClient.matchData.isIdle;
-            // Enable / Disable sound settings
-            grpSoundOptions.Enabled = initData.isServer || initData.runType == InitialData.RunType.Local;
-            rdoSoundRemote.Enabled = initData.isServer;
+            // Allow config windows when no clients are running
+            linkSetMatchTimes.Enabled = !_anyRunningClients;
+            linkSettings.Enabled = !_anyRunningClients;
             // Allow the user to pick a different field when no match is running
             bool canSelectField = _selectedClient == null || !_selectedClient.matchData.activeMatch;
             listFields.Enabled = canSelectField && initData.isServer;
@@ -430,9 +406,9 @@ namespace FTC_Timer_Display
         private void SendPitData()
         {
             if (_selectedClient == null) return;
-            if (pitDataSelection == PitData.PitDataSelections.Off) return;
+            if (settings.pitDataSelection == PitData.PitDataSelections.Off) return;
             List<MatchData> list = new List<MatchData>();
-            if (pitDataSelection == PitData.PitDataSelections.ActiveOnly)
+            if (settings.pitDataSelection == PitData.PitDataSelections.ActiveOnly)
             {
                 list.Add(_selectedClient.matchData);
             }
@@ -441,7 +417,7 @@ namespace FTC_Timer_Display
                 foreach (SingleClient c in _allClients) list.Add(c.matchData);
             }
             PitData p = new PitData(list);
-            p.pitDataSelection = this.pitDataSelection;
+            p.pitDataSelection = settings.pitDataSelection;
             p.activeField = _selectedClient.matchData.fieldID;
             p.scoringAddress = Properties.Settings.Default.ScoringServerLocation;
             p.scrollSpeed = Properties.Settings.Default.ScoringScroll;
@@ -487,11 +463,9 @@ namespace FTC_Timer_Display
 
         private void MatchTypeChangeHandler(object sender, EventArgs e)
         {
-            foreach (SingleClient c in _allClients)
-            {
-                c.matchData.matchType = _currentMatchType;
-            }
+            // Start the match major numbers over.
             numMatchNumberMajor.Value = 1;
+            // If we're using minors for this type, set that default
             if(MatchData.TypeUsesMinor(_currentMatchType) && tableFieldControl.Enabled){
                 numMatchNumberMinor.Value = 1;
                 numMatchNumberMinor.Minimum = 1;
@@ -500,6 +474,17 @@ namespace FTC_Timer_Display
             {
                 numMatchNumberMinor.Minimum = 0;
                 numMatchNumberMinor.Value = 0;
+            }
+            // Tell all fields about the new match type
+            foreach (SingleClient c in _allClients)
+            {
+                c.matchData.matchType = _currentMatchType;
+            }
+            // Select the first field again.
+            if (_selectedClient != null)
+            {
+                listFields.SelectedIndex = 0;
+                SetMatchNumber();
             }
         }
 
@@ -558,6 +543,14 @@ namespace FTC_Timer_Display
         private void AutoAdvanceMatch()
         {
             if(_selectedClient == null) return;
+            // If timeouts are available and it's enabled, call an automatic timeout on the current field.
+            if(Properties.Settings.Default.autoElimTimeouts && MatchTimingData.matchTypeAllowsTimeout(_currentMatchType))
+            {
+                // Only start the timeout if the field is idle - aka not already running a timeout.
+                if(_selectedClient.matchData.isIdle)
+                    _selectedClient.StartTimeout(SingleClient.TimeoutData.defaultEventTimeout);
+            }
+
             if (_allClients.Count == 1)
             {
                 // Do nothing, we're staying right here since there is only 1 field.
@@ -634,7 +627,7 @@ namespace FTC_Timer_Display
             if (comms.isListening)
             {
                 comms.ListenControl(false);
-                soundLocation = MatchData.SoundLocations.Client;
+                settings.soundLocation = MatchData.SoundLocations.Client;
             }
             else
             {
@@ -646,14 +639,21 @@ namespace FTC_Timer_Display
             }
         }
 
+        private bool _anyRunningClients
+        {
+            get
+            {
+                foreach (SingleClient c in _allClients) if (!c.matchData.isIdle) return true;
+                return false;
+            }
+        }
+
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 // Prevent the user from closing the app while a match is running.
-                bool anyRunningClients = false;
-                foreach (SingleClient c in _allClients) if (!c.matchData.isIdle) anyRunningClients = true;
-                if (anyRunningClients)
+                if (_anyRunningClients)
                 {
                     if (ModifierKeys != Keys.Shift)
                     {
@@ -685,7 +685,7 @@ namespace FTC_Timer_Display
             if (!rb.Checked) return;
             foreach (SingleClient c in _allClients)
             {
-                c.matchData.soundLocation = this.soundLocation;
+                c.matchData.soundLocation = settings.soundLocation;
             }
         }
 
@@ -696,23 +696,9 @@ namespace FTC_Timer_Display
 
         private void HandleOptionsLinkLabels(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (sender.Equals(linkToggleDisplay))
+            if (sender.Equals(linkSettings))
             {
-                display.Visible = !display.Visible;
-            }
-            else if (sender.Equals(linkFullscreen))
-            {
-                display.ChangeFullscreen();
-            }
-            else if (sender.Equals(linkReInit))
-            {
-                int SettingsError = 0;
-                InitialData data = InitialData.GetInitialData(initData, out SettingsError);
-                if (data != null && SettingsError == 0)
-                {
-                    initData = data;
-                    initData.SaveSettings();
-                }
+                settings.Visible = true;
             }
             else if (sender.Equals(linkSetMatchTimes))
             {
@@ -818,6 +804,12 @@ namespace FTC_Timer_Display
             Properties.Settings.Default.showHelp = chkShowHelp.Checked;
             Properties.Settings.Default.Save();
             toolTipMgr.Enabled = Properties.Settings.Default.showHelp;
+        }
+
+        private void btnChangeDisplayState_Click(object sender, EventArgs e)
+        {
+            if (display == null) return;
+            display.ChangeView();
         }
     }
 }

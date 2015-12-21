@@ -118,15 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <metadata name="toolTipMgr.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>236, 17</value>
-  </metadata>
-  <metadata name="displayTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <metadata name="styleMgr.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>137, 17</value>
-  </metadata>
-  <metadata name="toolTipMgr.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>236, 17</value>
-  </metadata>
+  <data name="rdoSoundRemote.SuperTooltip" xml:space="preserve">
+    <value>Sound will be played elsewhere.
+For server configurations, this setting instructs the clients to play the game sounds.
+For client configurations, this setting indicates that the server is responsible for playing game sounds.</value>
+  </data>
+  <data name="chkAutoElimTimeout.SuperTooltip" xml:space="preserve">
+    <value>If enabled during eliminations, the system will automatically start an Event Timeout on the previous field when the user Advances to the next match.
+Users should not click the Advance to Next Match button (F2) until the referees signal field reset.</value>
+  </data>
 </root>

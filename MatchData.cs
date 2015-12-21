@@ -9,9 +9,11 @@ namespace FTC_Timer_Display
     [Serializable]
     public class MatchData
     {
-        public int divID = 0;
+        private InitialData _initData = null;
+
+        public int divID { get { return _initData.divID; } }
+        public string divisionName { get { return _initData.divName; } }
         public int fieldID = 0;
-        public string divisionName = "";
         public MatchTypes matchType = MatchTypes.Unknown;
         public MatchPeriods matchPeriod = MatchPeriods.NotStarted;
         public MatchStatus matchStatus = MatchStatus.Stopped;
@@ -29,14 +31,7 @@ namespace FTC_Timer_Display
 
         public TimeSpan timerValue = new TimeSpan();
 
-        public bool isDivisions
-        {
-            get
-            {
-                if (divID == 0) return false;
-                return true;
-            }
-        }
+        public bool isMultiDivision { get { return _initData.isMultiDivision; } }
 
         public int ticksPassed
         {
@@ -63,11 +58,10 @@ namespace FTC_Timer_Display
 
         public MatchData() { }
 
-        public MatchData(int div, string divName, int field)
+        public MatchData(InitialData initData, int field)
         {
-            divID = div;
+            _initData = initData;
             fieldID = field;
-            divisionName = divName;
         }
 
         public void SetMatchTimer(MatchTypes type, int major, int minor, TimeSpan timer, MatchPeriods period, MatchStatus status)
@@ -113,6 +107,14 @@ namespace FTC_Timer_Display
             Client = 2
         }
 
+        public enum EventTypes
+        {
+            Qualifier = 0,
+            Meet = 1,
+            Championship = 2,
+            Other = 9
+        }
+
         public bool usesMinor
         {
             get
@@ -148,7 +150,7 @@ namespace FTC_Timer_Display
             get
             {
                 StringBuilder sb = new StringBuilder();
-                if (this.isDivisions)
+                if (this.isMultiDivision)
                 {
                     if (this.divisionName != "")
                     {
@@ -159,6 +161,16 @@ namespace FTC_Timer_Display
                     {
                         sb.Append("Division ");
                         sb.Append(this.divID);
+                        sb.Append(" ");
+                    }
+                }
+                else if (this.divisionName != "")
+                {
+                    sb.Append(this.divisionName);
+                    sb.Append(" ");
+                    if (this._initData.eventType != EventTypes.Other)
+                    {
+                        sb.Append(this._initData.eventType.ToString());
                         sb.Append(" ");
                     }
                 }

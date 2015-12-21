@@ -32,8 +32,8 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblDivIDLabel = new System.Windows.Forms.Label();
+            this.lblDivNameLabel = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.lblMode = new System.Windows.Forms.Label();
             this.lblDivID = new System.Windows.Forms.Label();
@@ -61,6 +61,7 @@
             this.btnAdvance = new DevComponents.DotNetBar.ButtonX();
             this.btnTimeoutStart = new DevComponents.DotNetBar.ButtonX();
             this.btnTimeoutCancel = new DevComponents.DotNetBar.ButtonX();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.btnCycleListener = new DevComponents.DotNetBar.ButtonX();
             this.label5 = new System.Windows.Forms.Label();
@@ -72,27 +73,14 @@
             this.lblLastRecvTime = new System.Windows.Forms.Label();
             this.picRcvTime = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.grpSoundOptions = new System.Windows.Forms.GroupBox();
-            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.rdoSoundOff = new System.Windows.Forms.RadioButton();
-            this.rdoSoundLocal = new System.Windows.Forms.RadioButton();
-            this.rdoSoundRemote = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.chkLocalMute = new System.Windows.Forms.CheckBox();
             this.chkShowHelp = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
-            this.linkToggleDisplay = new System.Windows.Forms.LinkLabel();
-            this.linkFullscreen = new System.Windows.Forms.LinkLabel();
             this.linkSetMatchTimes = new System.Windows.Forms.LinkLabel();
-            this.linkReInit = new System.Windows.Forms.LinkLabel();
+            this.linkSettings = new System.Windows.Forms.LinkLabel();
             this.linkSoundTest = new System.Windows.Forms.LinkLabel();
-            this.grpPit = new System.Windows.Forms.GroupBox();
-            this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
-            this.rdoPitOff = new System.Windows.Forms.RadioButton();
-            this.rdoPitActive = new System.Windows.Forms.RadioButton();
-            this.rdoPitAll = new System.Windows.Forms.RadioButton();
-            this.linkSetScoring = new System.Windows.Forms.LinkLabel();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
@@ -105,26 +93,31 @@
             this.displayTimer = new System.Windows.Forms.Timer(this.components);
             this.styleMgr = new DevComponents.DotNetBar.StyleManager(this.components);
             this.toolTipMgr = new DevComponents.DotNetBar.SuperTooltip();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.grpLocalTimer = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblDisplayStatus = new System.Windows.Forms.Label();
+            this.btnChangeDisplayState = new DevComponents.DotNetBar.ButtonX();
             this.progressDisplay = new FTC_Timer_Display.PeriodProgressBar();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableFieldControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMatchNumberMajor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMatchNumberMinor)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picRcvTime)).BeginInit();
             this.tableLayoutPanel3.SuspendLayout();
-            this.grpSoundOptions.SuspendLayout();
-            this.flowLayoutPanel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
             this.flowLayoutPanel4.SuspendLayout();
-            this.grpPit.SuspendLayout();
-            this.flowLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLicense)).BeginInit();
             this.tableFiledListMgmt.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.grpLocalTimer.SuspendLayout();
+            this.tableLayoutPanel6.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -156,8 +149,8 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Controls.Add(this.label1, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.label2, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.label3, 0, 3);
+            this.tableLayoutPanel2.Controls.Add(this.lblDivIDLabel, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.lblDivNameLabel, 0, 3);
             this.tableLayoutPanel2.Controls.Add(this.label4, 0, 4);
             this.tableLayoutPanel2.Controls.Add(this.lblMode, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.lblDivID, 1, 2);
@@ -188,29 +181,29 @@
             this.label1.Text = "System Mode:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // label2
+            // lblDivIDLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(3, 72);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(92, 25);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Division ID:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblDivIDLabel.AutoSize = true;
+            this.lblDivIDLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblDivIDLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDivIDLabel.Location = new System.Drawing.Point(3, 72);
+            this.lblDivIDLabel.Name = "lblDivIDLabel";
+            this.lblDivIDLabel.Size = new System.Drawing.Size(92, 25);
+            this.lblDivIDLabel.TabIndex = 1;
+            this.lblDivIDLabel.Text = "Division ID:";
+            this.lblDivIDLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // label3
+            // lblDivNameLabel
             // 
-            this.label3.AutoSize = true;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(3, 97);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(92, 25);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Division Name:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblDivNameLabel.AutoSize = true;
+            this.lblDivNameLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblDivNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDivNameLabel.Location = new System.Drawing.Point(3, 97);
+            this.lblDivNameLabel.Name = "lblDivNameLabel";
+            this.lblDivNameLabel.Size = new System.Drawing.Size(92, 25);
+            this.lblDivNameLabel.TabIndex = 2;
+            this.lblDivNameLabel.Text = "Division Name:";
+            this.lblDivNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label4
             // 
@@ -319,6 +312,7 @@
             this.tableFieldControl.Controls.Add(this.progressDisplay, 0, 6);
             this.tableFieldControl.Controls.Add(this.btnTimeoutStart, 0, 9);
             this.tableFieldControl.Controls.Add(this.btnTimeoutCancel, 1, 9);
+            this.tableFieldControl.Controls.Add(this.pictureBox1, 3, 9);
             this.tableFieldControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableFieldControl.Location = new System.Drawing.Point(273, 156);
             this.tableFieldControl.Name = "tableFieldControl";
@@ -611,6 +605,17 @@
             this.btnTimeoutCancel.Text = "Cancel Timeout";
             this.btnTimeoutCancel.Click += new System.EventHandler(this.HandleTimeoutButtons);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox1.Image = global::FTC_Timer_Display.Properties.Resources.vaflogo;
+            this.pictureBox1.Location = new System.Drawing.Point(471, 378);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(151, 71);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 25;
+            this.pictureBox1.TabStop = false;
+            // 
             // tableLayoutPanel4
             // 
             this.tableLayoutPanel4.ColumnCount = 5;
@@ -753,84 +758,25 @@
             this.tableLayoutPanel3.ColumnCount = 2;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Controls.Add(this.grpSoundOptions, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.groupBox1, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.flowLayoutPanel4, 1, 1);
-            this.tableLayoutPanel3.Controls.Add(this.grpPit, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.groupBox1, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.groupBox2, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.grpLocalTimer, 1, 1);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 385);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 2;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(264, 223);
             this.tableLayoutPanel3.TabIndex = 6;
-            // 
-            // grpSoundOptions
-            // 
-            this.grpSoundOptions.Controls.Add(this.flowLayoutPanel2);
-            this.grpSoundOptions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpSoundOptions.Location = new System.Drawing.Point(3, 3);
-            this.grpSoundOptions.Name = "grpSoundOptions";
-            this.grpSoundOptions.Size = new System.Drawing.Size(126, 127);
-            this.grpSoundOptions.TabIndex = 0;
-            this.grpSoundOptions.TabStop = false;
-            this.grpSoundOptions.Text = "Sound";
-            // 
-            // flowLayoutPanel2
-            // 
-            this.flowLayoutPanel2.Controls.Add(this.rdoSoundOff);
-            this.flowLayoutPanel2.Controls.Add(this.rdoSoundLocal);
-            this.flowLayoutPanel2.Controls.Add(this.rdoSoundRemote);
-            this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 16);
-            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(120, 108);
-            this.flowLayoutPanel2.TabIndex = 0;
-            // 
-            // rdoSoundOff
-            // 
-            this.rdoSoundOff.AutoSize = true;
-            this.rdoSoundOff.Checked = true;
-            this.rdoSoundOff.Location = new System.Drawing.Point(3, 3);
-            this.rdoSoundOff.Name = "rdoSoundOff";
-            this.rdoSoundOff.Size = new System.Drawing.Size(39, 17);
-            this.rdoSoundOff.TabIndex = 0;
-            this.rdoSoundOff.TabStop = true;
-            this.rdoSoundOff.Text = "Off";
-            this.rdoSoundOff.UseVisualStyleBackColor = true;
-            this.rdoSoundOff.CheckedChanged += new System.EventHandler(this.SoundSettingChangeHandler);
-            // 
-            // rdoSoundLocal
-            // 
-            this.rdoSoundLocal.AutoSize = true;
-            this.rdoSoundLocal.Location = new System.Drawing.Point(3, 26);
-            this.rdoSoundLocal.Name = "rdoSoundLocal";
-            this.rdoSoundLocal.Size = new System.Drawing.Size(58, 17);
-            this.rdoSoundLocal.TabIndex = 1;
-            this.rdoSoundLocal.Text = "Locally";
-            this.rdoSoundLocal.UseVisualStyleBackColor = true;
-            this.rdoSoundLocal.CheckedChanged += new System.EventHandler(this.SoundSettingChangeHandler);
-            // 
-            // rdoSoundRemote
-            // 
-            this.rdoSoundRemote.AutoSize = true;
-            this.rdoSoundRemote.Location = new System.Drawing.Point(3, 49);
-            this.rdoSoundRemote.Name = "rdoSoundRemote";
-            this.rdoSoundRemote.Size = new System.Drawing.Size(69, 17);
-            this.rdoSoundRemote.TabIndex = 2;
-            this.rdoSoundRemote.Text = "Remotely";
-            this.rdoSoundRemote.UseVisualStyleBackColor = true;
-            this.rdoSoundRemote.CheckedChanged += new System.EventHandler(this.SoundSettingChangeHandler);
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.flowLayoutPanel3);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(3, 136);
+            this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(126, 84);
+            this.groupBox1.Size = new System.Drawing.Size(126, 105);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Misc Options";
@@ -843,7 +789,7 @@
             this.flowLayoutPanel3.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 16);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(120, 65);
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(120, 86);
             this.flowLayoutPanel3.TabIndex = 0;
             // 
             // chkLocalMute
@@ -870,45 +816,20 @@
             // 
             // flowLayoutPanel4
             // 
-            this.flowLayoutPanel4.Controls.Add(this.linkToggleDisplay);
-            this.flowLayoutPanel4.Controls.Add(this.linkFullscreen);
             this.flowLayoutPanel4.Controls.Add(this.linkSetMatchTimes);
-            this.flowLayoutPanel4.Controls.Add(this.linkReInit);
+            this.flowLayoutPanel4.Controls.Add(this.linkSettings);
             this.flowLayoutPanel4.Controls.Add(this.linkSoundTest);
             this.flowLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel4.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel4.Location = new System.Drawing.Point(135, 136);
+            this.flowLayoutPanel4.Location = new System.Drawing.Point(3, 16);
             this.flowLayoutPanel4.Name = "flowLayoutPanel4";
-            this.flowLayoutPanel4.Size = new System.Drawing.Size(126, 84);
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(120, 86);
             this.flowLayoutPanel4.TabIndex = 5;
-            // 
-            // linkToggleDisplay
-            // 
-            this.linkToggleDisplay.AutoSize = true;
-            this.linkToggleDisplay.Location = new System.Drawing.Point(3, 0);
-            this.linkToggleDisplay.Name = "linkToggleDisplay";
-            this.linkToggleDisplay.Size = new System.Drawing.Size(77, 13);
-            this.toolTipMgr.SetSuperTooltip(this.linkToggleDisplay, new DevComponents.DotNetBar.SuperTooltipInfo("Toggle Display", "Turn off help in Misc Options", "Show / Hide the timer display window.", null, null, DevComponents.DotNetBar.eTooltipColor.Green));
-            this.linkToggleDisplay.TabIndex = 0;
-            this.linkToggleDisplay.TabStop = true;
-            this.linkToggleDisplay.Text = "Toggle Display";
-            this.linkToggleDisplay.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.HandleOptionsLinkLabels);
-            // 
-            // linkFullscreen
-            // 
-            this.linkFullscreen.AutoSize = true;
-            this.linkFullscreen.Location = new System.Drawing.Point(3, 13);
-            this.linkFullscreen.Name = "linkFullscreen";
-            this.linkFullscreen.Size = new System.Drawing.Size(92, 13);
-            this.linkFullscreen.TabIndex = 4;
-            this.linkFullscreen.TabStop = true;
-            this.linkFullscreen.Text = "Display Fullscreen";
-            this.linkFullscreen.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.HandleOptionsLinkLabels);
             // 
             // linkSetMatchTimes
             // 
             this.linkSetMatchTimes.AutoSize = true;
-            this.linkSetMatchTimes.Location = new System.Drawing.Point(3, 26);
+            this.linkSetMatchTimes.Location = new System.Drawing.Point(3, 0);
             this.linkSetMatchTimes.Name = "linkSetMatchTimes";
             this.linkSetMatchTimes.Size = new System.Drawing.Size(92, 13);
             this.toolTipMgr.SetSuperTooltip(this.linkSetMatchTimes, new DevComponents.DotNetBar.SuperTooltipInfo("Edit Match Timing", "Turn off help in Misc Options", "Allows you to set a custom match length as well as custom lengths for all periods" +
@@ -918,23 +839,21 @@
             this.linkSetMatchTimes.Text = "Edit Match Timing";
             this.linkSetMatchTimes.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.HandleOptionsLinkLabels);
             // 
-            // linkReInit
+            // linkSettings
             // 
-            this.linkReInit.AutoSize = true;
-            this.linkReInit.Enabled = false;
-            this.linkReInit.Location = new System.Drawing.Point(3, 39);
-            this.linkReInit.Name = "linkReInit";
-            this.linkReInit.Size = new System.Drawing.Size(65, 13);
-            this.linkReInit.TabIndex = 1;
-            this.linkReInit.TabStop = true;
-            this.linkReInit.Text = "Reconfigure";
-            this.linkReInit.Visible = false;
-            this.linkReInit.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.HandleOptionsLinkLabels);
+            this.linkSettings.AutoSize = true;
+            this.linkSettings.Location = new System.Drawing.Point(3, 13);
+            this.linkSettings.Name = "linkSettings";
+            this.linkSettings.Size = new System.Drawing.Size(45, 13);
+            this.linkSettings.TabIndex = 1;
+            this.linkSettings.TabStop = true;
+            this.linkSettings.Text = "Settings";
+            this.linkSettings.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.HandleOptionsLinkLabels);
             // 
             // linkSoundTest
             // 
             this.linkSoundTest.AutoSize = true;
-            this.linkSoundTest.Location = new System.Drawing.Point(3, 52);
+            this.linkSoundTest.Location = new System.Drawing.Point(3, 26);
             this.linkSoundTest.Name = "linkSoundTest";
             this.linkSoundTest.Size = new System.Drawing.Size(67, 13);
             this.toolTipMgr.SetSuperTooltip(this.linkSoundTest, new DevComponents.DotNetBar.SuperTooltipInfo("Test Sounds", "Turn off help in Misc Options", "Allows testing of loaded sound resources locally.\r\nThis is not affected by the So" +
@@ -943,81 +862,6 @@
             this.linkSoundTest.TabStop = true;
             this.linkSoundTest.Text = "Test Sounds";
             this.linkSoundTest.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.HandleOptionsLinkLabels);
-            // 
-            // grpPit
-            // 
-            this.grpPit.Controls.Add(this.flowLayoutPanel5);
-            this.grpPit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpPit.Location = new System.Drawing.Point(135, 3);
-            this.grpPit.Name = "grpPit";
-            this.grpPit.Size = new System.Drawing.Size(126, 127);
-            this.grpPit.TabIndex = 6;
-            this.grpPit.TabStop = false;
-            this.grpPit.Text = "Pit Display";
-            // 
-            // flowLayoutPanel5
-            // 
-            this.flowLayoutPanel5.Controls.Add(this.rdoPitOff);
-            this.flowLayoutPanel5.Controls.Add(this.rdoPitActive);
-            this.flowLayoutPanel5.Controls.Add(this.rdoPitAll);
-            this.flowLayoutPanel5.Controls.Add(this.linkSetScoring);
-            this.flowLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel5.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel5.Location = new System.Drawing.Point(3, 16);
-            this.flowLayoutPanel5.Name = "flowLayoutPanel5";
-            this.flowLayoutPanel5.Size = new System.Drawing.Size(120, 108);
-            this.flowLayoutPanel5.TabIndex = 0;
-            // 
-            // rdoPitOff
-            // 
-            this.rdoPitOff.AutoSize = true;
-            this.rdoPitOff.Location = new System.Drawing.Point(3, 3);
-            this.rdoPitOff.Name = "rdoPitOff";
-            this.rdoPitOff.Size = new System.Drawing.Size(39, 17);
-            this.toolTipMgr.SetSuperTooltip(this.rdoPitOff, new DevComponents.DotNetBar.SuperTooltipInfo("Pit Display: Off", "Turn off help in Misc Options", "Turns off the pit display.\r\nNo pit display information will be transmitted.", null, null, DevComponents.DotNetBar.eTooltipColor.Green));
-            this.rdoPitOff.TabIndex = 0;
-            this.rdoPitOff.Text = "Off";
-            this.rdoPitOff.UseVisualStyleBackColor = true;
-            this.rdoPitOff.CheckedChanged += new System.EventHandler(this.pitDataSelectionHandler);
-            // 
-            // rdoPitActive
-            // 
-            this.rdoPitActive.AutoSize = true;
-            this.rdoPitActive.Checked = true;
-            this.rdoPitActive.Location = new System.Drawing.Point(3, 26);
-            this.rdoPitActive.Name = "rdoPitActive";
-            this.rdoPitActive.Size = new System.Drawing.Size(79, 17);
-            this.toolTipMgr.SetSuperTooltip(this.rdoPitActive, new DevComponents.DotNetBar.SuperTooltipInfo("Pit Display: Active Only", "Turn off help in Misc Options", "The server will only transmit the selected field to the pit display.", null, null, DevComponents.DotNetBar.eTooltipColor.Green));
-            this.rdoPitActive.TabIndex = 1;
-            this.rdoPitActive.TabStop = true;
-            this.rdoPitActive.Text = "Active Only";
-            this.rdoPitActive.UseVisualStyleBackColor = true;
-            this.rdoPitActive.CheckedChanged += new System.EventHandler(this.pitDataSelectionHandler);
-            // 
-            // rdoPitAll
-            // 
-            this.rdoPitAll.AutoSize = true;
-            this.rdoPitAll.Location = new System.Drawing.Point(3, 49);
-            this.rdoPitAll.Name = "rdoPitAll";
-            this.rdoPitAll.Size = new System.Drawing.Size(66, 17);
-            this.toolTipMgr.SetSuperTooltip(this.rdoPitAll, new DevComponents.DotNetBar.SuperTooltipInfo("Pit Display: All Fields", "Turn off help in Misc Options", "The server will transmit all active fields to the pit display.", null, null, DevComponents.DotNetBar.eTooltipColor.Green));
-            this.rdoPitAll.TabIndex = 2;
-            this.rdoPitAll.Text = "All Fields";
-            this.rdoPitAll.UseVisualStyleBackColor = true;
-            this.rdoPitAll.CheckedChanged += new System.EventHandler(this.pitDataSelectionHandler);
-            // 
-            // linkSetScoring
-            // 
-            this.linkSetScoring.AutoSize = true;
-            this.linkSetScoring.Location = new System.Drawing.Point(3, 69);
-            this.linkSetScoring.Name = "linkSetScoring";
-            this.linkSetScoring.Size = new System.Drawing.Size(96, 13);
-            this.toolTipMgr.SetSuperTooltip(this.linkSetScoring, new DevComponents.DotNetBar.SuperTooltipInfo("Set Scoring Server", "Turn off help in Misc Options", "Set the IP of the Scoring Server so the Pit Displays know where to retrieve the m" +
-            "atch data.\r\n(This will depreciate eventually.)", null, null, DevComponents.DotNetBar.eTooltipColor.Green));
-            this.linkSetScoring.TabIndex = 3;
-            this.linkSetScoring.TabStop = true;
-            this.linkSetScoring.Text = "Set Scoring Server";
-            this.linkSetScoring.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkSetScoring_LinkClicked);
             // 
             // tableLayoutPanel5
             // 
@@ -1161,6 +1005,69 @@
             this.toolTipMgr.DefaultTooltipSettings = new DevComponents.DotNetBar.SuperTooltipInfo("", "Turn off help in Misc Options", "", null, null, DevComponents.DotNetBar.eTooltipColor.Green);
             this.toolTipMgr.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.flowLayoutPanel4);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Location = new System.Drawing.Point(135, 3);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(126, 105);
+            this.groupBox2.TabIndex = 5;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Actions";
+            // 
+            // grpLocalTimer
+            // 
+            this.grpLocalTimer.Controls.Add(this.tableLayoutPanel6);
+            this.grpLocalTimer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grpLocalTimer.Location = new System.Drawing.Point(135, 114);
+            this.grpLocalTimer.Name = "grpLocalTimer";
+            this.grpLocalTimer.Size = new System.Drawing.Size(126, 106);
+            this.grpLocalTimer.TabIndex = 6;
+            this.grpLocalTimer.TabStop = false;
+            this.grpLocalTimer.Text = "Local Timer Display";
+            // 
+            // tableLayoutPanel6
+            // 
+            this.tableLayoutPanel6.ColumnCount = 1;
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel6.Controls.Add(this.lblDisplayStatus, 0, 0);
+            this.tableLayoutPanel6.Controls.Add(this.btnChangeDisplayState, 0, 1);
+            this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 16);
+            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
+            this.tableLayoutPanel6.RowCount = 2;
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(120, 87);
+            this.tableLayoutPanel6.TabIndex = 0;
+            // 
+            // lblDisplayStatus
+            // 
+            this.lblDisplayStatus.AutoSize = true;
+            this.lblDisplayStatus.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblDisplayStatus.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblDisplayStatus.Location = new System.Drawing.Point(3, 0);
+            this.lblDisplayStatus.Name = "lblDisplayStatus";
+            this.lblDisplayStatus.Size = new System.Drawing.Size(114, 25);
+            this.lblDisplayStatus.TabIndex = 0;
+            this.lblDisplayStatus.Text = "label2";
+            this.lblDisplayStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnChangeDisplayState
+            // 
+            this.btnChangeDisplayState.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnChangeDisplayState.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnChangeDisplayState.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnChangeDisplayState.Location = new System.Drawing.Point(3, 28);
+            this.btnChangeDisplayState.Name = "btnChangeDisplayState";
+            this.btnChangeDisplayState.Size = new System.Drawing.Size(114, 41);
+            this.btnChangeDisplayState.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnChangeDisplayState.TabIndex = 1;
+            this.btnChangeDisplayState.Text = "Change\r\nDisplay Status";
+            this.btnChangeDisplayState.Click += new System.EventHandler(this.btnChangeDisplayState_Click);
+            // 
             // progressDisplay
             // 
             this.tableFieldControl.SetColumnSpan(this.progressDisplay, 4);
@@ -1190,26 +1097,25 @@
             this.tableFieldControl.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMatchNumberMajor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMatchNumberMinor)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picRcvTime)).EndInit();
             this.tableLayoutPanel3.ResumeLayout(false);
-            this.grpSoundOptions.ResumeLayout(false);
-            this.flowLayoutPanel2.ResumeLayout(false);
-            this.flowLayoutPanel2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.flowLayoutPanel3.ResumeLayout(false);
             this.flowLayoutPanel3.PerformLayout();
             this.flowLayoutPanel4.ResumeLayout(false);
             this.flowLayoutPanel4.PerformLayout();
-            this.grpPit.ResumeLayout(false);
-            this.flowLayoutPanel5.ResumeLayout(false);
-            this.flowLayoutPanel5.PerformLayout();
             this.tableLayoutPanel5.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLicense)).EndInit();
             this.tableFiledListMgmt.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.grpLocalTimer.ResumeLayout(false);
+            this.tableLayoutPanel6.ResumeLayout(false);
+            this.tableLayoutPanel6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1219,8 +1125,8 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblDivIDLabel;
+        private System.Windows.Forms.Label lblDivNameLabel;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lblMode;
         private System.Windows.Forms.Label lblDivID;
@@ -1258,17 +1164,11 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label lblLastSvrIP;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.GroupBox grpSoundOptions;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
-        private System.Windows.Forms.RadioButton rdoSoundOff;
-        private System.Windows.Forms.RadioButton rdoSoundLocal;
-        private System.Windows.Forms.RadioButton rdoSoundRemote;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
         private System.Windows.Forms.CheckBox chkLocalMute;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel4;
-        private System.Windows.Forms.LinkLabel linkToggleDisplay;
-        private System.Windows.Forms.LinkLabel linkReInit;
+        private System.Windows.Forms.LinkLabel linkSettings;
         private System.Windows.Forms.LinkLabel linkSetMatchTimes;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.TableLayoutPanel tableFiledListMgmt;
@@ -1280,19 +1180,18 @@
         private DevComponents.DotNetBar.LabelX labelX1;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.PictureBox picLicense;
-        private System.Windows.Forms.GroupBox grpPit;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel5;
-        private System.Windows.Forms.RadioButton rdoPitOff;
-        private System.Windows.Forms.RadioButton rdoPitActive;
-        private System.Windows.Forms.RadioButton rdoPitAll;
-        private System.Windows.Forms.LinkLabel linkSetScoring;
         private DevComponents.DotNetBar.LabelX lblVer;
         private DevComponents.DotNetBar.ButtonX btnTimeoutStart;
         private DevComponents.DotNetBar.ButtonX btnTimeoutCancel;
         private System.Windows.Forms.CheckBox chkShowHelp;
         private DevComponents.DotNetBar.SuperTooltip toolTipMgr;
         private System.Windows.Forms.LinkLabel linkSoundTest;
-        private System.Windows.Forms.LinkLabel linkFullscreen;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox grpLocalTimer;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
+        private System.Windows.Forms.Label lblDisplayStatus;
+        private DevComponents.DotNetBar.ButtonX btnChangeDisplayState;
 
     }
 }

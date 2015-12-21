@@ -6,14 +6,27 @@ using System.Threading.Tasks;
 
 namespace FTC_Timer_Display
 {
+    [Serializable]
     public class InitialData
     {
-        public int divID = 1;
+        private int _divID = 1;
+        public bool isMultiDivision = true;
         public string divName = "";
         public int fieldID = 0;
         public RunType runType = RunType.None;
+        public MatchData.EventTypes eventType = MatchData.EventTypes.Qualifier;
         public int scoringPort = Properties.Settings.Default.DefaultScoringPort;
         public bool loadPreviousFields = true;
+
+        public int divID
+        {
+            set { _divID = value; }
+            get
+            {
+                if (isMultiDivision) return _divID;
+                else return 0;
+            }
+        }
 
         public enum RunType
         {
@@ -22,7 +35,7 @@ namespace FTC_Timer_Display
             ServerClient = 2,
             Client = 3,
             Local = 4,
-            PitDisplay =5
+            PitDisplay = 5
         }
 
         public void SaveSettings()
@@ -31,10 +44,14 @@ namespace FTC_Timer_Display
             Properties.Settings.Default.LastMode = (int)this.runType;
             // Save Division
             Properties.Settings.Default.LastDivision = this.divID;
+            // Save whether we're multi-divisional
+            Properties.Settings.Default.isMultiDivision = this.isMultiDivision;
             // Save Division Name
             Properties.Settings.Default.LastDivisionName = this.divName;
             // Save field number
             Properties.Settings.Default.LastFieldID = this.fieldID;
+            // Save Event Type
+            Properties.Settings.Default.eventType = (int)this.eventType;
             // Save
             Properties.Settings.Default.Save();
         }
@@ -50,6 +67,8 @@ namespace FTC_Timer_Display
                 i.divID = Properties.Settings.Default.LastDivision;
                 i.divName = Properties.Settings.Default.LastDivisionName;
                 i.fieldID = Properties.Settings.Default.LastFieldID;
+                i.isMultiDivision = Properties.Settings.Default.isMultiDivision;
+                i.eventType = (MatchData.EventTypes)Properties.Settings.Default.eventType;
             }
 
             i = GetInitialData(i, out errorID);

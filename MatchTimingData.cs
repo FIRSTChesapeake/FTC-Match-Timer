@@ -16,14 +16,15 @@ namespace FTC_Timer_Display
         private static readonly TimeSpan _debugAuto = new TimeSpan(0, 0, 10);
         private static readonly TimeSpan _debugNoCross = new TimeSpan(0, 0, 5);
         private static readonly TimeSpan _debugEndgame = new TimeSpan(0, 0, 10);
-        private static readonly TimeSpan _debugTimeout = new TimeSpan(0, 0, 15);
         
         
         private static readonly TimeSpan _defaultMatch = new TimeSpan(0, 2, 30);
         private static readonly TimeSpan _defaultAuto = new TimeSpan(0, 0, 30);
         private static readonly TimeSpan _defaultNoCross = new TimeSpan(0, 0, 10);
         private static readonly TimeSpan _defaultEndgame = new TimeSpan(0, 0, 30);
-        private static readonly TimeSpan _defaultTimeout = new TimeSpan(0, 5, 0);
+        private static readonly TimeSpan _defaultTeamTimeout = new TimeSpan(0, 3, 0);
+        private static readonly TimeSpan _defaultEventTimeout = new TimeSpan(0, 5, 0);
+
 
         private static readonly int _defaultQuarterfinalAlliances = 8;
         private static readonly int _defaultSemifinalAlliances = 4;
@@ -34,7 +35,8 @@ namespace FTC_Timer_Display
         public static TimeSpan autoLength { get; set; }
         public static TimeSpan nocrossLength { get; set; }
         public static TimeSpan endgameLength { get; set; }
-        public static TimeSpan timeoutLength { get; set; }
+        public static TimeSpan timeoutTeamLength { get; set; }
+        public static TimeSpan timeoutEventLength { get; set; }
 
         public static int quarterfinalAlliances { get; set; }
         public static int semifinalAlliances { get; set; }
@@ -149,7 +151,6 @@ namespace FTC_Timer_Display
                 autoLength = _defaultAuto;
                 nocrossLength = _defaultNoCross;
                 endgameLength = _defaultEndgame;
-                timeoutLength = _defaultTimeout;
             }
             else
             {
@@ -157,8 +158,10 @@ namespace FTC_Timer_Display
                 autoLength = _debugAuto;
                 nocrossLength = _debugNoCross;
                 endgameLength = _debugEndgame;
-                timeoutLength = _debugTimeout;
             }
+            // Timeout lengths
+            timeoutTeamLength = _defaultTeamTimeout;
+            timeoutEventLength = _defaultEventTimeout;
 
             // Match Counts for Finals
             quarterfinalAlliances = _defaultQuarterfinalAlliances;

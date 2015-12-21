@@ -32,6 +32,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmTimings));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btnDefaults = new DevComponents.DotNetBar.ButtonX();
+            this.timingMatch = new FTC_Timer_Display.ctrlTimeLengthEntry();
+            this.timingAuto = new FTC_Timer_Display.ctrlTimeLengthEntry();
+            this.timingNocross = new FTC_Timer_Display.ctrlTimeLengthEntry();
+            this.timingEndgame = new FTC_Timer_Display.ctrlTimeLengthEntry();
+            this.timingDriver = new FTC_Timer_Display.ctrlTimeLengthEntry();
+            this.timingTeamTimeout = new FTC_Timer_Display.ctrlTimeLengthEntry();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -39,17 +45,12 @@
             this.numSemifinalCount = new System.Windows.Forms.NumericUpDown();
             this.btnSave = new DevComponents.DotNetBar.ButtonX();
             this.validator = new DevComponents.DotNetBar.Validator.SuperValidator();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.highlighter2 = new DevComponents.DotNetBar.Validator.Highlighter();
             this.validatorAuto = new DevComponents.DotNetBar.Validator.CustomValidator();
             this.validatorNocross = new DevComponents.DotNetBar.Validator.CustomValidator();
             this.validatorEndgame = new DevComponents.DotNetBar.Validator.CustomValidator();
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.highlighter2 = new DevComponents.DotNetBar.Validator.Highlighter();
-            this.timingMatch = new FTC_Timer_Display.ctrlTimeLengthEntry();
-            this.timingAuto = new FTC_Timer_Display.ctrlTimeLengthEntry();
-            this.timingNocross = new FTC_Timer_Display.ctrlTimeLengthEntry();
-            this.timingEndgame = new FTC_Timer_Display.ctrlTimeLengthEntry();
-            this.timingDriver = new FTC_Timer_Display.ctrlTimeLengthEntry();
-            this.timingTimeout = new FTC_Timer_Display.ctrlTimeLengthEntry();
+            this.timingEventTimeout = new FTC_Timer_Display.ctrlTimeLengthEntry();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numQuarterfinalCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSemifinalCount)).BeginInit();
@@ -61,23 +62,25 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.btnDefaults, 1, 10);
+            this.tableLayoutPanel1.Controls.Add(this.btnDefaults, 1, 11);
             this.tableLayoutPanel1.Controls.Add(this.timingMatch, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.timingAuto, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.timingNocross, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.timingEndgame, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.timingDriver, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.timingTimeout, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 7);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 8);
-            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 6);
-            this.tableLayoutPanel1.Controls.Add(this.numQuarterfinalCount, 1, 7);
-            this.tableLayoutPanel1.Controls.Add(this.numSemifinalCount, 1, 8);
-            this.tableLayoutPanel1.Controls.Add(this.btnSave, 0, 10);
+            this.tableLayoutPanel1.Controls.Add(this.timingTeamTimeout, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 8);
+            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 9);
+            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 7);
+            this.tableLayoutPanel1.Controls.Add(this.numQuarterfinalCount, 1, 8);
+            this.tableLayoutPanel1.Controls.Add(this.numSemifinalCount, 1, 9);
+            this.tableLayoutPanel1.Controls.Add(this.btnSave, 0, 11);
+            this.tableLayoutPanel1.Controls.Add(this.timingEventTimeout, 0, 6);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 11;
+            this.tableLayoutPanel1.RowCount = 12;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
@@ -89,7 +92,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 65F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(310, 332);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(310, 397);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // btnDefaults
@@ -97,148 +100,13 @@
             this.btnDefaults.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnDefaults.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnDefaults.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnDefaults.Location = new System.Drawing.Point(158, 270);
+            this.btnDefaults.Location = new System.Drawing.Point(158, 335);
             this.btnDefaults.Name = "btnDefaults";
             this.btnDefaults.Size = new System.Drawing.Size(149, 59);
             this.btnDefaults.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnDefaults.TabIndex = 1;
             this.btnDefaults.Text = "Restore Default";
             this.btnDefaults.Click += new System.EventHandler(this.HandleButtons);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 200);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(149, 26);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Quarterfinals";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(3, 226);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(149, 26);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "Semifinals";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.tableLayoutPanel1.SetColumnSpan(this.label3, 2);
-            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(3, 180);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(304, 20);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "Elimination Rounds Alliance Count";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // numQuarterfinalCount
-            // 
-            this.numQuarterfinalCount.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numQuarterfinalCount.Location = new System.Drawing.Point(158, 203);
-            this.numQuarterfinalCount.Maximum = new decimal(new int[] {
-            9,
-            0,
-            0,
-            0});
-            this.numQuarterfinalCount.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numQuarterfinalCount.Name = "numQuarterfinalCount";
-            this.numQuarterfinalCount.Size = new System.Drawing.Size(149, 20);
-            this.numQuarterfinalCount.TabIndex = 10;
-            this.numQuarterfinalCount.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // numSemifinalCount
-            // 
-            this.numSemifinalCount.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numSemifinalCount.Location = new System.Drawing.Point(158, 229);
-            this.numSemifinalCount.Maximum = new decimal(new int[] {
-            9,
-            0,
-            0,
-            0});
-            this.numSemifinalCount.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numSemifinalCount.Name = "numSemifinalCount";
-            this.numSemifinalCount.Size = new System.Drawing.Size(149, 20);
-            this.numSemifinalCount.TabIndex = 11;
-            this.numSemifinalCount.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // btnSave
-            // 
-            this.btnSave.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnSave.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnSave.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnSave.Location = new System.Drawing.Point(3, 270);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(149, 59);
-            this.btnSave.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnSave.TabIndex = 0;
-            this.btnSave.Text = "Save";
-            this.btnSave.Click += new System.EventHandler(this.HandleButtons);
-            // 
-            // validator
-            // 
-            this.validator.ContainerControl = this;
-            this.validator.ErrorProvider = this.errorProvider1;
-            this.validator.Highlighter = this.highlighter2;
-            this.validator.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
-            this.validator.ValidationType = DevComponents.DotNetBar.Validator.eValidationType.ValidatingEventPerControl;
-            // 
-            // validatorAuto
-            // 
-            this.validatorAuto.ErrorMessage = "Autonomous Mode must fit within the match";
-            this.validatorAuto.HighlightColor = DevComponents.DotNetBar.Validator.eHighlightColor.Red;
-            this.validatorAuto.ValuePropertyName = "Value";
-            this.validatorAuto.ValidateValue += new DevComponents.DotNetBar.Validator.ValidateValueEventHandler(this.CustomValidation);
-            // 
-            // validatorNocross
-            // 
-            this.validatorNocross.ErrorMessage = "No Cross time must be within Autonomous Mode.";
-            this.validatorNocross.HighlightColor = DevComponents.DotNetBar.Validator.eHighlightColor.Red;
-            this.validatorNocross.ValuePropertyName = "Value";
-            this.validatorNocross.ValidateValue += new DevComponents.DotNetBar.Validator.ValidateValueEventHandler(this.CustomValidation);
-            // 
-            // validatorEndgame
-            // 
-            this.validatorEndgame.ErrorMessage = "Endgame must be completely inside Driver Controlled period.";
-            this.validatorEndgame.HighlightColor = DevComponents.DotNetBar.Validator.eHighlightColor.Red;
-            this.validatorEndgame.ValuePropertyName = "Value";
-            this.validatorEndgame.ValidateValue += new DevComponents.DotNetBar.Validator.ValidateValueEventHandler(this.CustomValidation);
-            // 
-            // errorProvider1
-            // 
-            this.errorProvider1.ContainerControl = this;
-            this.errorProvider1.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider1.Icon")));
-            // 
-            // highlighter2
-            // 
-            this.highlighter2.ContainerControl = this;
-            this.highlighter2.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
             // 
             // timingMatch
             // 
@@ -321,34 +189,185 @@
             this.timingDriver.MaximumValue = System.TimeSpan.Parse("00:48:05");
             this.timingDriver.MinimumValue = System.TimeSpan.Parse("00:00:00");
             this.timingDriver.Name = "timingDriver";
-            this.timingDriver.Readonly = true;
+            this.timingDriver.Readonly = false;
             this.timingDriver.Size = new System.Drawing.Size(304, 24);
             this.timingDriver.TabIndex = 4;
             this.timingDriver.useColorPicker = true;
             this.timingDriver.Value = System.TimeSpan.Parse("00:00:00");
             // 
-            // timingTimeout
+            // timingTeamTimeout
             // 
-            this.timingTimeout.Caption = "Timeout";
-            this.tableLayoutPanel1.SetColumnSpan(this.timingTimeout, 2);
-            this.timingTimeout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timingTimeout.IndicatorColor = System.Drawing.Color.Empty;
-            this.timingTimeout.Location = new System.Drawing.Point(3, 153);
-            this.timingTimeout.MaximumValue = System.TimeSpan.Parse("00:48:05");
-            this.timingTimeout.MinimumValue = System.TimeSpan.Parse("00:00:00");
-            this.timingTimeout.Name = "timingTimeout";
-            this.timingTimeout.Readonly = false;
-            this.timingTimeout.Size = new System.Drawing.Size(304, 24);
-            this.timingTimeout.TabIndex = 6;
-            this.timingTimeout.useColorPicker = false;
-            this.timingTimeout.Value = System.TimeSpan.Parse("00:00:00");
+            this.timingTeamTimeout.Caption = "Team Timeout";
+            this.tableLayoutPanel1.SetColumnSpan(this.timingTeamTimeout, 2);
+            this.timingTeamTimeout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.timingTeamTimeout.IndicatorColor = System.Drawing.Color.Empty;
+            this.timingTeamTimeout.Location = new System.Drawing.Point(3, 153);
+            this.timingTeamTimeout.MaximumValue = System.TimeSpan.Parse("00:48:05");
+            this.timingTeamTimeout.MinimumValue = System.TimeSpan.Parse("00:00:00");
+            this.timingTeamTimeout.Name = "timingTeamTimeout";
+            this.timingTeamTimeout.Readonly = false;
+            this.timingTeamTimeout.Size = new System.Drawing.Size(304, 24);
+            this.timingTeamTimeout.TabIndex = 6;
+            this.timingTeamTimeout.useColorPicker = false;
+            this.timingTeamTimeout.Value = System.TimeSpan.Parse("00:00:00");
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(3, 230);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(149, 26);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Quarterfinals";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(3, 256);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(149, 26);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Semifinals";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.tableLayoutPanel1.SetColumnSpan(this.label3, 2);
+            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(3, 210);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(304, 20);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Elimination Rounds Alliance Count";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // numQuarterfinalCount
+            // 
+            this.numQuarterfinalCount.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numQuarterfinalCount.Location = new System.Drawing.Point(158, 233);
+            this.numQuarterfinalCount.Maximum = new decimal(new int[] {
+            9,
+            0,
+            0,
+            0});
+            this.numQuarterfinalCount.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numQuarterfinalCount.Name = "numQuarterfinalCount";
+            this.numQuarterfinalCount.Size = new System.Drawing.Size(149, 20);
+            this.numQuarterfinalCount.TabIndex = 10;
+            this.numQuarterfinalCount.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // numSemifinalCount
+            // 
+            this.numSemifinalCount.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numSemifinalCount.Location = new System.Drawing.Point(158, 259);
+            this.numSemifinalCount.Maximum = new decimal(new int[] {
+            9,
+            0,
+            0,
+            0});
+            this.numSemifinalCount.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numSemifinalCount.Name = "numSemifinalCount";
+            this.numSemifinalCount.Size = new System.Drawing.Size(149, 20);
+            this.numSemifinalCount.TabIndex = 11;
+            this.numSemifinalCount.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // btnSave
+            // 
+            this.btnSave.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnSave.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnSave.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnSave.Location = new System.Drawing.Point(3, 335);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(149, 59);
+            this.btnSave.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnSave.TabIndex = 0;
+            this.btnSave.Text = "Save";
+            this.btnSave.Click += new System.EventHandler(this.HandleButtons);
+            // 
+            // validator
+            // 
+            this.validator.ContainerControl = this;
+            this.validator.ErrorProvider = this.errorProvider1;
+            this.validator.Highlighter = this.highlighter2;
+            this.validator.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
+            this.validator.ValidationType = DevComponents.DotNetBar.Validator.eValidationType.ValidatingEventPerControl;
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            this.errorProvider1.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider1.Icon")));
+            // 
+            // highlighter2
+            // 
+            this.highlighter2.ContainerControl = this;
+            this.highlighter2.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
+            // 
+            // validatorAuto
+            // 
+            this.validatorAuto.ErrorMessage = "Autonomous Mode must fit within the match";
+            this.validatorAuto.HighlightColor = DevComponents.DotNetBar.Validator.eHighlightColor.Red;
+            this.validatorAuto.ValuePropertyName = "Value";
+            this.validatorAuto.ValidateValue += new DevComponents.DotNetBar.Validator.ValidateValueEventHandler(this.CustomValidation);
+            // 
+            // validatorNocross
+            // 
+            this.validatorNocross.ErrorMessage = "No Cross time must be within Autonomous Mode.";
+            this.validatorNocross.HighlightColor = DevComponents.DotNetBar.Validator.eHighlightColor.Red;
+            this.validatorNocross.ValuePropertyName = "Value";
+            this.validatorNocross.ValidateValue += new DevComponents.DotNetBar.Validator.ValidateValueEventHandler(this.CustomValidation);
+            // 
+            // validatorEndgame
+            // 
+            this.validatorEndgame.ErrorMessage = "Endgame must be completely inside Driver Controlled period.";
+            this.validatorEndgame.HighlightColor = DevComponents.DotNetBar.Validator.eHighlightColor.Red;
+            this.validatorEndgame.ValuePropertyName = "Value";
+            this.validatorEndgame.ValidateValue += new DevComponents.DotNetBar.Validator.ValidateValueEventHandler(this.CustomValidation);
+            // 
+            // timingEventTimeout
+            // 
+            this.timingEventTimeout.Caption = "Event Timeout";
+            this.tableLayoutPanel1.SetColumnSpan(this.timingEventTimeout, 2);
+            this.timingEventTimeout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.timingEventTimeout.IndicatorColor = System.Drawing.Color.Empty;
+            this.timingEventTimeout.Location = new System.Drawing.Point(3, 183);
+            this.timingEventTimeout.MaximumValue = System.TimeSpan.Parse("00:48:05");
+            this.timingEventTimeout.MinimumValue = System.TimeSpan.Parse("00:00:00");
+            this.timingEventTimeout.Name = "timingEventTimeout";
+            this.timingEventTimeout.Readonly = false;
+            this.timingEventTimeout.Size = new System.Drawing.Size(304, 24);
+            this.timingEventTimeout.TabIndex = 12;
+            this.timingEventTimeout.useColorPicker = false;
+            this.timingEventTimeout.Value = System.TimeSpan.Parse("00:00:00");
             // 
             // frmTimings
             // 
             this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(310, 332);
+            this.ClientSize = new System.Drawing.Size(310, 397);
             this.Controls.Add(this.tableLayoutPanel1);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -380,11 +399,12 @@
         private DevComponents.DotNetBar.Validator.CustomValidator validatorEndgame;
         private ctrlTimeLengthEntry timingDriver;
         private DevComponents.DotNetBar.ButtonX btnDefaults;
-        private ctrlTimeLengthEntry timingTimeout;
+        private ctrlTimeLengthEntry timingTeamTimeout;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown numQuarterfinalCount;
         private System.Windows.Forms.NumericUpDown numSemifinalCount;
+        private ctrlTimeLengthEntry timingEventTimeout;
     }
 }

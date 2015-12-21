@@ -35,12 +35,12 @@ namespace FTC_Timer_Display
             this.txtCustomMsg = new System.Windows.Forms.TextBox();
             this.btnStart = new DevComponents.DotNetBar.ButtonX();
             this.btnCancel = new DevComponents.DotNetBar.ButtonX();
+            this.timeValue = new FTC_Timer_Display.ctrlTimeLengthEntry();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.rdoSoundNone = new System.Windows.Forms.RadioButton();
             this.rdoSoundBuzzer = new System.Windows.Forms.RadioButton();
             this.rdoSoundVoice = new System.Windows.Forms.RadioButton();
-            this.timeValue = new FTC_Timer_Display.ctrlTimeLengthEntry();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -55,14 +55,15 @@ namespace FTC_Timer_Display
             this.tableLayoutPanel1.Controls.Add(this.rdoOther, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.cboAlliance, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.txtCustomMsg, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.btnStart, 0, 6);
-            this.tableLayoutPanel1.Controls.Add(this.btnCancel, 1, 6);
-            this.tableLayoutPanel1.Controls.Add(this.timeValue, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.btnStart, 0, 7);
+            this.tableLayoutPanel1.Controls.Add(this.btnCancel, 1, 7);
+            this.tableLayoutPanel1.Controls.Add(this.timeValue, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 5);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 7;
+            this.tableLayoutPanel1.RowCount = 8;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
@@ -70,7 +71,7 @@ namespace FTC_Timer_Display
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(284, 277);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(284, 310);
             this.tableLayoutPanel1.TabIndex = 0;
             this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
@@ -86,6 +87,7 @@ namespace FTC_Timer_Display
             this.rdoAllianceCalled.TabStop = true;
             this.rdoAllianceCalled.Text = "Alliance Timeout";
             this.rdoAllianceCalled.UseVisualStyleBackColor = true;
+            this.rdoAllianceCalled.CheckedChanged += new System.EventHandler(this.RadioButtonChangeHandler);
             // 
             // rdoOther
             // 
@@ -125,7 +127,7 @@ namespace FTC_Timer_Display
             this.btnStart.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnStart.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnStart.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnStart.Location = new System.Drawing.Point(3, 230);
+            this.btnStart.Location = new System.Drawing.Point(3, 263);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(136, 44);
             this.btnStart.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -139,18 +141,34 @@ namespace FTC_Timer_Display
             this.btnCancel.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnCancel.Location = new System.Drawing.Point(145, 230);
+            this.btnCancel.Location = new System.Drawing.Point(145, 263);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(136, 44);
             this.btnCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "Cancel";
             // 
+            // timeValue
+            // 
+            this.timeValue.Caption = "Length";
+            this.tableLayoutPanel1.SetColumnSpan(this.timeValue, 2);
+            this.timeValue.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.timeValue.IndicatorColor = System.Drawing.Color.Empty;
+            this.timeValue.Location = new System.Drawing.Point(3, 123);
+            this.timeValue.MaximumValue = System.TimeSpan.Parse("00:48:05");
+            this.timeValue.MinimumValue = System.TimeSpan.Parse("00:00:00");
+            this.timeValue.Name = "timeValue";
+            this.timeValue.Readonly = false;
+            this.timeValue.Size = new System.Drawing.Size(278, 24);
+            this.timeValue.TabIndex = 6;
+            this.timeValue.useColorPicker = false;
+            this.timeValue.Value = System.TimeSpan.Parse("00:00:00");
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.flowLayoutPanel1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(3, 123);
+            this.groupBox1.Location = new System.Drawing.Point(3, 153);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(136, 94);
             this.groupBox1.TabIndex = 7;
@@ -201,27 +219,11 @@ namespace FTC_Timer_Display
             this.rdoSoundVoice.Text = "Voice";
             this.rdoSoundVoice.UseVisualStyleBackColor = true;
             // 
-            // timeValue
-            // 
-            this.timeValue.Caption = "Length";
-            this.tableLayoutPanel1.SetColumnSpan(this.timeValue, 2);
-            this.timeValue.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timeValue.IndicatorColor = System.Drawing.Color.Empty;
-            this.timeValue.Location = new System.Drawing.Point(3, 3);
-            this.timeValue.MaximumValue = System.TimeSpan.Parse("00:48:05");
-            this.timeValue.MinimumValue = System.TimeSpan.Parse("00:00:00");
-            this.timeValue.Name = "timeValue";
-            this.timeValue.Readonly = false;
-            this.timeValue.Size = new System.Drawing.Size(278, 24);
-            this.timeValue.TabIndex = 6;
-            this.timeValue.useColorPicker = false;
-            this.timeValue.Value = System.TimeSpan.Parse("00:00:00");
-            // 
             // frmStartTimeout
             // 
             this.AcceptButton = this.btnStart;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(284, 277);
+            this.ClientSize = new System.Drawing.Size(284, 310);
             this.Controls.Add(this.tableLayoutPanel1);
             this.MaximizeBox = false;
             this.MinimizeBox = false;

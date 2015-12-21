@@ -14,9 +14,9 @@ namespace FTC_Timer_Display
         public frmStartTimeout(MatchData.MatchTypes type)
         {
             InitializeComponent();
-            timeValue.Value = MatchTimingData.timeoutLength;
             if (MatchTimingData.matchTypeAllowsTimeout(type))
             {
+                timeValue.Value = MatchTimingData.timeoutTeamLength;
                 // TODO: Once we import the match schedule, we can customize this list based on the advancing teams.
                 //          For now, we'll just list all possible alliances based on Quarterfinals count (even though we don't use Quarterfinals.)
                 int allianceCount = MatchTimingData.getMatchTypeAllianceCount(MatchData.MatchTypes.Quarterfinals);
@@ -25,6 +25,7 @@ namespace FTC_Timer_Display
             }
             else
             {
+                timeValue.Value = MatchTimingData.timeoutEventLength;
                 rdoOther.Checked = true;
                 rdoAllianceCalled.Enabled = false;
             }
@@ -45,6 +46,8 @@ namespace FTC_Timer_Display
         {
             cboAlliance.Enabled = rdoAllianceCalled.Checked;
             txtCustomMsg.Enabled = rdoOther.Checked;
+            if (rdoAllianceCalled.Checked) timeValue.Value = MatchTimingData.timeoutTeamLength;
+            if (rdoOther.Checked) timeValue.Value = MatchTimingData.timeoutEventLength;
         }
 
         private string timeoutMessage

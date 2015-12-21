@@ -26,7 +26,8 @@ namespace FTC_Timer_Display
             timingAuto.Value = MatchTimingData.autoLength;
             timingNocross.Value = MatchTimingData.nocrossLength;
             timingEndgame.Value = MatchTimingData.endgameLength;
-            timingTimeout.Value = MatchTimingData.timeoutLength;
+            timingTeamTimeout.Value = MatchTimingData.timeoutTeamLength;
+            timingEventTimeout.Value = MatchTimingData.timeoutEventLength;
             timingDriver.Value = driverPeriod;
 
             numQuarterfinalCount.Value = MatchTimingData.quarterfinalAlliances;
@@ -41,7 +42,8 @@ namespace FTC_Timer_Display
                 MatchTimingData.autoLength = timingAuto.Value;
                 MatchTimingData.nocrossLength = timingNocross.Value;
                 MatchTimingData.endgameLength = timingEndgame.Value;
-                MatchTimingData.timeoutLength = timingTimeout.Value;
+                MatchTimingData.timeoutTeamLength = timingTeamTimeout.Value;
+                MatchTimingData.timeoutEventLength = timingEventTimeout.Value;
 
                 MatchTimingData.quarterfinalAlliances = (int)numQuarterfinalCount.Value;
                 MatchTimingData.semifinalAlliances = (int)numSemifinalCount.Value;

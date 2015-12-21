@@ -18,8 +18,13 @@ namespace FTC_Timer_Display
         public frmModeSelection(InitialData template)
         {
             InitializeComponent();
+            // Init the event type dropdown
+            cboEventType.DataSource = Enum.GetValues(typeof(MatchData.EventTypes));
+            // Set values
             CheckMutes();
+            cboEventType.SelectedItem = (MatchData.EventTypes)template.eventType;
             numDivID.Value = Math.Max(template.divID, 1);
+            chkDualDivision.Checked = template.isMultiDivision;
             txtDivName.Text = template.divName;
             numField.Value = Math.Max(template.fieldID, 1);
             txtPitPort.Text = template.scoringPort.ToString();
@@ -43,7 +48,7 @@ namespace FTC_Timer_Display
                     rdoPit.Checked = true;
                     break;
             }
-
+            ConfigureDisplayLabels();
         }
 
         private void CheckMutes()
@@ -54,7 +59,10 @@ namespace FTC_Timer_Display
             rdoServerClient.Enabled = server;
             rdoServerOnly.Enabled = server;
             rdoClient.Enabled = client;
-            rdoPit.Enabled = pitdsp;
+            // PIT DISPLAY isn't production-ready. Disallow it.
+            //rdoPit.Enabled = pitdsp;
+            rdoPit.Enabled = false;
+
         }
 
         private void handleButtons(object sender, EventArgs e)
@@ -62,10 +70,12 @@ namespace FTC_Timer_Display
             InitialData d = new InitialData();
             if (sender.Equals(btnContinue))
             {
+                d.isMultiDivision = chkDualDivision.Checked;
                 d.divID = int.Parse(numDivID.Value.ToString());
                 d.divName = txtDivName.Text;
                 d.runType = runType;
                 d.loadPreviousFields = chkLoadFields.Checked;
+                d.eventType = (MatchData.EventTypes)cboEventType.SelectedItem;
                 if (runType == InitialData.RunType.Server)
                 {
                     d.fieldID = 0;
@@ -98,55 +108,56 @@ namespace FTC_Timer_Display
 
         private void rdoSelect(object sender, EventArgs e)
         {
-            bool useField = true;
-            bool useDivName = true;
-            bool useDivID = true;
-            bool usePitPort = false;
-            bool loadFields = true;
-
             RadioButton rb = (RadioButton)sender;
             if (!rb.Checked) return;
             if (sender.Equals(rdoServerClient))
             {
                 runType = InitialData.RunType.ServerClient;
+                grpServer.Enabled = true;
+                grpClient.Enabled = true;
             }
             else if (sender.Equals(rdoServerOnly))
             {
                 runType = InitialData.RunType.Server;
-                useField = false;
+                grpServer.Enabled = true;
+                grpClient.Enabled = false;
             }
             else if(sender.Equals(rdoClient))
             {
                 runType = InitialData.RunType.Client;
-                useDivName = false;
-                loadFields = false;
+                grpServer.Enabled = false;
+                grpClient.Enabled = true;
             }
             else if (sender.Equals(rdoLocal))
             {
                 runType = InitialData.RunType.Local;
-                loadFields = false;
+                grpServer.Enabled = true;
+                grpClient.Enabled = true;
             }
             else if (sender.Equals(rdoPit))
             {
                 runType = InitialData.RunType.PitDisplay;
-                useDivName = false;
-                useField = false;
-                useDivID = false;
-                usePitPort = true;
-                loadFields = false;
+                grpServer.Enabled = false;
+                grpClient.Enabled = false;
             }
-            numField.Enabled = useField;
-            txtDivName.Enabled = useDivName;
-            numDivID.Enabled = useDivID;
-            txtPitPort.Enabled = usePitPort;
-            chkLoadFields.Enabled = loadFields;
-            chkLoadFields.Checked = loadFields;
-            if (!useDivName) txtDivName.Text = "";
+            ConfigureDisplayLabels();
         }
 
         private void frmModeSelection_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void chkDualDivision_CheckedChanged(object sender, EventArgs e)
+        {
+            ConfigureDisplayLabels();
+        }
+
+        private void ConfigureDisplayLabels()
+        {
+            lblDivName.Text = chkDualDivision.Checked ? "Division Name" : "Event Name";
+            numDivID.Enabled = chkDualDivision.Checked;
+            if (!chkDualDivision.Checked) numDivID.Value = 1;
         }
     }
 }

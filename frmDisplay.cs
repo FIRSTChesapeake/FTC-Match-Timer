@@ -20,7 +20,32 @@ namespace FTC_Timer_Display
         {
             InitializeComponent();
             initData = data;
-            lblMatchNumber.Text = String.Format("DIVISION {0} FIELD {1} INITIALIZED", data.divID, data.fieldID);
+            this.initializeDisplay();
+        }
+
+        public void initializeDisplay()
+        {
+            lblMatchNumber.Text = String.Format("DIVISION {0} FIELD {1} INITIALIZED", initData.divID, initData.fieldID);
+            loadCustomLogo();
+        }
+
+        private void loadCustomLogo()
+        {
+            // load custom logo if defined.
+            string logoPath = Properties.Settings.Default.customLogoPath;
+            Image img = loadImgFromFile(logoPath);
+            if (img != null)
+            {
+                logoTableLeft.BackgroundImage = img;
+                logoTableRight.BackgroundImage = img;
+            }
+            else
+            {
+                logoTableLeft.BackgroundImage = Properties.Resources.vaflogo;
+                logoTableRight.BackgroundImage = Properties.Resources.vaflogo;
+            }
+            lblDate.Visible = Properties.Settings.Default.displayShowDateTime;
+            lblTime.Visible = Properties.Settings.Default.displayShowDateTime;
         }
 
         private void frmDisplay_KeyPress(object sender, KeyPressEventArgs e)
@@ -32,17 +57,30 @@ namespace FTC_Timer_Display
         {
             if (e.KeyData == Keys.F11)
             {
-                ChangeFullscreen();
+                ChangeView();
             }
         }
 
-        public void ChangeFullscreen()
+        public void ChangeView()
         {
             bool isFull = this.FormBorderStyle == System.Windows.Forms.FormBorderStyle.None;
-            ChangeFullscreen(!isFull);
+            if (!this.Visible)
+            {
+                this.Visible = true;
+                ChangeFullscreen(false);
+            }
+            else if (!isFull)
+            {
+                ChangeFullscreen(true);
+            }
+            else
+            {
+                ChangeFullscreen(false);
+                this.Visible = false;
+            }
         }
 
-        public void ChangeFullscreen(bool val)
+        private void ChangeFullscreen(bool val)
         {
             if (val)
             {
@@ -65,7 +103,7 @@ namespace FTC_Timer_Display
             // Match Number
             lblMatchNumber.Text = data.matchHeaderString;
             // Am I the selected client?
-            picState.Image = data.isSelectedClient ? Properties.Resources.indicator_green : Properties.Resources.indicator_yellow;
+            setFieldStatusDisplay(data.isSelectedClient);
             // Match Progress
             matchPeriodCtrl.SetDisplay(data);
             // Set the date and time labels
@@ -73,9 +111,16 @@ namespace FTC_Timer_Display
             lblTime.Text = DateTime.Now.ToLongTimeString();
         }
 
+        private void setFieldStatusDisplay(bool isSelected)
+        {
+            lblFieldDataStatus.BackColor = isSelected ? Color.Green : Color.Yellow;
+            lblFieldDataStatus.Text = isSelected ? "FIELD IS ACTIVE" : "FIELD ON STANDBY";
+        }
+
         public void deadField()
         {
-            picState.Image = Properties.Resources.indicator_red;
+            lblFieldDataStatus.Text = "ERROR: FIELD NOT RECEIVING DATA!";
+            lblFieldDataStatus.BackColor = Color.Red;
         }
 
         private void frmDisplay_FormClosing(object sender, FormClosingEventArgs e)
@@ -83,6 +128,7 @@ namespace FTC_Timer_Display
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 e.Cancel = true;
+                ChangeFullscreen(false);
                 this.Visible = false;
             }
         }
@@ -90,6 +136,29 @@ namespace FTC_Timer_Display
         private void frmDisplay_Load(object sender, EventArgs e)
         {
 
+        }
+
+        public static Image loadImgFromFile(string path)
+        {
+            try
+            {
+                Image img = Image.FromFile(path);
+                return img;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Handles the VisibleChanged event of the frmDisplay control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void frmDisplay_VisibleChanged(object sender, EventArgs e)
+        {
+            loadCustomLogo();
         }
     }
 }

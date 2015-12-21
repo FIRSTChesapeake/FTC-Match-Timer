@@ -7,29 +7,14 @@ using System.Collections;
 
 namespace FTC_Timer_Display
 {
-    //public static class ClientSorter : IComparer<SingleClient>
-    //{
-    //    public static int IComparer.Compare(SingleClient a, SingleClient b)
-    //    {
-    //        // Div ID first.
-    //        if (a.matchData.divID > b.matchData.divID) return 1;
-    //        if (a.matchData.divID < b.matchData.divID) return -1;
-
-    //        // Not fields
-    //        if (a.matchData.fieldID > b.matchData.fieldID) return 1;
-    //        if (a.matchData.fieldID < b.matchData.fieldID) return -1;
-    //        // they are the same? What?
-    //        return 0;
-    //    }
-    //}
 
     public class SingleClient : IComparable
     {
         private System.Timers.Timer _timer = new System.Timers.Timer();
         private MatchData _data;
         private bool _isEnabled = true;
+        private bool _isMultiDivision = true;
         private TimeoutData.SoundTypes _timeoutSounds = TimeoutData.SoundTypes.None;
-
         
         int IComparable.CompareTo(object otherObj)
         {
@@ -66,7 +51,8 @@ namespace FTC_Timer_Display
         {
             get
             {
-                return String.Format("Division {0} Field {1}", _data.divID, _data.fieldID);
+                if (_isMultiDivision) return String.Format("Division {0} Field {1}", _data.divID, _data.fieldID);
+                else return String.Format("Field {0}", _data.fieldID);
             }
         }
 
@@ -90,15 +76,15 @@ namespace FTC_Timer_Display
 
         public event EventHandler<MatchData> SendData;
 
-        public SingleClient(int div, string divName, int field, EventHandler<MatchData> SendDataHandler, bool timerStart)
+        public SingleClient(InitialData initData, int fieldID, EventHandler<MatchData> SendDataHandler)
         {
             SendData += SendDataHandler;
-
-            _data = new MatchData(div, divName, field);
+            _data = new MatchData(initData, fieldID);
+            _isMultiDivision = initData.isMultiDivision;
             ResetMatch();
             _timer.Interval = 1000;
             _timer.Elapsed += timer_Elapsed;
-            _isEnabled = timerStart;
+            _isEnabled = (initData.isServer || initData.runType == InitialData.RunType.Local);
             _timer.Start();
         }
 
@@ -218,6 +204,15 @@ namespace FTC_Timer_Display
 
         public class TimeoutData
         {
+            public static TimeoutData defaultEventTimeout
+            {
+                get
+                {
+                    TimeoutData t = new TimeoutData(MatchTimingData.timeoutEventLength, "Match Cooldown", SingleClient.TimeoutData.SoundTypes.None);
+                    return t;
+                }
+            }
+
             public TimeSpan value = new TimeSpan();
             public string message = "";
             public SoundTypes soundType = SoundTypes.Voice;

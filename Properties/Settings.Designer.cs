@@ -148,5 +148,65 @@ namespace FTC_Timer_Display.Properties {
                 this["showHelp"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string customLogoPath {
+            get {
+                return ((string)(this["customLogoPath"]));
+            }
+            set {
+                this["customLogoPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool displayShowDateTime {
+            get {
+                return ((bool)(this["displayShowDateTime"]));
+            }
+            set {
+                this["displayShowDateTime"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool isMultiDivision {
+            get {
+                return ((bool)(this["isMultiDivision"]));
+            }
+            set {
+                this["isMultiDivision"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int eventType {
+            get {
+                return ((int)(this["eventType"]));
+            }
+            set {
+                this["eventType"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool autoElimTimeouts {
+            get {
+                return ((bool)(this["autoElimTimeouts"]));
+            }
+            set {
+                this["autoElimTimeouts"] = value;
+            }
+        }
     }
 }
