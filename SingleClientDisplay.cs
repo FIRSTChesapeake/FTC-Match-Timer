@@ -12,30 +12,59 @@ namespace FTC_Timer_Display
 {
     public partial class SingleClientDisplay : UserControl
     {
-        public SingleClient myClient { get; private set; }
 
-        private System.Timers.Timer timer = new System.Timers.Timer();
+        public event EventHandler WasClicked;
 
-        public SingleClientDisplay(SingleClient client)
+        public SingleClientDisplay(int fieldID, bool local, EventHandler clickHandler)
         {
             InitializeComponent();
-            timer.Interval = 500;
-            timer.Elapsed += timer_Elapsed;
-            lblFieldName.Text = string.Format("FIELD {0}", client.matchData.fieldID.ToString());
-            myClient = client;
-            timer.Start();
+            WasClicked += clickHandler;
+            string sLocal = local ? "*" : "";
+            lblFieldName.Text = string.Format("FIELD {0}{1}", fieldID.ToString(), sLocal);
         }
 
-        void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        public void UpdateDisplay(MatchData data, bool isSelected)
         {
-            lblState.Text = myClient.matchData.matchStatus.ToString();
-            if (myClient.matchData.isIdle)
+            if (this.InvokeRequired)
             {
-                picInd.Image = Properties.Resources.indicator_red;
+                object o = this.Invoke(new Action(() => UpdateDisplay(data, isSelected)));
             }
             else
             {
-                picInd.Image = Properties.Resources.indicator_green;
+                // Are we selected?
+                this.BackColor = isSelected ? Color.LightBlue : Color.Transparent;
+                // Match Number
+                lblMatch.Text = data.matchNumberString;
+                // Update Display
+                if (data.matchStatus == MatchData.MatchStatus.Running)
+                {
+                    picInd.Image = Properties.Resources.indicator_green;
+                    lblState.Text = data.timerValue.ToString();
+                }
+                else if (data.matchStatus == MatchData.MatchStatus.Paused)
+                {
+                    picInd.Image = Properties.Resources.indicator_yellow;
+                    lblState.Text = "Paused";
+                }
+                else if (data.matchStatus == MatchData.MatchStatus.Timeout)
+                {
+                    picInd.Image = Properties.Resources.indicator_blue;
+                    lblState.Text = data.timerValue.ToString();
+                }
+                else
+                {
+                    picInd.Image = Properties.Resources.indicator_red;
+                    lblState.Text = data.matchStatus.ToString();
+                }
+            }
+        }
+
+        private void ClickHandler(object sender, EventArgs e)
+        {
+            if (WasClicked != null)
+            {
+                EventHandler handler = WasClicked;
+                handler(this, null);
             }
         }
     }

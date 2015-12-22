@@ -40,7 +40,9 @@ namespace FTC_Timer_Display
         {
             get
             {
-                return (SingleClient)listFields.SelectedItem;
+                if (_allClients.Count == 0) return null;
+                foreach (SingleClient c in _allClients) if (c.isSelected) return c;
+                return null;
             }
         }
 
@@ -84,17 +86,9 @@ namespace FTC_Timer_Display
             lblMode.Text = initData.runType.ToString();
             if (!initData.isMultiDivision)
             {
-                lblDivID.Text = "No Divisions";
-                lblDivNameLabel.Text = "Event Name:";
+                lblDivIDLabel.Text = "Event:";
             }
-            else
-            {
-                lblDivID.Text = initData.divID.ToString();
-            }
-            lblDivName.Text = initData.divName;
-            // Load the help features
-            chkShowHelp.Checked = Properties.Settings.Default.showHelp;
-            toolTipMgr.Enabled = Properties.Settings.Default.showHelp;
+            setDivisionDisplay(initData.divID, initData.divName);
             // Load the last used fields
             if (initData.isServer && initData.loadPreviousFields)
             {
@@ -152,14 +146,12 @@ namespace FTC_Timer_Display
             // Init the local timer if needed.
             if (initData.runType == InitialData.RunType.Server)
             {
-                lblFieldID.Text = "No Local Timer";
                 grpLocalTimer.Enabled = false;
             }
             else
             {
                 
                 display = new frmDisplay(initData);
-                lblFieldID.Text = initData.fieldID.ToString();
                 AddField(initData.fieldID);
             }
             // Init the settings window. - do this after we decide whether we need a display
@@ -176,29 +168,31 @@ namespace FTC_Timer_Display
             }
         }
 
+        private void SingleClientDisplayClickHandler(object sender, int e)
+        {
+            selectFieldNumber(e);
+        }
+
         private void AddField(int fieldID)
         {
             if (fieldExists(fieldID)) return;
-
-            listFields.DataSource = null;
-            SingleClient client = new SingleClient(initData, fieldID, sendFieldDataHandler);
-
+            flowFields.Controls.Clear();
+            SingleClient client = new SingleClient(initData, fieldID, sendFieldDataHandler, SingleClientDisplayClickHandler);
             client.matchData.matchType = _currentMatchType;
             _allClients.Add(client);
             _allClients.Sort();
-            listFields.DisplayMember = "DisplayString";
-            listFields.DataSource = _allClients;
+            foreach (SingleClient c in _allClients) flowFields.Controls.Add(c.fieldDisplayObj);
+            selectFieldNumber(0);
         }
 
         private void RemoveField(SingleClient client)
         {
             if (!_allClients.Contains(client)) return;
-            listFields.DataSource = null;
+            flowFields.Controls.Clear();
             _allClients.Remove(client);
             _allClients.Sort();
-            listFields.DataSource = _allClients;
-            listFields.DisplayMember = "DisplayString";
-            listFields.SelectedIndex = 0;
+            foreach (SingleClient c in _allClients) flowFields.Controls.Add(c.fieldDisplayObj);
+            selectFieldNumber(0);
         }
 
         private bool fieldExists(int fieldID)
@@ -257,6 +251,21 @@ namespace FTC_Timer_Display
             if (shouldPlay) SoundGenerator.PlaySound(data.soundPackage);
         }
 
+        private void setDivisionDisplay(int divID, string divName)
+        {
+            StringBuilder sb = new StringBuilder();
+            if (divID == 0)
+            {
+                if(divName == "") lblDivID.Text = "Not Named";
+                else lblDivID.Text = divName;
+            }
+            else
+            {
+                if (divName != "") lblDivID.Text = string.Format("{0} ({1})", divName, divID);
+                else lblDivID.Text = string.Format("Division {0}", divID);
+            }
+        }
+
         private void NewDataReceived(object sender, MatchData data)
         {
             if (display == null) return;
@@ -269,7 +278,7 @@ namespace FTC_Timer_Display
                 if (initData.isForMe(data))
                 {
                     ProcessSoundRequests(data);
-                    lblDivName.Text = data.divisionName;
+                    setDivisionDisplay(data.divID, data.divisionName);
                     _selectedClient.matchData = data;
                     cboMatchType.SelectedItem = data.matchType;
                     numMatchNumberMajor.Value = data.matchNumberMajor;
@@ -366,6 +375,8 @@ namespace FTC_Timer_Display
                 picRcvTime.Image = Properties.Resources.indicator_red;
                 if (display != null) display.deadField();
             }
+            // Load the help features if requested.
+            toolTipMgr.Enabled = Properties.Settings.Default.showHelp;
 
             ////  EVERYTHING BELOW HERE requires a selected client.
             if (_selectedClient == null) return;
@@ -385,14 +396,24 @@ namespace FTC_Timer_Display
             btnStop.Enabled = _selectedClient.matchData.matchStatus == MatchData.MatchStatus.Paused;
             btnReset.Enabled = _selectedClient.matchData.isIdle;
             btnAdvance.Enabled = !_selectedClient.matchData.activeMatch;
-            btnTimeoutStart.Enabled = _selectedClient.matchData.isIdle;
+            // Handle timeout buttons
+            bool canTimeout = _selectedClient.matchData.isIdle || _selectedClient.matchData.matchStatus == MatchData.MatchStatus.Timeout;
+            btnTimeoutStart.Enabled = canTimeout;
             btnTimeoutCancel.Enabled = _selectedClient.matchData.matchStatus == MatchData.MatchStatus.Timeout;
+            if (_selectedClient.matchData.matchStatus == MatchData.MatchStatus.Timeout)
+            {
+                btnTimeoutStart.Text = "Extend\nTimeout";
+            }
+            else
+            {
+                btnTimeoutStart.Text = "Start\nTimeout";
+            }
             // Allow config windows when no clients are running
             linkSetMatchTimes.Enabled = !_anyRunningClients;
             linkSettings.Enabled = !_anyRunningClients;
             // Allow the user to pick a different field when no match is running
             bool canSelectField = _selectedClient == null || !_selectedClient.matchData.activeMatch;
-            listFields.Enabled = canSelectField && initData.isServer;
+            flowFields.Enabled = (canSelectField && initData.isServer) || !Properties.Settings.Default.preventRunningMovement;
             tableFiledListMgmt.Enabled = canSelectField && initData.isServer;
 
             // Pulse the button we're expecting to use
@@ -401,6 +422,33 @@ namespace FTC_Timer_Display
             progressDisplay.SetMatchProgress(_selectedClient.matchData);
             // Send the pit data
             SendPitData();
+        }
+
+        private void selectFieldNumber(int field)
+        {
+            if (_allClients.Count == 0) return;
+            // Return to the first field if asked for field zero
+            if (field == 0) field = _allClients[0].matchData.fieldID;
+
+            foreach (SingleClient c in _allClients)
+            {
+                if (c.matchData.fieldID == field) c.isSelected = true;
+                else c.isSelected = false;
+            }
+        }
+
+        private int nextFieldNumber
+        {
+            get
+            {
+                if (_selectedClient == null) return -1;
+                int currentField = _selectedClient.matchData.fieldID;
+                foreach (SingleClient cc in _allClients)
+                {
+                    if (cc.matchData.fieldID > currentField) return cc.matchData.fieldID;
+                }
+                return _allClients[0].matchData.fieldID;
+            }
         }
 
         private void SendPitData()
@@ -483,7 +531,7 @@ namespace FTC_Timer_Display
             // Select the first field again.
             if (_selectedClient != null)
             {
-                listFields.SelectedIndex = 0;
+                selectFieldNumber(0);
                 SetMatchNumber();
             }
         }
@@ -550,25 +598,9 @@ namespace FTC_Timer_Display
                 if(_selectedClient.matchData.isIdle)
                     _selectedClient.StartTimeout(SingleClient.TimeoutData.defaultEventTimeout);
             }
-
-            if (_allClients.Count == 1)
-            {
-                // Do nothing, we're staying right here since there is only 1 field.
-            }
-            else if(_currentMatchType == MatchData.MatchTypes.Finals)
-            {
-                // Do nothing. We're in finals (which are generally only played on one field).
-            }
-            else if (listFields.SelectedIndex == _allClients.Count - 1)
-            {
-                // Wrap to the first field.
-                listFields.SelectedIndex = 0;
-            }
-            else
-            {
-                // Move to the next field
-                listFields.SelectedIndex = listFields.SelectedIndex + 1;
-            }
+            // Select the next field
+            selectFieldNumber(nextFieldNumber);
+            
             bool usesMinor = false;
             int majorMax = MatchTimingData.getMatchTypeMinorMatchCount(_currentMatchType, out usesMinor);
             if (usesMinor)
@@ -691,7 +723,7 @@ namespace FTC_Timer_Display
 
         private void LocalMuteHandler(object sender, EventArgs e)
         {
-            SoundGenerator.isMuted = chkLocalMute.Checked;
+            SoundGenerator.isMuted = swLocalMute.Value;
         }
 
         private void HandleOptionsLinkLabels(object sender, LinkLabelLinkClickedEventArgs e)
@@ -786,7 +818,8 @@ namespace FTC_Timer_Display
         {
             if (sender.Equals(btnTimeoutStart))
             {
-                frmStartTimeout wind = new frmStartTimeout(_currentMatchType);
+                bool alreadyRunning = (_selectedClient.matchData.matchStatus == MatchData.MatchStatus.Timeout);
+                frmStartTimeout wind = new frmStartTimeout(_currentMatchType, alreadyRunning);
                 wind.ShowDialog();
                 if (wind.Tag == null) return;
                 SingleClient.TimeoutData data = (SingleClient.TimeoutData)wind.Tag;
@@ -799,17 +832,15 @@ namespace FTC_Timer_Display
             }
         }
 
-        private void chkShowHelp_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.showHelp = chkShowHelp.Checked;
-            Properties.Settings.Default.Save();
-            toolTipMgr.Enabled = Properties.Settings.Default.showHelp;
-        }
-
         private void btnChangeDisplayState_Click(object sender, EventArgs e)
         {
             if (display == null) return;
             display.ChangeView();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            OpenLink(@"http://www.virginiafirst.org", "VirginiaFIRST Homepage");
         }
     }
 }

@@ -57,6 +57,11 @@ namespace FTC_Timer_Display
             {
                 grpBranding.Enabled = false;
             }
+            // misc options
+            chkDateTime.Checked = Properties.Settings.Default.displayShowDateTime;
+            chkShowHelp.Checked = Properties.Settings.Default.showHelp;
+            chkAutoElimTimeout.Checked = Properties.Settings.Default.autoElimTimeouts;
+            chkPreventMovement.Checked = Properties.Settings.Default.preventRunningMovement;
         }
 
         public PitData.PitDataSelections pitDataSelection
@@ -155,6 +160,18 @@ namespace FTC_Timer_Display
         private void frmSettings_VisibleChanged(object sender, EventArgs e)
         {
             
+        }
+
+        private void chkShowHelp_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.showHelp = chkShowHelp.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void chkPreventMovement_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.preventRunningMovement = chkPreventMovement.Checked;
+            Properties.Settings.Default.Save();
         }
     }
 }

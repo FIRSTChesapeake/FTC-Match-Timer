@@ -11,7 +11,7 @@ namespace FTC_Timer_Display
 {
     public partial class frmStartTimeout : DevComponents.DotNetBar.OfficeForm
     {
-        public frmStartTimeout(MatchData.MatchTypes type)
+        public frmStartTimeout(MatchData.MatchTypes type, bool alreadyRunning)
         {
             InitializeComponent();
             if (MatchTimingData.matchTypeAllowsTimeout(type))
@@ -29,6 +29,7 @@ namespace FTC_Timer_Display
                 rdoOther.Checked = true;
                 rdoAllianceCalled.Enabled = false;
             }
+            lblAlreadyRunning.Visible = alreadyRunning;
             rdoSoundVoice.Enabled = SoundGenerator.voiceReady;
         }
 

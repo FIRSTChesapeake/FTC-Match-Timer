@@ -24,7 +24,7 @@ namespace FTC_Timer_Display
             CheckMutes();
             cboEventType.SelectedItem = (MatchData.EventTypes)template.eventType;
             numDivID.Value = Math.Max(template.divID, 1);
-            chkDualDivision.Checked = template.isMultiDivision;
+            swMultiDivision.Value = template.isMultiDivision;
             txtDivName.Text = template.divName;
             numField.Value = Math.Max(template.fieldID, 1);
             txtPitPort.Text = template.scoringPort.ToString();
@@ -39,7 +39,7 @@ namespace FTC_Timer_Display
                     rdoLocal.Checked = true;
                     break;
                 case InitialData.RunType.ServerClient:
-                    rdoServerClient.Checked = true;
+                    rdoServer.Checked = true;
                     break;
                 case InitialData.RunType.Server:
                     rdoServerOnly.Checked = true;
@@ -56,7 +56,7 @@ namespace FTC_Timer_Display
             bool server = FtcMutex.checkRunTypeAvailable(InitialData.RunType.ServerClient);
             bool client = FtcMutex.checkRunTypeAvailable(InitialData.RunType.Client);
             bool pitdsp = FtcMutex.checkRunTypeAvailable(InitialData.RunType.PitDisplay);
-            rdoServerClient.Enabled = server;
+            rdoServer.Enabled = server;
             rdoServerOnly.Enabled = server;
             rdoClient.Enabled = client;
             // PIT DISPLAY isn't production-ready. Disallow it.
@@ -70,11 +70,11 @@ namespace FTC_Timer_Display
             InitialData d = new InitialData();
             if (sender.Equals(btnContinue))
             {
-                d.isMultiDivision = chkDualDivision.Checked;
+                d.isMultiDivision = swMultiDivision.Value;
                 d.divID = int.Parse(numDivID.Value.ToString());
                 d.divName = txtDivName.Text;
                 d.runType = runType;
-                d.loadPreviousFields = chkLoadFields.Checked;
+                d.loadPreviousFields = swLoadFields.Value;
                 d.eventType = (MatchData.EventTypes)cboEventType.SelectedItem;
                 if (runType == InitialData.RunType.Server)
                 {
@@ -110,7 +110,7 @@ namespace FTC_Timer_Display
         {
             RadioButton rb = (RadioButton)sender;
             if (!rb.Checked) return;
-            if (sender.Equals(rdoServerClient))
+            if (sender.Equals(rdoServer))
             {
                 runType = InitialData.RunType.ServerClient;
                 grpServer.Enabled = true;
@@ -155,9 +155,9 @@ namespace FTC_Timer_Display
 
         private void ConfigureDisplayLabels()
         {
-            lblDivName.Text = chkDualDivision.Checked ? "Division Name" : "Event Name";
-            numDivID.Enabled = chkDualDivision.Checked;
-            if (!chkDualDivision.Checked) numDivID.Value = 1;
+            lblDivName.Text = swMultiDivision.Value ? "Division Name:" : "Event Name:";
+            numDivID.Enabled = swMultiDivision.Value;
+            if (!swMultiDivision.Value) numDivID.Value = 1;
         }
     }
 }

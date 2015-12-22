@@ -15,7 +15,21 @@ namespace FTC_Timer_Display
         private bool _isEnabled = true;
         private bool _isMultiDivision = true;
         private TimeoutData.SoundTypes _timeoutSounds = TimeoutData.SoundTypes.None;
-        
+
+        public SingleClientDisplay fieldDisplayObj { get; private set; }
+
+
+        private bool _isSelected = false;
+        public bool isSelected 
+        {
+            get { return _isSelected; }
+            set
+            {
+                _isSelected = value;
+                fieldDisplayObj.UpdateDisplay(_data, value);
+            }
+        }
+
         int IComparable.CompareTo(object otherObj)
         {
             try
@@ -75,10 +89,22 @@ namespace FTC_Timer_Display
         }
 
         public event EventHandler<MatchData> SendData;
+        public event EventHandler<int> ControlClicked;
 
-        public SingleClient(InitialData initData, int fieldID, EventHandler<MatchData> SendDataHandler)
+        private void CtrlClickHandler(object sender, EventArgs e)
         {
+            if (ControlClicked != null)
+            {
+                EventHandler<int> handler = ControlClicked;
+                handler(this, this.matchData.fieldID);
+            }
+        }
+
+        public SingleClient(InitialData initData, int fieldID, EventHandler<MatchData> SendDataHandler, EventHandler<int> DisplayClickHandler)
+        {
+            this.fieldDisplayObj = new SingleClientDisplay(fieldID, (initData.fieldID == fieldID), CtrlClickHandler);
             SendData += SendDataHandler;
+            ControlClicked += DisplayClickHandler;
             _data = new MatchData(initData, fieldID);
             _isMultiDivision = initData.isMultiDivision;
             ResetMatch();
@@ -114,7 +140,14 @@ namespace FTC_Timer_Display
         public void StartTimeout(TimeoutData data)
         {
             _data.timeoutMessage = data.message;
-            _data.timerValue = data.value;
+            if (_data.matchStatus == MatchData.MatchStatus.Timeout)
+            {
+                _data.timerValue = _data.timerValue.Add(data.value);
+            }
+            else
+            {
+                _data.timerValue = data.value;
+            }
             this._timeoutSounds = data.soundType;
             _data.matchStatus = MatchData.MatchStatus.Timeout;
         }
@@ -200,6 +233,8 @@ namespace FTC_Timer_Display
                     this.ResetMatch();
                 }
             }
+            // Update the display object
+            this.fieldDisplayObj.UpdateDisplay(_data, this.isSelected);
         }
 
         public class TimeoutData

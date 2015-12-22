@@ -53,7 +53,10 @@ namespace FTC_Timer_Display
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.chkAutoElimTimeout = new System.Windows.Forms.CheckBox();
+            this.chkShowHelp = new System.Windows.Forms.CheckBox();
             this.toolTipMgr = new DevComponents.DotNetBar.SuperTooltip();
+            this.chkPreventMovement = new System.Windows.Forms.CheckBox();
+            this.line1 = new DevComponents.DotNetBar.Controls.Line();
             this.grpSoundOptions.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.grpPit.SuspendLayout();
@@ -347,6 +350,9 @@ namespace FTC_Timer_Display
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.chkAutoElimTimeout);
+            this.flowLayoutPanel1.Controls.Add(this.chkShowHelp);
+            this.flowLayoutPanel1.Controls.Add(this.line1);
+            this.flowLayoutPanel1.Controls.Add(this.chkPreventMovement);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 16);
@@ -368,10 +374,44 @@ namespace FTC_Timer_Display
             this.chkAutoElimTimeout.UseVisualStyleBackColor = true;
             this.chkAutoElimTimeout.CheckedChanged += new System.EventHandler(this.chkAutoElimTimeout_CheckedChanged);
             // 
+            // chkShowHelp
+            // 
+            this.chkShowHelp.AutoSize = true;
+            this.chkShowHelp.Location = new System.Drawing.Point(3, 26);
+            this.chkShowHelp.Name = "chkShowHelp";
+            this.chkShowHelp.Size = new System.Drawing.Size(218, 17);
+            this.chkShowHelp.TabIndex = 1;
+            this.chkShowHelp.Text = "Show Hover Help throughout application";
+            this.chkShowHelp.UseVisualStyleBackColor = true;
+            this.chkShowHelp.CheckedChanged += new System.EventHandler(this.chkShowHelp_CheckedChanged);
+            // 
             // toolTipMgr
             // 
             this.toolTipMgr.DefaultTooltipSettings = new DevComponents.DotNetBar.SuperTooltipInfo("", "", "", null, null, DevComponents.DotNetBar.eTooltipColor.Green);
             this.toolTipMgr.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
+            // 
+            // chkPreventMovement
+            // 
+            this.chkPreventMovement.AutoSize = true;
+            this.chkPreventMovement.Checked = true;
+            this.chkPreventMovement.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkPreventMovement.Location = new System.Drawing.Point(3, 78);
+            this.chkPreventMovement.Name = "chkPreventMovement";
+            this.chkPreventMovement.Size = new System.Drawing.Size(276, 30);
+            this.toolTipMgr.SetSuperTooltip(this.chkPreventMovement, new DevComponents.DotNetBar.SuperTooltipInfo("Prevent Field Changes During Active Match", "", resources.GetString("chkPreventMovement.SuperTooltip"), null, null, DevComponents.DotNetBar.eTooltipColor.Green));
+            this.chkPreventMovement.TabIndex = 2;
+            this.chkPreventMovement.Text = "Prevent Field Selection Changes during active match\r\n(this is highly recommended)" +
+    "";
+            this.chkPreventMovement.UseVisualStyleBackColor = true;
+            this.chkPreventMovement.CheckedChanged += new System.EventHandler(this.chkPreventMovement_CheckedChanged);
+            // 
+            // line1
+            // 
+            this.line1.Location = new System.Drawing.Point(3, 49);
+            this.line1.Name = "line1";
+            this.line1.Size = new System.Drawing.Size(310, 23);
+            this.line1.TabIndex = 4;
+            this.line1.Text = "line1";
             // 
             // frmSettings
             // 
@@ -431,5 +471,8 @@ namespace FTC_Timer_Display
         private System.Windows.Forms.CheckBox chkDateTime;
         private System.Windows.Forms.Label label3;
         private DevComponents.DotNetBar.SuperTooltip toolTipMgr;
+        private System.Windows.Forms.CheckBox chkShowHelp;
+        private System.Windows.Forms.CheckBox chkPreventMovement;
+        private DevComponents.DotNetBar.Controls.Line line1;
     }
 }

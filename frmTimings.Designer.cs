@@ -44,13 +44,13 @@
             this.numQuarterfinalCount = new System.Windows.Forms.NumericUpDown();
             this.numSemifinalCount = new System.Windows.Forms.NumericUpDown();
             this.btnSave = new DevComponents.DotNetBar.ButtonX();
+            this.timingEventTimeout = new FTC_Timer_Display.ctrlTimeLengthEntry();
             this.validator = new DevComponents.DotNetBar.Validator.SuperValidator();
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.highlighter2 = new DevComponents.DotNetBar.Validator.Highlighter();
             this.validatorAuto = new DevComponents.DotNetBar.Validator.CustomValidator();
             this.validatorNocross = new DevComponents.DotNetBar.Validator.CustomValidator();
             this.validatorEndgame = new DevComponents.DotNetBar.Validator.CustomValidator();
-            this.timingEventTimeout = new FTC_Timer_Display.ctrlTimeLengthEntry();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.highlighter2 = new DevComponents.DotNetBar.Validator.Highlighter();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numQuarterfinalCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSemifinalCount)).BeginInit();
@@ -92,7 +92,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 65F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(310, 397);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(310, 369);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // btnDefaults
@@ -100,7 +100,7 @@
             this.btnDefaults.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnDefaults.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnDefaults.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnDefaults.Location = new System.Drawing.Point(158, 335);
+            this.btnDefaults.Location = new System.Drawing.Point(158, 307);
             this.btnDefaults.Name = "btnDefaults";
             this.btnDefaults.Size = new System.Drawing.Size(149, 59);
             this.btnDefaults.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -299,13 +299,29 @@
             this.btnSave.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnSave.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnSave.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnSave.Location = new System.Drawing.Point(3, 335);
+            this.btnSave.Location = new System.Drawing.Point(3, 307);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(149, 59);
             this.btnSave.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnSave.TabIndex = 0;
             this.btnSave.Text = "Save";
             this.btnSave.Click += new System.EventHandler(this.HandleButtons);
+            // 
+            // timingEventTimeout
+            // 
+            this.timingEventTimeout.Caption = "Event Timeout";
+            this.tableLayoutPanel1.SetColumnSpan(this.timingEventTimeout, 2);
+            this.timingEventTimeout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.timingEventTimeout.IndicatorColor = System.Drawing.Color.Empty;
+            this.timingEventTimeout.Location = new System.Drawing.Point(3, 183);
+            this.timingEventTimeout.MaximumValue = System.TimeSpan.Parse("00:48:05");
+            this.timingEventTimeout.MinimumValue = System.TimeSpan.Parse("00:00:00");
+            this.timingEventTimeout.Name = "timingEventTimeout";
+            this.timingEventTimeout.Readonly = false;
+            this.timingEventTimeout.Size = new System.Drawing.Size(304, 24);
+            this.timingEventTimeout.TabIndex = 12;
+            this.timingEventTimeout.useColorPicker = false;
+            this.timingEventTimeout.Value = System.TimeSpan.Parse("00:00:00");
             // 
             // validator
             // 
@@ -314,16 +330,6 @@
             this.validator.Highlighter = this.highlighter2;
             this.validator.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
             this.validator.ValidationType = DevComponents.DotNetBar.Validator.eValidationType.ValidatingEventPerControl;
-            // 
-            // errorProvider1
-            // 
-            this.errorProvider1.ContainerControl = this;
-            this.errorProvider1.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider1.Icon")));
-            // 
-            // highlighter2
-            // 
-            this.highlighter2.ContainerControl = this;
-            this.highlighter2.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
             // 
             // validatorAuto
             // 
@@ -346,28 +352,22 @@
             this.validatorEndgame.ValuePropertyName = "Value";
             this.validatorEndgame.ValidateValue += new DevComponents.DotNetBar.Validator.ValidateValueEventHandler(this.CustomValidation);
             // 
-            // timingEventTimeout
+            // errorProvider1
             // 
-            this.timingEventTimeout.Caption = "Event Timeout";
-            this.tableLayoutPanel1.SetColumnSpan(this.timingEventTimeout, 2);
-            this.timingEventTimeout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timingEventTimeout.IndicatorColor = System.Drawing.Color.Empty;
-            this.timingEventTimeout.Location = new System.Drawing.Point(3, 183);
-            this.timingEventTimeout.MaximumValue = System.TimeSpan.Parse("00:48:05");
-            this.timingEventTimeout.MinimumValue = System.TimeSpan.Parse("00:00:00");
-            this.timingEventTimeout.Name = "timingEventTimeout";
-            this.timingEventTimeout.Readonly = false;
-            this.timingEventTimeout.Size = new System.Drawing.Size(304, 24);
-            this.timingEventTimeout.TabIndex = 12;
-            this.timingEventTimeout.useColorPicker = false;
-            this.timingEventTimeout.Value = System.TimeSpan.Parse("00:00:00");
+            this.errorProvider1.ContainerControl = this;
+            this.errorProvider1.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider1.Icon")));
+            // 
+            // highlighter2
+            // 
+            this.highlighter2.ContainerControl = this;
+            this.highlighter2.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
             // 
             // frmTimings
             // 
             this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(310, 397);
+            this.ClientSize = new System.Drawing.Size(310, 369);
             this.Controls.Add(this.tableLayoutPanel1);
             this.MaximizeBox = false;
             this.MinimizeBox = false;

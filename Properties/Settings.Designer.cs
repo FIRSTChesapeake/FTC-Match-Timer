@@ -208,5 +208,17 @@ namespace FTC_Timer_Display.Properties {
                 this["autoElimTimeouts"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool preventRunningMovement {
+            get {
+                return ((bool)(this["preventRunningMovement"]));
+            }
+            set {
+                this["preventRunningMovement"] = value;
+            }
+        }
     }
 }
