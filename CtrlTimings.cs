@@ -12,15 +12,14 @@ using DevComponents.DotNetBar;
 
 namespace FTC_Timer_Display
 {
-    public partial class frmTimings : Office2007Form
+    public partial class CtrlTimings : UserControl
     {
-        public frmTimings()
+        public CtrlTimings()
         {
             InitializeComponent();
-            LoadValues();
         }
 
-        private void LoadValues()
+        public void LoadValues()
         {
             timingMatch.Value = MatchTimingData.matchLength;
             timingAuto.Value = MatchTimingData.autoLength;
@@ -30,8 +29,22 @@ namespace FTC_Timer_Display
             timingEventTimeout.Value = MatchTimingData.timeoutEventLength;
             timingDriver.Value = driverPeriod;
 
+            chkCountdown.Checked = Properties.Settings.Default.useCountdown;
+            timingCountdown.Enabled = Properties.Settings.Default.useCountdown;
+            timingCountdown.Value = MatchTimingData.countdownStart;
+
             numQuarterfinalCount.Value = MatchTimingData.quarterfinalAlliances;
             numSemifinalCount.Value = MatchTimingData.semifinalAlliances;
+            btnSave.Enabled = false;
+            btnRevert.Enabled = false;
+        }
+
+        public bool hasChanges
+        {
+            get
+            {
+                return btnSave.Enabled;
+            }
         }
 
         private void HandleButtons(object sender, EventArgs e)
@@ -45,11 +58,24 @@ namespace FTC_Timer_Display
                 MatchTimingData.timeoutTeamLength = timingTeamTimeout.Value;
                 MatchTimingData.timeoutEventLength = timingEventTimeout.Value;
 
+                MatchTimingData.countdownStart = timingCountdown.Value;
+
                 MatchTimingData.quarterfinalAlliances = (int)numQuarterfinalCount.Value;
                 MatchTimingData.semifinalAlliances = (int)numSemifinalCount.Value;
 
-                this.Tag = true;
-                this.Visible = false;
+                // save the countdown preference
+                Properties.Settings.Default.useCountdown = chkCountdown.Checked;
+                Properties.Settings.Default.Save();
+
+                btnSave.Enabled = false;
+                btnRevert.Enabled = false;
+            }
+            else if (sender.Equals(btnRevert))
+            {
+                string msg = "Are you sure you want to revert your changes?";
+                DialogResult dr = MessageBox.Show(msg, this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                if (dr == System.Windows.Forms.DialogResult.No) return;
+                LoadValues();
             }
             else if (sender.Equals(btnDefaults))
             {
@@ -92,6 +118,21 @@ namespace FTC_Timer_Display
         private void TimingValueChanged(object sender, TimeSpan e)
         {
             timingDriver.Value = driverPeriod;
+            btnSave.Enabled = true;
+            btnRevert.Enabled = true;
+        }
+
+        private void chkCountdownChanged(object sender, EventArgs e)
+        {
+            timingCountdown.Enabled = chkCountdown.Checked;
+            btnSave.Enabled = true;
+            btnRevert.Enabled = true;
+        }
+
+        private void numPickerChanged(object sender, EventArgs e)
+        {
+            btnSave.Enabled = true;
+            btnRevert.Enabled = true;
         }
     }
 }

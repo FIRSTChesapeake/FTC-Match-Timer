@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using DevComponents.DotNetBar;
-using System.Reflection;
 
 namespace FTC_Timer_Display
 {
@@ -119,8 +118,10 @@ namespace FTC_Timer_Display
         public frmMain(InitialData init)
         {
             InitializeComponent();
+            // Set the titlebar
+            this.Text = GeneralFunctions.makeWindowTitle(this.Text);
             // show version
-            lblVer.Text = string.Format("Version {0}", Assembly.GetExecutingAssembly().GetName().Version.ToString());
+            lblVer.Text = GeneralFunctions.appVersion;
             // Set the init Data
             this.initData = init;
             // Init the MatchType dropdown, default to qualification
@@ -146,7 +147,7 @@ namespace FTC_Timer_Display
             // Init the local timer if needed.
             if (initData.runType == InitialData.RunType.Server)
             {
-                grpLocalTimer.Enabled = false;
+                tableDisplayControl.Enabled = false;
             }
             else
             {
@@ -177,7 +178,8 @@ namespace FTC_Timer_Display
         {
             if (fieldExists(fieldID)) return;
             flowFields.Controls.Clear();
-            SingleClient client = new SingleClient(initData, fieldID, sendFieldDataHandler, SingleClientDisplayClickHandler);
+            int width = flowFields.Width - 10;
+            SingleClient client = new SingleClient(initData, fieldID, width, sendFieldDataHandler, SingleClientDisplayClickHandler);
             client.matchData.matchType = _currentMatchType;
             _allClients.Add(client);
             _allClients.Sort();
@@ -346,23 +348,8 @@ namespace FTC_Timer_Display
                     lblListenStatus.Text = "Controlled Locally";
                 }
             }
-            // Show the display State
-            if (display == null)
-            {
-                lblDisplayStatus.Text = "No Display";
-            }
-            else if (!display.Visible)
-            {
-                lblDisplayStatus.Text = "Hidden";
-            }
-            else if (display.FormBorderStyle == System.Windows.Forms.FormBorderStyle.None)
-            {
-                lblDisplayStatus.Text = "Fullscreen";
-            }
-            else
-            {
-                lblDisplayStatus.Text = "Windowed";
-            }
+            // Display Status
+            setLocalDisplayControlButtons();
 
             // Set the "last received" display
             lblLastRecvTime.Text = _lastReceiveTime.ToLongTimeString();
@@ -381,7 +368,7 @@ namespace FTC_Timer_Display
             ////  EVERYTHING BELOW HERE requires a selected client.
             if (_selectedClient == null) return;
             // Set the header
-            lblFieldHead.Text = _selectedClient.DisplayString;
+            headerFieldHead.Text = _selectedClient.DisplayString;
             // Allow user to edit field if it's not running
             cboMatchType.Enabled = !_anyRunningClients;
             numMatchNumberMajor.Enabled = _selectedClient.canBeChanged;
@@ -400,17 +387,16 @@ namespace FTC_Timer_Display
             bool canTimeout = _selectedClient.matchData.isIdle || _selectedClient.matchData.matchStatus == MatchData.MatchStatus.Timeout;
             btnTimeoutStart.Enabled = canTimeout;
             btnTimeoutCancel.Enabled = _selectedClient.matchData.matchStatus == MatchData.MatchStatus.Timeout;
-            if (_selectedClient.matchData.matchStatus == MatchData.MatchStatus.Timeout)
-            {
-                btnTimeoutStart.Text = "Extend\nTimeout";
-            }
-            else
-            {
-                btnTimeoutStart.Text = "Start\nTimeout";
-            }
+
+            // Set button labels based on match status - Start
+            if (_selectedClient.matchData.matchStatus == MatchData.MatchStatus.Paused) btnStart.Text = "Resume Match\n(F1)";
+            else btnStart.Text = "Start Match\n(F1)";
+            // Set button labels based on match status - Timeout
+            if (_selectedClient.matchData.matchStatus == MatchData.MatchStatus.Timeout) btnTimeoutStart.Text = "Extend Timeout\n(F6)";
+            else btnTimeoutStart.Text = "Start Timeout\n(F6)";
+
             // Allow config windows when no clients are running
-            linkSetMatchTimes.Enabled = !_anyRunningClients;
-            linkSettings.Enabled = !_anyRunningClients;
+            btnSettings.Enabled = !_anyRunningClients;
             // Allow the user to pick a different field when no match is running
             bool canSelectField = _selectedClient == null || !_selectedClient.matchData.activeMatch;
             flowFields.Enabled = (canSelectField && initData.isServer) || !Properties.Settings.Default.preventRunningMovement;
@@ -422,6 +408,22 @@ namespace FTC_Timer_Display
             progressDisplay.SetMatchProgress(_selectedClient.matchData);
             // Send the pit data
             SendPitData();
+        }
+
+        private void setLocalDisplayControlButtons()
+        {
+            if (display == null)
+            {
+                tableDisplayControl.Enabled = false;
+            }
+            else
+            {
+                tableDisplayControl.Enabled = true;
+                frmDisplay.DisplayStatus status = display.displayStatus;
+                btnDisplayHide.Checked = status == frmDisplay.DisplayStatus.Hide;
+                btnDisplayWindow.Checked = status == frmDisplay.DisplayStatus.Windowed;
+                btnDisplayFullscreen.Checked = status == frmDisplay.DisplayStatus.Fullscreen;
+            }
         }
 
         private void selectFieldNumber(int field)
@@ -586,6 +588,20 @@ namespace FTC_Timer_Display
             {
                 AutoAdvanceMatch();
             }
+            else if (sender.Equals(btnTimeoutStart))
+            {
+                bool alreadyRunning = (_selectedClient.matchData.matchStatus == MatchData.MatchStatus.Timeout);
+                frmStartTimeout wind = new frmStartTimeout(_currentMatchType, alreadyRunning);
+                wind.ShowDialog();
+                if (wind.Tag == null) return;
+                SingleClient.TimeoutData data = (SingleClient.TimeoutData)wind.Tag;
+                _selectedClient.StartTimeout(data);
+                wind.Close();
+            }
+            else if (sender.Equals(btnTimeoutCancel))
+            {
+                _selectedClient.ResetMatch();
+            }
         }
 
         private void AutoAdvanceMatch()
@@ -726,27 +742,6 @@ namespace FTC_Timer_Display
             SoundGenerator.isMuted = swLocalMute.Value;
         }
 
-        private void HandleOptionsLinkLabels(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            if (sender.Equals(linkSettings))
-            {
-                settings.Visible = true;
-            }
-            else if (sender.Equals(linkSetMatchTimes))
-            {
-                if (MatchTimingData.editTiming())
-                {
-                    SetMatchNumber();
-                    _selectedClient.ResetMatch();
-                }
-            }
-            else if (sender.Equals(linkSoundTest))
-            {
-                frmSoundTest wind = new frmSoundTest();
-                wind.Show();
-            }
-        }
-
         private void frmMain_KeyDown(object sender, KeyEventArgs e)
         {
             // Simulate field control button presses with Function Keys.
@@ -756,6 +751,8 @@ namespace FTC_Timer_Display
                 case Keys.F1: b = btnStart; break;
                 case Keys.F2: b = btnAdvance; break;
                 case Keys.F3: b = btnReset; break;
+                case Keys.F6: b = btnTimeoutStart; break;
+                case Keys.F7: b = btnTimeoutCancel; break;
                 case Keys.F11: b = btnPause; break;
                 case Keys.F12: b = btnStop; break;
             }
@@ -764,11 +761,6 @@ namespace FTC_Timer_Display
                 FieldControlButtonsHandler(b, new EventArgs());
                 return;
             }
-        }
-
-        private void stepDriver_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -809,38 +801,23 @@ namespace FTC_Timer_Display
             wind.ShowDialog();
         }
 
-        private void cboDigitSet_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void HandleTimeoutButtons(object sender, EventArgs e)
-        {
-            if (sender.Equals(btnTimeoutStart))
-            {
-                bool alreadyRunning = (_selectedClient.matchData.matchStatus == MatchData.MatchStatus.Timeout);
-                frmStartTimeout wind = new frmStartTimeout(_currentMatchType, alreadyRunning);
-                wind.ShowDialog();
-                if (wind.Tag == null) return;
-                SingleClient.TimeoutData data = (SingleClient.TimeoutData)wind.Tag;
-                _selectedClient.StartTimeout(data);
-                wind.Close();
-            }
-            if (sender.Equals(btnTimeoutCancel))
-            {
-                _selectedClient.ResetMatch();
-            }
-        }
-
-        private void btnChangeDisplayState_Click(object sender, EventArgs e)
-        {
-            if (display == null) return;
-            display.ChangeView();
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private void picVafLogoClickHandler(object sender, EventArgs e)
         {
             OpenLink(@"http://www.virginiafirst.org", "VirginiaFIRST Homepage");
+        }
+
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+            settings.ShowDialog();
+        }
+
+        private void changeDisplayStateButtonHandler(object sender, EventArgs e)
+        {
+            if (display == null) return;
+            frmDisplay.DisplayStatus newStatus = frmDisplay.DisplayStatus.Hide;
+            if (sender.Equals(btnDisplayWindow)) newStatus = frmDisplay.DisplayStatus.Windowed;
+            if (sender.Equals(btnDisplayFullscreen)) newStatus = frmDisplay.DisplayStatus.Fullscreen;
+            display.displayStatus = newStatus;
         }
     }
 }

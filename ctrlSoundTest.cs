@@ -9,39 +9,51 @@ using DevComponents.DotNetBar;
 
 namespace FTC_Timer_Display
 {
-    public partial class frmSoundTest : DevComponents.DotNetBar.OfficeForm
+    public partial class CtrlSoundTest : UserControl
     {
-        public frmSoundTest()
+        public CtrlSoundTest()
         {
             InitializeComponent();
-            // Make sure all sound buttons fit in the window.
-            int otherHeight = this.Size.Height - flowSounds.Size.Height + 10;
-            int btnHeight = 35;
-            Size z = new Size((flowSounds.Width / 2) - 10, btnHeight);
+        }
+
+        public void LoadSounds()
+        {
+            flowSounds.Controls.Clear();
+            List<ButtonX> btns = new List<ButtonX>();
+            int pixPerLetter = (int)ButtonX.DefaultFont.Size + 1;
+            int btnWidth = 50;
             foreach (string s in SoundGenerator.availableSounds)
             {
                 ButtonX b = new ButtonX();
                 b.Text = s.ToUpper();
                 b.Tag = s;
-                b.Size = z;
+                int width = s.ToCharArray().Length * pixPerLetter;
+                if (width > btnWidth) btnWidth = width;
                 b.Click += HandlePreRecordedSoundsButtons;
+                btns.Add(b);
+            }
+            Size btnSize = new Size(btnWidth, 35);
+            foreach (ButtonX b in btns)
+            {
+                b.Size = btnSize;
                 flowSounds.Controls.Add(b);
             }
-            int cnt = flowSounds.Controls.Count;
-            int rows = (cnt % 2 == 0) ? cnt / 2 : (cnt + 1) / 2;
-            int newHeight = otherHeight + (rows * btnHeight) + (rows * 3);      // control margin defaults @ 3.
-            if(newHeight > this.Size.Height) this.Size = new Size(this.Size.Width, newHeight);
-
             // Load the current Voice Synth Vol/Rate
-            knobRate.Value = SoundGenerator.voiceOutputRate;
-            knobVolume.Value = SoundGenerator.voiceOutputVolume;
+            slideVoiceRate.Value = SoundGenerator.voiceOutputRate;
+            slideVoiceVolume.Value = SoundGenerator.voiceOutputVolume;
         }
 
         private void HandlePreRecordedSoundsButtons(object sender, EventArgs e)
         {
-            if (sender.Equals(btnStopAll))
+            if (sender.Equals(btnStopPregen) || sender.Equals(btnStopVoice))
             {
                 SoundGenerator.StopAll();
+            }
+            else if (sender.Equals(btnSpeak))
+            {
+                if (txtSpeak.Text == "") return;
+                SoundGenerator.SoundPackage package = new SoundGenerator.SoundPackage(SoundGenerator.SoundPackage.SoundMethods.TextToSpeech, txtSpeak.Text);
+                SoundGenerator.PlaySound(package);
             }
             else
             {
@@ -65,17 +77,11 @@ namespace FTC_Timer_Display
             if (!SoundGenerator.voiceReady) tableVoice.Enabled = false;
         }
 
-        private void btnSpeak_Click(object sender, EventArgs e)
+        private void sliderChangeHandler(object sender, EventArgs e)
         {
-            if (txtSpeak.Text == "") return;
-            SoundGenerator.SoundPackage package = new SoundGenerator.SoundPackage(SoundGenerator.SoundPackage.SoundMethods.TextToSpeech, txtSpeak.Text);
-            SoundGenerator.PlaySound(package);
-        }
 
-        private void KnobChgHandler(object sender, DevComponents.Instrumentation.ValueChangedEventArgs e)
-        {
-            SoundGenerator.voiceOutputRate = (int)knobRate.Value;
-            SoundGenerator.voiceOutputVolume = (int)knobVolume.Value;
+            SoundGenerator.voiceOutputRate = slideVoiceRate.Value;
+            SoundGenerator.voiceOutputVolume = slideVoiceVolume.Value;
         }
     }
 }

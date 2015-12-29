@@ -220,5 +220,17 @@ namespace FTC_Timer_Display.Properties {
                 this["preventRunningMovement"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool useCountdown {
+            get {
+                return ((bool)(this["useCountdown"]));
+            }
+            set {
+                this["useCountdown"] = value;
+            }
+        }
     }
 }

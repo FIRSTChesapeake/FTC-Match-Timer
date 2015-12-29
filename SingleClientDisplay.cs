@@ -15,10 +15,11 @@ namespace FTC_Timer_Display
 
         public event EventHandler WasClicked;
 
-        public SingleClientDisplay(int fieldID, bool local, EventHandler clickHandler)
+        public SingleClientDisplay(int fieldID, bool local, EventHandler clickHandler, int width)
         {
             InitializeComponent();
             WasClicked += clickHandler;
+            this.Width = width;
             string sLocal = local ? "*" : "";
             lblFieldName.Text = string.Format("FIELD {0}{1}", fieldID.ToString(), sLocal);
         }
@@ -34,7 +35,7 @@ namespace FTC_Timer_Display
                 // Are we selected?
                 this.BackColor = isSelected ? Color.LightBlue : Color.Transparent;
                 // Match Number
-                lblMatch.Text = data.matchNumberString;
+                lblMatch.Text = string.Format("{0} {1}", data.matchTypeShort, data.matchNumberString);
                 // Update Display
                 if (data.matchStatus == MatchData.MatchStatus.Running)
                 {

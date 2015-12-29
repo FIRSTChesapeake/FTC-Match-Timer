@@ -100,9 +100,9 @@ namespace FTC_Timer_Display
             }
         }
 
-        public SingleClient(InitialData initData, int fieldID, EventHandler<MatchData> SendDataHandler, EventHandler<int> DisplayClickHandler)
+        public SingleClient(InitialData initData, int fieldID, int width, EventHandler<MatchData> SendDataHandler, EventHandler<int> DisplayClickHandler)
         {
-            this.fieldDisplayObj = new SingleClientDisplay(fieldID, (initData.fieldID == fieldID), CtrlClickHandler);
+            this.fieldDisplayObj = new SingleClientDisplay(fieldID, (initData.fieldID == fieldID), CtrlClickHandler, width);
             SendData += SendDataHandler;
             ControlClicked += DisplayClickHandler;
             _data = new MatchData(initData, fieldID);
@@ -231,6 +231,17 @@ namespace FTC_Timer_Display
                         _data.soundPackage = new SoundGenerator.SoundPackage(SoundGenerator.SoundPackage.SoundMethods.TextToSpeech, msg);
                     }
                     this.ResetMatch();
+                }
+            }
+            // Process countdown (only if we're not already playing a sound, and the timer is running)
+            if (Properties.Settings.Default.useCountdown && _data.soundPackage == null && _data.timerRunning)
+            {
+                if (_data.timerValue.Add(new TimeSpan(0, 0, -1)) < MatchTimingData.countdownStart)
+                {
+                    string countStr = SoundGenerator.TimeSpanToString(_data.timerValue);
+                    SoundGenerator.SoundPackage p = new SoundGenerator.SoundPackage(SoundGenerator.SoundPackage.SoundMethods.SoundFile, countStr);
+                    if (p.soundCanPlay) _data.soundPackage = p;
+                    else _data.soundPackage = new SoundGenerator.SoundPackage(SoundGenerator.SoundPackage.SoundMethods.TextToSpeech, countStr);
                 }
             }
             // Update the display object

@@ -18,6 +18,10 @@ namespace FTC_Timer_Display
         public frmModeSelection(InitialData template)
         {
             InitializeComponent();
+            // set the title text
+            this.Text = GeneralFunctions.makeWindowTitle(this.Text);
+            // show version
+            lblVersion.Text = GeneralFunctions.appVersion;
             // Init the event type dropdown
             cboEventType.DataSource = Enum.GetValues(typeof(MatchData.EventTypes));
             // Set values
@@ -113,39 +117,39 @@ namespace FTC_Timer_Display
             if (sender.Equals(rdoServer))
             {
                 runType = InitialData.RunType.ServerClient;
-                grpServer.Enabled = true;
-                grpClient.Enabled = true;
+                tableServer.Enabled = true;
+                tableClient.Enabled = true;
             }
             else if (sender.Equals(rdoServerOnly))
             {
                 runType = InitialData.RunType.Server;
-                grpServer.Enabled = true;
-                grpClient.Enabled = false;
+                tableServer.Enabled = true;
+                tableClient.Enabled = false;
             }
             else if(sender.Equals(rdoClient))
             {
                 runType = InitialData.RunType.Client;
-                grpServer.Enabled = false;
-                grpClient.Enabled = true;
+                tableServer.Enabled = false;
+                tableClient.Enabled = true;
             }
             else if (sender.Equals(rdoLocal))
             {
                 runType = InitialData.RunType.Local;
-                grpServer.Enabled = true;
-                grpClient.Enabled = true;
+                tableServer.Enabled = true;
+                tableClient.Enabled = true;
             }
             else if (sender.Equals(rdoPit))
             {
                 runType = InitialData.RunType.PitDisplay;
-                grpServer.Enabled = false;
-                grpClient.Enabled = false;
+                tableServer.Enabled = false;
+                tableClient.Enabled = false;
             }
             ConfigureDisplayLabels();
         }
 
         private void frmModeSelection_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private void chkDualDivision_CheckedChanged(object sender, EventArgs e)
@@ -158,6 +162,12 @@ namespace FTC_Timer_Display
             lblDivName.Text = swMultiDivision.Value ? "Division Name:" : "Event Name:";
             numDivID.Enabled = swMultiDivision.Value;
             if (!swMultiDivision.Value) numDivID.Value = 1;
+        }
+
+        private void tablesEnableHandler(object sender, EventArgs e)
+        {
+            headerServer.Enabled = tableServer.Enabled;
+            headerClient.Enabled = tableClient.Enabled;
         }
     }
 }

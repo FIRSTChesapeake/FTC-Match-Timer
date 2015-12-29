@@ -41,7 +41,7 @@ namespace FTC_Timer_Display
             this.rdoSoundBuzzer = new System.Windows.Forms.RadioButton();
             this.rdoSoundVoice = new System.Windows.Forms.RadioButton();
             this.lblAlreadyRunning = new System.Windows.Forms.Label();
-            this.timeValue = new FTC_Timer_Display.ctrlTimeLengthEntry();
+            this.timeValue = new FTC_Timer_Display.CtrlTimeLengthEntry();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -267,7 +267,7 @@ namespace FTC_Timer_Display
         private System.Windows.Forms.TextBox txtCustomMsg;
         private DevComponents.DotNetBar.ButtonX btnStart;
         private DevComponents.DotNetBar.ButtonX btnCancel;
-        private ctrlTimeLengthEntry timeValue;
+        private CtrlTimeLengthEntry timeValue;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.RadioButton rdoSoundNone;

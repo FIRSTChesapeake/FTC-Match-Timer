@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using DevComponents.DotNetBar;
+using System.Diagnostics;
 
 namespace FTC_Timer_Display
 {
@@ -17,13 +18,21 @@ namespace FTC_Timer_Display
         public frmSettings(ref InitialData initData, ref frmDisplay dispForm)
         {
             InitializeComponent();
+            // Set the titlebar
+            this.Text = GeneralFunctions.makeWindowTitle(this.Text);
+
             _initData = initData;
             _dispForm = dispForm;
 
             // Select default sound setting based on init.
-            bool localSound = initData.isServer || initData.runType == InitialData.RunType.Local;
-            rdoSoundLocal.Checked = localSound;
-            rdoSoundRemote.Checked = !localSound;
+            bool localSettings = initData.isServer || initData.runType == InitialData.RunType.Local;
+            rdoSoundLocal.Checked = localSettings;
+            rdoSoundRemote.Checked = !localSettings;
+            // Only allow timing if we're a server or local.
+            timingsControl.Enabled = localSettings;
+            // Only allow server settings when we're a server
+            headerServerOptions.Enabled = localSettings;
+            flowServerOptions.Enabled = localSettings;
 
         }
 
@@ -34,14 +43,20 @@ namespace FTC_Timer_Display
 
         private void frmSettings_Load(object sender, EventArgs e)
         {
+            
+        }
+
+        private void LoadSettings()
+        {
+            Debug.WriteLine("Loading settings..");
             // Only servers broadcast their pit displays
             if (!_initData.isServer)
             {
                 rdoPitOff.Checked = true;
-                grpPit.Enabled = false;
+                flowPit.Enabled = false;
             }
             // Enable / Disable sound settings
-            grpSoundOptions.Enabled = _initData.isServer || _initData.runType == InitialData.RunType.Local;
+            flowSoundLocation.Enabled = _initData.isServer || _initData.runType == InitialData.RunType.Local;
             rdoSoundRemote.Enabled = _initData.isServer;
             // Load custom image if it exists and we have a display.
             if (_dispForm != null)
@@ -55,13 +70,17 @@ namespace FTC_Timer_Display
             }
             else
             {
-                grpBranding.Enabled = false;
+                tableBranding.Enabled = false;
             }
             // misc options
             chkDateTime.Checked = Properties.Settings.Default.displayShowDateTime;
             chkShowHelp.Checked = Properties.Settings.Default.showHelp;
             chkAutoElimTimeout.Checked = Properties.Settings.Default.autoElimTimeouts;
             chkPreventMovement.Checked = Properties.Settings.Default.preventRunningMovement;
+            // Timing
+            timingsControl.LoadValues();
+            // Sound Testing
+            soundControl.LoadSounds();
         }
 
         public PitData.PitDataSelections pitDataSelection
@@ -107,11 +126,28 @@ namespace FTC_Timer_Display
 
         private void frmSettings_FormClosing(object sender, FormClosingEventArgs e)
         {
+            // if the user is performing the action, we'll never destroy this window
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 e.Cancel = true;
-                this.Visible = false;
+                CloseHandler();
             }
+
+        }
+
+        private void CloseHandler()
+        {
+            // if there are unsaved settings, warn the user.
+            string unsavedLocation = "";
+            if (timingsControl.hasChanges) unsavedLocation = "Match Timing";
+            if (unsavedLocation != "")
+            {
+                string msg = string.Format("You have unsaved changes on tab '{0}'.\nClose without saving?", unsavedLocation);
+                DialogResult dr = MessageBox.Show(msg, "Unsaved Changes", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                if (dr == System.Windows.Forms.DialogResult.No) return;
+            }
+            // if we make it here, make window !visible.
+            this.Visible = false;
         }
 
         private void LogoChangeHandler(object sender, EventArgs e)
@@ -159,7 +195,7 @@ namespace FTC_Timer_Display
 
         private void frmSettings_VisibleChanged(object sender, EventArgs e)
         {
-            
+            if (this.Visible == true) this.LoadSettings();
         }
 
         private void chkShowHelp_CheckedChanged(object sender, EventArgs e)
@@ -172,6 +208,11 @@ namespace FTC_Timer_Display
         {
             Properties.Settings.Default.preventRunningMovement = chkPreventMovement.Checked;
             Properties.Settings.Default.Save();
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            CloseHandler();
         }
     }
 }

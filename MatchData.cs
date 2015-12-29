@@ -144,7 +144,18 @@ namespace FTC_Timer_Display
                 return sb.ToString();
             }
         }
-
+        public string matchTypeShort
+        {
+            get
+            {
+                switch (this.matchType)
+                {
+                    case MatchTypes.Quarterfinals: return "QF";
+                    case MatchTypes.Semifinals: return "SF";
+                    default: return this.matchType.ToString().ToCharArray()[0].ToString();
+                }
+            }
+        }
         public string matchHeaderString
         {
             get

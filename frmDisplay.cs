@@ -55,29 +55,42 @@ namespace FTC_Timer_Display
 
         private void frmDisplay_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyData == Keys.F11)
+            
+        }
+
+        public DisplayStatus displayStatus
+        {
+            set
             {
-                ChangeView();
+                switch (value)
+                {
+                    case DisplayStatus.Hide:
+                        ChangeFullscreen(false);
+                        this.Visible = false;
+                        break;
+                    case DisplayStatus.Windowed:
+                        this.Visible = true;
+                        ChangeFullscreen(false);
+                        break;
+                    case DisplayStatus.Fullscreen:
+                        this.Visible = true;
+                        ChangeFullscreen(true);
+                        break;
+                }
+            }
+            get
+            {
+                if (!this.Visible) return DisplayStatus.Hide;
+                else if (this.FormBorderStyle == System.Windows.Forms.FormBorderStyle.None) return DisplayStatus.Fullscreen;
+                else return DisplayStatus.Windowed;
             }
         }
 
-        public void ChangeView()
+        public enum DisplayStatus
         {
-            bool isFull = this.FormBorderStyle == System.Windows.Forms.FormBorderStyle.None;
-            if (!this.Visible)
-            {
-                this.Visible = true;
-                ChangeFullscreen(false);
-            }
-            else if (!isFull)
-            {
-                ChangeFullscreen(true);
-            }
-            else
-            {
-                ChangeFullscreen(false);
-                this.Visible = false;
-            }
+            Hide,
+            Windowed,
+            Fullscreen
         }
 
         private void ChangeFullscreen(bool val)

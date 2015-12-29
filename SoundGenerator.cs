@@ -16,6 +16,7 @@ namespace FTC_Timer_Display
         // Sound player settings & objects
         public static readonly string AppPath = AppDomain.CurrentDomain.BaseDirectory;
         public static readonly string SoundsFolder = String.Format(@"{0}\{1}", AppPath, "Sounds");
+        public static readonly string NumberFolder = String.Format(@"{0}\{1}", AppPath, "Numbers");
         private static Dictionary<string, SoundPlayer> sounds = new Dictionary<string, SoundPlayer>();
 
         public static List<string> availableSounds
@@ -46,10 +47,28 @@ namespace FTC_Timer_Display
 
         public static void init()
         {
+            // Load Required Sound Files
+            loadSoundFiles(SoundsFolder);
+            // Load optional numbers
+            loadSoundFiles(NumberFolder);
+
             try
             {
-                // Sound files
-                string[] files = Directory.GetFiles(SoundsFolder);
+                // Synth
+                voice = new SpeechSynthesizer();
+                voice.Volume = 100;
+            }
+            catch { }
+            isInit = true;
+        }
+
+        private static bool loadSoundFiles(string path)
+        {
+            try
+            {
+                // Sound files - Load from given directory
+                if (!Directory.Exists(path)) return false;
+                string[] files = Directory.GetFiles(path);
                 foreach (string s in files)
                 {
                     string key = (Path.GetFileName(s).Split('.'))[0].ToLower();
@@ -59,17 +78,9 @@ namespace FTC_Timer_Display
                     player.LoadAsync();
                     sounds.Add(key, player);
                 }
-
+                return true;
             }
-            catch { }
-            try
-            {
-                // Synth
-                voice = new SpeechSynthesizer();
-                voice.Volume = 100;
-            }
-            catch { }
-            isInit = true;
+            catch { return false; }
         }
 
         public static void StopAll()
@@ -119,8 +130,12 @@ namespace FTC_Timer_Display
                     else sounds[name].PlayLooping();
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(string.Format("Sound Play Exception: {0}", ex.Message));
+            }
         }
+
         // Voice Synth Functions
         private static void Speak(string s)
         {
@@ -144,6 +159,29 @@ namespace FTC_Timer_Display
             }
         }
 
+        public static string TimeSpanToString(TimeSpan ts)
+        {
+            StringBuilder sb = new StringBuilder();
+            // Hours
+            if (ts.Hours == 1) sb.Append("1 Hour");
+            else if (ts.Hours > 1) sb.Append(string.Format("{0} Hours", ts.Hours));
+            if (ts.Hours != 0 && (ts.Minutes != 0 || ts.Seconds != 0)) sb.Append(", ");
+            // Minutes
+            if (ts.Minutes == 1) sb.Append("1 Minute");
+            else if (ts.Minutes > 1) sb.Append(string.Format("{0} Minutes", ts.Minutes));
+            if (ts.Minutes != 0 && ts.Seconds != 0) sb.Append(", ");
+            // Seconds
+            if (ts.Seconds > 0 && (ts.Hours > 0 || ts.Minutes > 0))
+            {
+                if (ts.Seconds == 1) sb.Append("1 Second");
+                else sb.Append(string.Format("{0} Seconds", ts.Seconds));
+            }
+            else if (ts.Seconds > 0) sb.Append(ts.Seconds.ToString());
+            // Return
+            if (sb.Length == 0) return "";
+            return sb.ToString();
+        }
+
         [Serializable]
         public class SoundPackage
         {
@@ -162,6 +200,26 @@ namespace FTC_Timer_Display
                 SoundFile,
                 FileToSpeech,
                 TextToSpeech
+            }
+
+            public bool soundCanPlay
+            {
+                get
+                {
+                    switch (this.soundMethod)
+                    {
+                        case SoundMethods.FileToSpeech:
+                            if (File.Exists(dataString)) return true;
+                            return false;
+                        case SoundMethods.TextToSpeech:
+                            return SoundGenerator.voiceReady;
+                        case SoundMethods.SoundFile:
+                            if (SoundGenerator.sounds.ContainsKey(dataString.ToLower())) return true;
+                            return false;
+                        default:
+                            return false;
+                    }
+                }
             }
         }
     }

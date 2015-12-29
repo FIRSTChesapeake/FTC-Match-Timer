@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace FTC_Timer_Display
 {
-    public partial class ctrlTimeLengthEntry : UserControl
+    public partial class CtrlTimeLengthEntry : UserControl
     {
         public event EventHandler<TimeSpan> ValueChanged;
 
-        public ctrlTimeLengthEntry()
+        public CtrlTimeLengthEntry()
         {
             InitializeComponent();
             if (!notDefault) MaximumValue = TimeSpan.MaxValue;
@@ -30,6 +30,8 @@ namespace FTC_Timer_Display
             }
             set
             {
+                numMin.ReadOnly = value;
+                numSec.ReadOnly = value;
                 numMin.Enabled = !value;
                 numSec.Enabled = !value;
             }

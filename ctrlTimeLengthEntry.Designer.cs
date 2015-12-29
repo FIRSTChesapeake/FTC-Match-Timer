@@ -1,6 +1,6 @@
 ﻿namespace FTC_Timer_Display
 {
-    partial class ctrlTimeLengthEntry
+    partial class CtrlTimeLengthEntry
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ctrlTimeLengthEntry));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CtrlTimeLengthEntry));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lblCaption = new System.Windows.Forms.Label();
             this.numMin = new System.Windows.Forms.NumericUpDown();

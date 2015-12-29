@@ -17,13 +17,14 @@ namespace FTC_Timer_Display
         private static readonly TimeSpan _debugNoCross = new TimeSpan(0, 0, 5);
         private static readonly TimeSpan _debugEndgame = new TimeSpan(0, 0, 10);
         
-        
         private static readonly TimeSpan _defaultMatch = new TimeSpan(0, 2, 30);
         private static readonly TimeSpan _defaultAuto = new TimeSpan(0, 0, 30);
         private static readonly TimeSpan _defaultNoCross = new TimeSpan(0, 0, 10);
         private static readonly TimeSpan _defaultEndgame = new TimeSpan(0, 0, 30);
         private static readonly TimeSpan _defaultTeamTimeout = new TimeSpan(0, 3, 0);
         private static readonly TimeSpan _defaultEventTimeout = new TimeSpan(0, 5, 0);
+
+        private static readonly TimeSpan _defaultCountdownStart = new TimeSpan(0, 0, 5);
 
 
         private static readonly int _defaultQuarterfinalAlliances = 8;
@@ -37,6 +38,8 @@ namespace FTC_Timer_Display
         public static TimeSpan endgameLength { get; set; }
         public static TimeSpan timeoutTeamLength { get; set; }
         public static TimeSpan timeoutEventLength { get; set; }
+
+        public static TimeSpan countdownStart { get; set; }
 
         public static int quarterfinalAlliances { get; set; }
         public static int semifinalAlliances { get; set; }
@@ -163,6 +166,9 @@ namespace FTC_Timer_Display
             timeoutTeamLength = _defaultTeamTimeout;
             timeoutEventLength = _defaultEventTimeout;
 
+            // Countdown Start
+            countdownStart = _defaultCountdownStart;
+
             // Match Counts for Finals
             quarterfinalAlliances = _defaultQuarterfinalAlliances;
             semifinalAlliances = _defaultSemifinalAlliances;
@@ -190,8 +196,8 @@ namespace FTC_Timer_Display
 
         public static bool editTiming()
         {
-            frmTimings wind = new frmTimings();
-            wind.ShowDialog();
+            CtrlTimings wind = new CtrlTimings();
+            //wind.ShowDialog();
             if (wind.Tag == null) return false;
             return true;
         }

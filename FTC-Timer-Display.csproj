@@ -62,11 +62,17 @@
     <Compile Include="ClockFace.Designer.cs">
       <DependentUpon>ClockFace.cs</DependentUpon>
     </Compile>
-    <Compile Include="ctrlTimeLengthEntry.cs">
+    <Compile Include="CtrlHeader.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CtrlHeader.Designer.cs">
+      <DependentUpon>CtrlHeader.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CtrlTimeLengthEntry.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ctrlTimeLengthEntry.Designer.cs">
-      <DependentUpon>ctrlTimeLengthEntry.cs</DependentUpon>
+    <Compile Include="CtrlTimeLengthEntry.Designer.cs">
+      <DependentUpon>CtrlTimeLengthEntry.cs</DependentUpon>
     </Compile>
     <Compile Include="FontLoader.cs" />
     <Compile Include="frmPitDisplay.cs">
@@ -93,11 +99,11 @@
     <Compile Include="frmSettings.Designer.cs">
       <DependentUpon>frmSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmSoundTest.cs">
-      <SubType>Form</SubType>
+    <Compile Include="CtrlSoundTest.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="frmSoundTest.Designer.cs">
-      <DependentUpon>frmSoundTest.cs</DependentUpon>
+    <Compile Include="CtrlSoundTest.Designer.cs">
+      <DependentUpon>CtrlSoundTest.cs</DependentUpon>
     </Compile>
     <Compile Include="frmStartTimeout.cs">
       <SubType>Form</SubType>
@@ -105,13 +111,14 @@
     <Compile Include="frmStartTimeout.Designer.cs">
       <DependentUpon>frmStartTimeout.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmTimings.cs">
-      <SubType>Form</SubType>
+    <Compile Include="CtrlTimings.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="frmTimings.Designer.cs">
-      <DependentUpon>frmTimings.cs</DependentUpon>
+    <Compile Include="CtrlTimings.Designer.cs">
+      <DependentUpon>CtrlTimings.cs</DependentUpon>
     </Compile>
     <Compile Include="FtcMutex.cs" />
+    <Compile Include="GeneralFunctions.cs" />
     <Compile Include="MatchPeriodCtrl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -168,8 +175,11 @@
     <EmbeddedResource Include="ClockFace.resx">
       <DependentUpon>ClockFace.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ctrlTimeLengthEntry.resx">
-      <DependentUpon>ctrlTimeLengthEntry.cs</DependentUpon>
+    <EmbeddedResource Include="CtrlHeader.resx">
+      <DependentUpon>CtrlHeader.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CtrlTimeLengthEntry.resx">
+      <DependentUpon>CtrlTimeLengthEntry.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmDisplay.resx">
       <DependentUpon>frmDisplay.cs</DependentUpon>
@@ -192,14 +202,14 @@
     <EmbeddedResource Include="frmSettings.resx">
       <DependentUpon>frmSettings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmSoundTest.resx">
-      <DependentUpon>frmSoundTest.cs</DependentUpon>
+    <EmbeddedResource Include="CtrlSoundTest.resx">
+      <DependentUpon>CtrlSoundTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmStartTimeout.resx">
       <DependentUpon>frmStartTimeout.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmTimings.resx">
-      <DependentUpon>frmTimings.cs</DependentUpon>
+    <EmbeddedResource Include="CtrlTimings.resx">
+      <DependentUpon>CtrlTimings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MatchPeriodCtrl.resx">
       <DependentUpon>MatchPeriodCtrl.cs</DependentUpon>
@@ -381,14 +391,194 @@
     <None Include="Resources\j8.png" />
     <None Include="Resources\j9.png" />
     <None Include="Resources\vaf-logo.png" />
-    <None Include="Resources\indicator-blue.png" />
-    <None Include="Resources\indicator-green.png" />
-    <None Include="Resources\indicator-red.png" />
-    <None Include="Resources\indicator-yellow.png" />
     <None Include="Resources\ccShareAlike.png" />
     <None Include="Resources\ftc_logo_new.png" />
     <None Include="Resources\Rcolonoff.png" />
     <None Include="Resources\Rdigitoff.png" />
+    <Content Include="Numbers\0.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\1.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\10.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\11.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\12.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\13.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\14.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\15.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\16.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\17.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\18.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\19.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\2.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\20.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\21.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\22.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\23.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\24.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\25.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\26.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\27.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\28.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\29.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\3.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\30.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\31.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\32.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\33.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\34.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\35.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\36.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\37.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\38.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\39.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\4.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\40.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\41.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\42.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\43.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\44.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\45.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\46.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\47.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\48.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\49.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\5.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\50.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\51.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\52.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\53.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\54.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\55.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\56.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\57.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\58.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\59.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\6.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\7.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\8.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Numbers\9.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Resources\indicator-blue.png" />
+    <None Include="Resources\indicator-green.png" />
+    <None Include="Resources\indicator-yellow.png" />
+    <None Include="Resources\indicator-red.png" />
     <Content Include="Sounds\charge.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
