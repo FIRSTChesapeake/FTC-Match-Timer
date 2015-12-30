@@ -30,6 +30,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Components]
 Name: app; Description: "Application Files"; Types: full compact custom; Flags: fixed
+Name: log; Description: "Logging System (Log4net)"; Types: full compact custom; Flags: fixed
 Name: deb; Description: "Debugging Assistance Files"; Types: full custom;
 Name: dep; Description: "Dependencies"; Types: full compact custom; Flags: fixed
 Name: gs; Description: "Game Sounds"; Types: full compact custom; Flags: fixed
@@ -40,6 +41,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\FTC-Timer-Display\bin\Debug\FTC-Timer-Display.exe"; DestDir: "{app}"; Flags: ignoreversion; Components: app
+Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\FTC-Timer-Display\bin\Debug\log4net.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: log
 Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\FTC-Timer-Display\bin\Debug\FTC-Timer-Display.pdb"; DestDir: "{app}"; Flags: ignoreversion; Components: deb
 Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\FTC-Timer-Display\bin\Debug\DevComponents.DotNetBar2.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: dep
 Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\FTC-Timer-Display\bin\Debug\DevComponents.Instrumentation.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: dep
