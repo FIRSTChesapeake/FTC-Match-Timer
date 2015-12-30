@@ -7,8 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
 using DevComponents.DotNetBar;
+using System.Diagnostics;
 
 namespace FTC_Timer_Display
 {
@@ -56,18 +56,17 @@ namespace FTC_Timer_Display
                 {
                     StringBuilder sb = new StringBuilder();
                     bool first = true;
-                    Debug.WriteLine("Saving Fields:");
-                    Debug.Indent();
+
+                    LogMgr.logger.Debug(LogMgr.make("Saving Fields", "frmMain.SaveSettings"));
                     foreach (SingleClient c in _allClients)
                     {
-                        Debug.WriteLine(string.Format("Saving Field: {0}", c.matchData.fieldID.ToString()));
+                        LogMgr.logger.Debug(LogMgr.make("Saving Field {0}", "frmMain.SaveSettings", 1, c.matchData.fieldID));
                         if (!first) sb.Append(",");
                         first = false;
                         sb.Append(c.matchData.fieldID.ToString());
                     }
-                    Debug.Unindent();
-                    Debug.WriteLine(string.Format("Save String: {0}", sb.ToString()));
                     Properties.Settings.Default.FieldList = sb.ToString();
+                    LogMgr.logger.Debug(LogMgr.make("Fields Saved", "frmMain.SaveSettings"));
                 }
             }
             else
@@ -95,22 +94,22 @@ namespace FTC_Timer_Display
                 string[] list = csv.Split(',');
                 if (list.Length > 0)
                 {
-                    Debug.WriteLine("Loading Saved Fields:");
-                    Debug.Indent();
+                    LogMgr.logger.Info(LogMgr.make("Loading Fields", "frmMain.LoadSettings"));
                     foreach (string s in list)
                     {
-                        //try
-                        //{
+                        try
+                        {
                             if (s == "") continue;
-                            Debug.Write(string.Format("Loading Field: {0}.. ", s));
+                            LogMgr.logger.Debug(LogMgr.make("Loading Field {0}", "frmMain.LoadSettings", 1, s));
                             int i = int.Parse(s);
                             this.AddField(i);
-                            Debug.WriteLine("Done.");
-                        //}
-                        //catch { }
+                        }
+                        catch (Exception ex)
+                        {
+                            LogMgr.logger.Error(LogMgr.make("Exception loading fields", "frmMain.LoadSettings"), ex);
+                        }
                     }
-                    Debug.Unindent();
-                    Debug.WriteLine("Done Loading Fields.");
+                    LogMgr.logger.Info(LogMgr.make("{0} Field(s) loaded.", "frmMain.LoadSettings", 0, list.Length));
                 }
             }
         }
@@ -118,6 +117,7 @@ namespace FTC_Timer_Display
         public frmMain(InitialData init)
         {
             InitializeComponent();
+            LogMgr.logger.Info(LogMgr.make("Initializing Main Form", "frmMain.Constructor"));
             // Set the titlebar
             this.Text = GeneralFunctions.makeWindowTitle(this.Text);
             // show version

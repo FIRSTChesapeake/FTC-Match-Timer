@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 using System.Windows.Forms;
-using System.Diagnostics;
+//using System.Diagnostics;
 
 namespace FTC_Timer_Display
 {

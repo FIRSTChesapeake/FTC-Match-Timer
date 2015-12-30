@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace FTC_Timer_Display
 {
@@ -12,12 +13,16 @@ namespace FTC_Timer_Display
         [STAThread]
         static void Main()
         {
+            // LOGGING!
+            LogMgr.init("FTC-Timer-App");
+
             if (Control.ModifierKeys == Keys.Shift)
             {
                 Properties.Settings.Default.Reset();
                 Properties.Settings.Default.Save();
-                Debug.WriteLine("Settings Reset");
+                LogMgr.logger.Info(LogMgr.make("Settings Cleared", "Main"));
             }
+            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -32,6 +37,7 @@ namespace FTC_Timer_Display
             else
             {
                 initData.lockMutex();
+                LogMgr.logger.Info(LogMgr.make("Starting {0}!", "Main", 0, initData.runType));
                 if (initData.runType == InitialData.RunType.PitDisplay)
                 {
                     Application.Run(new frmPitDisplay(initData));

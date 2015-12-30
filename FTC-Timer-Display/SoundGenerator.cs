@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Media;
 using System.IO;
-using System.Diagnostics;
+//using System.Diagnostics;
 using System.Speech;
 using System.Speech.Synthesis;
 
@@ -13,6 +13,11 @@ namespace FTC_Timer_Display
 {
     public static class SoundGenerator
     {
+        static SoundGenerator()
+        {
+            
+        }
+
         // Sound player settings & objects
         public static readonly string AppPath = AppDomain.CurrentDomain.BaseDirectory;
         public static readonly string SoundsFolder = String.Format(@"{0}\{1}", AppPath, "Sounds");
@@ -48,9 +53,9 @@ namespace FTC_Timer_Display
         public static void init()
         {
             // Load Required Sound Files
-            loadSoundFiles(SoundsFolder);
+            if (!loadSoundFiles(SoundsFolder)) LogMgr.logger.Error(LogMgr.make("Failed to load Game Sounds", "SoundGen"));
             // Load optional numbers
-            loadSoundFiles(NumberFolder);
+            if (!loadSoundFiles(NumberFolder)) LogMgr.logger.Error(LogMgr.make("Failed to load Number Sounds", "SoundGen"));
 
             try
             {
@@ -58,7 +63,10 @@ namespace FTC_Timer_Display
                 voice = new SpeechSynthesizer();
                 voice.Volume = 100;
             }
-            catch { }
+            catch (Exception ex)
+            {
+                LogMgr.logger.Error(LogMgr.make("Failed to Initialize Voice Synth.", "SoundGen"), ex);
+            }
             isInit = true;
         }
 
@@ -69,6 +77,7 @@ namespace FTC_Timer_Display
                 // Sound files - Load from given directory
                 if (!Directory.Exists(path)) return false;
                 string[] files = Directory.GetFiles(path);
+                LogMgr.logger.Info(LogMgr.make("Loading {0} sounds.", "SoundGen", 0, files.Length));
                 foreach (string s in files)
                 {
                     string key = (Path.GetFileName(s).Split('.'))[0].ToLower();
@@ -80,7 +89,11 @@ namespace FTC_Timer_Display
                 }
                 return true;
             }
-            catch { return false; }
+            catch(Exception ex)
+            {
+                LogMgr.logger.Error(LogMgr.make("Exception loading sound files", "SoundGen"), ex);
+                return false;
+            }
         }
 
         public static void StopAll()
@@ -113,8 +126,7 @@ namespace FTC_Timer_Display
         {
             SoundPlayer player = (SoundPlayer)sender;
             string file = player.Tag == null ? "UNKNOWN" : player.Tag.ToString();
-            string msg = string.Format("Load of sound {0} complete.", file);
-            Debug.WriteLine(msg);
+            LogMgr.logger.Debug(LogMgr.make("Load of sound {0} complete.", "SoundGen", 0, file));
         }
 
         private static void PlaySoundFile(string name, bool loop)
@@ -132,7 +144,7 @@ namespace FTC_Timer_Display
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(string.Format("Sound Play Exception: {0}", ex.Message));
+                LogMgr.logger.Error(LogMgr.make("Exception playing sound.", "SoundGen"), ex);
             }
         }
 

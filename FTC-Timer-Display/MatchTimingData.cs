@@ -10,7 +10,7 @@ namespace FTC_Timer_Display
 {
     public static class MatchTimingData
     {
-        public static readonly bool isDev = Process.GetCurrentProcess().ProcessName.ToLower().Contains("vshost");
+        private static readonly bool isDev = Process.GetCurrentProcess().ProcessName.ToLower().Contains("vshost");
    
         private static readonly TimeSpan _debugMatch = new TimeSpan(0, 0, 30);
         private static readonly TimeSpan _debugAuto = new TimeSpan(0, 0, 10);

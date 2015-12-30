@@ -37,9 +37,15 @@
             this.lblVer = new DevComponents.DotNetBar.LabelX();
             this.lblMode = new System.Windows.Forms.Label();
             this.lblDivID = new System.Windows.Forms.Label();
+            this.ctrlHeader2 = new FTC_Timer_Display.CtrlHeader();
             this.flowFields = new System.Windows.Forms.FlowLayoutPanel();
             this.tableDisplayControl = new System.Windows.Forms.TableLayoutPanel();
+            this.ctrlHeader4 = new FTC_Timer_Display.CtrlHeader();
+            this.tableDisplayButtons = new System.Windows.Forms.TableLayoutPanel();
+            this.btnDisplayFullscreen = new DevComponents.DotNetBar.ButtonX();
             this.btnDisplayHide = new DevComponents.DotNetBar.ButtonX();
+            this.btnDisplayWindow = new DevComponents.DotNetBar.ButtonX();
+            this.ctrlHeader3 = new FTC_Timer_Display.CtrlHeader();
             this.tableFiledListMgmt = new System.Windows.Forms.TableLayoutPanel();
             this.btnAddField = new DevComponents.DotNetBar.ButtonX();
             this.btnRemoveField = new DevComponents.DotNetBar.ButtonX();
@@ -60,8 +66,10 @@
             this.btnStop = new DevComponents.DotNetBar.ButtonX();
             this.btnReset = new DevComponents.DotNetBar.ButtonX();
             this.btnAdvance = new DevComponents.DotNetBar.ButtonX();
+            this.progressDisplay = new FTC_Timer_Display.PeriodProgressBar();
             this.btnTimeoutStart = new DevComponents.DotNetBar.ButtonX();
             this.btnTimeoutCancel = new DevComponents.DotNetBar.ButtonX();
+            this.headerFieldHead = new FTC_Timer_Display.CtrlHeader();
             this.tableCommStatus = new System.Windows.Forms.TableLayoutPanel();
             this.btnCycleListener = new DevComponents.DotNetBar.ButtonX();
             this.label13 = new System.Windows.Forms.Label();
@@ -71,6 +79,7 @@
             this.label15 = new System.Windows.Forms.Label();
             this.lblLastRecvTime = new System.Windows.Forms.Label();
             this.picRcvTime = new System.Windows.Forms.PictureBox();
+            this.ctrlHeader1 = new FTC_Timer_Display.CtrlHeader();
             this.tableLinks = new System.Windows.Forms.TableLayoutPanel();
             this.picLicense = new System.Windows.Forms.PictureBox();
             this.flowBugs = new System.Windows.Forms.FlowLayoutPanel();
@@ -82,18 +91,10 @@
             this.toolTipMgr = new DevComponents.DotNetBar.SuperTooltip();
             this.tableRight = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.btnDisplayWindow = new DevComponents.DotNetBar.ButtonX();
-            this.btnDisplayFullscreen = new DevComponents.DotNetBar.ButtonX();
-            this.tableDisplayButtons = new System.Windows.Forms.TableLayoutPanel();
-            this.ctrlHeader2 = new FTC_Timer_Display.CtrlHeader();
-            this.ctrlHeader4 = new FTC_Timer_Display.CtrlHeader();
-            this.ctrlHeader3 = new FTC_Timer_Display.CtrlHeader();
-            this.ctrlHeader1 = new FTC_Timer_Display.CtrlHeader();
-            this.progressDisplay = new FTC_Timer_Display.PeriodProgressBar();
-            this.headerFieldHead = new FTC_Timer_Display.CtrlHeader();
             this.tableLeft.SuspendLayout();
             this.tableCurrentConfig.SuspendLayout();
             this.tableDisplayControl.SuspendLayout();
+            this.tableDisplayButtons.SuspendLayout();
             this.tableFiledListMgmt.SuspendLayout();
             this.tableFieldControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMatchNumberMajor)).BeginInit();
@@ -105,7 +106,6 @@
             this.flowBugs.SuspendLayout();
             this.tableRight.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            this.tableDisplayButtons.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLeft
@@ -232,6 +232,25 @@
             this.lblDivID.Text = "Unknown";
             this.lblDivID.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // ctrlHeader2
+            // 
+            // 
+            // 
+            // 
+            this.ctrlHeader2.BackgroundStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.ctrlHeader2.BackgroundStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(132)))));
+            this.ctrlHeader2.BackgroundStyle.BackColorGradientType = DevComponents.DotNetBar.eGradientType.Radial;
+            this.ctrlHeader2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tableCurrentConfig.SetColumnSpan(this.ctrlHeader2, 2);
+            this.ctrlHeader2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ctrlHeader2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.ctrlHeader2.Location = new System.Drawing.Point(3, 3);
+            this.ctrlHeader2.Name = "ctrlHeader2";
+            this.ctrlHeader2.Size = new System.Drawing.Size(252, 24);
+            this.ctrlHeader2.TabIndex = 6;
+            this.ctrlHeader2.Text = "Global Settings";
+            this.ctrlHeader2.TextAlignment = System.Drawing.StringAlignment.Center;
+            // 
             // flowFields
             // 
             this.flowFields.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -259,6 +278,56 @@
             this.tableDisplayControl.Size = new System.Drawing.Size(258, 72);
             this.tableDisplayControl.TabIndex = 11;
             // 
+            // ctrlHeader4
+            // 
+            // 
+            // 
+            // 
+            this.ctrlHeader4.BackgroundStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.ctrlHeader4.BackgroundStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(132)))));
+            this.ctrlHeader4.BackgroundStyle.BackColorGradientType = DevComponents.DotNetBar.eGradientType.Radial;
+            this.ctrlHeader4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.ctrlHeader4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ctrlHeader4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.ctrlHeader4.Location = new System.Drawing.Point(3, 3);
+            this.ctrlHeader4.Name = "ctrlHeader4";
+            this.ctrlHeader4.Size = new System.Drawing.Size(252, 24);
+            this.ctrlHeader4.TabIndex = 14;
+            this.ctrlHeader4.Text = "Local Display Control";
+            this.ctrlHeader4.TextAlignment = System.Drawing.StringAlignment.Center;
+            // 
+            // tableDisplayButtons
+            // 
+            this.tableDisplayButtons.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Outset;
+            this.tableDisplayButtons.ColumnCount = 3;
+            this.tableDisplayButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableDisplayButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableDisplayButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableDisplayButtons.Controls.Add(this.btnDisplayFullscreen, 2, 0);
+            this.tableDisplayButtons.Controls.Add(this.btnDisplayHide, 0, 0);
+            this.tableDisplayButtons.Controls.Add(this.btnDisplayWindow, 1, 0);
+            this.tableDisplayButtons.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableDisplayButtons.Location = new System.Drawing.Point(3, 33);
+            this.tableDisplayButtons.Name = "tableDisplayButtons";
+            this.tableDisplayButtons.RowCount = 1;
+            this.tableDisplayButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableDisplayButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableDisplayButtons.Size = new System.Drawing.Size(252, 36);
+            this.tableDisplayButtons.TabIndex = 15;
+            // 
+            // btnDisplayFullscreen
+            // 
+            this.btnDisplayFullscreen.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnDisplayFullscreen.AutoCheckOnClick = true;
+            this.btnDisplayFullscreen.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnDisplayFullscreen.Location = new System.Drawing.Point(171, 5);
+            this.btnDisplayFullscreen.Name = "btnDisplayFullscreen";
+            this.btnDisplayFullscreen.Size = new System.Drawing.Size(76, 26);
+            this.btnDisplayFullscreen.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnDisplayFullscreen.TabIndex = 16;
+            this.btnDisplayFullscreen.Text = "Fullscreen";
+            this.btnDisplayFullscreen.Click += new System.EventHandler(this.changeDisplayStateButtonHandler);
+            // 
             // btnDisplayHide
             // 
             this.btnDisplayHide.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
@@ -272,6 +341,37 @@
             this.btnDisplayHide.TabIndex = 11;
             this.btnDisplayHide.Text = "Hidden";
             this.btnDisplayHide.Click += new System.EventHandler(this.changeDisplayStateButtonHandler);
+            // 
+            // btnDisplayWindow
+            // 
+            this.btnDisplayWindow.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnDisplayWindow.AutoCheckOnClick = true;
+            this.btnDisplayWindow.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnDisplayWindow.Location = new System.Drawing.Point(88, 5);
+            this.btnDisplayWindow.Name = "btnDisplayWindow";
+            this.btnDisplayWindow.Size = new System.Drawing.Size(75, 26);
+            this.btnDisplayWindow.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnDisplayWindow.TabIndex = 15;
+            this.btnDisplayWindow.Text = "Windowed";
+            this.btnDisplayWindow.Click += new System.EventHandler(this.changeDisplayStateButtonHandler);
+            // 
+            // ctrlHeader3
+            // 
+            // 
+            // 
+            // 
+            this.ctrlHeader3.BackgroundStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.ctrlHeader3.BackgroundStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(132)))));
+            this.ctrlHeader3.BackgroundStyle.BackColorGradientType = DevComponents.DotNetBar.eGradientType.Radial;
+            this.ctrlHeader3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.ctrlHeader3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ctrlHeader3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.ctrlHeader3.Location = new System.Drawing.Point(3, 106);
+            this.ctrlHeader3.Name = "ctrlHeader3";
+            this.ctrlHeader3.Size = new System.Drawing.Size(258, 24);
+            this.ctrlHeader3.TabIndex = 12;
+            this.ctrlHeader3.Text = "Available Fields";
+            this.ctrlHeader3.TextAlignment = System.Drawing.StringAlignment.Center;
             // 
             // tableFiledListMgmt
             // 
@@ -591,6 +691,15 @@
             this.btnAdvance.Text = "Advance to Next Match\r\n(F2)";
             this.btnAdvance.Click += new System.EventHandler(this.FieldControlButtonsHandler);
             // 
+            // progressDisplay
+            // 
+            this.tableFieldControl.SetColumnSpan(this.progressDisplay, 4);
+            this.progressDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.progressDisplay.Location = new System.Drawing.Point(3, 188);
+            this.progressDisplay.Name = "progressDisplay";
+            this.progressDisplay.Size = new System.Drawing.Size(617, 44);
+            this.progressDisplay.TabIndex = 21;
+            // 
             // btnTimeoutStart
             // 
             this.btnTimeoutStart.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
@@ -624,6 +733,25 @@
             this.btnTimeoutCancel.TabIndex = 24;
             this.btnTimeoutCancel.Text = "Cancel Timeout\r\n(F7)";
             this.btnTimeoutCancel.Click += new System.EventHandler(this.FieldControlButtonsHandler);
+            // 
+            // headerFieldHead
+            // 
+            // 
+            // 
+            // 
+            this.headerFieldHead.BackgroundStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.headerFieldHead.BackgroundStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(132)))));
+            this.headerFieldHead.BackgroundStyle.BackColorGradientType = DevComponents.DotNetBar.eGradientType.Radial;
+            this.headerFieldHead.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tableFieldControl.SetColumnSpan(this.headerFieldHead, 4);
+            this.headerFieldHead.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.headerFieldHead.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.headerFieldHead.Location = new System.Drawing.Point(3, 3);
+            this.headerFieldHead.Name = "headerFieldHead";
+            this.headerFieldHead.Size = new System.Drawing.Size(617, 24);
+            this.headerFieldHead.TabIndex = 26;
+            this.headerFieldHead.Text = "Field Control: Division 0 Field 0";
+            this.headerFieldHead.TextAlignment = System.Drawing.StringAlignment.Center;
             // 
             // tableCommStatus
             // 
@@ -748,6 +876,25 @@
             this.toolTipMgr.SetSuperTooltip(this.picRcvTime, new DevComponents.DotNetBar.SuperTooltipInfo("Receiving Indicator", "Turn off help in Misc Options", "This indicates the receiving status of the local timer.", null, null, DevComponents.DotNetBar.eTooltipColor.Green));
             this.picRcvTime.TabIndex = 8;
             this.picRcvTime.TabStop = false;
+            // 
+            // ctrlHeader1
+            // 
+            // 
+            // 
+            // 
+            this.ctrlHeader1.BackgroundStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.ctrlHeader1.BackgroundStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(132)))));
+            this.ctrlHeader1.BackgroundStyle.BackColorGradientType = DevComponents.DotNetBar.eGradientType.Radial;
+            this.ctrlHeader1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tableCommStatus.SetColumnSpan(this.ctrlHeader1, 5);
+            this.ctrlHeader1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ctrlHeader1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.ctrlHeader1.Location = new System.Drawing.Point(3, 3);
+            this.ctrlHeader1.Name = "ctrlHeader1";
+            this.ctrlHeader1.Size = new System.Drawing.Size(617, 24);
+            this.ctrlHeader1.TabIndex = 9;
+            this.ctrlHeader1.Text = "Communication Status";
+            this.ctrlHeader1.TextAlignment = System.Drawing.StringAlignment.Center;
             // 
             // tableLinks
             // 
@@ -877,153 +1024,6 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(905, 613);
             this.tableLayoutPanel2.TabIndex = 9;
             // 
-            // btnDisplayWindow
-            // 
-            this.btnDisplayWindow.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnDisplayWindow.AutoCheckOnClick = true;
-            this.btnDisplayWindow.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnDisplayWindow.Location = new System.Drawing.Point(88, 5);
-            this.btnDisplayWindow.Name = "btnDisplayWindow";
-            this.btnDisplayWindow.Size = new System.Drawing.Size(75, 26);
-            this.btnDisplayWindow.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnDisplayWindow.TabIndex = 15;
-            this.btnDisplayWindow.Text = "Windowed";
-            this.btnDisplayWindow.Click += new System.EventHandler(this.changeDisplayStateButtonHandler);
-            // 
-            // btnDisplayFullscreen
-            // 
-            this.btnDisplayFullscreen.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnDisplayFullscreen.AutoCheckOnClick = true;
-            this.btnDisplayFullscreen.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnDisplayFullscreen.Location = new System.Drawing.Point(171, 5);
-            this.btnDisplayFullscreen.Name = "btnDisplayFullscreen";
-            this.btnDisplayFullscreen.Size = new System.Drawing.Size(76, 26);
-            this.btnDisplayFullscreen.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnDisplayFullscreen.TabIndex = 16;
-            this.btnDisplayFullscreen.Text = "Fullscreen";
-            this.btnDisplayFullscreen.Click += new System.EventHandler(this.changeDisplayStateButtonHandler);
-            // 
-            // tableDisplayButtons
-            // 
-            this.tableDisplayButtons.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Outset;
-            this.tableDisplayButtons.ColumnCount = 3;
-            this.tableDisplayButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableDisplayButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableDisplayButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableDisplayButtons.Controls.Add(this.btnDisplayFullscreen, 2, 0);
-            this.tableDisplayButtons.Controls.Add(this.btnDisplayHide, 0, 0);
-            this.tableDisplayButtons.Controls.Add(this.btnDisplayWindow, 1, 0);
-            this.tableDisplayButtons.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableDisplayButtons.Location = new System.Drawing.Point(3, 33);
-            this.tableDisplayButtons.Name = "tableDisplayButtons";
-            this.tableDisplayButtons.RowCount = 1;
-            this.tableDisplayButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableDisplayButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
-            this.tableDisplayButtons.Size = new System.Drawing.Size(252, 36);
-            this.tableDisplayButtons.TabIndex = 15;
-            // 
-            // ctrlHeader2
-            // 
-            // 
-            // 
-            // 
-            this.ctrlHeader2.BackgroundStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.ctrlHeader2.BackgroundStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(132)))));
-            this.ctrlHeader2.BackgroundStyle.BackColorGradientType = DevComponents.DotNetBar.eGradientType.Radial;
-            this.ctrlHeader2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tableCurrentConfig.SetColumnSpan(this.ctrlHeader2, 2);
-            this.ctrlHeader2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ctrlHeader2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.ctrlHeader2.Location = new System.Drawing.Point(3, 3);
-            this.ctrlHeader2.Name = "ctrlHeader2";
-            this.ctrlHeader2.Size = new System.Drawing.Size(252, 24);
-            this.ctrlHeader2.TabIndex = 6;
-            this.ctrlHeader2.Text = "Global Settings";
-            this.ctrlHeader2.TextAlignment = System.Drawing.StringAlignment.Center;
-            // 
-            // ctrlHeader4
-            // 
-            // 
-            // 
-            // 
-            this.ctrlHeader4.BackgroundStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.ctrlHeader4.BackgroundStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(132)))));
-            this.ctrlHeader4.BackgroundStyle.BackColorGradientType = DevComponents.DotNetBar.eGradientType.Radial;
-            this.ctrlHeader4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.ctrlHeader4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ctrlHeader4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.ctrlHeader4.Location = new System.Drawing.Point(3, 3);
-            this.ctrlHeader4.Name = "ctrlHeader4";
-            this.ctrlHeader4.Size = new System.Drawing.Size(252, 24);
-            this.ctrlHeader4.TabIndex = 14;
-            this.ctrlHeader4.Text = "Local Display Control";
-            this.ctrlHeader4.TextAlignment = System.Drawing.StringAlignment.Center;
-            // 
-            // ctrlHeader3
-            // 
-            // 
-            // 
-            // 
-            this.ctrlHeader3.BackgroundStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.ctrlHeader3.BackgroundStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(132)))));
-            this.ctrlHeader3.BackgroundStyle.BackColorGradientType = DevComponents.DotNetBar.eGradientType.Radial;
-            this.ctrlHeader3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.ctrlHeader3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ctrlHeader3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.ctrlHeader3.Location = new System.Drawing.Point(3, 106);
-            this.ctrlHeader3.Name = "ctrlHeader3";
-            this.ctrlHeader3.Size = new System.Drawing.Size(258, 24);
-            this.ctrlHeader3.TabIndex = 12;
-            this.ctrlHeader3.Text = "Available Fields";
-            this.ctrlHeader3.TextAlignment = System.Drawing.StringAlignment.Center;
-            // 
-            // ctrlHeader1
-            // 
-            // 
-            // 
-            // 
-            this.ctrlHeader1.BackgroundStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.ctrlHeader1.BackgroundStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(132)))));
-            this.ctrlHeader1.BackgroundStyle.BackColorGradientType = DevComponents.DotNetBar.eGradientType.Radial;
-            this.ctrlHeader1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tableCommStatus.SetColumnSpan(this.ctrlHeader1, 5);
-            this.ctrlHeader1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ctrlHeader1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.ctrlHeader1.Location = new System.Drawing.Point(3, 3);
-            this.ctrlHeader1.Name = "ctrlHeader1";
-            this.ctrlHeader1.Size = new System.Drawing.Size(617, 24);
-            this.ctrlHeader1.TabIndex = 9;
-            this.ctrlHeader1.Text = "Communication Status";
-            this.ctrlHeader1.TextAlignment = System.Drawing.StringAlignment.Center;
-            // 
-            // progressDisplay
-            // 
-            this.tableFieldControl.SetColumnSpan(this.progressDisplay, 4);
-            this.progressDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.progressDisplay.Location = new System.Drawing.Point(3, 188);
-            this.progressDisplay.Name = "progressDisplay";
-            this.progressDisplay.Size = new System.Drawing.Size(617, 44);
-            this.progressDisplay.TabIndex = 21;
-            // 
-            // headerFieldHead
-            // 
-            // 
-            // 
-            // 
-            this.headerFieldHead.BackgroundStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.headerFieldHead.BackgroundStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(132)))));
-            this.headerFieldHead.BackgroundStyle.BackColorGradientType = DevComponents.DotNetBar.eGradientType.Radial;
-            this.headerFieldHead.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tableFieldControl.SetColumnSpan(this.headerFieldHead, 4);
-            this.headerFieldHead.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.headerFieldHead.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.headerFieldHead.Location = new System.Drawing.Point(3, 3);
-            this.headerFieldHead.Name = "headerFieldHead";
-            this.headerFieldHead.Size = new System.Drawing.Size(617, 24);
-            this.headerFieldHead.TabIndex = 26;
-            this.headerFieldHead.Text = "Field Control: Division 0 Field 0";
-            this.headerFieldHead.TextAlignment = System.Drawing.StringAlignment.Center;
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1043,6 +1043,7 @@
             this.tableCurrentConfig.ResumeLayout(false);
             this.tableCurrentConfig.PerformLayout();
             this.tableDisplayControl.ResumeLayout(false);
+            this.tableDisplayButtons.ResumeLayout(false);
             this.tableFiledListMgmt.ResumeLayout(false);
             this.tableFieldControl.ResumeLayout(false);
             this.tableFieldControl.PerformLayout();
@@ -1058,7 +1059,6 @@
             this.tableRight.ResumeLayout(false);
             this.tableRight.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableDisplayButtons.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

@@ -48,6 +48,12 @@ namespace FTC_Timer_Display
             catch { return 0; }
         }
 
+        private void log(string message, params object[] args)
+        {
+            string myName = string.Format("SingleClient-{0}-{1}", this.matchData.divID, this.matchData.fieldID);
+            LogMgr.logger.Info(LogMgr.make(message, myName, 0, args));
+        }
+
         public MatchData matchData
         {
             get { return _data; }
@@ -112,6 +118,7 @@ namespace FTC_Timer_Display
             _timer.Elapsed += timer_Elapsed;
             _isEnabled = (initData.isServer || initData.runType == InitialData.RunType.Local);
             _timer.Start();
+            log("Client Started!");
         }
 
         private void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -135,6 +142,7 @@ namespace FTC_Timer_Display
             _data.matchPeriod = MatchData.MatchPeriods.NotStarted;
             _data.timerValue = MatchTimingData.matchLength;
             _data.noCrossActive = false;
+            log("Match Reset");
         }
 
         public void StartTimeout(TimeoutData data)
@@ -143,10 +151,12 @@ namespace FTC_Timer_Display
             if (_data.matchStatus == MatchData.MatchStatus.Timeout)
             {
                 _data.timerValue = _data.timerValue.Add(data.value);
+                log("Adding time to Timeout: {0}", data.value);
             }
             else
             {
                 _data.timerValue = data.value;
+                log("Timeout Started: {0}", data.value);
             }
             this._timeoutSounds = data.soundType;
             _data.matchStatus = MatchData.MatchStatus.Timeout;
@@ -190,6 +200,7 @@ namespace FTC_Timer_Display
                     // Special case for No Cross Alert
                     _data.noCrossActive = false;
                     _data.soundPackage = new SoundGenerator.SoundPackage(SoundGenerator.SoundPackage.SoundMethods.SoundFile, "factwhistle");
+                    log("No Cross Reached");
                 }
                 else if (ts.TotalSeconds == MatchTimingData.whenAutoEnd.TotalSeconds)
                 {
