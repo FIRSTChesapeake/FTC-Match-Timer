@@ -30,18 +30,21 @@
         {
             this.lblMatchNumber = new DevComponents.DotNetBar.LabelX();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.clockFace = new FTC_Timer_Display.ClockFace();
+            this.matchPeriodCtrl = new FTC_Timer_Display.MatchPeriodCtrl();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.logoTableLeft = new System.Windows.Forms.TableLayoutPanel();
             this.lblDate = new System.Windows.Forms.Label();
             this.logoTableRight = new System.Windows.Forms.TableLayoutPanel();
             this.lblTime = new System.Windows.Forms.Label();
-            this.clockFace = new FTC_Timer_Display.ClockFace();
-            this.matchPeriodCtrl = new FTC_Timer_Display.MatchPeriodCtrl();
             this.lblFieldDataStatus = new DevComponents.DotNetBar.LabelX();
+            this.picInd = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel3.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.logoTableLeft.SuspendLayout();
             this.logoTableRight.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picInd)).BeginInit();
             this.SuspendLayout();
             // 
             // lblMatchNumber
@@ -84,6 +87,27 @@
             this.tableLayoutPanel3.Size = new System.Drawing.Size(1047, 552);
             this.tableLayoutPanel3.TabIndex = 1;
             // 
+            // clockFace
+            // 
+            this.clockFace.BackColor = System.Drawing.Color.Black;
+            this.clockFace.blink = false;
+            this.clockFace.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.tableLayoutPanel3.SetColumnSpan(this.clockFace, 3);
+            this.clockFace.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.clockFace.Location = new System.Drawing.Point(3, 153);
+            this.clockFace.Name = "clockFace";
+            this.clockFace.Size = new System.Drawing.Size(1041, 246);
+            this.clockFace.TabIndex = 8;
+            this.clockFace.Value = System.TimeSpan.Parse("00:00:00");
+            // 
+            // matchPeriodCtrl
+            // 
+            this.matchPeriodCtrl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.matchPeriodCtrl.Location = new System.Drawing.Point(153, 405);
+            this.matchPeriodCtrl.Name = "matchPeriodCtrl";
+            this.matchPeriodCtrl.Size = new System.Drawing.Size(741, 114);
+            this.matchPeriodCtrl.TabIndex = 9;
+            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.BackgroundImage = global::FTC_Timer_Display.Properties.Resources.ftc_logo_new;
@@ -91,6 +115,7 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel1.Controls.Add(this.picInd, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(900, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -177,27 +202,6 @@
             this.lblTime.Text = "00:00 PM";
             this.lblTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // clockFace
-            // 
-            this.clockFace.BackColor = System.Drawing.Color.Black;
-            this.clockFace.blink = false;
-            this.clockFace.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.tableLayoutPanel3.SetColumnSpan(this.clockFace, 3);
-            this.clockFace.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.clockFace.Location = new System.Drawing.Point(3, 153);
-            this.clockFace.Name = "clockFace";
-            this.clockFace.Size = new System.Drawing.Size(1041, 246);
-            this.clockFace.TabIndex = 8;
-            this.clockFace.Value = System.TimeSpan.Parse("00:00:00");
-            // 
-            // matchPeriodCtrl
-            // 
-            this.matchPeriodCtrl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.matchPeriodCtrl.Location = new System.Drawing.Point(153, 405);
-            this.matchPeriodCtrl.Name = "matchPeriodCtrl";
-            this.matchPeriodCtrl.Size = new System.Drawing.Size(741, 114);
-            this.matchPeriodCtrl.TabIndex = 9;
-            // 
             // lblFieldDataStatus
             // 
             this.lblFieldDataStatus.BackColor = System.Drawing.Color.Red;
@@ -213,6 +217,18 @@
             this.lblFieldDataStatus.TabIndex = 16;
             this.lblFieldDataStatus.Text = "FIELD AWAITING INITIALIZATION";
             this.lblFieldDataStatus.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.lblFieldDataStatus.Click += new System.EventHandler(this.lblFieldDataStatus_Click);
+            // 
+            // picInd
+            // 
+            this.picInd.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picInd.Image = global::FTC_Timer_Display.Properties.Resources.indicator_red;
+            this.picInd.Location = new System.Drawing.Point(112, 3);
+            this.picInd.Name = "picInd";
+            this.picInd.Size = new System.Drawing.Size(29, 29);
+            this.picInd.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picInd.TabIndex = 0;
+            this.picInd.TabStop = false;
             // 
             // frmDisplay
             // 
@@ -229,10 +245,12 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmDisplay_KeyDown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.frmDisplay_KeyPress);
             this.tableLayoutPanel3.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.logoTableLeft.ResumeLayout(false);
             this.logoTableLeft.PerformLayout();
             this.logoTableRight.ResumeLayout(false);
             this.logoTableRight.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picInd)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -250,6 +268,7 @@
         private System.Windows.Forms.TableLayoutPanel logoTableRight;
         private System.Windows.Forms.Label lblTime;
         private DevComponents.DotNetBar.LabelX lblFieldDataStatus;
+        private System.Windows.Forms.PictureBox picInd;
     }
 }
 

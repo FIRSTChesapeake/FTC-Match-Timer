@@ -112,11 +112,11 @@ namespace FTC_Timer_Display
             // Timer Display
             clockFace.Value = data.timerValue;
             // Timer Display Colon
-            clockFace.blink = data.timerRunning;
+            clockFace.blink = data.isTimerRunning;
             // Match Number
             lblMatchNumber.Text = data.matchHeaderString;
-            // Am I the selected client?
-            setFieldStatusDisplay(data.isSelectedClient);
+            // Am I the selected client on the server?
+            setFieldStatusDisplay(data.isSelectedByServer, data.useLargeActive);
             // Match Progress
             matchPeriodCtrl.SetDisplay(data);
             // Set the date and time labels
@@ -124,16 +124,21 @@ namespace FTC_Timer_Display
             lblTime.Text = DateTime.Now.ToLongTimeString();
         }
 
-        private void setFieldStatusDisplay(bool isSelected)
+        private void setFieldStatusDisplay(bool isSelected, bool isLarge)
         {
             lblFieldDataStatus.BackColor = isSelected ? Color.Green : Color.Yellow;
             lblFieldDataStatus.Text = isSelected ? "FIELD IS ACTIVE" : "FIELD ON STANDBY";
+            picInd.Image = isSelected ? Properties.Resources.indicator_green : Properties.Resources.indicator_yellow;
+            // Display the indicator the user wants to show.
+            lblFieldDataStatus.Visible = isLarge;
+            picInd.Visible = !isLarge;
         }
 
         public void deadField()
         {
             lblFieldDataStatus.Text = "ERROR: FIELD NOT RECEIVING DATA!";
             lblFieldDataStatus.BackColor = Color.Red;
+            picInd.Image = Properties.Resources.indicator_red;
         }
 
         private void frmDisplay_FormClosing(object sender, FormClosingEventArgs e)
@@ -172,6 +177,11 @@ namespace FTC_Timer_Display
         private void frmDisplay_VisibleChanged(object sender, EventArgs e)
         {
             loadCustomLogo();
+        }
+
+        private void lblFieldDataStatus_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

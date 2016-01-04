@@ -232,5 +232,17 @@ namespace FTC_Timer_Display.Properties {
                 this["useCountdown"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool useLargeActive {
+            get {
+                return ((bool)(this["useLargeActive"]));
+            }
+            set {
+                this["useLargeActive"] = value;
+            }
+        }
     }
 }

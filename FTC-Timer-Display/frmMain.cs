@@ -45,6 +45,16 @@ namespace FTC_Timer_Display
             }
         }
 
+        private SingleClient _thisClient
+        {
+            get
+            {
+                if (this.display == null) return null;
+                foreach (SingleClient c in _allClients) if (initData.fieldID == c.matchData.fieldID) return c;
+                return null;
+            }
+        }
+
         private void SaveSettings()
         {
             if (initData == null) return;
@@ -117,7 +127,9 @@ namespace FTC_Timer_Display
         public frmMain(InitialData init)
         {
             InitializeComponent();
-            LogMgr.logger.Info(LogMgr.make("Initializing Main Form", "frmMain.Constructor"));
+            LogMgr.logger.Info(LogMgr.make("Initializing Main Form", "frmMain.Constr"));
+            // Show the loading window
+            frmLoading.StartLoadScreen("Initializing Systems..");
             // Set the titlebar
             this.Text = GeneralFunctions.makeWindowTitle(this.Text);
             // show version
@@ -128,7 +140,8 @@ namespace FTC_Timer_Display
             cboMatchType.DataSource = Enum.GetValues(typeof(MatchData.MatchTypes));
             cboMatchType.SelectedIndex = 2;
             // Init the sound generator
-            SoundGenerator.init();
+            frmLoading.UpdateDisplay("Loading pre-generated sounds..");
+            SoundGenerator.init(soundLoadChange);
             // Init the list of field buttons for mass changes.
             fieldButtonList.Add(btnStart);
             fieldButtonList.Add(btnStop);
@@ -137,10 +150,36 @@ namespace FTC_Timer_Display
             fieldButtonList.Add(btnAdvance);
             fieldButtonList.Add(btnTimeoutStart);
             fieldButtonList.Add(btnTimeoutCancel);
+            // Initialize the PacDriver
+            PacDevice.init(this, pacButtonHandler);
+        }
+
+        private void pacButtonHandler(object sender, PacDevice.ButtonStates buttonState)
+        {
+            if (this.InvokeRequired)
+            {
+                object o = this.Invoke(new Action(() => pacButtonHandler(sender, buttonState)));
+            }
+            else
+            {
+                lblPacButtonState.Text = buttonState.ToString();
+                if (nextExpectedButton == null || !nextExpectedButton.Enabled) return;
+                if (buttonState == PacDevice.ButtonStates.InitialRelease)
+                {
+                    FieldControlButtonsHandler(nextExpectedButton, new EventArgs());
+                }
+            }
+        }
+
+        private void soundLoadChange(object sender, int newPercent)
+        {
+            if (!frmLoading.isShowing) return;
+            frmLoading.UpdateDisplay("Loading Sounds...", newPercent);
         }
 
         private void frmMain_Load(object sender, EventArgs e)
         {
+            frmLoading.UpdateDisplay("Loading Settings..");
             // Load all settings
             this.LoadSettings();
 
@@ -167,11 +206,25 @@ namespace FTC_Timer_Display
                     comms.ListenControl(true);
                 }
             }
+            frmLoading.CloseForm();
         }
 
-        private void SingleClientDisplayClickHandler(object sender, int e)
+        private void ClientDisplayRequestHandler(object sender, SingleClient.SingleClientRequest e)
         {
-            selectFieldNumber(e);
+            // Ignore the selection unless specific conditions are met.
+            SingleClient c = (SingleClient)sender;
+            bool canSelectField = _selectedClient == null || !_selectedClient.matchData.isMatchActive || !Properties.Settings.Default.preventRunningMovement;
+            switch (e)
+            {
+                case SingleClient.SingleClientRequest.SelectMe:
+                    if (!canSelectField || !initData.isServer) return;
+                    selectFieldNumber(c.matchData.fieldID);
+                    break;
+                case SingleClient.SingleClientRequest.TimeoutStart:
+                    frmStartTimeout wind = new frmStartTimeout(c.matchData.matchType, ref _allClients, c);
+                    wind.ShowDialog();
+                    break;
+            }
         }
 
         private void AddField(int fieldID)
@@ -179,7 +232,7 @@ namespace FTC_Timer_Display
             if (fieldExists(fieldID)) return;
             flowFields.Controls.Clear();
             int width = flowFields.Width - 10;
-            SingleClient client = new SingleClient(initData, fieldID, width, sendFieldDataHandler, SingleClientDisplayClickHandler);
+            SingleClient client = new SingleClient(initData, fieldID, width, sendFieldDataHandler, ClientDisplayRequestHandler);
             client.matchData.matchType = _currentMatchType;
             _allClients.Add(client);
             _allClients.Sort();
@@ -220,8 +273,6 @@ namespace FTC_Timer_Display
                     ProcessSoundRequests(data);
                     // Add the match length to the package
                     data.matchLength = (int)MatchTimingData.matchLength.TotalSeconds;
-                    // Add whether the field is currently selected to the package
-                    data.isSelectedClient = _selectedClient.isThisField(data.divID, data.fieldID);
                     // Send the data to the right field (local or remote)
                     if (initData.isForMe(data))
                     {
@@ -281,7 +332,7 @@ namespace FTC_Timer_Display
                 {
                     ProcessSoundRequests(data);
                     setDivisionDisplay(data.divID, data.divisionName);
-                    _selectedClient.matchData = data;
+                    _thisClient.matchData = data;
                     cboMatchType.SelectedItem = data.matchType;
                     numMatchNumberMajor.Value = data.matchNumberMajor;
                     numMatchNumberMinor.Value = data.matchNumberMinor;
@@ -365,26 +416,42 @@ namespace FTC_Timer_Display
             // Load the help features if requested.
             toolTipMgr.Enabled = Properties.Settings.Default.showHelp;
 
+            // Allow the user to pick a different field when no match is running if this is a server
+            if (initData.isServer)
+            {
+                bool canSelectField = _selectedClient == null || !_selectedClient.matchData.isMatchActive || !Properties.Settings.Default.preventRunningMovement;
+                tableFiledListMgmt.Enabled = canSelectField && initData.isServer;
+                foreach (SingleClient c in _allClients) c.allowDisplayToStart = canSelectField;
+            }
+            else
+            {
+                tableFiledListMgmt.Enabled = false;
+                flowFields.Enabled = false;
+            }
+
+            // Allow config windows when no clients are running
+            btnSettings.Enabled = !_anyActiveMatches;
+
             ////  EVERYTHING BELOW HERE requires a selected client.
             if (_selectedClient == null) return;
             // Set the header
             headerFieldHead.Text = _selectedClient.DisplayString;
             // Allow user to edit field if it's not running
-            cboMatchType.Enabled = !_anyRunningClients;
-            numMatchNumberMajor.Enabled = _selectedClient.canBeChanged;
-            numMatchNumberMinor.Enabled = _selectedClient.canBeChanged && MatchData.TypeUsesMinor(_currentMatchType);
+            cboMatchType.Enabled = _anyNotActiveMatchClients;
+            numMatchNumberMajor.Enabled = _selectedClient.isMatchChangeable;
+            numMatchNumberMinor.Enabled = _selectedClient.isMatchChangeable && MatchData.TypeUsesMinor(_currentMatchType);
             // Set the readonly values
             lblCurrentPeriod.Text = _selectedClient.matchData.matchPeriod.ToString();
             lblMatchStatus.Text = _selectedClient.matchData.matchStatus.ToString();
             lblTimerValue.Text = _selectedClient.matchData.timerValue.ToString();
             // enable the proper buttons
-            btnStart.Enabled = _selectedClient.matchData.waitingForStart;
+            btnStart.Enabled = _selectedClient.matchData.isWaitingForStart;
             btnPause.Enabled = _selectedClient.matchData.matchStatus == MatchData.MatchStatus.Running;
             btnStop.Enabled = _selectedClient.matchData.matchStatus == MatchData.MatchStatus.Paused;
-            btnReset.Enabled = _selectedClient.matchData.isIdle;
-            btnAdvance.Enabled = !_selectedClient.matchData.activeMatch;
+            btnReset.Enabled = !_selectedClient.isMatchActive;
+            btnAdvance.Enabled = !_selectedClient.isMatchActive;
             // Handle timeout buttons
-            bool canTimeout = _selectedClient.matchData.isIdle || _selectedClient.matchData.matchStatus == MatchData.MatchStatus.Timeout;
+            bool canTimeout = !_selectedClient.isMatchActive || _selectedClient.matchData.matchStatus == MatchData.MatchStatus.Timeout;
             btnTimeoutStart.Enabled = canTimeout;
             btnTimeoutCancel.Enabled = _selectedClient.matchData.matchStatus == MatchData.MatchStatus.Timeout;
 
@@ -395,15 +462,10 @@ namespace FTC_Timer_Display
             if (_selectedClient.matchData.matchStatus == MatchData.MatchStatus.Timeout) btnTimeoutStart.Text = "Extend Timeout\n(F6)";
             else btnTimeoutStart.Text = "Start Timeout\n(F6)";
 
-            // Allow config windows when no clients are running
-            btnSettings.Enabled = !_anyRunningClients;
-            // Allow the user to pick a different field when no match is running
-            bool canSelectField = _selectedClient == null || !_selectedClient.matchData.activeMatch;
-            flowFields.Enabled = (canSelectField && initData.isServer) || !Properties.Settings.Default.preventRunningMovement;
-            tableFiledListMgmt.Enabled = canSelectField && initData.isServer;
-
             // Pulse the button we're expecting to use
             ActivateNextButton();
+            // Set the color of the Pac Button if it exists based on the Activate above
+            PacDevice.setColor(new PacDevice.ButtonColorSettings(nextExpectedButton.BackColor, Color.Empty));
             // Update Match Progress
             progressDisplay.SetMatchProgress(_selectedClient.matchData);
             // Send the pit data
@@ -478,37 +540,45 @@ namespace FTC_Timer_Display
 
         private void ActivateNextButton()
         {
-            
-            ButtonX btn = null;
-            switch (_selectedClient.matchData.matchStatus)
-            {
-                case MatchData.MatchStatus.Stopped:
-                    // If the match is not running and the start button is available, we're ready to start the next match
-                    if (btnStart.Enabled) btn = btnStart;
-                    // If the match completed, then we're ready to move to the next match
-                    else if (_selectedClient.matchData.matchPeriod == MatchData.MatchPeriods.Complete) btn = btnAdvance;
-                    // Otherwise, we must have aborted the previous match, so let's do it again!
-                    else btn = btnReset;
-                    break;
-                case MatchData.MatchStatus.Paused:
-                    // If the match is paused, the expected button is Start, obviously.
-                    btn = btnStart;
-                    break;
-                case MatchData.MatchStatus.Running:
-                    // If we're running, we really don't want to do do anything, but the pause buttn is the best option.
-                    btn = btnPause;
-                    break;
-                case MatchData.MatchStatus.Timeout:
-                    // We're running a timeout.
-                    btn = btnTimeoutCancel;
-                    break;
-            }
+            ButtonX nxt = nextExpectedButton;
             foreach (ButtonX b in fieldButtonList)
             {
                 // Set buttons accordingly.
-                if (b.Equals(btn)) b.Pulse();
+                if (b.Equals(nxt)) b.Pulse();
                 else b.StopPulse();
             }
+        }
+        private ButtonX nextExpectedButton
+        {
+            get
+            {
+                ButtonX btn = null;
+                switch (_selectedClient.matchData.matchStatus)
+                {
+                    case MatchData.MatchStatus.Stopped:
+                        // If the match is not running and the start button is available, we're ready to start the next match
+                        if (btnStart.Enabled) btn = btnStart;
+                        // If the match completed, then we're ready to move to the next match
+                        else if (_selectedClient.matchData.matchPeriod == MatchData.MatchPeriods.Complete) btn = btnAdvance;
+                        // Otherwise, we must have aborted the previous match, so let's do it again!
+                        else btn = btnReset;
+                        break;
+                    case MatchData.MatchStatus.Paused:
+                        // If the match is paused, the expected button is Start, obviously.
+                        btn = btnStart;
+                        break;
+                    case MatchData.MatchStatus.Running:
+                        // If we're running, we really don't want to do do anything, but the pause buttn is the best option.
+                        btn = btnPause;
+                        break;
+                    case MatchData.MatchStatus.Timeout:
+                        // We're running a timeout.
+                        btn = btnTimeoutCancel;
+                        break;
+                }
+                return btn;
+            }
+            
         }
 
         private void MatchTypeChangeHandler(object sender, EventArgs e)
@@ -590,13 +660,8 @@ namespace FTC_Timer_Display
             }
             else if (sender.Equals(btnTimeoutStart))
             {
-                bool alreadyRunning = (_selectedClient.matchData.matchStatus == MatchData.MatchStatus.Timeout);
-                frmStartTimeout wind = new frmStartTimeout(_currentMatchType, alreadyRunning);
+                frmStartTimeout wind = new frmStartTimeout(_currentMatchType, ref _allClients);
                 wind.ShowDialog();
-                if (wind.Tag == null) return;
-                SingleClient.TimeoutData data = (SingleClient.TimeoutData)wind.Tag;
-                _selectedClient.StartTimeout(data);
-                wind.Close();
             }
             else if (sender.Equals(btnTimeoutCancel))
             {
@@ -611,7 +676,7 @@ namespace FTC_Timer_Display
             if(Properties.Settings.Default.autoElimTimeouts && MatchTimingData.matchTypeAllowsTimeout(_currentMatchType))
             {
                 // Only start the timeout if the field is idle - aka not already running a timeout.
-                if(_selectedClient.matchData.isIdle)
+                if(!_selectedClient.isMatchActive)
                     _selectedClient.StartTimeout(SingleClient.TimeoutData.defaultEventTimeout);
             }
             // Select the next field
@@ -642,7 +707,7 @@ namespace FTC_Timer_Display
 
             SetMatchNumber();
             // if the field is idle, reset for this match. (if it's not, it's likely on a timeout and that'll reset it when it ends)
-            if(_selectedClient.matchData.isIdle) _selectedClient.ResetMatch();
+            if (!_selectedClient.isMatchActive) _selectedClient.ResetMatch();
         }
 
         private void HandleFieldListMgmtButtons(object sender, EventArgs e)
@@ -683,15 +748,35 @@ namespace FTC_Timer_Display
             }
             foreach (SingleClient c in _allClients)
             {
-                c.localControl = !comms.isListening;
+                c.isLocalControl = !comms.isListening;
             }
         }
 
-        private bool _anyRunningClients
+        private bool _anyActiveMatches
         {
             get
             {
-                foreach (SingleClient c in _allClients) if (!c.matchData.isIdle) return true;
+                foreach (SingleClient c in _allClients) if (c.isMatchActive) return true;
+                return false;
+            }
+        }
+        private bool _anyNonIdleClients
+        {
+            get
+            {
+                foreach (SingleClient c in _allClients)
+                {
+                    if (c.isTimerRunning) return true;
+                    if (c.isMatchActive) return true;
+                }
+                return false;
+            }
+        }
+        private bool _anyNotActiveMatchClients
+        {
+            get
+            {
+                foreach (SingleClient c in _allClients) if (!c.isMatchActive) return true;
                 return false;
             }
         }
@@ -701,7 +786,7 @@ namespace FTC_Timer_Display
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 // Prevent the user from closing the app while a match is running.
-                if (_anyRunningClients)
+                if (_anyNonIdleClients)
                 {
                     if (ModifierKeys != Keys.Shift)
                     {
@@ -721,6 +806,7 @@ namespace FTC_Timer_Display
                 }
             }
             SaveSettings();
+            PacDevice.shutdown();
             if (comms != null)
             {
                 comms.ListenControl(false);
@@ -775,7 +861,7 @@ namespace FTC_Timer_Display
 
         private void OpenLink(string link, string title)
         {
-            if (!_selectedClient.canBeChanged)
+            if (!_selectedClient.isMatchChangeable)
             {
                 string msg = "External Links aren't allowed while a match is running.";
                 MessageBox.Show(msg, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);

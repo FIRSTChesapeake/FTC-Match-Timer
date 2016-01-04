@@ -49,6 +49,9 @@
   <PropertyGroup>
     <StartupObject>FTC_Timer_Display.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\gamecontroller.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevComponents.DotNetBar2, Version=12.5.0.3, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -60,10 +63,12 @@
       <HintPath>..\..\..\3rdPartyRefs\log4net-1.2.15\bin\net\4.5\release\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Speech" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -93,6 +98,12 @@
       <DependentUpon>CtrlTimeLengthEntry.cs</DependentUpon>
     </Compile>
     <Compile Include="FontLoader.cs" />
+    <Compile Include="frmLoading.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLoading.Designer.cs">
+      <DependentUpon>frmLoading.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmPitDisplay.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -167,6 +178,14 @@
     <Compile Include="InitialData.cs" />
     <Compile Include="MatchData.cs" />
     <Compile Include="MutexGenerator.cs" />
+    <Compile Include="PacDevice.cs" />
+    <Compile Include="PacDeviceSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PacDeviceSettings.Designer.cs">
+      <DependentUpon>PacDeviceSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PacDrive.cs" />
     <Compile Include="PeriodProgressBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -205,6 +224,9 @@
     <EmbeddedResource Include="frmDisplay.resx">
       <DependentUpon>frmDisplay.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmLoading.resx">
+      <DependentUpon>frmLoading.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -235,6 +257,9 @@
     <EmbeddedResource Include="MatchPeriodCtrl.resx">
       <DependentUpon>MatchPeriodCtrl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PacDeviceSettings.resx">
+      <DependentUpon>PacDeviceSettings.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PeriodProgressBar.resx">
       <DependentUpon>PeriodProgressBar.cs</DependentUpon>
     </EmbeddedResource>
@@ -254,8 +279,10 @@
     <EmbeddedResource Include="SingleClientDisplay.resx">
       <DependentUpon>SingleClientDisplay.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="matchDataDiagram.cd" />
     <None Include="log4net.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -603,6 +630,15 @@
     <None Include="Resources\indicator-green.png" />
     <None Include="Resources\indicator-yellow.png" />
     <None Include="Resources\indicator-red.png" />
+    <None Include="Resources\mainIcon.ico" />
+    <None Include="Resources\timerIcon.ico" />
+    <None Include="Resources\gamecontroller.ico" />
+    <Content Include="lib\PacDrive32.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\PacDrive64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Sounds\charge.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -639,6 +675,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

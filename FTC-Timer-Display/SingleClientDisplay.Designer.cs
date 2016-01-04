@@ -32,9 +32,16 @@
             this.lblFieldName = new System.Windows.Forms.Label();
             this.lblState = new System.Windows.Forms.Label();
             this.lblMatch = new System.Windows.Forms.Label();
-            this.picInd = new System.Windows.Forms.PictureBox();
+            this.tableIndicator = new System.Windows.Forms.TableLayoutPanel();
+            this.radial = new DevComponents.DotNetBar.RadialMenu();
+            this.radialStart = new DevComponents.DotNetBar.RadialMenuItem();
+            this.radialPause = new DevComponents.DotNetBar.RadialMenuItem();
+            this.radialStop = new DevComponents.DotNetBar.RadialMenuItem();
+            this.radialTimeout = new DevComponents.DotNetBar.RadialMenuItem();
+            this.radialStopTimeout = new DevComponents.DotNetBar.RadialMenuItem();
+            this.radialReset = new DevComponents.DotNetBar.RadialMenuItem();
             this.tableMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picInd)).BeginInit();
+            this.tableIndicator.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableMain
@@ -47,7 +54,7 @@
             this.tableMain.Controls.Add(this.lblFieldName, 1, 0);
             this.tableMain.Controls.Add(this.lblState, 2, 0);
             this.tableMain.Controls.Add(this.lblMatch, 2, 1);
-            this.tableMain.Controls.Add(this.picInd, 0, 0);
+            this.tableMain.Controls.Add(this.tableIndicator, 0, 0);
             this.tableMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableMain.Location = new System.Drawing.Point(0, 0);
             this.tableMain.Name = "tableMain";
@@ -98,17 +105,83 @@
             this.lblMatch.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblMatch.Click += new System.EventHandler(this.ClickHandler);
             // 
-            // picInd
+            // tableIndicator
             // 
-            this.picInd.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.picInd.Image = global::FTC_Timer_Display.Properties.Resources.indicator_red;
-            this.picInd.Location = new System.Drawing.Point(3, 3);
-            this.picInd.Name = "picInd";
-            this.tableMain.SetRowSpan(this.picInd, 2);
-            this.picInd.Size = new System.Drawing.Size(34, 34);
-            this.picInd.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picInd.TabIndex = 4;
-            this.picInd.TabStop = false;
+            this.tableIndicator.BackgroundImage = global::FTC_Timer_Display.Properties.Resources.indicator_red;
+            this.tableIndicator.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.tableIndicator.ColumnCount = 1;
+            this.tableIndicator.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableIndicator.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableIndicator.Controls.Add(this.radial, 0, 0);
+            this.tableIndicator.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableIndicator.Location = new System.Drawing.Point(3, 3);
+            this.tableIndicator.Name = "tableIndicator";
+            this.tableIndicator.RowCount = 1;
+            this.tableMain.SetRowSpan(this.tableIndicator, 2);
+            this.tableIndicator.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableIndicator.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableIndicator.Size = new System.Drawing.Size(34, 34);
+            this.tableIndicator.TabIndex = 4;
+            // 
+            // radial
+            // 
+            this.radial.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // 
+            // 
+            this.radial.Colors.RadialMenuButtonBackground = System.Drawing.Color.Transparent;
+            this.radial.Colors.RadialMenuButtonBorder = System.Drawing.Color.Transparent;
+            this.radial.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radial.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.radialStart,
+            this.radialPause,
+            this.radialStop,
+            this.radialTimeout,
+            this.radialStopTimeout,
+            this.radialReset});
+            this.radial.Location = new System.Drawing.Point(3, 3);
+            this.radial.Name = "radial";
+            this.radial.Size = new System.Drawing.Size(28, 28);
+            this.radial.SymbolSet = DevComponents.DotNetBar.eSymbolSet.Material;
+            this.radial.SymbolSize = 15F;
+            this.radial.TabIndex = 0;
+            this.radial.Text = "radialMenu1";
+            // 
+            // radialStart
+            // 
+            this.radialStart.Name = "radialStart";
+            this.radialStart.Text = "Start";
+            this.radialStart.Click += new System.EventHandler(this.radialHandler);
+            // 
+            // radialPause
+            // 
+            this.radialPause.Name = "radialPause";
+            this.radialPause.Text = "Pause";
+            this.radialPause.Click += new System.EventHandler(this.radialHandler);
+            // 
+            // radialStop
+            // 
+            this.radialStop.Name = "radialStop";
+            this.radialStop.Text = "Stop";
+            this.radialStop.Click += new System.EventHandler(this.radialHandler);
+            // 
+            // radialTimeout
+            // 
+            this.radialTimeout.Name = "radialTimeout";
+            this.radialTimeout.Text = "Timeout";
+            this.radialTimeout.Click += new System.EventHandler(this.radialHandler);
+            // 
+            // radialStopTimeout
+            // 
+            this.radialStopTimeout.Name = "radialStopTimeout";
+            this.radialStopTimeout.Text = "Abort";
+            this.radialStopTimeout.Click += new System.EventHandler(this.radialHandler);
+            // 
+            // radialReset
+            // 
+            this.radialReset.Name = "radialReset";
+            this.radialReset.Text = "Reset";
+            this.radialReset.Click += new System.EventHandler(this.radialHandler);
             // 
             // SingleClientDisplay
             // 
@@ -121,7 +194,7 @@
             this.Click += new System.EventHandler(this.ClickHandler);
             this.tableMain.ResumeLayout(false);
             this.tableMain.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picInd)).EndInit();
+            this.tableIndicator.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -132,6 +205,13 @@
         private System.Windows.Forms.Label lblFieldName;
         private System.Windows.Forms.Label lblState;
         private System.Windows.Forms.Label lblMatch;
-        private System.Windows.Forms.PictureBox picInd;
+        private System.Windows.Forms.TableLayoutPanel tableIndicator;
+        private DevComponents.DotNetBar.RadialMenu radial;
+        private DevComponents.DotNetBar.RadialMenuItem radialStart;
+        private DevComponents.DotNetBar.RadialMenuItem radialPause;
+        private DevComponents.DotNetBar.RadialMenuItem radialStop;
+        private DevComponents.DotNetBar.RadialMenuItem radialTimeout;
+        private DevComponents.DotNetBar.RadialMenuItem radialStopTimeout;
+        private DevComponents.DotNetBar.RadialMenuItem radialReset;
     }
 }

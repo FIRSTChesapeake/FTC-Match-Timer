@@ -32,6 +32,7 @@ namespace FTC_Timer_Display
             this.flowSounds = new System.Windows.Forms.FlowLayoutPanel();
             this.swLoop = new DevComponents.DotNetBar.Controls.SwitchButton();
             this.tableVoice = new System.Windows.Forms.TableLayoutPanel();
+            this.ctrlHeader2 = new FTC_Timer_Display.CtrlHeader();
             this.btnSpeak = new DevComponents.DotNetBar.ButtonX();
             this.label3 = new System.Windows.Forms.Label();
             this.txtSpeak = new System.Windows.Forms.TextBox();
@@ -39,15 +40,14 @@ namespace FTC_Timer_Display
             this.label5 = new System.Windows.Forms.Label();
             this.slideVoiceVolume = new DevComponents.DotNetBar.Controls.Slider();
             this.slideVoiceRate = new DevComponents.DotNetBar.Controls.Slider();
+            this.btnStopVoice = new System.Windows.Forms.Button();
             this.tabCtrlMain = new DevComponents.DotNetBar.SuperTabControl();
             this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.tableSounds = new System.Windows.Forms.TableLayoutPanel();
+            this.ctrlHeader1 = new FTC_Timer_Display.CtrlHeader();
             this.superTabItem1 = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.superTabItem2 = new DevComponents.DotNetBar.SuperTabItem();
-            this.btnStopVoice = new System.Windows.Forms.Button();
-            this.ctrlHeader2 = new FTC_Timer_Display.CtrlHeader();
-            this.ctrlHeader1 = new FTC_Timer_Display.CtrlHeader();
             this.tableVoice.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabCtrlMain)).BeginInit();
             this.tabCtrlMain.SuspendLayout();
@@ -125,6 +125,24 @@ namespace FTC_Timer_Display
             this.tableVoice.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableVoice.Size = new System.Drawing.Size(702, 431);
             this.tableVoice.TabIndex = 3;
+            // 
+            // ctrlHeader2
+            // 
+            // 
+            // 
+            // 
+            this.ctrlHeader2.BackgroundStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.ctrlHeader2.BackgroundStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(132)))));
+            this.ctrlHeader2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tableVoice.SetColumnSpan(this.ctrlHeader2, 4);
+            this.ctrlHeader2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ctrlHeader2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.ctrlHeader2.Location = new System.Drawing.Point(3, 3);
+            this.ctrlHeader2.Name = "ctrlHeader2";
+            this.ctrlHeader2.Size = new System.Drawing.Size(696, 19);
+            this.ctrlHeader2.TabIndex = 7;
+            this.ctrlHeader2.Text = "Voice Synthesizer";
+            this.ctrlHeader2.TextAlignment = System.Drawing.StringAlignment.Center;
             // 
             // btnSpeak
             // 
@@ -221,6 +239,17 @@ namespace FTC_Timer_Display
             this.slideVoiceRate.TabIndex = 6;
             this.slideVoiceRate.Value = 0;
             // 
+            // btnStopVoice
+            // 
+            this.btnStopVoice.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnStopVoice.Location = new System.Drawing.Point(555, 394);
+            this.btnStopVoice.Name = "btnStopVoice";
+            this.btnStopVoice.Size = new System.Drawing.Size(144, 34);
+            this.btnStopVoice.TabIndex = 8;
+            this.btnStopVoice.Text = "Stop";
+            this.btnStopVoice.UseVisualStyleBackColor = true;
+            this.btnStopVoice.Click += new System.EventHandler(this.HandlePreRecordedSoundsButtons);
+            // 
             // tabCtrlMain
             // 
             // 
@@ -238,8 +267,8 @@ namespace FTC_Timer_Display
             this.tabCtrlMain.ControlBox.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.tabCtrlMain.ControlBox.MenuBox,
             this.tabCtrlMain.ControlBox.CloseBox});
-            this.tabCtrlMain.Controls.Add(this.superTabControlPanel2);
             this.tabCtrlMain.Controls.Add(this.superTabControlPanel1);
+            this.tabCtrlMain.Controls.Add(this.superTabControlPanel2);
             this.tabCtrlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabCtrlMain.Location = new System.Drawing.Point(0, 0);
             this.tabCtrlMain.Name = "tabCtrlMain";
@@ -284,6 +313,24 @@ namespace FTC_Timer_Display
             this.tableSounds.Size = new System.Drawing.Size(702, 431);
             this.tableSounds.TabIndex = 0;
             // 
+            // ctrlHeader1
+            // 
+            // 
+            // 
+            // 
+            this.ctrlHeader1.BackgroundStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.ctrlHeader1.BackgroundStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(132)))));
+            this.ctrlHeader1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tableSounds.SetColumnSpan(this.ctrlHeader1, 3);
+            this.ctrlHeader1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ctrlHeader1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.ctrlHeader1.Location = new System.Drawing.Point(3, 3);
+            this.ctrlHeader1.Name = "ctrlHeader1";
+            this.ctrlHeader1.Size = new System.Drawing.Size(696, 19);
+            this.ctrlHeader1.TabIndex = 6;
+            this.ctrlHeader1.Text = "Pre-Generated Sounds";
+            this.ctrlHeader1.TextAlignment = System.Drawing.StringAlignment.Center;
+            // 
             // superTabItem1
             // 
             this.superTabItem1.AttachedControl = this.superTabControlPanel1;
@@ -307,53 +354,6 @@ namespace FTC_Timer_Display
             this.superTabItem2.GlobalItem = false;
             this.superTabItem2.Name = "superTabItem2";
             this.superTabItem2.Text = "Voice Synthesizer";
-            // 
-            // btnStopVoice
-            // 
-            this.btnStopVoice.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnStopVoice.Location = new System.Drawing.Point(555, 394);
-            this.btnStopVoice.Name = "btnStopVoice";
-            this.btnStopVoice.Size = new System.Drawing.Size(144, 34);
-            this.btnStopVoice.TabIndex = 8;
-            this.btnStopVoice.Text = "Stop";
-            this.btnStopVoice.UseVisualStyleBackColor = true;
-            this.btnStopVoice.Click += new System.EventHandler(this.HandlePreRecordedSoundsButtons);
-            // 
-            // ctrlHeader2
-            // 
-            // 
-            // 
-            // 
-            this.ctrlHeader2.BackgroundStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.ctrlHeader2.BackgroundStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(132)))));
-            this.ctrlHeader2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tableVoice.SetColumnSpan(this.ctrlHeader2, 4);
-            this.ctrlHeader2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ctrlHeader2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.ctrlHeader2.Location = new System.Drawing.Point(3, 3);
-            this.ctrlHeader2.Name = "ctrlHeader2";
-            this.ctrlHeader2.Size = new System.Drawing.Size(696, 19);
-            this.ctrlHeader2.TabIndex = 7;
-            this.ctrlHeader2.Text = "Voice Synthesizer";
-            this.ctrlHeader2.TextAlignment = System.Drawing.StringAlignment.Center;
-            // 
-            // ctrlHeader1
-            // 
-            // 
-            // 
-            // 
-            this.ctrlHeader1.BackgroundStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.ctrlHeader1.BackgroundStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(132)))));
-            this.ctrlHeader1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tableSounds.SetColumnSpan(this.ctrlHeader1, 3);
-            this.ctrlHeader1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ctrlHeader1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.ctrlHeader1.Location = new System.Drawing.Point(3, 3);
-            this.ctrlHeader1.Name = "ctrlHeader1";
-            this.ctrlHeader1.Size = new System.Drawing.Size(696, 19);
-            this.ctrlHeader1.TabIndex = 6;
-            this.ctrlHeader1.Text = "Pre-Generated Sounds";
-            this.ctrlHeader1.TextAlignment = System.Drawing.StringAlignment.Center;
             // 
             // CtrlSoundTest
             // 

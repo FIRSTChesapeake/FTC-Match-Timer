@@ -14,22 +14,86 @@ namespace FTC_Timer_Display
         private MatchData _data;
         private bool _isEnabled = true;
         private bool _isMultiDivision = true;
+        private bool _allowDisplayToStart = false;
         private TimeoutData.SoundTypes _timeoutSounds = TimeoutData.SoundTypes.None;
 
         public SingleClientDisplay fieldDisplayObj { get; private set; }
 
+        public bool allowDisplayToStart { get { return _allowDisplayToStart; } set { _allowDisplayToStart = value; } }
 
         private bool _isSelected = false;
+
+        public event EventHandler<MatchData> SendData;
+        public event EventHandler<SingleClientRequest> RequestMade;
+
+        /// <summary>
+        /// Whether the client is the selected field.
+        /// </summary>
         public bool isSelected 
         {
             get { return _isSelected; }
             set
             {
                 _isSelected = value;
-                fieldDisplayObj.UpdateDisplay(_data, value);
+                fieldDisplayObj.UpdateDisplay(_data, value, _allowDisplayToStart);
+                _data.isSelectedByServer = value;
+            }
+        }
+        /// <summary>
+        /// Whether the match contained is active (an actual match).
+        /// </summary>
+        public bool isMatchActive
+        {
+            get
+            {
+                return this._data.isMatchActive;
+            }
+        }
+        /// <summary>
+        /// Whether the timer is running, reguardless of why.
+        /// </summary>
+        public bool isTimerRunning
+        {
+            get
+            {
+                return this._data.isTimerRunning;
+            }
+        }
+        /// <summary>
+        /// Whether the SingleClient instance is being controlled here.
+        /// </summary>
+        public bool isLocalControl { set { _isEnabled = value; } get { return _isEnabled; } }
+
+        /// <summary>
+        /// Function to check if this field is the one identified by the given field info.
+        /// </summary>
+        /// <param name="div"></param>
+        /// <param name="field"></param>
+        /// <returns></returns>
+        public bool isThisField(int div, int field)
+        {
+            if (div != _data.divID) return false;
+            if (field != _data.fieldID) return false;
+            return true;
+        }
+
+        /// <summary>
+        /// Whether the match data is allowed to be changed.
+        /// </summary>
+        public bool isMatchChangeable
+        {
+            get
+            {
+                if (_data.matchStatus == MatchData.MatchStatus.Stopped) return true;
+                return false;
             }
         }
 
+        /// <summary>
+        /// Implementation to compare two fields for sorting.
+        /// </summary>
+        /// <param name="otherObj"></param>
+        /// <returns></returns>
         int IComparable.CompareTo(object otherObj)
         {
             try
@@ -48,17 +112,28 @@ namespace FTC_Timer_Display
             catch { return 0; }
         }
 
+        /// <summary>
+        /// Internal function to log data from the instance.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="args"></param>
         private void log(string message, params object[] args)
         {
             string myName = string.Format("SingleClient-{0}-{1}", this.matchData.divID, this.matchData.fieldID);
             LogMgr.logger.Info(LogMgr.make(message, myName, 0, args));
         }
 
+        /// <summary>
+        /// get the raw match data
+        /// </summary>
         public MatchData matchData
         {
             get { return _data; }
             set { _data = value; }
         }
+        /// <summary>
+        /// Get the UDP port number we use for this field from the comm port.
+        /// </summary>
         public int RecvPort
         {
             get
@@ -66,7 +141,9 @@ namespace FTC_Timer_Display
                 return UdpComms.CreateRecvPort(_data.divID, _data.fieldID);
             }
         }
-
+        /// <summary>
+        /// Get the string that is used to represent this client on the UI.
+        /// </summary>
         public string DisplayString
         {
             get
@@ -76,41 +153,69 @@ namespace FTC_Timer_Display
             }
         }
 
-        public bool localControl { set { _isEnabled = value; } get { return _isEnabled; } }
-
-        public bool isThisField(int div, int field)
-        {
-            if (div != _data.divID) return false;
-            if (field != _data.fieldID) return false;
-            return true;
-        }
-
-        public bool canBeChanged
-        {
-            get
-            {
-                if (_data.matchStatus == MatchData.MatchStatus.Stopped) return true;
-                return false;
-            }
-        }
-
-        public event EventHandler<MatchData> SendData;
-        public event EventHandler<int> ControlClicked;
-
+        /// <summary>
+        /// Handler for when a user clicks something on an associated SingleClientDisplay
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CtrlClickHandler(object sender, EventArgs e)
         {
-            if (ControlClicked != null)
+            if (RequestMade != null)
             {
-                EventHandler<int> handler = ControlClicked;
-                handler(this, this.matchData.fieldID);
+                EventHandler<SingleClientRequest> handler = RequestMade;
+                handler(this, SingleClientRequest.SelectMe);
+            }
+        }
+        /// <summary>
+        /// Handler for the radial menu of the associated SingleClientDisplay
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="cmd"></param>
+        private void CtrlRadialHandler(object sender, SingleClientDisplay.RadialCommands cmd)
+        {
+            switch (cmd)
+            {
+                case SingleClientDisplay.RadialCommands.None: return;
+                case SingleClientDisplay.RadialCommands.Start:
+                    this.MatchPower(true);
+                    break;
+                case SingleClientDisplay.RadialCommands.Pause:
+                case SingleClientDisplay.RadialCommands.Stop:
+                    this.MatchPower(false);
+                    break;
+                case SingleClientDisplay.RadialCommands.Timeout:
+                    if (RequestMade != null)
+                    {
+                        EventHandler<SingleClientRequest> handler = RequestMade;
+                        handler(this, SingleClientRequest.TimeoutStart);
+                    }
+                    break;
+                case SingleClientDisplay.RadialCommands.Reset:
+                case SingleClientDisplay.RadialCommands.AbortTimeout:
+                    this.ResetMatch();
+                    break;
             }
         }
 
-        public SingleClient(InitialData initData, int fieldID, int width, EventHandler<MatchData> SendDataHandler, EventHandler<int> DisplayClickHandler)
+        private void TimeoutRequest(bool start)
         {
-            this.fieldDisplayObj = new SingleClientDisplay(fieldID, (initData.fieldID == fieldID), CtrlClickHandler, width);
+            
+        }
+
+        /// <summary>
+        /// Constructor to create a new SingleClient
+        /// </summary>
+        /// <param name="initData">The initial data object from the main form</param>
+        /// <param name="fieldID">The field ID number of the new field</param>
+        /// <param name="width">The desired width of the field's DisplayObject</param>
+        /// <param name="SendDataHandler">Handler that will receive the requests to send new data to the network</param>
+        /// <param name="RequestHandler">Handler that will receive the click events from the DisplayObject</param>
+        public SingleClient(InitialData initData, int fieldID, int width,
+            EventHandler<MatchData> SendDataHandler, EventHandler<SingleClientRequest> RequestHandler)
+        {
+            this.fieldDisplayObj = new SingleClientDisplay(fieldID, (initData.fieldID == fieldID), CtrlClickHandler, CtrlRadialHandler, width);
             SendData += SendDataHandler;
-            ControlClicked += DisplayClickHandler;
+            RequestMade += RequestHandler;
             _data = new MatchData(initData, fieldID);
             _isMultiDivision = initData.isMultiDivision;
             ResetMatch();
@@ -120,13 +225,19 @@ namespace FTC_Timer_Display
             _timer.Start();
             log("Client Started!");
         }
-
+        /// <summary>
+        /// Handler for the meat-and-potatoes timer that does the actual counting.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             if (!_isEnabled) return;
-
+            // Process timing
             ProcessTiming();
-
+            // Add shared settings 
+            _data.useLargeActive = Properties.Settings.Default.useLargeActive;
+            // Send on down the road!
             if (SendData != null)
             {
                 EventHandler<MatchData> handler = SendData;
@@ -135,7 +246,9 @@ namespace FTC_Timer_Display
             // Forget the sound we just played (if any)
             _data.soundPackage = null;
         }
-
+        /// <summary>
+        /// Called to reset the match data to start-of-match settings.
+        /// </summary>
         public void ResetMatch()
         {
             _data.matchStatus = MatchData.MatchStatus.Stopped;
@@ -144,40 +257,65 @@ namespace FTC_Timer_Display
             _data.noCrossActive = false;
             log("Match Reset");
         }
-
+        /// <summary>
+        /// Starts a 
+        /// </summary>
+        /// <param name="data"></param>
         public void StartTimeout(TimeoutData data)
         {
             _data.timeoutMessage = data.message;
             if (_data.matchStatus == MatchData.MatchStatus.Timeout)
             {
                 _data.timerValue = _data.timerValue.Add(data.value);
+                this._timeoutSounds = data.soundType;
                 log("Adding time to Timeout: {0}", data.value);
+            }
+            else if (_data.matchStatus == MatchData.MatchStatus.Stopped)
+            {
+                _data.timerValue = data.value;
+                this._timeoutSounds = data.soundType;
+                _data.matchStatus = MatchData.MatchStatus.Timeout;
+                log("Timeout Started: {0}", data.value);
             }
             else
             {
-                _data.timerValue = data.value;
-                log("Timeout Started: {0}", data.value);
+                log("Timeout request failed! Field can not timeout now. Current State: {0}", _data.matchStatus.ToString());
             }
-            this._timeoutSounds = data.soundType;
-            _data.matchStatus = MatchData.MatchStatus.Timeout;
         }
 
+        /// <summary>
+        /// Controls whether the match is running or paused/stopped.
+        /// </summary>
+        /// <param name="running">New match state</param>
         public void MatchPower(bool running)
         {
+            MatchData.MatchStatus newStatus = MatchData.MatchStatus.Running;
+            if (!running && _data.matchStatus == MatchData.MatchStatus.Running) newStatus = MatchData.MatchStatus.Paused;
+            else if (!running && _data.matchStatus == MatchData.MatchStatus.Paused) newStatus = MatchData.MatchStatus.Stopped;
+            log("User requested MatchPower change from {0} to {1}", _data.matchStatus, newStatus.ToString());
+
             if (running)
             {
-                if (_data.matchPeriod == MatchData.MatchPeriods.NotStarted)
+                if (!_data.isTimerRunning)
                 {
-                    _data.matchPeriod = MatchData.MatchPeriods.Autonomous;
+                    if (_data.matchPeriod == MatchData.MatchPeriods.NotStarted)
+                    {
+                        _data.matchPeriod = MatchData.MatchPeriods.Autonomous;
+                        _data.matchStatus = MatchData.MatchStatus.Running;
+                        _data.noCrossActive = true;
+                        _data.soundPackage = new SoundGenerator.SoundPackage(SoundGenerator.SoundPackage.SoundMethods.SoundFile, "charge");
+                    }
+                    else if (_data.matchPeriod == MatchData.MatchPeriods.DriverControlled)
+                    {
+                        _data.soundPackage = new SoundGenerator.SoundPackage(SoundGenerator.SoundPackage.SoundMethods.SoundFile, "firebell");
+                    }
                     _data.matchStatus = MatchData.MatchStatus.Running;
-                    _data.noCrossActive = true;
-                    _data.soundPackage = new SoundGenerator.SoundPackage(SoundGenerator.SoundPackage.SoundMethods.SoundFile, "charge");
+                    log("Field successfully started. Period: {0}", _data.matchPeriod);
                 }
-                else if (_data.matchPeriod == MatchData.MatchPeriods.DriverControlled)
+                else
                 {
-                    _data.soundPackage = new SoundGenerator.SoundPackage(SoundGenerator.SoundPackage.SoundMethods.SoundFile, "firebell");
+                    log("Tried to start match but field status '{0}' can't do that.", _data.matchStatus);
                 }
-                _data.matchStatus = MatchData.MatchStatus.Running;
             }
             else if(_data.matchStatus == MatchData.MatchStatus.Running)
             {
@@ -187,10 +325,16 @@ namespace FTC_Timer_Display
             {
                 _data.matchStatus = MatchData.MatchStatus.Stopped;
             }
+            else
+            {
+                log("Field stop requested but it {0} is not a running status.", _data.matchStatus);
+            }
         }
 
         private void ProcessTiming()
         {
+            MatchData.MatchStatus newStatus = _data.matchStatus;
+            MatchData.MatchPeriods newPeriod = _data.matchPeriod;
             if (_data.matchStatus == MatchData.MatchStatus.Running)
             {
                 TimeSpan ts = _data.timerValue.Subtract(new TimeSpan(0, 0, 1));
@@ -205,22 +349,22 @@ namespace FTC_Timer_Display
                 else if (ts.TotalSeconds == MatchTimingData.whenAutoEnd.TotalSeconds)
                 {
                     // Auto hads ended.
-                    _data.matchStatus = MatchData.MatchStatus.Paused;
-                    _data.matchPeriod = MatchData.MatchPeriods.DriverControlled;
+                    newStatus = MatchData.MatchStatus.Paused;
+                    newPeriod = MatchData.MatchPeriods.DriverControlled;
                     _data.soundPackage = new SoundGenerator.SoundPackage(SoundGenerator.SoundPackage.SoundMethods.SoundFile, "endauto");
                 }
                 else if (ts.TotalSeconds == MatchTimingData.whenEndgameStart.TotalSeconds)
                 {
                     // Entering Endgame
-                    _data.matchPeriod = MatchData.MatchPeriods.EndGame;
+                    newPeriod = MatchData.MatchPeriods.EndGame;
                     _data.soundPackage = new SoundGenerator.SoundPackage(SoundGenerator.SoundPackage.SoundMethods.SoundFile, "factwhistle");
                 }
                 else if (ts.TotalSeconds <= 0)
                 {
                     // Match is over
                     _data.timerValue = new TimeSpan();
-                    _data.matchPeriod = MatchData.MatchPeriods.Complete;
-                    _data.matchStatus = MatchData.MatchStatus.Stopped;
+                    newPeriod = MatchData.MatchPeriods.Complete;
+                    newStatus = MatchData.MatchStatus.Stopped;
                     _data.soundPackage = new SoundGenerator.SoundPackage(SoundGenerator.SoundPackage.SoundMethods.SoundFile, "endmatch");
                 }
             }
@@ -231,7 +375,7 @@ namespace FTC_Timer_Display
                 _data.timerValue = ts;
                 if (ts.TotalSeconds <= 0)
                 {
-                    _data.matchStatus = MatchData.MatchStatus.Stopped;
+                    newStatus = MatchData.MatchStatus.Stopped;
                     if (_timeoutSounds == TimeoutData.SoundTypes.Buzzer)
                     {
                         _data.soundPackage = new SoundGenerator.SoundPackage(SoundGenerator.SoundPackage.SoundMethods.SoundFile, "endmatch");
@@ -245,7 +389,7 @@ namespace FTC_Timer_Display
                 }
             }
             // Process countdown (only if we're not already playing a sound, and the timer is running)
-            if (Properties.Settings.Default.useCountdown && _data.soundPackage == null && _data.timerRunning)
+            if (Properties.Settings.Default.useCountdown && _data.soundPackage == null && _data.isTimerRunning)
             {
                 if (_data.timerValue.Add(new TimeSpan(0, 0, -1)) < MatchTimingData.countdownStart)
                 {
@@ -255,8 +399,30 @@ namespace FTC_Timer_Display
                     else _data.soundPackage = new SoundGenerator.SoundPackage(SoundGenerator.SoundPackage.SoundMethods.TextToSpeech, countStr);
                 }
             }
+            // Write to log if needed
+            string logStatus = (newStatus != _data.matchStatus) ? string.Format("status from '{0}' to '{1}'", _data.matchStatus, newStatus) : "";
+            string logPeriod = (newPeriod != _data.matchPeriod) ? string.Format("period from '{0}' to '{1}'", _data.matchPeriod, newPeriod) : "";
+            if (logStatus != string.Empty || logPeriod != string.Empty)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("Match progression updated ");
+                sb.AppendFormat(logStatus);
+                if (logStatus != string.Empty && logPeriod != string.Empty) sb.Append(" and ");
+                sb.Append(logPeriod);
+                log(sb.ToString());
+            }
+            // Save the new status & period to the _data object
+            _data.matchStatus = newStatus;
+            _data.matchPeriod = newPeriod;
             // Update the display object
-            this.fieldDisplayObj.UpdateDisplay(_data, this.isSelected);
+            this.fieldDisplayObj.UpdateDisplay(_data, this.isSelected, _allowDisplayToStart);
+        }
+
+        public enum SingleClientRequest
+        {
+            None,
+            SelectMe,
+            TimeoutStart
         }
 
         public class TimeoutData

@@ -27,6 +27,8 @@ namespace FTC_Timer_Display
 
         public bool isListening { get { return _listening; } }
 
+        private readonly string logName;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="UdpComms"/> class for use with field communications.
         /// </summary>
@@ -35,7 +37,7 @@ namespace FTC_Timer_Display
         /// <param name="NewDataHandler">Handler that wants the data when it's received.</param>
         public UdpComms(int divID, int fieldID, EventHandler<MatchData> NewDataHandler)
         {
-            log4net.ThreadContext.Properties["fClass"] = string.Format("UdpComms-{0}-{1}", divID, fieldID);
+            logName = string.Format("udpComms-{0}-{1}", divID, fieldID);
             NewMatchData += NewDataHandler;
             udpPortRecv = CreateRecvPort(divID, fieldID);
             ConfigurePort();
@@ -47,7 +49,7 @@ namespace FTC_Timer_Display
         /// <param name="NewDataHandler">Handler that wants the data when it's received.</param>
         public UdpComms(EventHandler<PitData> NewDataHandler)
         {
-            log4net.ThreadContext.Properties["fClass"] = "UdpComms-Pit";
+            logName = "udpComms-Pit";
             NewPitData += NewDataHandler;
             udpPortRecv = CreateRecvPort(0, 0);
             ConfigurePort();
@@ -60,7 +62,7 @@ namespace FTC_Timer_Display
         /// <param name="NewDataHandler">Handler that wants the data when it's received.</param>
         public UdpComms(int scoringPort, EventHandler<ScoringData> NewDataHandler)
         {
-            log4net.ThreadContext.Properties["fClass"] = "UdpComms-Score";
+            logName = "udpComms-Score";
             NewScoringData += NewDataHandler;
             udpPortRecv = scoringPort;
             ConfigurePort();
@@ -89,21 +91,44 @@ namespace FTC_Timer_Display
             }
             catch (Exception ex)
             {
-                LogMgr.logger.Error(LogMgr.make("Exception Configuring Port", "UdpComms"), ex);
+                log("Exception Configuring Port", ex);
             }
         }
+
+        /// <summary>
+        /// Logs the specified message as error.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="ex">The exception thrown</param>
+        /// <param name="args">The arguments.</param>
+        private void log(string message, Exception ex, params object[] args)
+        {
+            LogMgr.logger.Error(LogMgr.make(message, logName, 0, args), ex);
+        }
+        /// <summary>
+        /// Logs the specified message as info.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="args">The arguments.</param>
+        private void log(string message, params object[] args)
+        {
+            LogMgr.logger.Info(LogMgr.make(message, logName, 0, args));
+        }
+
         /// <summary>
         /// Controls whether the UDP port is listening for packets or not.
         /// </summary>
         /// <param name="status">Boolean. Whether to Listen for packets.</param>
         public void ListenControl(bool status)
         {
+            log("Setting Listening to {0}..", status);
             if (status)
             {
                 if (!_listening)
                 {
                     if (_udp.Client == null) ConfigurePort();
                     StartListening();
+                    log("Listening Started.");
                 }
             }
             else
@@ -112,6 +137,7 @@ namespace FTC_Timer_Display
                 {
                     _listening = false;
                     _udp.Close();
+                    log("Listening Stoppped.");
                 }
             }
         }
@@ -128,7 +154,7 @@ namespace FTC_Timer_Display
             catch (Exception ex)
             {
                 _listening = false;
-                LogMgr.logger.Error(LogMgr.make("Exception Starting Listening", "UdpComms"), ex);
+                log("Exception Starting Listening", ex);
             }
         }
         /// <summary>
@@ -167,7 +193,7 @@ namespace FTC_Timer_Display
             }
             catch (Exception ex)
             {
-                LogMgr.logger.Error(LogMgr.make("Unhandled Exception Receiving Callback.", "UdpComms"), ex);
+                log("Unhandled Exception Receiving Callback.", ex);
             }
         }
         /// <summary>
@@ -200,7 +226,7 @@ namespace FTC_Timer_Display
             }
             catch (Exception ex)
             {
-                LogMgr.logger.Error(LogMgr.make("Exception Handing Managed Package", "UdpComms"), ex);
+                log("Exception Handing Managed Package", ex);
             }
         }
 
@@ -219,7 +245,7 @@ namespace FTC_Timer_Display
             }
             catch (Exception ex)
             {
-                LogMgr.logger.Error(LogMgr.make("Exception Broadcasting Match Data", "UdpComms"), ex);
+                log("Exception Broadcasting Match Data", ex);
             }
         }
 
@@ -238,7 +264,7 @@ namespace FTC_Timer_Display
             }
             catch (Exception ex)
             {
-                LogMgr.logger.Error(LogMgr.make("Exception Broadcasting Pit Data", "UdpComms"), ex);
+                log("Exception Broadcasting Pit Data", ex);
             }
         }
 
@@ -264,7 +290,7 @@ namespace FTC_Timer_Display
             }
             catch (Exception ex)
             {
-                LogMgr.logger.Error(LogMgr.make("Exception sending object", "UdpComms"), ex);
+                log("Exception sending object", ex);
             }
         }
     }

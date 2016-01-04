@@ -114,12 +114,12 @@
             this.clrPicker.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.clrPicker.TabIndex = 3;
             // 
-            // ctrlTimeLengthEntry
+            // CtrlTimeLengthEntry
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "ctrlTimeLengthEntry";
+            this.Name = "CtrlTimeLengthEntry";
             this.Size = new System.Drawing.Size(329, 30);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

@@ -18,8 +18,6 @@ namespace FTC_Timer_Display
         public frmSettings(ref InitialData initData, ref frmDisplay dispForm)
         {
             InitializeComponent();
-            // Logging
-            log4net.ThreadContext.Properties["fClass"] = "frmSettings";
             // Set the titlebar
             this.Text = GeneralFunctions.makeWindowTitle(this.Text);
 
@@ -35,6 +33,7 @@ namespace FTC_Timer_Display
             // Only allow server settings when we're a server
             headerServerOptions.Enabled = localSettings;
             flowServerOptions.Enabled = localSettings;
+            
 
         }
 
@@ -50,7 +49,7 @@ namespace FTC_Timer_Display
 
         private void LoadSettings()
         {
-            LogMgr.logger.Debug("Loading Settings");
+            log("Loading Settings");
             // Only servers broadcast their pit displays
             if (!_initData.isServer)
             {
@@ -79,11 +78,12 @@ namespace FTC_Timer_Display
             chkShowHelp.Checked = Properties.Settings.Default.showHelp;
             chkAutoElimTimeout.Checked = Properties.Settings.Default.autoElimTimeouts;
             chkPreventMovement.Checked = Properties.Settings.Default.preventRunningMovement;
+            chkUseLargeActive.Checked = Properties.Settings.Default.useLargeActive;
             // Timing
             timingsControl.LoadValues();
             // Sound Testing
             soundControl.LoadSounds();
-            LogMgr.logger.Debug("Settings loaded.");
+            log("Settings loaded.");
         }
 
         public PitData.PitDataSelections pitDataSelection
@@ -216,6 +216,22 @@ namespace FTC_Timer_Display
         private void btnClose_Click(object sender, EventArgs e)
         {
             CloseHandler();
+        }
+
+        /// <summary>
+        /// Logs the specified message as info.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="args">The arguments.</param>
+        private void log(string message, params object[] args)
+        {
+            LogMgr.logger.Info(LogMgr.make(message, "frmSettings", 0, args));
+        }
+
+        private void chkUseLargeActive_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.useLargeActive = chkUseLargeActive.Checked;
+            Properties.Settings.Default.Save();
         }
     }
 }

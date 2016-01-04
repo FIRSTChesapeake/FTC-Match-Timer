@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Media;
 using System.IO;
-//using System.Diagnostics;
+using System.Diagnostics;
 using System.Speech;
 using System.Speech.Synthesis;
 
@@ -23,6 +24,9 @@ namespace FTC_Timer_Display
         public static readonly string SoundsFolder = String.Format(@"{0}\{1}", AppPath, "Sounds");
         public static readonly string NumberFolder = String.Format(@"{0}\{1}", AppPath, "Numbers");
         private static Dictionary<string, SoundPlayer> sounds = new Dictionary<string, SoundPlayer>();
+
+        public static event EventHandler<int> soundsPercentChange;
+        private static AutoResetEvent wait = new AutoResetEvent(false);
 
         public static List<string> availableSounds
         {
@@ -50,12 +54,16 @@ namespace FTC_Timer_Display
         public static bool isInit { get; private set; }
         public static bool voiceReady { get { return voice != null; } }
 
-        public static void init()
+        public static void init(EventHandler<int> percentChangeHandler)
         {
-            // Load Required Sound Files
-            if (!loadSoundFiles(SoundsFolder)) LogMgr.logger.Error(LogMgr.make("Failed to load Game Sounds", "SoundGen"));
-            // Load optional numbers
-            if (!loadSoundFiles(NumberFolder)) LogMgr.logger.Error(LogMgr.make("Failed to load Number Sounds", "SoundGen"));
+            // Handler
+            soundsPercentChange += percentChangeHandler;
+            // Initialize Required Sound Files
+            if (!initSoundFiles(SoundsFolder)) LogMgr.logger.Error(LogMgr.make("Failed to load Game Sounds", "SoundGen"));
+            // Initialize optional numbers
+            if (!initSoundFiles(NumberFolder)) LogMgr.logger.Error(LogMgr.make("Failed to load Number Sounds", "SoundGen"));
+            // Load all files into memory
+            loadSounds();
 
             try
             {
@@ -70,7 +78,7 @@ namespace FTC_Timer_Display
             isInit = true;
         }
 
-        private static bool loadSoundFiles(string path)
+        private static bool initSoundFiles(string path)
         {
             try
             {
@@ -84,15 +92,33 @@ namespace FTC_Timer_Display
                     SoundPlayer player = new SoundPlayer(s);
                     player.Tag = key;
                     player.LoadCompleted += SoundLoadCompleteCallback;
-                    player.LoadAsync();
                     sounds.Add(key, player);
                 }
                 return true;
             }
             catch(Exception ex)
             {
-                LogMgr.logger.Error(LogMgr.make("Exception loading sound files", "SoundGen"), ex);
+                LogMgr.logger.Error(LogMgr.make("Exception initializing sound files", "SoundGen"), ex);
                 return false;
+            }
+        }
+
+        private static void loadSounds()
+        {
+            int loadedCount = 0;
+            foreach (SoundPlayer s in sounds.Values)
+            {
+                s.Load();
+                wait.WaitOne();
+                wait.Reset();
+                loadedCount++;
+                decimal dPercent = ((decimal)loadedCount / (decimal)sounds.Count) * 100;
+                int iPercent = (int)dPercent;
+                if (soundsPercentChange != null)
+                {
+                    EventHandler<int> handler = soundsPercentChange;
+                    handler(null, iPercent);
+                }
             }
         }
 
@@ -127,6 +153,7 @@ namespace FTC_Timer_Display
             SoundPlayer player = (SoundPlayer)sender;
             string file = player.Tag == null ? "UNKNOWN" : player.Tag.ToString();
             LogMgr.logger.Debug(LogMgr.make("Load of sound {0} complete.", "SoundGen", 0, file));
+            wait.Set();
         }
 
         private static void PlaySoundFile(string name, bool loop)

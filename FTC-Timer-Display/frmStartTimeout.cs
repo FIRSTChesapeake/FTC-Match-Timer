@@ -11,25 +11,24 @@ namespace FTC_Timer_Display
 {
     public partial class frmStartTimeout : DevComponents.DotNetBar.OfficeForm
     {
-        public frmStartTimeout(MatchData.MatchTypes type, bool alreadyRunning)
+        private List<SingleClient> _fields;
+
+        public frmStartTimeout(MatchData.MatchTypes type, ref List<SingleClient> availableFields, SingleClient forcedSelected = null)
         {
             InitializeComponent();
-            if (MatchTimingData.matchTypeAllowsTimeout(type))
+            // Initialize field list
+            _fields = availableFields;
+            cboFields.DisplayMember = "DisplayString";
+            cboFields.DataSource = _fields;
+            if (forcedSelected == null)
             {
-                timeValue.Value = MatchTimingData.timeoutTeamLength;
-                // TODO: Once we import the match schedule, we can customize this list based on the advancing teams.
-                //          For now, we'll just list all possible alliances based on Quarterfinals count (even though we don't use Quarterfinals.)
-                int allianceCount = MatchTimingData.getMatchTypeAllianceCount(MatchData.MatchTypes.Quarterfinals);
-                for (int i = 1; i <= allianceCount; i++) cboAlliance.Items.Add(string.Format("Alliance {0}", i.ToString()));
-                cboAlliance.SelectedIndex = 0;
+                foreach (SingleClient c in _fields) if (c.isSelected) cboFields.SelectedItem = c;
             }
             else
             {
-                timeValue.Value = MatchTimingData.timeoutEventLength;
-                rdoOther.Checked = true;
-                rdoAllianceCalled.Enabled = false;
+                cboFields.SelectedItem = forcedSelected;
             }
-            lblAlreadyRunning.Visible = alreadyRunning;
+
             rdoSoundVoice.Enabled = SoundGenerator.voiceReady;
         }
 
@@ -74,10 +73,50 @@ namespace FTC_Timer_Display
         {
             if (sender.Equals(btnStart))
             {
+                SingleClient c = (SingleClient)cboFields.SelectedItem;
                 SingleClient.TimeoutData data = new SingleClient.TimeoutData(timeValue.Value, timeoutMessage, soundType);
-                this.Tag = data;
+                if (rdoReplaceTime.Checked) c.ResetMatch();
+                c.StartTimeout(data);
             }
-            this.Visible = false;
+            this.Close();
+        }
+
+        private void cboFields_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SingleClient c = (SingleClient)cboFields.SelectedItem;
+            bool allowed = true;
+            // Allow / Disallow Alliance Timeout
+            cboAlliance.Items.Clear();
+            if (MatchTimingData.matchTypeAllowsTimeout(c.matchData.matchType) && !c.isMatchActive)
+            {
+                // We can call / extend either type of timeout
+                timeValue.Value = MatchTimingData.timeoutTeamLength;
+                rdoAllianceCalled.Checked = true;
+                rdoAllianceCalled.Enabled = true;
+                // TODO: Once we import the match schedule, we can customize this list based on the advancing teams.
+                //          For now, we'll just list all possible alliances based on Quarterfinals count (even though we don't use Quarterfinals.)
+                int allianceCount = MatchTimingData.getMatchTypeAllianceCount(MatchData.MatchTypes.Quarterfinals);
+                for (int i = 1; i <= allianceCount; i++) cboAlliance.Items.Add(string.Format("Alliance {0}", i.ToString()));
+                cboAlliance.SelectedIndex = 0;
+            }
+            else if(!c.isMatchActive)
+            {
+                // We can call / extend an event timeout, but not an alliance timeout
+                timeValue.Value = MatchTimingData.timeoutEventLength;
+                rdoOther.Checked = true;
+                rdoAllianceCalled.Enabled = false;
+            }
+            else
+            {
+                // Timeouts caren't available for this field (it's running a match)
+                allowed = false;
+            }
+            btnStart.Enabled = allowed;
+            lblCantTimeout.Visible = !allowed;
+
+            lblAlreadyRunning.Visible = c.matchData.matchStatus == MatchData.MatchStatus.Timeout;
+            grpModify.Visible = c.matchData.matchStatus == MatchData.MatchStatus.Timeout;
+            btnStart.Text = c.matchData.matchStatus == MatchData.MatchStatus.Timeout ? "Edit Timeout" : "Start Timeout";
         }
     }
 }

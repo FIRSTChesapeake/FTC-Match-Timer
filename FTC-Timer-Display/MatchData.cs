@@ -21,17 +21,18 @@ namespace FTC_Timer_Display
         public int matchNumberMinor = 0;
         public int matchLength = 0;
         public string timeoutMessage = "";
-        public bool isSelectedClient = false;
 
         public bool noCrossActive = true;
 
         public SoundGenerator.SoundPackage soundPackage = null;
 
         public SoundLocations soundLocation = SoundLocations.Off;
+        public bool useLargeActive = true;
 
         public TimeSpan timerValue = new TimeSpan();
 
         public bool isMultiDivision { get { return _initData.isMultiDivision; } }
+        public bool isSelectedByServer { get; set; }
 
         public int ticksPassed
         {
@@ -115,7 +116,7 @@ namespace FTC_Timer_Display
             Other = 9
         }
 
-        public bool usesMinor
+        public bool isMinorMatchNumberSupported
         {
             get
             {
@@ -214,14 +215,20 @@ namespace FTC_Timer_Display
                     case MatchPeriods.EndGame: sb.Append("End Game"); break;
                     default: sb.Append(this.matchPeriod.ToString()); break;
                 }
-                if (activePeriod) sb.Append(" Period");
+                if (isActivePeriod) sb.Append(" Period");
                 sb.Append(Environment.NewLine);
                 sb.Append(this.matchStatus);
                 return sb.ToString();
             }
         }
 
-        public bool waitingForStart
+        /// <summary>
+        /// Gets a value indicating whether this matchdata is ready to start a match.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this instance is waiting for start; otherwise, <c>false</c>.
+        /// </value>
+        public bool isWaitingForStart
         {
             get
             {
@@ -230,8 +237,13 @@ namespace FTC_Timer_Display
                 return false;
             }
         }
-
-        public bool timerRunning
+        /// <summary>
+        /// Gets a value indicating whether the timeris running, no matter the reason.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [timer running]; otherwise, <c>false</c>.
+        /// </value>
+        public bool isTimerRunning
         {
             get
             {
@@ -240,33 +252,37 @@ namespace FTC_Timer_Display
                 return false;
             }
         }
-
-        public bool activeMatch
+        /// <summary>
+        /// Whether this matchdata is an active match.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this instance is match active; otherwise, <c>false</c>.
+        /// </value>
+        public bool isMatchActive
         {
             get
             {
-                if (this.matchStatus == MatchStatus.Stopped) return false;
-                if (this.matchStatus == MatchStatus.Timeout) return false;
-                return true;
+                if (this.matchStatus == MatchStatus.Running) return true;
+                if (this.matchStatus == MatchStatus.Paused) return true;
+                return false;
             }
         }
 
-        public bool isIdle
-        {
-            get
-            {
-                return !activeMatch && !timerRunning;
-            }
-        }
-
-        public bool activePeriod
+        /// <summary>
+        /// Returns whether this matchdata pack has an active period type assigned.
+        /// e.g. A period that is not the beginning or end of a match.
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if this instance is active period; otherwise, <c>false</c>.
+        /// </value>
+        public bool isActivePeriod
         {
             get
             {
                 switch (this.matchPeriod)
                 {
-                    case MatchPeriods.Complete: return false;
                     case MatchPeriods.NotStarted: return false;
+                    case MatchPeriods.Complete: return false;
                     default: return true;
                 }
             }
