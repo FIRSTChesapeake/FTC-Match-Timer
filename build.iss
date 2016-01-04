@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "VAF FTC Match Timer"
-#define MyAppVersion "15.1512.29"
+#define MyAppVersion "15.1601.04"
 #define MyAppPublisher "VirginiaFIRST"
 #define MyAppURL "http://www.virginiafirst.org"
 #define MyAppExeName "FTC-Timer-Display.exe"
@@ -25,12 +25,13 @@ OutputBaseFilename=VAF-FTC-Timer
 Compression=lzma
 SolidCompression=yes
 
-[Languages]
+[Languages]                                                
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Components]
 Name: app; Description: "Application Files"; Types: full compact custom; Flags: fixed
 Name: log; Description: "Logging System (Log4net)"; Types: full compact custom; Flags: fixed
+Name: usb; Description: "USB Button Libraries"; Types: full compact custom; Flags: fixed
 Name: deb; Description: "Debugging Assistance Files"; Types: full custom;
 Name: dep; Description: "Dependencies"; Types: full compact custom; Flags: fixed
 Name: gs; Description: "Game Sounds"; Types: full compact custom; Flags: fixed
@@ -45,6 +46,8 @@ Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\F
 Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\FTC-Timer-Display\bin\Debug\FTC-Timer-Display.pdb"; DestDir: "{app}"; Flags: ignoreversion; Components: deb
 Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\FTC-Timer-Display\bin\Debug\DevComponents.DotNetBar2.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: dep
 Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\FTC-Timer-Display\bin\Debug\DevComponents.Instrumentation.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: dep
+
+Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\FTC-Timer-Display\bin\Debug\lib\*"; DestDir: "{app}\lib"; Flags: ignoreversion; Components: usb
 
 ; Sounds
 Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\FTC-Timer-Display\bin\Debug\Sounds\*"; DestDir: "{app}\Sounds"; Flags: ignoreversion; Components: gs
