@@ -14,6 +14,7 @@ namespace FTC_Timer_Display
         public int divID { get { return _initData.divID; } }
         public string divisionName { get { return _initData.divName; } }
         public int fieldID = 0;
+        public bool displayFieldNumber = true;
         public MatchTypes matchType = MatchTypes.Unknown;
         public MatchPeriods matchPeriod = MatchPeriods.NotStarted;
         public MatchStatus matchStatus = MatchStatus.Stopped;
@@ -186,8 +187,11 @@ namespace FTC_Timer_Display
                         sb.Append(" ");
                     }
                 }
-                sb.Append("Field ");
-                sb.Append(this.fieldID);
+                if (this.displayFieldNumber)
+                {
+                    sb.Append("Field ");
+                    sb.Append(this.fieldID);
+                }
                 sb.Append(Environment.NewLine);
                 if (this.matchStatus != MatchStatus.Timeout)
                 {

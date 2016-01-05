@@ -76,7 +76,7 @@ namespace FTC_Timer_Display
         private frmLoading(string initialMessage)
         {
             InitializeComponent();
-            this.Text = GeneralFunctions.makeWindowTitle(this.Text, false);
+            this.Text = GeneralFunctions.AppFunctions.makeWindowTitle(this.Text, false);
         }
 
         private void updateDisplay(string newMessage, int percent)

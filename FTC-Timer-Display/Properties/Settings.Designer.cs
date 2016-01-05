@@ -163,7 +163,7 @@ namespace FTC_Timer_Display.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool displayShowDateTime {
             get {
                 return ((bool)(this["displayShowDateTime"]));
@@ -242,6 +242,30 @@ namespace FTC_Timer_Display.Properties {
             }
             set {
                 this["useLargeActive"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool skipWelcome {
+            get {
+                return ((bool)(this["skipWelcome"]));
+            }
+            set {
+                this["skipWelcome"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool showDisplayFieldNumbers {
+            get {
+                return ((bool)(this["showDisplayFieldNumbers"]));
+            }
+            set {
+                this["showDisplayFieldNumbers"] = value;
             }
         }
     }

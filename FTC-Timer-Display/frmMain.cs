@@ -15,7 +15,7 @@ namespace FTC_Timer_Display
     public partial class frmMain : Office2007Form
     {
         InitialData initData;
-        UdpComms comms;
+        myUdpClient.UdpComms comms;
 
         frmDisplay display;
         frmSettings settings;
@@ -131,9 +131,9 @@ namespace FTC_Timer_Display
             // Show the loading window
             frmLoading.StartLoadScreen("Initializing Systems..");
             // Set the titlebar
-            this.Text = GeneralFunctions.makeWindowTitle(this.Text);
+            this.Text = GeneralFunctions.AppFunctions.makeWindowTitle(this.Text);
             // show version
-            lblVer.Text = GeneralFunctions.appVersion;
+            lblVer.Text = GeneralFunctions.AppFunctions.appVersion;
             // Set the init Data
             this.initData = init;
             // Init the MatchType dropdown, default to qualification
@@ -150,11 +150,11 @@ namespace FTC_Timer_Display
             fieldButtonList.Add(btnAdvance);
             fieldButtonList.Add(btnTimeoutStart);
             fieldButtonList.Add(btnTimeoutCancel);
-            // Initialize the PacDriver
-            PacDevice.init(this, pacButtonHandler);
+            // Initialize the PacDriver if we're a server
+            if (initData.isServer) PacDevices.UsbButtonDevices.init(this, pacButtonHandler);
         }
 
-        private void pacButtonHandler(object sender, PacDevice.ButtonStates buttonState)
+        private void pacButtonHandler(object sender, PacDevices.UsbButtonDevices.ButtonStates buttonState)
         {
             if (this.InvokeRequired)
             {
@@ -162,9 +162,9 @@ namespace FTC_Timer_Display
             }
             else
             {
-                lblPacButtonState.Text = buttonState.ToString();
+                lblPacButtonState.Text = string.Format("<div align='center'><b>Controller Button:</b><br/>{0}</div>", buttonState.ToString());
                 if (nextExpectedButton == null || !nextExpectedButton.Enabled) return;
-                if (buttonState == PacDevice.ButtonStates.InitialRelease)
+                if (buttonState == PacDevices.UsbButtonDevices.ButtonStates.InitialRelease)
                 {
                     FieldControlButtonsHandler(nextExpectedButton, new EventArgs());
                 }
@@ -199,7 +199,7 @@ namespace FTC_Timer_Display
             // Setup Comms if needed
             if (initData.runType != InitialData.RunType.Local)
             {
-                comms = new UdpComms(initData.divID, initData.fieldID, NewDataReceived);
+                comms = new myUdpClient.UdpComms(initData.divID, initData.fieldID, NewDataReceived);
                 if (initData.runType == InitialData.RunType.Client)
                 {
                     btnCycleListener.Enabled = true;
@@ -465,7 +465,7 @@ namespace FTC_Timer_Display
             // Pulse the button we're expecting to use
             ActivateNextButton();
             // Set the color of the Pac Button if it exists based on the Activate above
-            PacDevice.setColor(new PacDevice.ButtonColorSettings(nextExpectedButton.BackColor, Color.Empty));
+            PacDevices.UsbButtonDevices.setColor(new PacDevices.UsbButtonDevices.ButtonColorSettings(nextExpectedButton.BackColor, Color.Empty));
             // Update Match Progress
             progressDisplay.SetMatchProgress(_selectedClient.matchData);
             // Send the pit data
@@ -540,6 +540,7 @@ namespace FTC_Timer_Display
 
         private void ActivateNextButton()
         {
+            if (_selectedClient == null) return;
             ButtonX nxt = nextExpectedButton;
             foreach (ButtonX b in fieldButtonList)
             {
@@ -552,6 +553,7 @@ namespace FTC_Timer_Display
         {
             get
             {
+                if (_selectedClient == null) return null;
                 ButtonX btn = null;
                 switch (_selectedClient.matchData.matchStatus)
                 {
@@ -707,7 +709,7 @@ namespace FTC_Timer_Display
 
             SetMatchNumber();
             // if the field is idle, reset for this match. (if it's not, it's likely on a timeout and that'll reset it when it ends)
-            if (!_selectedClient.isMatchActive) _selectedClient.ResetMatch();
+            if (!_selectedClient.isTimerRunning) _selectedClient.ResetMatch();
         }
 
         private void HandleFieldListMgmtButtons(object sender, EventArgs e)
@@ -806,7 +808,7 @@ namespace FTC_Timer_Display
                 }
             }
             SaveSettings();
-            PacDevice.shutdown();
+            PacDevices.UsbButtonDevices.shutdown();
             if (comms != null)
             {
                 comms.ListenControl(false);
@@ -869,11 +871,8 @@ namespace FTC_Timer_Display
             }
             else
             {
-                string msg = string.Format("This will open your web browser and navigate to the {0}.\nAre you sure you want to do this now?", title);
-                DialogResult dr = MessageBox.Show(msg, this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-                if (dr == System.Windows.Forms.DialogResult.No) return;
+                GeneralFunctions.AppFunctions.OpenLink(link, title);
             }
-            Process.Start(link);
         }
 
         private void pitDataSelectionHandler(object sender, EventArgs e)
@@ -904,6 +903,12 @@ namespace FTC_Timer_Display
             if (sender.Equals(btnDisplayWindow)) newStatus = frmDisplay.DisplayStatus.Windowed;
             if (sender.Equals(btnDisplayFullscreen)) newStatus = frmDisplay.DisplayStatus.Fullscreen;
             display.displayStatus = newStatus;
+        }
+
+        private void btnTest_Click(object sender, EventArgs e)
+        {
+            frmInitialSetup wind = new frmInitialSetup(this.initData);
+            wind.Show();
         }
     }
 }

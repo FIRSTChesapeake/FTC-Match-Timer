@@ -28,23 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDisplay));
             this.lblMatchNumber = new DevComponents.DotNetBar.LabelX();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.clockFace = new FTC_Timer_Display.ClockFace();
             this.matchPeriodCtrl = new FTC_Timer_Display.MatchPeriodCtrl();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.picInd = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.logoTableLeft = new System.Windows.Forms.TableLayoutPanel();
             this.lblDate = new System.Windows.Forms.Label();
             this.logoTableRight = new System.Windows.Forms.TableLayoutPanel();
             this.lblTime = new System.Windows.Forms.Label();
             this.lblFieldDataStatus = new DevComponents.DotNetBar.LabelX();
-            this.picInd = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picInd)).BeginInit();
             this.logoTableLeft.SuspendLayout();
             this.logoTableRight.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picInd)).BeginInit();
             this.SuspendLayout();
             // 
             // lblMatchNumber
@@ -125,6 +126,17 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(144, 144);
             this.tableLayoutPanel1.TabIndex = 12;
             // 
+            // picInd
+            // 
+            this.picInd.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picInd.Image = global::FTC_Timer_Display.Properties.Resources.indicator_red;
+            this.picInd.Location = new System.Drawing.Point(112, 3);
+            this.picInd.Name = "picInd";
+            this.picInd.Size = new System.Drawing.Size(29, 29);
+            this.picInd.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picInd.TabIndex = 0;
+            this.picInd.TabStop = false;
+            // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.BackgroundImage = global::FTC_Timer_Display.Properties.Resources.gamelogo;
@@ -143,7 +155,7 @@
             // 
             // logoTableLeft
             // 
-            this.logoTableLeft.BackgroundImage = global::FTC_Timer_Display.Properties.Resources.vaflogo;
+            this.logoTableLeft.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("logoTableLeft.BackgroundImage")));
             this.logoTableLeft.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.logoTableLeft.ColumnCount = 1;
             this.logoTableLeft.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -173,7 +185,7 @@
             // 
             // logoTableRight
             // 
-            this.logoTableRight.BackgroundImage = global::FTC_Timer_Display.Properties.Resources.vaflogo;
+            this.logoTableRight.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("logoTableRight.BackgroundImage")));
             this.logoTableRight.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.logoTableRight.ColumnCount = 1;
             this.logoTableRight.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -219,17 +231,6 @@
             this.lblFieldDataStatus.TextAlignment = System.Drawing.StringAlignment.Center;
             this.lblFieldDataStatus.Click += new System.EventHandler(this.lblFieldDataStatus_Click);
             // 
-            // picInd
-            // 
-            this.picInd.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.picInd.Image = global::FTC_Timer_Display.Properties.Resources.indicator_red;
-            this.picInd.Location = new System.Drawing.Point(112, 3);
-            this.picInd.Name = "picInd";
-            this.picInd.Size = new System.Drawing.Size(29, 29);
-            this.picInd.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picInd.TabIndex = 0;
-            this.picInd.TabStop = false;
-            // 
             // frmDisplay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -246,11 +247,11 @@
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.frmDisplay_KeyPress);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picInd)).EndInit();
             this.logoTableLeft.ResumeLayout(false);
             this.logoTableLeft.PerformLayout();
             this.logoTableRight.ResumeLayout(false);
             this.logoTableRight.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picInd)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -117,24 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="toolTipMgr.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <data name="labelX1.Text" xml:space="preserve">
+    <value>&lt;b&gt;Warning:&lt;/b&gt;&lt;br/&gt;
+The PacDriver provided by the manufacturer doesn't handle abrupt disconnects of the UsbButton well. I've tried to handle the error as best as possible, but the application still crashes sometimes when the button is disconnected early.</value>
+  </data>
+  <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="rdoSoundRemote.SuperTooltip" xml:space="preserve">
-    <value>Sound will be played elsewhere.
-For server configurations, this setting instructs the clients to play the game sounds.
-For client configurations, this setting indicates that the server is responsible for playing game sounds.</value>
-  </data>
-  <data name="chkAutoElimTimeout.SuperTooltip" xml:space="preserve">
-    <value>If enabled during eliminations, the system will automatically start an Event Timeout on the previous field when the user Advances to the next match.
-Users should not click the Advance to Next Match button (F2) until the referees signal field reset.</value>
-  </data>
-  <data name="chkPreventMovement.SuperTooltip" xml:space="preserve">
-    <value>Disabling this option will allow the user to change their selected field while a match is active, and could result in the user starting more than one match at a time. While this would work just fine, the game sounds may overlap and confuse the teams participating.</value>
-  </data>
-  <data name="chkShowFieldNumber.SuperTooltip" xml:space="preserve">
-    <value>This option, when enabled (by default), will show the field number on the Timer Display. If unchecked, the field Number will not be displayed.
-
-If you have only 1 field, or otherwise don't want to display your field numbers you can uncheck this option.</value>
-  </data>
 </root>

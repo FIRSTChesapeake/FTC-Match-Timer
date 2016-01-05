@@ -20,7 +20,7 @@ namespace FTC_Timer_Display
         private int scrollSpeed2 = 10;
 
 
-        private UdpComms comms;
+        private myUdpClient.UdpComms comms;
 
         private DateTime _lastComms = DateTime.Now.AddMonths(-1);
         private bool _forceRefresh = false;
@@ -35,7 +35,7 @@ namespace FTC_Timer_Display
             urls.Add("ranking", "http://{0}:8080/Rankings");
 
             // Setup comms
-            comms = new UdpComms(DataReceived);
+            comms = new myUdpClient.UdpComms(DataReceived);
             comms.ListenControl(true);
         }
 

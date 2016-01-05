@@ -19,7 +19,7 @@ namespace FTC_Timer_Display
         {
             InitializeComponent();
             // Set the titlebar
-            this.Text = GeneralFunctions.makeWindowTitle(this.Text);
+            this.Text = GeneralFunctions.AppFunctions.makeWindowTitle(this.Text);
 
             _initData = initData;
             _dispForm = dispForm;
@@ -79,6 +79,7 @@ namespace FTC_Timer_Display
             chkAutoElimTimeout.Checked = Properties.Settings.Default.autoElimTimeouts;
             chkPreventMovement.Checked = Properties.Settings.Default.preventRunningMovement;
             chkUseLargeActive.Checked = Properties.Settings.Default.useLargeActive;
+            chkShowFieldNumber.Checked = Properties.Settings.Default.showDisplayFieldNumbers;
             // Timing
             timingsControl.LoadValues();
             // Sound Testing
@@ -171,7 +172,7 @@ namespace FTC_Timer_Display
                 }
                 else if (sender.Equals(btnResetLogo))
                 {
-                    picCurrentLogo.Image = Properties.Resources.vaflogo;
+                    picCurrentLogo.Image = Properties.Resources.vaflogoold;
                     Properties.Settings.Default.customLogoPath = "";
                 }
                 Properties.Settings.Default.Save();
@@ -231,6 +232,12 @@ namespace FTC_Timer_Display
         private void chkUseLargeActive_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.useLargeActive = chkUseLargeActive.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void chkDontShowFieldNumber_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.showDisplayFieldNumbers = chkShowFieldNumber.Checked;
             Properties.Settings.Default.Save();
         }
     }

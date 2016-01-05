@@ -98,6 +98,12 @@
       <DependentUpon>CtrlTimeLengthEntry.cs</DependentUpon>
     </Compile>
     <Compile Include="FontLoader.cs" />
+    <Compile Include="frmInitialSetup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmInitialSetup.Designer.cs">
+      <DependentUpon>frmInitialSetup.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmLoading.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -148,6 +154,42 @@
     </Compile>
     <Compile Include="FtcMutex.cs" />
     <Compile Include="GeneralFunctions.cs" />
+    <Compile Include="InitializationControls\CtrlAppModeSelection.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InitializationControls\CtrlAppModeSelection.Designer.cs">
+      <DependentUpon>CtrlAppModeSelection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InitializationControls\CtrlClient.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InitializationControls\CtrlClient.Designer.cs">
+      <DependentUpon>CtrlClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InitializationControls\CtrlGlobal.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InitializationControls\CtrlGlobal.Designer.cs">
+      <DependentUpon>CtrlGlobal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InitializationControls\CtrlServer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InitializationControls\CtrlServer.Designer.cs">
+      <DependentUpon>CtrlServer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InitializationControls\InitialSettingsLine.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InitializationControls\InitialSettingsLine.Designer.cs">
+      <DependentUpon>InitialSettingsLine.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InitializationControls\InitialSettingsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InitializationControls\InitialSettingsView.Designer.cs">
+      <DependentUpon>InitialSettingsView.cs</DependentUpon>
+    </Compile>
     <Compile Include="LogMgr.cs" />
     <Compile Include="MatchScheduleManager.cs" />
     <Compile Include="MatchPeriodCtrl.cs">
@@ -178,14 +220,14 @@
     <Compile Include="InitialData.cs" />
     <Compile Include="MatchData.cs" />
     <Compile Include="MutexGenerator.cs" />
-    <Compile Include="PacDevice.cs" />
-    <Compile Include="PacDeviceSettings.cs">
+    <Compile Include="PacDevices\UsbButtonDevice.cs" />
+    <Compile Include="PacDevices\PacDeviceSettings.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="PacDeviceSettings.Designer.cs">
+    <Compile Include="PacDevices\PacDeviceSettings.Designer.cs">
       <DependentUpon>PacDeviceSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="PacDrive.cs" />
+    <Compile Include="PacDevices\PacDrive.cs" />
     <Compile Include="PeriodProgressBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -210,8 +252,8 @@
       <DependentUpon>SingleClientDisplay.cs</DependentUpon>
     </Compile>
     <Compile Include="SoundGenerator.cs" />
-    <Compile Include="UdpComms.cs" />
-    <Compile Include="UdpContainer.cs" />
+    <Compile Include="UdpClient\UdpComms.cs" />
+    <Compile Include="UdpClient\UdpContainer.cs" />
     <EmbeddedResource Include="ClockFace.resx">
       <DependentUpon>ClockFace.cs</DependentUpon>
     </EmbeddedResource>
@@ -223,6 +265,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmDisplay.resx">
       <DependentUpon>frmDisplay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmInitialSetup.resx">
+      <DependentUpon>frmInitialSetup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLoading.resx">
       <DependentUpon>frmLoading.cs</DependentUpon>
@@ -254,10 +299,28 @@
     <EmbeddedResource Include="CtrlTimings.resx">
       <DependentUpon>CtrlTimings.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="InitializationControls\CtrlAppModeSelection.resx">
+      <DependentUpon>CtrlAppModeSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InitializationControls\CtrlClient.resx">
+      <DependentUpon>CtrlClient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InitializationControls\CtrlGlobal.resx">
+      <DependentUpon>CtrlGlobal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InitializationControls\CtrlServer.resx">
+      <DependentUpon>CtrlServer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InitializationControls\InitialSettingsLine.resx">
+      <DependentUpon>InitialSettingsLine.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InitializationControls\InitialSettingsView.resx">
+      <DependentUpon>InitialSettingsView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MatchPeriodCtrl.resx">
       <DependentUpon>MatchPeriodCtrl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PacDeviceSettings.resx">
+    <EmbeddedResource Include="PacDevices\PacDeviceSettings.resx">
       <DependentUpon>PacDeviceSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PeriodProgressBar.resx">
@@ -410,6 +473,9 @@
     <None Include="Resources\Rcolon.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="docs\welcome.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\d0.png" />
     <None Include="Resources\d1.png" />
     <None Include="Resources\d2.png" />
@@ -639,6 +705,7 @@
     <Content Include="lib\PacDrive64.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\vaflogo.png" />
     <Content Include="Sounds\charge.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -675,7 +742,9 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="imgs\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

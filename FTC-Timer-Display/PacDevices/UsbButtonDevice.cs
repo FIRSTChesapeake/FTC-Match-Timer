@@ -8,9 +8,9 @@ using System.Drawing;
 using PacDriver;
 using System.Diagnostics;
 
-namespace FTC_Timer_Display
+namespace FTC_Timer_Display.PacDevices
 {
-    public static class PacDevice
+    public static class UsbButtonDevices
     {
         public enum ButtonStates
         {
@@ -58,15 +58,21 @@ namespace FTC_Timer_Display
                 _drive = new PacDrive(_owner);
                 _drive.Initialize();
                 log("Found {0} PacDrive devices.", _drive.NumDevices);
-                if (_drive.NumDevices > 0) selectedButton = new PacButton(_drive.GetSerialNumber(0), 0);
-                else selectedButton = null;
-                
-                // Timer
-                _timer.Interval = 10;
-                _timer.Elapsed += interval;
-                isInit = true;
-                _timer.Start();
-                return true;
+                if (_drive.NumDevices > 0)
+                {
+                    selectedButton = new PacButton(_drive.GetSerialNumber(0), 0);
+                    // Timer
+                    _timer.Interval = 10;
+                    _timer.Elapsed += interval;
+                    isInit = true;
+                    _timer.Start();
+                    return true;
+                }
+                else
+                {
+                    selectedButton = null;
+                    return false;
+                }
             }
             catch(Exception ex)
             {
@@ -114,12 +120,12 @@ namespace FTC_Timer_Display
             catch (ObjectDisposedException)
             {
                 log("PacDevice class stopped - likely application is quitting.");
-                _timer.Stop();
+                die();
             }
             catch (Exception ex)
             {
                 log("PacDevice class crashed with exception.", ex);
-                _timer.Stop();
+                die();
             }
         }
 
@@ -127,7 +133,7 @@ namespace FTC_Timer_Display
         {
             _timer.Stop();
             setColorInternal(new ButtonColorSettings(Color.Empty, Color.Empty));
-            _drive.Shutdown();
+            die();
         }
 
         public static void setColor(ButtonColorSettings settings)
@@ -156,15 +162,40 @@ namespace FTC_Timer_Display
         {
             get
             {
-                if (!isInit || _drive.NumDevices == 0 || selectedButton == null) return false;
-                bool val = false;
-                if (_drive.GetUSBButtonState(selectedButton.id, ref val)) return val;
-                else
+                try
                 {
-                    log("Failed to get button value.", new Exception(""));
+                    if (!isInit || _drive.NumDevices == 0 || selectedButton == null) return false;
+                    bool val = false;
+                    if (_drive.GetUSBButtonState(selectedButton.id, ref val)) return val;
+                    else
+                    {
+                        log("Failed to get button value. Assuming the buttion is gone.", new Exception());
+                        die();
+                        return false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    log("Exception getting button value. Assuming the buttion is gone.", ex);
+                    die();
                     return false;
                 }
             }
+        }
+
+        private static void die()
+        {
+            isInit = false;
+            _timer.Stop();
+            try
+            {
+                if (_drive != null)
+                {
+                    _drive.Shutdown();
+                    _drive = null;
+                }
+            }
+            catch { }
         }
 
         public static List<PacButton> Devices

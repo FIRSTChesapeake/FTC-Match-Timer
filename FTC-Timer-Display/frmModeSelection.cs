@@ -19,9 +19,9 @@ namespace FTC_Timer_Display
         {
             InitializeComponent();
             // set the title text
-            this.Text = GeneralFunctions.makeWindowTitle(this.Text);
+            this.Text = GeneralFunctions.AppFunctions.makeWindowTitle(this.Text);
             // show version
-            lblVersion.Text = GeneralFunctions.appVersion;
+            lblVersion.Text = GeneralFunctions.AppFunctions.appVersion;
             // Init the event type dropdown
             cboEventType.DataSource = Enum.GetValues(typeof(MatchData.EventTypes));
             // Set values

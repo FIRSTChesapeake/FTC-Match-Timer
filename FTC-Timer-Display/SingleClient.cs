@@ -138,7 +138,7 @@ namespace FTC_Timer_Display
         {
             get
             {
-                return UdpComms.CreateRecvPort(_data.divID, _data.fieldID);
+                return myUdpClient.UdpComms.CreateRecvPort(_data.divID, _data.fieldID);
             }
         }
         /// <summary>
@@ -237,6 +237,7 @@ namespace FTC_Timer_Display
             ProcessTiming();
             // Add shared settings 
             _data.useLargeActive = Properties.Settings.Default.useLargeActive;
+            _data.displayFieldNumber = Properties.Settings.Default.showDisplayFieldNumbers;
             // Send on down the road!
             if (SendData != null)
             {

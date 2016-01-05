@@ -10,7 +10,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.Diagnostics;
 
-namespace FTC_Timer_Display
+namespace FTC_Timer_Display.myUdpClient
 {
     public class UdpComms
     {

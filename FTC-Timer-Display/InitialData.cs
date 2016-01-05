@@ -13,6 +13,7 @@ namespace FTC_Timer_Display
         public bool isMultiDivision = true;
         public string divName = "";
         public int fieldID = 0;
+        //public int fieldCount = 0;  - Might use this later
         public RunType runType = RunType.None;
         public MatchData.EventTypes eventType = MatchData.EventTypes.Qualifier;
         public int scoringPort = Properties.Settings.Default.DefaultScoringPort;
@@ -71,13 +72,34 @@ namespace FTC_Timer_Display
                 i.eventType = (MatchData.EventTypes)Properties.Settings.Default.eventType;
             }
 
-            i = GetInitialData(i, out errorID);
+            i = startWizard(i, out errorID);
 
             if (i == null || i.runType == RunType.None) return null;
             errorID = 0;
             return i;
         }
 
+        public static InitialData startWizard(InitialData template, out int errorID)
+        {
+            frmInitialSetup wnd = new frmInitialSetup(template);
+            wnd.ShowDialog();
+            if (wnd.Tag == null)
+            {
+                errorID = 1;
+                return null;
+            }
+            InitialData data = (InitialData)wnd.Tag;
+            if (data.runType == InitialData.RunType.None)
+            {
+                errorID = -1;
+                return null;
+            }
+            errorID = 0;
+            return data;
+        }
+
+        // Slated for Demolition
+        [Obsolete("Method is Obsolete. use startWizard Method Instead.")]
         public static InitialData GetInitialData(InitialData template, out int errorID)
         {
             frmModeSelection wnd = new frmModeSelection(template);
@@ -112,7 +134,30 @@ namespace FTC_Timer_Display
                 return false;
             }
         }
-
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is a client.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is client; otherwise, <c>false</c>.
+        /// </value>
+        public bool isClient
+        {
+            get
+            {
+                if (runType == RunType.ServerClient) return true;
+                if (runType == RunType.Client) return true;
+                return false;
+            }
+        }
+        public bool hasLocalClock
+        {
+            get
+            {
+                if (isClient) return true;
+                if (runType == RunType.Local) return true;
+                return false;
+            }
+        }
         public void lockMutex()
         {
             FtcMutex.lockRunType(this.runType);

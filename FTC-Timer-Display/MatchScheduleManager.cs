@@ -9,7 +9,7 @@ namespace FTC_Timer_Display
 {
     public static class MatchScheduleManager
     {
-        private static UdpComms comms;
+        private static myUdpClient.UdpComms comms;
         private static bool _isInit = false;
 
         static MatchScheduleManager()
@@ -20,7 +20,7 @@ namespace FTC_Timer_Display
         public static void init(int scoringPort)
         {
             if (_isInit) return;
-            comms = new UdpComms(scoringPort, NewScoreDataHandler);
+            comms = new myUdpClient.UdpComms(scoringPort, NewScoreDataHandler);
 
             _isInit = true;
         }

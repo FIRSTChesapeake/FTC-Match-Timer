@@ -279,5 +279,15 @@ namespace FTC_Timer_Display.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap vaflogoold {
+            get {
+                object obj = ResourceManager.GetObject("vaflogoold", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

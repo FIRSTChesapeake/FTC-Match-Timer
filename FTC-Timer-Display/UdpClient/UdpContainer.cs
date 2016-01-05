@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FTC_Timer_Display
+namespace FTC_Timer_Display.myUdpClient
 {
     [Serializable]
     class UdpContainer
