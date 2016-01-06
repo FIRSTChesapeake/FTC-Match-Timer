@@ -143,6 +143,26 @@ namespace FTC_Timer_Display.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap mute_off {
+            get {
+                object obj = ResourceManager.GetObject("mute_off", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mute_on {
+            get {
+                object obj = ResourceManager.GetObject("mute_on", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap R0 {
             get {
                 object obj = ResourceManager.GetObject("R0", resourceCulture);

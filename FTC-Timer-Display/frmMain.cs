@@ -159,7 +159,21 @@ namespace FTC_Timer_Display
             }
             else
             {
-                lblPacButtonState.Text = string.Format("<div align='center'><b>Controller Button:</b><br/>{0}</div>", buttonState.ToString());
+                lblPacButtonState.Text = string.Format("<div align='center'>{0}</div>", buttonState.ToString());
+                switch (buttonState)
+                {
+                    case PacDevices.UsbButtonDevices.ButtonStates.NotFound:
+                        lblPacButtonState.BackColor = Color.Red;
+                        break;
+                    case PacDevices.UsbButtonDevices.ButtonStates.InitialPress:
+                    case PacDevices.UsbButtonDevices.ButtonStates.PressedWaiting:
+                        lblPacButtonState.BackColor = Color.Yellow;
+                        break;
+                    case PacDevices.UsbButtonDevices.ButtonStates.InitialRelease:
+                    case PacDevices.UsbButtonDevices.ButtonStates.Released:
+                        lblPacButtonState.BackColor = Color.Green;
+                        break;
+                }
                 if (nextExpectedButton == null || !nextExpectedButton.Enabled) return;
                 if (buttonState == PacDevices.UsbButtonDevices.ButtonStates.InitialRelease)
                 {
@@ -824,7 +838,8 @@ namespace FTC_Timer_Display
 
         private void LocalMuteHandler(object sender, EventArgs e)
         {
-            SoundGenerator.isMuted = swLocalMute.Value;
+            SoundGenerator.isMuted = !SoundGenerator.isMuted;
+            btnMute.Image = SoundGenerator.isMuted ? Properties.Resources.mute_on : Properties.Resources.mute_off;
         }
 
         private void frmMain_KeyDown(object sender, KeyEventArgs e)

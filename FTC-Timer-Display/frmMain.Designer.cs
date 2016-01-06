@@ -31,22 +31,28 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.tableLeft = new System.Windows.Forms.TableLayoutPanel();
-            this.swLocalMute = new DevComponents.DotNetBar.Controls.SwitchButton();
             this.tableCurrentConfig = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.lblDivIDLabel = new System.Windows.Forms.Label();
             this.lblVer = new DevComponents.DotNetBar.LabelX();
             this.lblMode = new System.Windows.Forms.Label();
             this.lblDivID = new System.Windows.Forms.Label();
+            this.ctrlHeader2 = new FTC_Timer_Display.CtrlHeader();
             this.flowFields = new System.Windows.Forms.FlowLayoutPanel();
             this.tableDisplayControl = new System.Windows.Forms.TableLayoutPanel();
+            this.ctrlHeader4 = new FTC_Timer_Display.CtrlHeader();
             this.tableDisplayButtons = new System.Windows.Forms.TableLayoutPanel();
             this.btnDisplayFullscreen = new DevComponents.DotNetBar.ButtonX();
             this.btnDisplayHide = new DevComponents.DotNetBar.ButtonX();
             this.btnDisplayWindow = new DevComponents.DotNetBar.ButtonX();
+            this.ctrlHeader3 = new FTC_Timer_Display.CtrlHeader();
             this.tableFiledListMgmt = new System.Windows.Forms.TableLayoutPanel();
             this.btnAddField = new DevComponents.DotNetBar.ButtonX();
             this.btnRemoveField = new DevComponents.DotNetBar.ButtonX();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lblPacButtonState = new DevComponents.DotNetBar.LabelX();
+            this.btnMute = new DevComponents.DotNetBar.ButtonX();
             this.tableFieldControl = new System.Windows.Forms.TableLayoutPanel();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -64,9 +70,10 @@
             this.btnStop = new DevComponents.DotNetBar.ButtonX();
             this.btnReset = new DevComponents.DotNetBar.ButtonX();
             this.btnAdvance = new DevComponents.DotNetBar.ButtonX();
+            this.progressDisplay = new FTC_Timer_Display.PeriodProgressBar();
             this.btnTimeoutStart = new DevComponents.DotNetBar.ButtonX();
             this.btnTimeoutCancel = new DevComponents.DotNetBar.ButtonX();
-            this.lblPacButtonState = new DevComponents.DotNetBar.LabelX();
+            this.headerFieldHead = new FTC_Timer_Display.CtrlHeader();
             this.tableCommStatus = new System.Windows.Forms.TableLayoutPanel();
             this.btnCycleListener = new DevComponents.DotNetBar.ButtonX();
             this.label13 = new System.Windows.Forms.Label();
@@ -76,6 +83,7 @@
             this.label15 = new System.Windows.Forms.Label();
             this.lblLastRecvTime = new System.Windows.Forms.Label();
             this.picRcvTime = new System.Windows.Forms.PictureBox();
+            this.ctrlHeader1 = new FTC_Timer_Display.CtrlHeader();
             this.tableLinks = new System.Windows.Forms.TableLayoutPanel();
             this.picLicense = new System.Windows.Forms.PictureBox();
             this.flowBugs = new System.Windows.Forms.FlowLayoutPanel();
@@ -87,17 +95,12 @@
             this.toolTipMgr = new DevComponents.DotNetBar.SuperTooltip();
             this.tableRight = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.ctrlHeader2 = new FTC_Timer_Display.CtrlHeader();
-            this.ctrlHeader4 = new FTC_Timer_Display.CtrlHeader();
-            this.ctrlHeader3 = new FTC_Timer_Display.CtrlHeader();
-            this.ctrlHeader1 = new FTC_Timer_Display.CtrlHeader();
-            this.progressDisplay = new FTC_Timer_Display.PeriodProgressBar();
-            this.headerFieldHead = new FTC_Timer_Display.CtrlHeader();
             this.tableLeft.SuspendLayout();
             this.tableCurrentConfig.SuspendLayout();
             this.tableDisplayControl.SuspendLayout();
             this.tableDisplayButtons.SuspendLayout();
             this.tableFiledListMgmt.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.tableFieldControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMatchNumberMajor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMatchNumberMinor)).BeginInit();
@@ -114,12 +117,12 @@
             // 
             this.tableLeft.ColumnCount = 1;
             this.tableLeft.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLeft.Controls.Add(this.swLocalMute, 0, 4);
             this.tableLeft.Controls.Add(this.tableCurrentConfig, 0, 0);
             this.tableLeft.Controls.Add(this.flowFields, 0, 2);
             this.tableLeft.Controls.Add(this.tableDisplayControl, 0, 5);
             this.tableLeft.Controls.Add(this.ctrlHeader3, 0, 1);
             this.tableLeft.Controls.Add(this.tableFiledListMgmt, 0, 3);
+            this.tableLeft.Controls.Add(this.tableLayoutPanel1, 0, 4);
             this.tableLeft.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLeft.Location = new System.Drawing.Point(3, 3);
             this.tableLeft.Name = "tableLeft";
@@ -128,27 +131,10 @@
             this.tableLeft.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLeft.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLeft.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLeft.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLeft.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 65F));
             this.tableLeft.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 78F));
             this.tableLeft.Size = new System.Drawing.Size(264, 607);
             this.tableLeft.TabIndex = 0;
-            // 
-            // swLocalMute
-            // 
-            // 
-            // 
-            // 
-            this.swLocalMute.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.swLocalMute.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.swLocalMute.Location = new System.Drawing.Point(3, 502);
-            this.swLocalMute.Name = "swLocalMute";
-            this.swLocalMute.OffText = "NOT LOCALLY MUTED";
-            this.swLocalMute.OnBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.swLocalMute.OnText = "LOCALLY MUTED";
-            this.swLocalMute.Size = new System.Drawing.Size(258, 24);
-            this.swLocalMute.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.swLocalMute.TabIndex = 7;
-            this.swLocalMute.ValueChanged += new System.EventHandler(this.LocalMuteHandler);
             // 
             // tableCurrentConfig
             // 
@@ -234,6 +220,25 @@
             this.lblDivID.Text = "Unknown";
             this.lblDivID.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // ctrlHeader2
+            // 
+            // 
+            // 
+            // 
+            this.ctrlHeader2.BackgroundStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.ctrlHeader2.BackgroundStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(132)))));
+            this.ctrlHeader2.BackgroundStyle.BackColorGradientType = DevComponents.DotNetBar.eGradientType.Radial;
+            this.ctrlHeader2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tableCurrentConfig.SetColumnSpan(this.ctrlHeader2, 2);
+            this.ctrlHeader2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ctrlHeader2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.ctrlHeader2.Location = new System.Drawing.Point(3, 3);
+            this.ctrlHeader2.Name = "ctrlHeader2";
+            this.ctrlHeader2.Size = new System.Drawing.Size(252, 24);
+            this.ctrlHeader2.TabIndex = 6;
+            this.ctrlHeader2.Text = "Global Settings";
+            this.ctrlHeader2.TextAlignment = System.Drawing.StringAlignment.Center;
+            // 
             // flowFields
             // 
             this.flowFields.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -241,7 +246,7 @@
             this.flowFields.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowFields.Location = new System.Drawing.Point(3, 136);
             this.flowFields.Name = "flowFields";
-            this.flowFields.Size = new System.Drawing.Size(258, 310);
+            this.flowFields.Size = new System.Drawing.Size(258, 275);
             this.flowFields.TabIndex = 9;
             // 
             // tableDisplayControl
@@ -260,6 +265,24 @@
             this.tableDisplayControl.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableDisplayControl.Size = new System.Drawing.Size(258, 72);
             this.tableDisplayControl.TabIndex = 11;
+            // 
+            // ctrlHeader4
+            // 
+            // 
+            // 
+            // 
+            this.ctrlHeader4.BackgroundStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.ctrlHeader4.BackgroundStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(132)))));
+            this.ctrlHeader4.BackgroundStyle.BackColorGradientType = DevComponents.DotNetBar.eGradientType.Radial;
+            this.ctrlHeader4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.ctrlHeader4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ctrlHeader4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.ctrlHeader4.Location = new System.Drawing.Point(3, 3);
+            this.ctrlHeader4.Name = "ctrlHeader4";
+            this.ctrlHeader4.Size = new System.Drawing.Size(252, 24);
+            this.ctrlHeader4.TabIndex = 14;
+            this.ctrlHeader4.Text = "Local Timer Display Control";
+            this.ctrlHeader4.TextAlignment = System.Drawing.StringAlignment.Center;
             // 
             // tableDisplayButtons
             // 
@@ -289,6 +312,8 @@
             this.btnDisplayFullscreen.Name = "btnDisplayFullscreen";
             this.btnDisplayFullscreen.Size = new System.Drawing.Size(76, 26);
             this.btnDisplayFullscreen.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.toolTipMgr.SetSuperTooltip(this.btnDisplayFullscreen, new DevComponents.DotNetBar.SuperTooltipInfo("Local Timer Display: Fullscreen", "Turn off help in Misc Options", "This button sets the timer window to fullscreen without borders. This is the prod" +
+            "uction mode for the timer display.", null, null, DevComponents.DotNetBar.eTooltipColor.Green));
             this.btnDisplayFullscreen.TabIndex = 16;
             this.btnDisplayFullscreen.Text = "Fullscreen";
             this.btnDisplayFullscreen.Click += new System.EventHandler(this.changeDisplayStateButtonHandler);
@@ -303,6 +328,7 @@
             this.btnDisplayHide.Name = "btnDisplayHide";
             this.btnDisplayHide.Size = new System.Drawing.Size(75, 26);
             this.btnDisplayHide.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.toolTipMgr.SetSuperTooltip(this.btnDisplayHide, new DevComponents.DotNetBar.SuperTooltipInfo("Local Timer Display: Hidden", "Turn off help in Misc Options", "This button hides the local timer window entirely.", null, null, DevComponents.DotNetBar.eTooltipColor.Green));
             this.btnDisplayHide.TabIndex = 11;
             this.btnDisplayHide.Text = "Hidden";
             this.btnDisplayHide.Click += new System.EventHandler(this.changeDisplayStateButtonHandler);
@@ -316,9 +342,30 @@
             this.btnDisplayWindow.Name = "btnDisplayWindow";
             this.btnDisplayWindow.Size = new System.Drawing.Size(75, 26);
             this.btnDisplayWindow.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.toolTipMgr.SetSuperTooltip(this.btnDisplayWindow, new DevComponents.DotNetBar.SuperTooltipInfo("Local Timer Display: Windowed", "Turn off help in Misc Options", "This button shows the Local Timer in a window so you can position it on the right" +
+            " screen. You can also press escape with the Timer Display as the active window t" +
+            "o achieve this.", null, null, DevComponents.DotNetBar.eTooltipColor.Green));
             this.btnDisplayWindow.TabIndex = 15;
             this.btnDisplayWindow.Text = "Windowed";
             this.btnDisplayWindow.Click += new System.EventHandler(this.changeDisplayStateButtonHandler);
+            // 
+            // ctrlHeader3
+            // 
+            // 
+            // 
+            // 
+            this.ctrlHeader3.BackgroundStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.ctrlHeader3.BackgroundStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(132)))));
+            this.ctrlHeader3.BackgroundStyle.BackColorGradientType = DevComponents.DotNetBar.eGradientType.Radial;
+            this.ctrlHeader3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.ctrlHeader3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ctrlHeader3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.ctrlHeader3.Location = new System.Drawing.Point(3, 106);
+            this.ctrlHeader3.Name = "ctrlHeader3";
+            this.ctrlHeader3.Size = new System.Drawing.Size(258, 24);
+            this.ctrlHeader3.TabIndex = 12;
+            this.ctrlHeader3.Text = "Available Fields";
+            this.ctrlHeader3.TextAlignment = System.Drawing.StringAlignment.Center;
             // 
             // tableFiledListMgmt
             // 
@@ -328,7 +375,7 @@
             this.tableFiledListMgmt.Controls.Add(this.btnAddField, 0, 0);
             this.tableFiledListMgmt.Controls.Add(this.btnRemoveField, 1, 0);
             this.tableFiledListMgmt.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableFiledListMgmt.Location = new System.Drawing.Point(3, 452);
+            this.tableFiledListMgmt.Location = new System.Drawing.Point(3, 417);
             this.tableFiledListMgmt.Name = "tableFiledListMgmt";
             this.tableFiledListMgmt.RowCount = 1;
             this.tableFiledListMgmt.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -364,6 +411,69 @@
             this.btnRemoveField.Text = "Remove Field";
             this.btnRemoveField.Click += new System.EventHandler(this.HandleFieldListMgmtButtons);
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lblPacButtonState, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.btnMute, 1, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 467);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(258, 59);
+            this.tableLayoutPanel1.TabIndex = 13;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(3, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(202, 29);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Ctrlr Button Status";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblPacButtonState
+            // 
+            this.lblPacButtonState.BackColor = System.Drawing.Color.Red;
+            // 
+            // 
+            // 
+            this.lblPacButtonState.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.lblPacButtonState.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblPacButtonState.Location = new System.Drawing.Point(3, 32);
+            this.lblPacButtonState.Name = "lblPacButtonState";
+            this.lblPacButtonState.Size = new System.Drawing.Size(202, 24);
+            this.toolTipMgr.SetSuperTooltip(this.lblPacButtonState, new DevComponents.DotNetBar.SuperTooltipInfo("Control Button Status", "Turn off help in Misc Options", "This only applies if you\'re using a USB Button to control the matches. See the ta" +
+            "b in Application Settings for more information.", null, null, DevComponents.DotNetBar.eTooltipColor.Green));
+            this.lblPacButtonState.TabIndex = 27;
+            this.lblPacButtonState.Text = "<div align=\'center\'>\r\nNotFound\r\n</div>";
+            this.lblPacButtonState.TextAlignment = System.Drawing.StringAlignment.Center;
+            // 
+            // btnMute
+            // 
+            this.btnMute.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnMute.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnMute.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnMute.Image = global::FTC_Timer_Display.Properties.Resources.mute_off;
+            this.btnMute.ImageFixedSize = new System.Drawing.Size(32, 32);
+            this.btnMute.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btnMute.Location = new System.Drawing.Point(211, 3);
+            this.btnMute.Name = "btnMute";
+            this.tableLayoutPanel1.SetRowSpan(this.btnMute, 2);
+            this.btnMute.Size = new System.Drawing.Size(44, 53);
+            this.btnMute.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnMute.TabIndex = 28;
+            this.btnMute.Text = "Mute";
+            this.btnMute.Click += new System.EventHandler(this.LocalMuteHandler);
+            // 
             // tableFieldControl
             // 
             this.tableFieldControl.ColumnCount = 4;
@@ -391,7 +501,6 @@
             this.tableFieldControl.Controls.Add(this.btnTimeoutStart, 0, 9);
             this.tableFieldControl.Controls.Add(this.btnTimeoutCancel, 1, 9);
             this.tableFieldControl.Controls.Add(this.headerFieldHead, 0, 0);
-            this.tableFieldControl.Controls.Add(this.lblPacButtonState, 3, 9);
             this.tableFieldControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableFieldControl.Location = new System.Drawing.Point(3, 103);
             this.tableFieldControl.Name = "tableFieldControl";
@@ -644,6 +753,15 @@
             this.btnAdvance.Text = "Advance to Next Match\r\n(F2)";
             this.btnAdvance.Click += new System.EventHandler(this.FieldControlButtonsHandler);
             // 
+            // progressDisplay
+            // 
+            this.tableFieldControl.SetColumnSpan(this.progressDisplay, 4);
+            this.progressDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.progressDisplay.Location = new System.Drawing.Point(3, 188);
+            this.progressDisplay.Name = "progressDisplay";
+            this.progressDisplay.Size = new System.Drawing.Size(617, 44);
+            this.progressDisplay.TabIndex = 21;
+            // 
             // btnTimeoutStart
             // 
             this.btnTimeoutStart.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
@@ -679,19 +797,24 @@
             this.btnTimeoutCancel.Text = "Cancel Timeout\r\n(F7)";
             this.btnTimeoutCancel.Click += new System.EventHandler(this.FieldControlButtonsHandler);
             // 
-            // lblPacButtonState
+            // headerFieldHead
             // 
             // 
             // 
             // 
-            this.lblPacButtonState.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.lblPacButtonState.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblPacButtonState.Location = new System.Drawing.Point(468, 378);
-            this.lblPacButtonState.Name = "lblPacButtonState";
-            this.lblPacButtonState.Size = new System.Drawing.Size(152, 64);
-            this.lblPacButtonState.TabIndex = 27;
-            this.lblPacButtonState.Text = "<div align=\'center\'>\r\n<b>Controller Button:</b><br/>\r\nUninitialized\r\n</div>";
-            this.lblPacButtonState.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.headerFieldHead.BackgroundStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.headerFieldHead.BackgroundStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(132)))));
+            this.headerFieldHead.BackgroundStyle.BackColorGradientType = DevComponents.DotNetBar.eGradientType.Radial;
+            this.headerFieldHead.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tableFieldControl.SetColumnSpan(this.headerFieldHead, 4);
+            this.headerFieldHead.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.headerFieldHead.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.headerFieldHead.Location = new System.Drawing.Point(3, 3);
+            this.headerFieldHead.Name = "headerFieldHead";
+            this.headerFieldHead.Size = new System.Drawing.Size(617, 24);
+            this.headerFieldHead.TabIndex = 26;
+            this.headerFieldHead.Text = "Field Control: Division 0 Field 0";
+            this.headerFieldHead.TextAlignment = System.Drawing.StringAlignment.Center;
             // 
             // tableCommStatus
             // 
@@ -816,6 +939,25 @@
             this.toolTipMgr.SetSuperTooltip(this.picRcvTime, new DevComponents.DotNetBar.SuperTooltipInfo("Receiving Indicator", "Turn off help in Misc Options", "This indicates the receiving status of the local timer.", null, null, DevComponents.DotNetBar.eTooltipColor.Green));
             this.picRcvTime.TabIndex = 8;
             this.picRcvTime.TabStop = false;
+            // 
+            // ctrlHeader1
+            // 
+            // 
+            // 
+            // 
+            this.ctrlHeader1.BackgroundStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.ctrlHeader1.BackgroundStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(132)))));
+            this.ctrlHeader1.BackgroundStyle.BackColorGradientType = DevComponents.DotNetBar.eGradientType.Radial;
+            this.ctrlHeader1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tableCommStatus.SetColumnSpan(this.ctrlHeader1, 5);
+            this.ctrlHeader1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ctrlHeader1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.ctrlHeader1.Location = new System.Drawing.Point(3, 3);
+            this.ctrlHeader1.Name = "ctrlHeader1";
+            this.ctrlHeader1.Size = new System.Drawing.Size(617, 24);
+            this.ctrlHeader1.TabIndex = 9;
+            this.ctrlHeader1.Text = "Communication Status";
+            this.ctrlHeader1.TextAlignment = System.Drawing.StringAlignment.Center;
             // 
             // tableLinks
             // 
@@ -945,108 +1087,6 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(905, 613);
             this.tableLayoutPanel2.TabIndex = 9;
             // 
-            // ctrlHeader2
-            // 
-            // 
-            // 
-            // 
-            this.ctrlHeader2.BackgroundStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.ctrlHeader2.BackgroundStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(132)))));
-            this.ctrlHeader2.BackgroundStyle.BackColorGradientType = DevComponents.DotNetBar.eGradientType.Radial;
-            this.ctrlHeader2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tableCurrentConfig.SetColumnSpan(this.ctrlHeader2, 2);
-            this.ctrlHeader2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ctrlHeader2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.ctrlHeader2.Location = new System.Drawing.Point(3, 3);
-            this.ctrlHeader2.Name = "ctrlHeader2";
-            this.ctrlHeader2.Size = new System.Drawing.Size(252, 24);
-            this.ctrlHeader2.TabIndex = 6;
-            this.ctrlHeader2.Text = "Global Settings";
-            this.ctrlHeader2.TextAlignment = System.Drawing.StringAlignment.Center;
-            // 
-            // ctrlHeader4
-            // 
-            // 
-            // 
-            // 
-            this.ctrlHeader4.BackgroundStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.ctrlHeader4.BackgroundStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(132)))));
-            this.ctrlHeader4.BackgroundStyle.BackColorGradientType = DevComponents.DotNetBar.eGradientType.Radial;
-            this.ctrlHeader4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.ctrlHeader4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ctrlHeader4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.ctrlHeader4.Location = new System.Drawing.Point(3, 3);
-            this.ctrlHeader4.Name = "ctrlHeader4";
-            this.ctrlHeader4.Size = new System.Drawing.Size(252, 24);
-            this.ctrlHeader4.TabIndex = 14;
-            this.ctrlHeader4.Text = "Local Display Control";
-            this.ctrlHeader4.TextAlignment = System.Drawing.StringAlignment.Center;
-            // 
-            // ctrlHeader3
-            // 
-            // 
-            // 
-            // 
-            this.ctrlHeader3.BackgroundStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.ctrlHeader3.BackgroundStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(132)))));
-            this.ctrlHeader3.BackgroundStyle.BackColorGradientType = DevComponents.DotNetBar.eGradientType.Radial;
-            this.ctrlHeader3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.ctrlHeader3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ctrlHeader3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.ctrlHeader3.Location = new System.Drawing.Point(3, 106);
-            this.ctrlHeader3.Name = "ctrlHeader3";
-            this.ctrlHeader3.Size = new System.Drawing.Size(258, 24);
-            this.ctrlHeader3.TabIndex = 12;
-            this.ctrlHeader3.Text = "Available Fields";
-            this.ctrlHeader3.TextAlignment = System.Drawing.StringAlignment.Center;
-            // 
-            // ctrlHeader1
-            // 
-            // 
-            // 
-            // 
-            this.ctrlHeader1.BackgroundStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.ctrlHeader1.BackgroundStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(132)))));
-            this.ctrlHeader1.BackgroundStyle.BackColorGradientType = DevComponents.DotNetBar.eGradientType.Radial;
-            this.ctrlHeader1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tableCommStatus.SetColumnSpan(this.ctrlHeader1, 5);
-            this.ctrlHeader1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ctrlHeader1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.ctrlHeader1.Location = new System.Drawing.Point(3, 3);
-            this.ctrlHeader1.Name = "ctrlHeader1";
-            this.ctrlHeader1.Size = new System.Drawing.Size(617, 24);
-            this.ctrlHeader1.TabIndex = 9;
-            this.ctrlHeader1.Text = "Communication Status";
-            this.ctrlHeader1.TextAlignment = System.Drawing.StringAlignment.Center;
-            // 
-            // progressDisplay
-            // 
-            this.tableFieldControl.SetColumnSpan(this.progressDisplay, 4);
-            this.progressDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.progressDisplay.Location = new System.Drawing.Point(3, 188);
-            this.progressDisplay.Name = "progressDisplay";
-            this.progressDisplay.Size = new System.Drawing.Size(617, 44);
-            this.progressDisplay.TabIndex = 21;
-            // 
-            // headerFieldHead
-            // 
-            // 
-            // 
-            // 
-            this.headerFieldHead.BackgroundStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.headerFieldHead.BackgroundStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(132)))));
-            this.headerFieldHead.BackgroundStyle.BackColorGradientType = DevComponents.DotNetBar.eGradientType.Radial;
-            this.headerFieldHead.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tableFieldControl.SetColumnSpan(this.headerFieldHead, 4);
-            this.headerFieldHead.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.headerFieldHead.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.headerFieldHead.Location = new System.Drawing.Point(3, 3);
-            this.headerFieldHead.Name = "headerFieldHead";
-            this.headerFieldHead.Size = new System.Drawing.Size(617, 24);
-            this.headerFieldHead.TabIndex = 26;
-            this.headerFieldHead.Text = "Field Control: Division 0 Field 0";
-            this.headerFieldHead.TextAlignment = System.Drawing.StringAlignment.Center;
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1069,6 +1109,8 @@
             this.tableDisplayControl.ResumeLayout(false);
             this.tableDisplayButtons.ResumeLayout(false);
             this.tableFiledListMgmt.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.tableFieldControl.ResumeLayout(false);
             this.tableFieldControl.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMatchNumberMajor)).EndInit();
@@ -1137,7 +1179,6 @@
         private DevComponents.DotNetBar.ButtonX btnTimeoutCancel;
         private DevComponents.DotNetBar.SuperTooltip toolTipMgr;
         private System.Windows.Forms.FlowLayoutPanel flowFields;
-        private DevComponents.DotNetBar.Controls.SwitchButton swLocalMute;
         private CtrlHeader headerFieldHead;
         private CtrlHeader ctrlHeader1;
         private CtrlHeader ctrlHeader2;
@@ -1152,6 +1193,9 @@
         private DevComponents.DotNetBar.ButtonX btnDisplayFullscreen;
         private System.Windows.Forms.TableLayoutPanel tableDisplayButtons;
         private DevComponents.DotNetBar.LabelX lblPacButtonState;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Label label2;
+        private DevComponents.DotNetBar.ButtonX btnMute;
 
     }
 }

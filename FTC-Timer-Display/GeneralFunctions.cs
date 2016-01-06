@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
+using System.Drawing;
 
 namespace FTC_Timer_Display
 {
@@ -67,6 +68,23 @@ namespace FTC_Timer_Display
                 {
                     LogMgr.logger.Error(LogMgr.make("Loading File '{0}' Failed.", "readDocsFile", 1, file), ex);
                     return errorString;
+                }
+            }
+            /// <summary>
+            /// Loads an image from a file path.
+            /// </summary>
+            /// <param name="path">The path to the image.</param>
+            /// <returns>The image desired.</returns>
+            public static Image LoadImgFromFile(string path)
+            {
+                try
+                {
+                    Image img = Image.FromFile(path);
+                    return img;
+                }
+                catch
+                {
+                    return null;
                 }
             }
         }

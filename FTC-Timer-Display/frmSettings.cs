@@ -63,7 +63,7 @@ namespace FTC_Timer_Display
             if (_dispForm != null)
             {
                 string customPath = Properties.Settings.Default.customLogoPath;
-                Image img = frmDisplay.loadImgFromFile(customPath);
+                Image img = GeneralFunctions.FileFunctions.LoadImgFromFile(customPath);
                 if (img != null)
                 {
                     picCurrentLogo.Image = img;
@@ -165,7 +165,7 @@ namespace FTC_Timer_Display
                     dial.Title = "Please select your logo location.";
                     dial.ShowDialog();
                     if (dial.FileName == null || dial.FileName == "") return;
-                    Image img = frmDisplay.loadImgFromFile(dial.FileName);
+                    Image img = GeneralFunctions.FileFunctions.LoadImgFromFile(dial.FileName);
                     if (img == null) return;
                     picCurrentLogo.Image = img;
                     Properties.Settings.Default.customLogoPath = dial.FileName;

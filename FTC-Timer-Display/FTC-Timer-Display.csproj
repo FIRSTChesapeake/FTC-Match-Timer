@@ -196,6 +196,12 @@
     <Compile Include="InitializationControls\InitialSettingsView.Designer.cs">
       <DependentUpon>InitialSettingsView.cs</DependentUpon>
     </Compile>
+    <Compile Include="InitializationControls\GenericOptionsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InitializationControls\GenericOptionsControl.Designer.cs">
+      <DependentUpon>GenericOptionsControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="LogMgr.cs" />
     <Compile Include="MatchScheduleManager.cs" />
     <Compile Include="MatchPeriodCtrl.cs">
@@ -325,6 +331,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InitializationControls\InitialSettingsView.resx">
       <DependentUpon>InitialSettingsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InitializationControls\GenericOptionsControl.resx">
+      <DependentUpon>GenericOptionsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MatchPeriodCtrl.resx">
       <DependentUpon>MatchPeriodCtrl.cs</DependentUpon>
@@ -715,6 +724,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\vaflogo.png" />
+    <None Include="Resources\mute-on.png" />
+    <None Include="Resources\mute_off.png" />
     <Content Include="Sounds\charge.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

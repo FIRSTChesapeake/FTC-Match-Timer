@@ -33,7 +33,7 @@ namespace FTC_Timer_Display
         {
             // load custom logo if defined.
             string logoPath = Properties.Settings.Default.customLogoPath;
-            Image img = loadImgFromFile(logoPath);
+            Image img = GeneralFunctions.FileFunctions.LoadImgFromFile(logoPath);
             if (img != null)
             {
                 logoTableLeft.BackgroundImage = img;
@@ -41,8 +41,8 @@ namespace FTC_Timer_Display
             }
             else
             {
-                logoTableLeft.BackgroundImage = Properties.Resources.vaflogoold;
-                logoTableRight.BackgroundImage = Properties.Resources.vaflogoold;
+                logoTableLeft.BackgroundImage = Properties.Resources.vaflogo;
+                logoTableRight.BackgroundImage = Properties.Resources.vaflogo;
             }
             lblDate.Visible = Properties.Settings.Default.displayShowDateTime;
             lblTime.Visible = Properties.Settings.Default.displayShowDateTime;
@@ -50,12 +50,21 @@ namespace FTC_Timer_Display
 
         private void frmDisplay_KeyPress(object sender, KeyPressEventArgs e)
         {
-
+            
         }
 
         private void frmDisplay_KeyDown(object sender, KeyEventArgs e)
         {
-            
+            // If the user pressed F11 or Escape while in Fullscreen, go back to windowed.
+            if ((e.KeyData == Keys.F11 || e.KeyData == Keys.Escape) && displayStatus == DisplayStatus.Fullscreen)
+            {
+                displayStatus = DisplayStatus.Windowed;
+            }
+            // If the user pressed F11 while we're in windowed, go Fullscreen
+            else if (e.KeyData == Keys.F11 && displayStatus == DisplayStatus.Windowed)
+            {
+                displayStatus = DisplayStatus.Fullscreen;
+            }
         }
 
         public DisplayStatus displayStatus
@@ -154,19 +163,6 @@ namespace FTC_Timer_Display
         private void frmDisplay_Load(object sender, EventArgs e)
         {
 
-        }
-
-        public static Image loadImgFromFile(string path)
-        {
-            try
-            {
-                Image img = Image.FromFile(path);
-                return img;
-            }
-            catch
-            {
-                return null;
-            }
         }
 
         /// <summary>
