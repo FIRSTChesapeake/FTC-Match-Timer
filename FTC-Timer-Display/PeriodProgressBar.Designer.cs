@@ -46,6 +46,7 @@
             this.progressSteps.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.progressSteps.ContainerControlProcessDialogKey = true;
             this.progressSteps.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.progressSteps.Enabled = false;
             this.progressSteps.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.stepWait,
             this.stepNoCross,
