@@ -21,8 +21,8 @@ namespace FTC_Timer_Display
 
         // Sound player settings & objects
         public static readonly string AppPath = AppDomain.CurrentDomain.BaseDirectory;
-        public static readonly string SoundsFolder = String.Format(@"{0}\{1}", AppPath, "Sounds");
-        public static readonly string NumberFolder = String.Format(@"{0}\{1}", AppPath, "Numbers");
+        public static readonly string SoundsFolder = String.Format(@"{0}\{1}", AppPath, @"Sounds\GameSounds");
+        public static readonly string NumberFolder = String.Format(@"{0}\{1}", AppPath, @"Sounds\Numbers");
         private static Dictionary<string, SoundPlayer> sounds = new Dictionary<string, SoundPlayer>();
 
         public static event EventHandler<int> soundsPercentChange;
