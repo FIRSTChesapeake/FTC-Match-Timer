@@ -91,11 +91,8 @@ namespace FTC_Timer_Display
         private void LoadSettings()
         {
             // Display config that relates to all the settings.
-            lblMode.Text = initData.runType.ToString();
-            if (!initData.isMultiDivision)
-            {
-                lblDivIDLabel.Text = "Event:";
-            }
+            lblMode.Text = initData.runTypeString;
+            if (!initData.isMultiDivision) lblDivIDLabel.Text = "Event:";
             setDivisionDisplay(initData.divID, initData.divName);
             // Load the last used fields
             if (initData.isServer && initData.loadPreviousFields)

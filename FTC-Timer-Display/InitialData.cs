@@ -32,11 +32,19 @@ namespace FTC_Timer_Display
         public enum RunType
         {
             None = 0,
-            Server = 1,
-            ServerClient = 2,
+            ServerClient = 1,
+            Server = 2,
             Client = 3,
             Local = 4,
             PitDisplay = 5
+        }
+
+        public string runTypeString
+        {
+            get
+            {
+                return GetRunTypeString(runType);
+            }
         }
 
         public void SaveSettings()
@@ -55,6 +63,21 @@ namespace FTC_Timer_Display
             Properties.Settings.Default.eventType = (int)this.eventType;
             // Save
             Properties.Settings.Default.Save();
+        }
+
+        public static string GetRunTypeString(RunType type)
+        {
+            string s = "";
+            switch (type)
+            {
+                case RunType.ServerClient: s = "Server && Client Timer"; break;
+                case RunType.Server: s = "Server Only"; break;
+                case RunType.Client: s = "Client Timer"; break;
+                default: s = type.ToString(); break;
+            }
+            // Show the number? Nah.
+            //return string.Format("{0}) {1}", (int)runType, s);
+            return s;
         }
 
         public static InitialData LoadAppSettings(out int errorID)

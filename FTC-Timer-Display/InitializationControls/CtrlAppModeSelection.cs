@@ -12,9 +12,14 @@ namespace FTC_Timer_Display.InitializationControls
 {
     public partial class CtrlAppModeSelection : UserControl
     {
+        private List<AppModeOption> _modes = new List<AppModeOption>();
+
         public CtrlAppModeSelection()
         {
             InitializeComponent();
+            _modes.Add(appModeServerClient);
+            _modes.Add(appModeServerOnly);
+            _modes.Add(appModeClient);
         }
 
         public void SetData(InitialData data)
@@ -31,9 +36,7 @@ namespace FTC_Timer_Display.InitializationControls
         {
             get
             {
-                if (chkServerOnly.Checked) return InitialData.RunType.Server;
-                if (chkServerClient.Checked) return InitialData.RunType.ServerClient;
-                if (chkClient.Checked) return InitialData.RunType.Client;
+                foreach (AppModeOption o in _modes) if (o.value) return o.runTypeValue;
                 return InitialData.RunType.None;
             }
             set
@@ -46,32 +49,17 @@ namespace FTC_Timer_Display.InitializationControls
         {
             // Set the default
             if (type == InitialData.RunType.None) type = InitialData.RunType.ServerClient;
-            // set radio buttons
-            chkServerOnly.Checked = type == InitialData.RunType.Server;
-            chkServerClient.Checked = type == InitialData.RunType.ServerClient;
-            chkClient.Checked = type == InitialData.RunType.Client;
-            // set images
-            picBG(ref picServerOnly, chkServerOnly.Checked);
-            picBG(ref picServerClient, chkServerClient.Checked);
-            picBG(ref picClient, chkClient.Checked);
+            // set
+            foreach(AppModeOption o in _modes)
+            {
+                if (o.runTypeValue == type) o.value = true;
+                else o.value = false;
+            }
         }
 
-        private void picBG(ref PictureBox pic, bool selected)
+        private void ModeClickHandler(object sender, InitialData.RunType e)
         {
-            if (selected) pic.BackColor = Color.Yellow;
-            else pic.BackColor = Color.Empty;
-        }
-
-        private void CheckClickHandler(object sender, EventArgs e)
-        {
-            setSelection(runType);
-        }
-
-        private void PicClickHandler(object sender, EventArgs e)
-        {
-            if (sender.Equals(picServerClient)) setSelection(InitialData.RunType.ServerClient);
-            else if (sender.Equals(picServerOnly)) setSelection(InitialData.RunType.Server);
-            else if (sender.Equals(picClient)) setSelection(InitialData.RunType.Client);
+            setSelection(e);
         }
     }
 }

@@ -23,7 +23,7 @@ namespace FTC_Timer_Display.InitializationControls
 
         public void fill(InitialData data)
         {
-            lineAppMode.setData(data.runType);
+            lineAppMode.setData(data.runTypeString);
             lineDivMode.setData(data.isMultiDivision ? "Multi-Division Event" : "Single Division Event");
             lineDivID.setData(data.divID, data.isMultiDivision);
             lineEventName.setData(data.divName, !data.isMultiDivision);

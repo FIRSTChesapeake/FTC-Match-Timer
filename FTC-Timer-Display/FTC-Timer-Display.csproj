@@ -154,6 +154,12 @@
     </Compile>
     <Compile Include="FtcMutex.cs" />
     <Compile Include="GeneralFunctions.cs" />
+    <Compile Include="InitializationControls\AppModeOption.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InitializationControls\AppModeOption.Designer.cs">
+      <DependentUpon>AppModeOption.cs</DependentUpon>
+    </Compile>
     <Compile Include="InitializationControls\CtrlAppModeSelection.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -298,6 +304,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CtrlTimings.resx">
       <DependentUpon>CtrlTimings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InitializationControls\AppModeOption.resx">
+      <DependentUpon>AppModeOption.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InitializationControls\CtrlAppModeSelection.resx">
       <DependentUpon>CtrlAppModeSelection.cs</DependentUpon>

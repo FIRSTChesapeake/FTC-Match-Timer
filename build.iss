@@ -47,6 +47,10 @@ Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\F
 Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\FTC-Timer-Display\bin\Debug\DevComponents.DotNetBar2.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: dep
 Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\FTC-Timer-Display\bin\Debug\DevComponents.Instrumentation.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: dep
 
+; docs
+Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\FTC-Timer-Display\bin\Debug\docs\*"; DestDir: "{app}\docs"; Flags: ignoreversion; Components: app
+
+; libs
 Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\FTC-Timer-Display\bin\Debug\lib\*"; DestDir: "{app}\lib"; Flags: ignoreversion; Components: usb
 
 ; Sounds
