@@ -106,7 +106,8 @@ namespace FTC_Timer_Display
         {
             Off = 0,
             Server = 1,
-            Client = 2
+            Client = 2,
+            Both = 3
         }
 
         public enum EventTypes

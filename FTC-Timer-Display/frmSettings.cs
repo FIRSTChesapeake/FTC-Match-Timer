@@ -100,7 +100,11 @@ namespace FTC_Timer_Display
         {
             get
             {
-                if (this._initData.isServer)
+                if (rdoSoundBoth.Checked)
+                {
+                    return MatchData.SoundLocations.Both;
+                }
+                else if (this._initData.isServer)
                 {
                     if (rdoSoundLocal.Checked) return MatchData.SoundLocations.Server;
                     if (rdoSoundRemote.Checked) return MatchData.SoundLocations.Client;
@@ -115,6 +119,7 @@ namespace FTC_Timer_Display
             set
             {
                 if (value == MatchData.SoundLocations.Off) rdoSoundOff.Checked = true;
+                else if (value == MatchData.SoundLocations.Both) rdoSoundBoth.Checked = true;
                 else if (this._initData.isServer)
                 {
                     if (value == MatchData.SoundLocations.Client) rdoSoundRemote.Checked = true;

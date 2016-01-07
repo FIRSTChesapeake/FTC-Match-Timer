@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "VAF FTC Match Timer"
-#define MyAppVersion "15.1601.04"
+#define MyAppVersion "15.1601.06"
 #define MyAppPublisher "VirginiaFIRST"
 #define MyAppURL "http://www.virginiafirst.org"
 #define MyAppExeName "FTC-Timer-Display.exe"
@@ -34,8 +34,7 @@ Name: log; Description: "Logging System (Log4net)"; Types: full compact custom; 
 Name: usb; Description: "USB Button Libraries"; Types: full compact custom; Flags: fixed
 Name: deb; Description: "Debugging Assistance Files"; Types: full custom;
 Name: dep; Description: "Dependencies"; Types: full compact custom; Flags: fixed
-Name: gs; Description: "Game Sounds"; Types: full compact custom; Flags: fixed
-Name: ns; Description: "Numbers"; Types: full compact custom; Flags: fixed
+Name: snd; Description: "Game and Number Sounds"; Types: full compact custom; Flags: fixed
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
@@ -43,6 +42,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 [Files]
 Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\FTC-Timer-Display\bin\Debug\FTC-Timer-Display.exe"; DestDir: "{app}"; Flags: ignoreversion; Components: app
 Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\FTC-Timer-Display\bin\Debug\log4net.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: log
+Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\FTC-Timer-Display\bin\Debug\log4net.config"; DestDir: "{app}"; Flags: ignoreversion; Components: log
 Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\FTC-Timer-Display\bin\Debug\FTC-Timer-Display.pdb"; DestDir: "{app}"; Flags: ignoreversion; Components: deb
 Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\FTC-Timer-Display\bin\Debug\DevComponents.DotNetBar2.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: dep
 Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\FTC-Timer-Display\bin\Debug\DevComponents.Instrumentation.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: dep
@@ -54,8 +54,7 @@ Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\F
 Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\FTC-Timer-Display\bin\Debug\lib\*"; DestDir: "{app}\lib"; Flags: ignoreversion; Components: usb
 
 ; Sounds
-Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\FTC-Timer-Display\bin\Debug\Sounds\*"; DestDir: "{app}\Sounds"; Flags: ignoreversion; Components: gs
-Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\FTC-Timer-Display\bin\Debug\Numbers\*"; DestDir: "{app}\Sounds"; Flags: ignoreversion; Components: ns
+Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\FTC-Timer-Display\bin\Debug\Sounds\*";  DestDir: "{app}\Sounds"; Flags: ignoreversion recursesubdirs; Components: snd
 
 
 

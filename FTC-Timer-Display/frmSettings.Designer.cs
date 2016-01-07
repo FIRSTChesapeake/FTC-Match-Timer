@@ -74,6 +74,7 @@ namespace FTC_Timer_Display
             this.soundControl = new FTC_Timer_Display.CtrlSoundTest();
             this.superTabItem4 = new DevComponents.DotNetBar.SuperTabItem();
             this.btnClose = new DevComponents.DotNetBar.ButtonItem();
+            this.rdoSoundBoth = new System.Windows.Forms.RadioButton();
             this.flowSoundLocation.SuspendLayout();
             this.flowPit.SuspendLayout();
             this.tableBranding.SuspendLayout();
@@ -95,6 +96,7 @@ namespace FTC_Timer_Display
             this.flowSoundLocation.Controls.Add(this.rdoSoundOff);
             this.flowSoundLocation.Controls.Add(this.rdoSoundLocal);
             this.flowSoundLocation.Controls.Add(this.rdoSoundRemote);
+            this.flowSoundLocation.Controls.Add(this.rdoSoundBoth);
             this.flowSoundLocation.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowSoundLocation.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowSoundLocation.Location = new System.Drawing.Point(3, 28);
@@ -671,6 +673,17 @@ namespace FTC_Timer_Display
             this.btnClose.Text = "Close Window";
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
+            // rdoSoundBoth
+            // 
+            this.rdoSoundBoth.AutoSize = true;
+            this.rdoSoundBoth.Location = new System.Drawing.Point(3, 72);
+            this.rdoSoundBoth.Name = "rdoSoundBoth";
+            this.rdoSoundBoth.Size = new System.Drawing.Size(114, 17);
+            this.rdoSoundBoth.TabIndex = 3;
+            this.rdoSoundBoth.TabStop = true;
+            this.rdoSoundBoth.Text = "Locally && Remotely";
+            this.rdoSoundBoth.UseVisualStyleBackColor = true;
+            // 
             // frmSettings
             // 
             this.ClientSize = new System.Drawing.Size(650, 418);
@@ -754,5 +767,6 @@ namespace FTC_Timer_Display
         private DevComponents.DotNetBar.SuperTabItem superTabItem5;
         private PacDevices.PacDeviceSettings pacDeviceSettings1;
         private System.Windows.Forms.CheckBox chkShowFieldNumber;
+        private System.Windows.Forms.RadioButton rdoSoundBoth;
     }
 }

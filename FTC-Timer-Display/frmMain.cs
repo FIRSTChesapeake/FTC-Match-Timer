@@ -311,6 +311,8 @@ namespace FTC_Timer_Display
             if (initData.isServer && settings.soundLocation == MatchData.SoundLocations.Server) shouldPlay = true;
             // If the package is for me (the client) and sound is set to play on the client.
             else if (initData.isForMe(data) && settings.soundLocation == MatchData.SoundLocations.Client) shouldPlay = true;
+            // If the sound location is 'both' then everyone is playing the sounds
+            else if (settings.soundLocation == MatchData.SoundLocations.Both) shouldPlay = true;
 
             if (shouldPlay) SoundGenerator.PlaySound(data.soundPackage);
         }
