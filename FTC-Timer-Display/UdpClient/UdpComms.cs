@@ -24,6 +24,7 @@ namespace FTC_Timer_Display.myUdpClient
         public event EventHandler<MatchData> NewMatchData;
         public event EventHandler<PitData> NewPitData;
         public event EventHandler<ScoringData> NewScoringData;
+        public event EventHandler<ClientReply> NewClientReply;
 
         public bool isListening { get { return _listening; } }
 
@@ -77,7 +78,8 @@ namespace FTC_Timer_Display.myUdpClient
         public static int CreateRecvPort(int div, int field)
         {
             int portMod = (10 * div) + field;
-            return udpPortSend + portMod;
+            int port = udpPortSend + portMod;
+            return port;
         }
         /// <summary>
         /// Configures the port for the given data and turns on broadcasting.
@@ -88,6 +90,7 @@ namespace FTC_Timer_Display.myUdpClient
             {
                 _udp = new UdpClient(udpPortRecv);
                 _udp.EnableBroadcast = true;
+                log("Recv Port Configured to '{0}'", udpPortRecv);
             }
             catch (Exception ex)
             {
@@ -165,8 +168,8 @@ namespace FTC_Timer_Display.myUdpClient
         {
             try
             {
-                IPEndPoint ip = new IPEndPoint(IPAddress.Any, udpPortRecv);
-                byte[] bytes = _udp.EndReceive(ar, ref ip);
+                IPEndPoint endpoint = new IPEndPoint(IPAddress.Any, udpPortRecv);
+                byte[] bytes = _udp.EndReceive(ar, ref endpoint);
                 BinaryFormatter bf = new BinaryFormatter();
                 object data = null;
                 using (MemoryStream ms = new MemoryStream())
@@ -178,6 +181,7 @@ namespace FTC_Timer_Display.myUdpClient
                 try
                 {
                     UdpContainer managedPackage = (UdpContainer)data;
+                    managedPackage.fromEndpoint = endpoint;
                     HandleManagedPackage(managedPackage);
                 }
                 catch (InvalidCastException)
@@ -208,6 +212,7 @@ namespace FTC_Timer_Display.myUdpClient
                 if (data.packageType == UdpContainer.UdpPackageTypes.MatchData)
                 {
                     MatchData matchData = (MatchData)data.package;
+                    matchData.fromEndpoint = data.fromEndpoint;
                     if (NewMatchData != null && matchData != null)
                     {
                         EventHandler<MatchData> handler = NewMatchData;
@@ -223,10 +228,32 @@ namespace FTC_Timer_Display.myUdpClient
                         handler(this, pitData);
                     }
                 }
+                else if (data.packageType == UdpContainer.UdpPackageTypes.ClientReply)
+                {
+                    ClientReply clientReply = (ClientReply)data.package;
+                    if (NewClientReply != null && clientReply != null)
+                    {
+                        EventHandler<ClientReply> handler = NewClientReply;
+                        handler(this, clientReply);
+                    }
+                }
             }
             catch (Exception ex)
             {
                 log("Exception Handing Managed Package", ex);
+            }
+        }
+
+        public void SendClientReply(ClientReply reply)
+        {
+            try
+            {
+                UdpContainer pack = new UdpContainer(UdpContainer.UdpPackageTypes.ClientReply, reply);
+                SendObject(pack, reply.replyEndpoint);
+            }
+            catch (Exception ex)
+            {
+                log("Exception sending client reply", ex);
             }
         }
 

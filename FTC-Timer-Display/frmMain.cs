@@ -211,11 +211,13 @@ namespace FTC_Timer_Display
             if (initData.runType != InitialData.RunType.Local)
             {
                 comms = new myUdpClient.UdpComms(initData.divID, initData.fieldID, NewDataReceived);
+                comms.NewClientReply += ClientReplyRecvEventHandler;
                 if (initData.runType == InitialData.RunType.Client)
                 {
                     btnCycleListener.Enabled = true;
-                    comms.ListenControl(true);
                 }
+                // We always listen (when not LocalOnly) so we can receive client replies on the servers.
+                comms.ListenControl(true);
             }
             frmLoading.CloseForm();
         }
@@ -244,6 +246,7 @@ namespace FTC_Timer_Display
             flowFields.Controls.Clear();
             int width = flowFields.Width - 10;
             SingleClient client = new SingleClient(initData, fieldID, width, sendFieldDataHandler, ClientDisplayRequestHandler);
+            client.ClientReplyEvent += ClientReplySendEventHandler;
             client.matchData.matchType = _currentMatchType;
             _allClients.Add(client);
             _allClients.Sort();
@@ -259,6 +262,23 @@ namespace FTC_Timer_Display
             _allClients.Sort();
             foreach (SingleClient c in _allClients) flowFields.Controls.Add(c.fieldDisplayObj);
             selectFieldNumber(0);
+        }
+
+        private void ClientReplySendEventHandler(object sender, ClientReply e)
+        {
+            comms.SendClientReply(e);
+        }
+
+        private void ClientReplyRecvEventHandler(object sender, ClientReply e)
+        {
+            foreach (SingleClient c in _allClients)
+            {
+                if (c.isThisField(e.divID, e.fieldID))
+                {
+                    c.ReceiveVerification(e);
+                    return;
+                }
+            }
         }
 
         private bool fieldExists(int fieldID)
@@ -352,7 +372,7 @@ namespace FTC_Timer_Display
                     settings.soundLocation = data.soundLocation;
                     display.SetDisplay(data);
                     _lastReceiveTime = DateTime.Now;
-                    lblLastSvrIP.Text = "Remote Server";
+                    lblLastSvrIP.Text = string.Format("{0}:{1}", data.fromEndpoint.Address, data.fromEndpoint.Port);
                 }
             }
         }
@@ -382,35 +402,35 @@ namespace FTC_Timer_Display
             if (comms == null)
             {
                 lblListenStatus.Text = "Controlled Locally";
-                btnCycleListener.Text = "Local Required";
                 tableFieldControl.Enabled = true;
-            }
-            else if (initData.runType == InitialData.RunType.Server)
-            {
-                lblListenStatus.Text = "No Local Timer";
-                btnCycleListener.Text = "No Local Timer";
-                tableFieldControl.Enabled = _selectedClient != null;
             }
             else
             {
-                tableFieldControl.Enabled = !comms.isListening;
                 if (comms.isListening)
                 {
-                    lblListenStatus.Text = "Listening to Server";
-                    btnCycleListener.Text = "Switch to Local Control";
+                    lblListenStatus.Text = string.Format("Listening on Port {0}.", comms.udpPortRecv);
                 }
                 else
                 {
-                    if (initData.runType == InitialData.RunType.ServerClient)
-                    {
-                        btnCycleListener.Text = "Must Control Here";
-                    }
-                    else
-                    {
-                        btnCycleListener.Text = "Switch to Server Control";
-                    }
-                    lblListenStatus.Text = "Controlled Locally";
+                    lblListenStatus.Text = "Not Listening!";
                 }
+            }
+            // Listeniner Control
+            if (comms == null)
+            {
+                btnCycleListener.Text = "Local Required";
+                btnCycleListener.Enabled = false;
+            }
+            else if (initData.runType == InitialData.RunType.Client)
+            {
+                if (comms.isListening) btnCycleListener.Text = "Switch to Local Control";
+                else btnCycleListener.Text = "Switch to Server Control";
+                btnCycleListener.Enabled = true;
+            }
+            else
+            {
+                btnCycleListener.Text = "Must Control Here";
+                btnCycleListener.Enabled = false;
             }
             // Display Status
             setLocalDisplayControlButtons();
@@ -425,6 +445,18 @@ namespace FTC_Timer_Display
             {
                 picRcvTime.Image = Properties.Resources.indicator_red;
                 if (display != null) display.deadField();
+            }
+            // Allow users to control the field when they should
+            switch (initData.runType)
+            {
+                case InitialData.RunType.Server:
+                case InitialData.RunType.ServerClient:
+                case InitialData.RunType.Local:
+                    tableFieldControl.Enabled = true;
+                    break;
+                case InitialData.RunType.Client:
+                    tableFieldControl.Enabled = !comms.isListening;
+                    break;
             }
             // Load the help features if requested.
             toolTipMgr.Enabled = Properties.Settings.Default.showHelp;

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tableMain = new System.Windows.Forms.TableLayoutPanel();
             this.lblFieldName = new System.Windows.Forms.Label();
             this.lblState = new System.Windows.Forms.Label();
@@ -40,6 +41,7 @@
             this.radialTimeout = new DevComponents.DotNetBar.RadialMenuItem();
             this.radialStopTimeout = new DevComponents.DotNetBar.RadialMenuItem();
             this.radialReset = new DevComponents.DotNetBar.RadialMenuItem();
+            this.toolTips = new System.Windows.Forms.ToolTip(this.components);
             this.tableMain.SuspendLayout();
             this.tableIndicator.SuspendLayout();
             this.SuspendLayout();
@@ -213,5 +215,6 @@
         private DevComponents.DotNetBar.RadialMenuItem radialTimeout;
         private DevComponents.DotNetBar.RadialMenuItem radialStopTimeout;
         private DevComponents.DotNetBar.RadialMenuItem radialReset;
+        private System.Windows.Forms.ToolTip toolTips;
     }
 }

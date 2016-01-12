@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net;
 
 namespace FTC_Timer_Display
 {
@@ -22,6 +23,9 @@ namespace FTC_Timer_Display
         public int matchNumberMinor = 0;
         public int matchLength = 0;
         public string timeoutMessage = "";
+
+        public IPEndPoint fromEndpoint = null;
+        public long serverHeartbeat = -1;
 
         public bool noCrossActive = true;
 

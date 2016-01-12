@@ -15,7 +15,7 @@ namespace FTC_Timer_Display
         public event EventHandler GeneralClick;
         public event EventHandler<RadialCommands> RadialAction;
 
-        public SingleClientDisplay(int fieldID, bool local, EventHandler clickHandler, EventHandler<RadialCommands> radialHandler, int width)
+        public SingleClientDisplay(int fieldID, int recvPort, bool local, EventHandler clickHandler, EventHandler<RadialCommands> radialHandler, int width)
         {
             InitializeComponent();
             GeneralClick += clickHandler;
@@ -23,7 +23,15 @@ namespace FTC_Timer_Display
             this.Width = width;
             string sLocal = local ? "*" : "";
             lblFieldName.Text = string.Format("FIELD {0}{1}", fieldID.ToString(), sLocal);
+            if (local)
+            {
+                this.isOnline = true;
+                toolTips.SetToolTip(lblFieldName, "Local");
+            }
+            else toolTips.SetToolTip(lblFieldName, recvPort.ToString());
         }
+
+        public bool isOnline = false;
 
         public void UpdateDisplay(MatchData data, bool isSelected, bool allowStart)
         {
@@ -39,7 +47,12 @@ namespace FTC_Timer_Display
                 lblMatch.Text = string.Format("{0} {1}", data.matchTypeShort, data.matchNumberString);
                 // Update Display
                 Image img = Properties.Resources.indicator_red;
-                if (data.matchStatus == MatchData.MatchStatus.Running)
+                if (!this.isOnline)
+                {
+                    img = Properties.Resources.offline;
+                    lblState.Text = "OFFILINE";
+                }
+                else if (data.matchStatus == MatchData.MatchStatus.Running)
                 {
                     img = Properties.Resources.indicator_green;
                     lblState.Text = data.timerValue.ToString();

@@ -22,9 +22,48 @@ namespace FTC_Timer_Display
         public bool allowDisplayToStart { get { return _allowDisplayToStart; } set { _allowDisplayToStart = value; } }
 
         private bool _isSelected = false;
+        private readonly bool _isLocal;
 
         public event EventHandler<MatchData> SendData;
         public event EventHandler<SingleClientRequest> RequestMade;
+        public event EventHandler<ClientReply> ClientReplyEvent;
+
+        // client reply IDs
+        private DateTime _lastClientVerifySent = DateTime.Now.AddMonths(-1);
+        private DateTime _lastClientVerifyRecv = DateTime.Now.AddMonths(-1);
+        private static TimeSpan verifyDelay = new TimeSpan(0, 0, 5);
+        private bool _wasLastOnline = false;
+
+        public bool isOnline
+        {
+            get
+            {
+                bool r = true;
+                if (this._isLocal) r = true;
+                else if (_lastClientVerifyRecv.Add(verifyDelay.Add(verifyDelay)) < DateTime.Now) r = false;
+                if (!r && _wasLastOnline) log("FIELD IS NOW OFFLINE!");
+                if (r && !_wasLastOnline) log("FIELD IS NOW ONLINE!");
+                _wasLastOnline = r;
+                return r;
+            }
+        }
+
+        /// <summary>
+        /// Generates the verify code (ticks) when asked to send to client.
+        /// </summary>
+        /// <returns></returns>
+        private long generateVerify()
+        {
+            if (_lastClientVerifySent.Add(verifyDelay) < DateTime.Now)
+            {
+                _lastClientVerifySent = DateTime.Now;
+                return _lastClientVerifySent.Ticks;
+            }
+            else
+            {
+                return -1;
+            }
+        }
 
         /// <summary>
         /// Whether the client is the selected field.
@@ -129,7 +168,12 @@ namespace FTC_Timer_Display
         public MatchData matchData
         {
             get { return _data; }
-            set { _data = value; }
+            set
+            {
+                _data = value;
+                if(!this.isLocalControl) 
+                    ClientEchoVerification();
+            }
         }
         /// <summary>
         /// Get the UDP port number we use for this field from the comm port.
@@ -166,6 +210,38 @@ namespace FTC_Timer_Display
                 handler(this, SingleClientRequest.SelectMe);
             }
         }
+        /// <summary>
+        /// Replies to the server with a Reply Package to let it know it's receiving
+        /// </summary>
+        private void ClientEchoVerification()
+        {
+            if (this.isLocalControl) return;
+            if (_data.serverHeartbeat == -1) return;
+            if (ClientReplyEvent != null)
+            {
+                ClientReply c = new ClientReply(_data.divID, _data.fieldID, _data.fromEndpoint, _data.serverHeartbeat);
+                EventHandler<ClientReply> handler = ClientReplyEvent;
+                handler(this, c);
+            }
+        }
+
+        /// <summary>
+        /// Receives the verification from the client and verifies the code is what we sent it last.
+        /// </summary>
+        /// <param name="reply">The reply.</param>
+        public void ReceiveVerification(ClientReply reply)
+        {
+            // Test good - if this doesn't match, are we getting an old packet?
+            if (_lastClientVerifySent.Ticks == reply.verification)
+            {
+                _lastClientVerifyRecv = DateTime.Now;
+            }
+            else
+            {
+                log("Receiving malformed reply verifications.");
+            }
+        }
+
         /// <summary>
         /// Handler for the radial menu of the associated SingleClientDisplay
         /// </summary>
@@ -213,12 +289,13 @@ namespace FTC_Timer_Display
         public SingleClient(InitialData initData, int fieldID, int width,
             EventHandler<MatchData> SendDataHandler, EventHandler<SingleClientRequest> RequestHandler)
         {
-            this.fieldDisplayObj = new SingleClientDisplay(fieldID, (initData.fieldID == fieldID), CtrlClickHandler, CtrlRadialHandler, width);
+            this._isLocal = (initData.fieldID == fieldID);
             SendData += SendDataHandler;
             RequestMade += RequestHandler;
             _data = new MatchData(initData, fieldID);
             _isMultiDivision = initData.isMultiDivision;
             ResetMatch();
+            this.fieldDisplayObj = new SingleClientDisplay(fieldID, this.RecvPort, _isLocal, CtrlClickHandler, CtrlRadialHandler, width);
             _timer.Interval = 1000;
             _timer.Elapsed += timer_Elapsed;
             _isEnabled = (initData.isServer || initData.runType == InitialData.RunType.Local);
@@ -415,8 +492,12 @@ namespace FTC_Timer_Display
             // Save the new status & period to the _data object
             _data.matchStatus = newStatus;
             _data.matchPeriod = newPeriod;
-            // Update the display object
+            // Write the heartbeat for the client so we can verify it later
+            _data.serverHeartbeat = generateVerify();
+            // Update the display object with data
             this.fieldDisplayObj.UpdateDisplay(_data, this.isSelected, _allowDisplayToStart);
+            // Update the display object with our online status
+            this.fieldDisplayObj.isOnline = this.isOnline;
         }
 
         public enum SingleClientRequest

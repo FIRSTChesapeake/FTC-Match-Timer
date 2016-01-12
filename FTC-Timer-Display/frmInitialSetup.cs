@@ -15,8 +15,9 @@ namespace FTC_Timer_Display
     public partial class frmInitialSetup : Office2007Form
     {
         private SetupSteps _currentStep = SetupSteps.Welcome;
-        private InitialData _origData;
+        private InitialData _origData { get; set; }
         private InitialData _workData;
+        private InitialData.RunType _lastRunType = InitialData.RunType.None;
         private bool _firstRun = true;
 
         public frmInitialSetup(InitialData template)
@@ -25,6 +26,7 @@ namespace FTC_Timer_Display
             // Save our template
             _origData = template;
             _workData = template;
+            _lastRunType = template.runType;
             // Remember if the data we started with was fresh or remembered.
             _firstRun = _workData.runType == InitialData.RunType.None;
             // set the title text
@@ -62,6 +64,8 @@ namespace FTC_Timer_Display
             }
             else if (sender.Equals(btnFinish))
             {
+                // if we've changed the mode, clear the saved fields.
+                _workData.loadPreviousFields = (_workData.runType == _lastRunType);
                 this.Tag = _workData;
                 this.Visible = false;
             }
@@ -196,6 +200,7 @@ namespace FTC_Timer_Display
 
         private bool allowsStartOver(SetupSteps step)
         {
+            return false; // This isn't working! _orig is going byref to working.
             switch (step)
             {
                 case SetupSteps.PreReview:
@@ -231,6 +236,20 @@ namespace FTC_Timer_Display
         {
             Properties.Settings.Default.skipWelcome = chkSkipWelcome.Checked;
             Properties.Settings.Default.Save();
+        }
+
+        private void btnClearAllSettings_Click(object sender, EventArgs e)
+        {
+            string msg = "Are you sure you want to clear all settings?";
+            DialogResult dr = MessageBox.Show(msg, this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+            if (dr == System.Windows.Forms.DialogResult.No) return;
+            Properties.Settings.Default.Reset();
+            Properties.Settings.Default.Save();
+            _origData = new InitialData();
+            _workData = new InitialData();
+            chkSkipWelcome.Checked = false;
+            _lastRunType = InitialData.RunType.ServerClient;
+            _firstRun = true;
         }
     }
 }

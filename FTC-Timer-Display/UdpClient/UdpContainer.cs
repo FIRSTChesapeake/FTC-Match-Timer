@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net;
 
 namespace FTC_Timer_Display.myUdpClient
 {
     [Serializable]
     class UdpContainer
     {
+        public IPEndPoint fromEndpoint = null;
+
         public UdpPackageTypes packageType = UdpPackageTypes.None;
         public object package = null;
 
@@ -24,7 +27,8 @@ namespace FTC_Timer_Display.myUdpClient
             None,
             MatchData,
             FieldConfig,
-            PitData
+            PitData,
+            ClientReply
         }
     }
 }

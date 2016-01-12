@@ -79,6 +79,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClientReply.cs" />
     <Compile Include="ClockFace.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -494,6 +495,7 @@
     <Content Include="docs\welcome.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\Security_Shields_Critical_32xLG_color.png" />
     <Content Include="Sounds\GameSounds\charge.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -30,30 +30,38 @@
         {
             this.components = new System.ComponentModel.Container();
             this.tabsMain = new DevComponents.DotNetBar.SuperTabControl();
-            this.superTabControlPanel7 = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.labelX2 = new DevComponents.DotNetBar.LabelX();
-            this.superTabItem5 = new DevComponents.DotNetBar.SuperTabItem();
-            this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.labelX1 = new DevComponents.DotNetBar.LabelX();
-            this.tabPreReview = new DevComponents.DotNetBar.SuperTabItem();
-            this.superTabControlPanel6 = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.superTabItem4 = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.reflectionLabel1 = new DevComponents.DotNetBar.Controls.ReflectionLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.lblWelcome = new DevComponents.DotNetBar.LabelX();
+            this.ctrlHeader1 = new FTC_Timer_Display.CtrlHeader();
             this.chkSkipWelcome = new DevComponents.DotNetBar.Controls.CheckBoxX();
+            this.btnClearAllSettings = new DevComponents.DotNetBar.ButtonX();
             this.tabWelcome = new DevComponents.DotNetBar.SuperTabItem();
+            this.superTabControlPanel3 = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.appModeSelection = new FTC_Timer_Display.InitializationControls.CtrlAppModeSelection();
+            this.superTabItem1 = new DevComponents.DotNetBar.SuperTabItem();
+            this.superTabControlPanel7 = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.labelX2 = new DevComponents.DotNetBar.LabelX();
+            this.settingsViewPost = new FTC_Timer_Display.InitializationControls.InitialSettingsView();
+            this.superTabItem5 = new DevComponents.DotNetBar.SuperTabItem();
+            this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.labelX1 = new DevComponents.DotNetBar.LabelX();
+            this.settingsViewPre = new FTC_Timer_Display.InitializationControls.InitialSettingsView();
+            this.tabPreReview = new DevComponents.DotNetBar.SuperTabItem();
+            this.superTabControlPanel6 = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.clientOpts = new FTC_Timer_Display.InitializationControls.CtrlClient();
+            this.superTabItem4 = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel5 = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.serverOpts = new FTC_Timer_Display.InitializationControls.CtrlServer();
             this.superTabItem3 = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel4 = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.globalOpts = new FTC_Timer_Display.InitializationControls.CtrlGlobal();
             this.superTabItem2 = new DevComponents.DotNetBar.SuperTabItem();
-            this.superTabControlPanel3 = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.superTabItem1 = new DevComponents.DotNetBar.SuperTabItem();
             this.stepsBar = new DevComponents.DotNetBar.ProgressSteps();
             this.stepIntro = new DevComponents.DotNetBar.StepItem();
             this.stepPrevSettings = new DevComponents.DotNetBar.StepItem();
@@ -69,28 +77,21 @@
             this.btnNext = new DevComponents.DotNetBar.ButtonX();
             this.btnFinish = new DevComponents.DotNetBar.ButtonX();
             this.btnStartOver = new DevComponents.DotNetBar.ButtonX();
-            this.ctrlHeader1 = new FTC_Timer_Display.CtrlHeader();
-            this.appModeSelection = new FTC_Timer_Display.InitializationControls.CtrlAppModeSelection();
-            this.settingsViewPost = new FTC_Timer_Display.InitializationControls.InitialSettingsView();
-            this.settingsViewPre = new FTC_Timer_Display.InitializationControls.InitialSettingsView();
-            this.clientOpts = new FTC_Timer_Display.InitializationControls.CtrlClient();
-            this.serverOpts = new FTC_Timer_Display.InitializationControls.CtrlServer();
-            this.globalOpts = new FTC_Timer_Display.InitializationControls.CtrlGlobal();
             this.styleManager1 = new DevComponents.DotNetBar.StyleManager(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.tabsMain)).BeginInit();
             this.tabsMain.SuspendLayout();
+            this.superTabControlPanel1.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.superTabControlPanel3.SuspendLayout();
             this.superTabControlPanel7.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.superTabControlPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.superTabControlPanel6.SuspendLayout();
-            this.superTabControlPanel1.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.superTabControlPanel5.SuspendLayout();
             this.superTabControlPanel4.SuspendLayout();
-            this.superTabControlPanel3.SuspendLayout();
             this.tableMain.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
@@ -138,118 +139,6 @@
             this.superTabItem5});
             this.tabsMain.TabsVisible = false;
             // 
-            // superTabControlPanel7
-            // 
-            this.superTabControlPanel7.Controls.Add(this.tableLayoutPanel4);
-            this.superTabControlPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel7.Location = new System.Drawing.Point(0, 25);
-            this.superTabControlPanel7.Name = "superTabControlPanel7";
-            this.superTabControlPanel7.Size = new System.Drawing.Size(657, 456);
-            this.superTabControlPanel7.TabIndex = 0;
-            this.superTabControlPanel7.TabItem = this.superTabItem5;
-            // 
-            // tableLayoutPanel4
-            // 
-            this.tableLayoutPanel4.ColumnCount = 1;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Controls.Add(this.labelX2, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.settingsViewPost, 0, 1);
-            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 2;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(657, 456);
-            this.tableLayoutPanel4.TabIndex = 1;
-            // 
-            // labelX2
-            // 
-            // 
-            // 
-            // 
-            this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelX2.Location = new System.Drawing.Point(3, 3);
-            this.labelX2.Name = "labelX2";
-            this.labelX2.Size = new System.Drawing.Size(651, 34);
-            this.labelX2.TabIndex = 0;
-            this.labelX2.Text = "<div align=\'center\'>Below you\'ll find the settings you just configured.<br/>If yo" +
-    "u\'re happy with them, you can click Finish now. Otherwise, return to the previou" +
-    "s steps and fix it.</div>";
-            // 
-            // superTabItem5
-            // 
-            this.superTabItem5.AttachedControl = this.superTabControlPanel7;
-            this.superTabItem5.GlobalItem = false;
-            this.superTabItem5.Name = "superTabItem5";
-            this.superTabItem5.Text = "Review";
-            // 
-            // superTabControlPanel2
-            // 
-            this.superTabControlPanel2.Controls.Add(this.tableLayoutPanel3);
-            this.superTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel2.Location = new System.Drawing.Point(0, 25);
-            this.superTabControlPanel2.Name = "superTabControlPanel2";
-            this.superTabControlPanel2.Size = new System.Drawing.Size(657, 456);
-            this.superTabControlPanel2.TabIndex = 0;
-            this.superTabControlPanel2.TabItem = this.tabPreReview;
-            // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.ColumnCount = 1;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Controls.Add(this.labelX1, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.settingsViewPre, 0, 1);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 2;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(657, 456);
-            this.tableLayoutPanel3.TabIndex = 0;
-            // 
-            // labelX1
-            // 
-            // 
-            // 
-            // 
-            this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelX1.Location = new System.Drawing.Point(3, 3);
-            this.labelX1.Name = "labelX1";
-            this.labelX1.Size = new System.Drawing.Size(651, 34);
-            this.labelX1.TabIndex = 0;
-            this.labelX1.Text = "<div align=\'center\'>Below you\'ll find the settings you used last time.<br/>If you" +
-    "\'re happy with them, you can click Finish now.</div>";
-            // 
-            // tabPreReview
-            // 
-            this.tabPreReview.AttachedControl = this.superTabControlPanel2;
-            this.tabPreReview.GlobalItem = false;
-            this.tabPreReview.Name = "tabPreReview";
-            this.tabPreReview.Text = "PreReview";
-            // 
-            // superTabControlPanel6
-            // 
-            this.superTabControlPanel6.Controls.Add(this.clientOpts);
-            this.superTabControlPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel6.Location = new System.Drawing.Point(0, 25);
-            this.superTabControlPanel6.Name = "superTabControlPanel6";
-            this.superTabControlPanel6.Size = new System.Drawing.Size(657, 456);
-            this.superTabControlPanel6.TabIndex = 0;
-            this.superTabControlPanel6.TabItem = this.superTabItem4;
-            // 
-            // superTabItem4
-            // 
-            this.superTabItem4.AttachedControl = this.superTabControlPanel6;
-            this.superTabItem4.GlobalItem = false;
-            this.superTabItem4.Name = "superTabItem4";
-            this.superTabItem4.Text = "Client";
-            // 
             // superTabControlPanel1
             // 
             this.superTabControlPanel1.BackgroundImagePosition = DevComponents.DotNetBar.eStyleBackgroundImage.Zoom;
@@ -273,6 +162,7 @@
             this.tableLayoutPanel1.Controls.Add(this.lblWelcome, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.ctrlHeader1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.chkSkipWelcome, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.btnClearAllSettings, 2, 4);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -281,7 +171,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(657, 456);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
@@ -331,10 +221,29 @@
             this.lblWelcome.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblWelcome.Location = new System.Drawing.Point(3, 109);
             this.lblWelcome.Name = "lblWelcome";
-            this.lblWelcome.Size = new System.Drawing.Size(651, 324);
+            this.lblWelcome.Size = new System.Drawing.Size(651, 304);
             this.lblWelcome.TabIndex = 5;
             this.lblWelcome.Text = "This is a welcome message.";
             this.lblWelcome.TextLineAlignment = System.Drawing.StringAlignment.Near;
+            // 
+            // ctrlHeader1
+            // 
+            // 
+            // 
+            // 
+            this.ctrlHeader1.BackgroundStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.ctrlHeader1.BackgroundStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(132)))));
+            this.ctrlHeader1.BackgroundStyle.BackColorGradientType = DevComponents.DotNetBar.eGradientType.Radial;
+            this.ctrlHeader1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tableLayoutPanel1.SetColumnSpan(this.ctrlHeader1, 3);
+            this.ctrlHeader1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ctrlHeader1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.ctrlHeader1.Location = new System.Drawing.Point(3, 79);
+            this.ctrlHeader1.Name = "ctrlHeader1";
+            this.ctrlHeader1.Size = new System.Drawing.Size(651, 24);
+            this.ctrlHeader1.TabIndex = 6;
+            this.ctrlHeader1.Text = "Welcome";
+            this.ctrlHeader1.TextAlignment = System.Drawing.StringAlignment.Center;
             // 
             // chkSkipWelcome
             // 
@@ -343,13 +252,26 @@
             // 
             this.chkSkipWelcome.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.chkSkipWelcome.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chkSkipWelcome.Location = new System.Drawing.Point(153, 439);
+            this.chkSkipWelcome.Location = new System.Drawing.Point(153, 419);
             this.chkSkipWelcome.Name = "chkSkipWelcome";
-            this.chkSkipWelcome.Size = new System.Drawing.Size(351, 14);
+            this.chkSkipWelcome.Size = new System.Drawing.Size(351, 34);
             this.chkSkipWelcome.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.chkSkipWelcome.TabIndex = 7;
             this.chkSkipWelcome.Text = "Skip This Welcome Screen Next Time";
             this.chkSkipWelcome.CheckedChanged += new System.EventHandler(this.chkSkipWelcome_CheckedChanged);
+            // 
+            // btnClearAllSettings
+            // 
+            this.btnClearAllSettings.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnClearAllSettings.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnClearAllSettings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnClearAllSettings.Location = new System.Drawing.Point(510, 419);
+            this.btnClearAllSettings.Name = "btnClearAllSettings";
+            this.btnClearAllSettings.Size = new System.Drawing.Size(144, 34);
+            this.btnClearAllSettings.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnClearAllSettings.TabIndex = 8;
+            this.btnClearAllSettings.Text = "Clear All Settings";
+            this.btnClearAllSettings.Click += new System.EventHandler(this.btnClearAllSettings_Click);
             // 
             // tabWelcome
             // 
@@ -357,6 +279,167 @@
             this.tabWelcome.GlobalItem = false;
             this.tabWelcome.Name = "tabWelcome";
             this.tabWelcome.Text = "Welcome";
+            // 
+            // superTabControlPanel3
+            // 
+            this.superTabControlPanel3.Controls.Add(this.appModeSelection);
+            this.superTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanel3.Location = new System.Drawing.Point(0, 25);
+            this.superTabControlPanel3.Name = "superTabControlPanel3";
+            this.superTabControlPanel3.Size = new System.Drawing.Size(657, 456);
+            this.superTabControlPanel3.TabIndex = 0;
+            this.superTabControlPanel3.TabItem = this.superTabItem1;
+            // 
+            // appModeSelection
+            // 
+            this.appModeSelection.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.appModeSelection.Location = new System.Drawing.Point(0, 0);
+            this.appModeSelection.Name = "appModeSelection";
+            this.appModeSelection.Size = new System.Drawing.Size(657, 456);
+            this.appModeSelection.TabIndex = 0;
+            // 
+            // superTabItem1
+            // 
+            this.superTabItem1.AttachedControl = this.superTabControlPanel3;
+            this.superTabItem1.GlobalItem = false;
+            this.superTabItem1.Name = "superTabItem1";
+            this.superTabItem1.Text = "AppMode";
+            // 
+            // superTabControlPanel7
+            // 
+            this.superTabControlPanel7.Controls.Add(this.tableLayoutPanel4);
+            this.superTabControlPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanel7.Location = new System.Drawing.Point(0, 25);
+            this.superTabControlPanel7.Name = "superTabControlPanel7";
+            this.superTabControlPanel7.Size = new System.Drawing.Size(657, 456);
+            this.superTabControlPanel7.TabIndex = 0;
+            this.superTabControlPanel7.TabItem = this.superTabItem5;
+            // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.ColumnCount = 1;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.Controls.Add(this.labelX2, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.settingsViewPost, 0, 1);
+            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 2;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(657, 456);
+            this.tableLayoutPanel4.TabIndex = 1;
+            // 
+            // labelX2
+            // 
+            // 
+            // 
+            // 
+            this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelX2.Location = new System.Drawing.Point(3, 3);
+            this.labelX2.Name = "labelX2";
+            this.labelX2.Size = new System.Drawing.Size(651, 34);
+            this.labelX2.TabIndex = 0;
+            this.labelX2.Text = "<div align=\'center\'>Below you\'ll find the settings you just configured.<br/>If yo" +
+    "u\'re happy with them, you can click Finish now. Otherwise, return to the previou" +
+    "s steps and fix it.</div>";
+            // 
+            // settingsViewPost
+            // 
+            this.settingsViewPost.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.settingsViewPost.Location = new System.Drawing.Point(3, 43);
+            this.settingsViewPost.Name = "settingsViewPost";
+            this.settingsViewPost.Size = new System.Drawing.Size(651, 410);
+            this.settingsViewPost.TabIndex = 1;
+            // 
+            // superTabItem5
+            // 
+            this.superTabItem5.AttachedControl = this.superTabControlPanel7;
+            this.superTabItem5.GlobalItem = false;
+            this.superTabItem5.Name = "superTabItem5";
+            this.superTabItem5.Text = "Review";
+            // 
+            // superTabControlPanel2
+            // 
+            this.superTabControlPanel2.Controls.Add(this.tableLayoutPanel3);
+            this.superTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanel2.Location = new System.Drawing.Point(0, 25);
+            this.superTabControlPanel2.Name = "superTabControlPanel2";
+            this.superTabControlPanel2.Size = new System.Drawing.Size(657, 456);
+            this.superTabControlPanel2.TabIndex = 0;
+            this.superTabControlPanel2.TabItem = this.tabPreReview;
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 1;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Controls.Add(this.labelX1, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.settingsViewPre, 0, 1);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 2;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(657, 456);
+            this.tableLayoutPanel3.TabIndex = 0;
+            // 
+            // labelX1
+            // 
+            // 
+            // 
+            // 
+            this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelX1.Location = new System.Drawing.Point(3, 3);
+            this.labelX1.Name = "labelX1";
+            this.labelX1.Size = new System.Drawing.Size(651, 34);
+            this.labelX1.TabIndex = 0;
+            this.labelX1.Text = "<div align=\'center\'>Below you\'ll find the settings you used last time.<br/>If you" +
+    "\'re happy with them, you can click Finish now.</div>";
+            // 
+            // settingsViewPre
+            // 
+            this.settingsViewPre.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.settingsViewPre.Location = new System.Drawing.Point(3, 43);
+            this.settingsViewPre.Name = "settingsViewPre";
+            this.settingsViewPre.Size = new System.Drawing.Size(651, 410);
+            this.settingsViewPre.TabIndex = 1;
+            // 
+            // tabPreReview
+            // 
+            this.tabPreReview.AttachedControl = this.superTabControlPanel2;
+            this.tabPreReview.GlobalItem = false;
+            this.tabPreReview.Name = "tabPreReview";
+            this.tabPreReview.Text = "PreReview";
+            // 
+            // superTabControlPanel6
+            // 
+            this.superTabControlPanel6.Controls.Add(this.clientOpts);
+            this.superTabControlPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanel6.Location = new System.Drawing.Point(0, 25);
+            this.superTabControlPanel6.Name = "superTabControlPanel6";
+            this.superTabControlPanel6.Size = new System.Drawing.Size(657, 456);
+            this.superTabControlPanel6.TabIndex = 0;
+            this.superTabControlPanel6.TabItem = this.superTabItem4;
+            // 
+            // clientOpts
+            // 
+            this.clientOpts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.clientOpts.Location = new System.Drawing.Point(0, 0);
+            this.clientOpts.Name = "clientOpts";
+            this.clientOpts.Size = new System.Drawing.Size(657, 456);
+            this.clientOpts.TabIndex = 0;
+            // 
+            // superTabItem4
+            // 
+            this.superTabItem4.AttachedControl = this.superTabControlPanel6;
+            this.superTabItem4.GlobalItem = false;
+            this.superTabItem4.Name = "superTabItem4";
+            this.superTabItem4.Text = "Client";
             // 
             // superTabControlPanel5
             // 
@@ -367,6 +450,15 @@
             this.superTabControlPanel5.Size = new System.Drawing.Size(657, 456);
             this.superTabControlPanel5.TabIndex = 0;
             this.superTabControlPanel5.TabItem = this.superTabItem3;
+            // 
+            // serverOpts
+            // 
+            this.serverOpts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.serverOpts.eventType = FTC_Timer_Display.MatchData.EventTypes.Qualifier;
+            this.serverOpts.Location = new System.Drawing.Point(0, 0);
+            this.serverOpts.Name = "serverOpts";
+            this.serverOpts.Size = new System.Drawing.Size(657, 456);
+            this.serverOpts.TabIndex = 0;
             // 
             // superTabItem3
             // 
@@ -385,29 +477,20 @@
             this.superTabControlPanel4.TabIndex = 0;
             this.superTabControlPanel4.TabItem = this.superTabItem2;
             // 
+            // globalOpts
+            // 
+            this.globalOpts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.globalOpts.Location = new System.Drawing.Point(0, 0);
+            this.globalOpts.Name = "globalOpts";
+            this.globalOpts.Size = new System.Drawing.Size(657, 456);
+            this.globalOpts.TabIndex = 0;
+            // 
             // superTabItem2
             // 
             this.superTabItem2.AttachedControl = this.superTabControlPanel4;
             this.superTabItem2.GlobalItem = false;
             this.superTabItem2.Name = "superTabItem2";
             this.superTabItem2.Text = "Global";
-            // 
-            // superTabControlPanel3
-            // 
-            this.superTabControlPanel3.Controls.Add(this.appModeSelection);
-            this.superTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel3.Location = new System.Drawing.Point(0, 25);
-            this.superTabControlPanel3.Name = "superTabControlPanel3";
-            this.superTabControlPanel3.Size = new System.Drawing.Size(657, 456);
-            this.superTabControlPanel3.TabIndex = 0;
-            this.superTabControlPanel3.TabItem = this.superTabItem1;
-            // 
-            // superTabItem1
-            // 
-            this.superTabItem1.AttachedControl = this.superTabControlPanel3;
-            this.superTabItem1.GlobalItem = false;
-            this.superTabItem1.Name = "superTabItem1";
-            this.superTabItem1.Text = "AppMode";
             // 
             // stepsBar
             // 
@@ -599,74 +682,6 @@
             this.btnStartOver.Text = "Start Over";
             this.btnStartOver.Click += new System.EventHandler(this.navButtonsHandler);
             // 
-            // ctrlHeader1
-            // 
-            // 
-            // 
-            // 
-            this.ctrlHeader1.BackgroundStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.ctrlHeader1.BackgroundStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(132)))));
-            this.ctrlHeader1.BackgroundStyle.BackColorGradientType = DevComponents.DotNetBar.eGradientType.Radial;
-            this.ctrlHeader1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tableLayoutPanel1.SetColumnSpan(this.ctrlHeader1, 3);
-            this.ctrlHeader1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ctrlHeader1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.ctrlHeader1.Location = new System.Drawing.Point(3, 79);
-            this.ctrlHeader1.Name = "ctrlHeader1";
-            this.ctrlHeader1.Size = new System.Drawing.Size(651, 24);
-            this.ctrlHeader1.TabIndex = 6;
-            this.ctrlHeader1.Text = "Welcome";
-            this.ctrlHeader1.TextAlignment = System.Drawing.StringAlignment.Center;
-            // 
-            // appModeSelection
-            // 
-            this.appModeSelection.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.appModeSelection.Location = new System.Drawing.Point(0, 0);
-            this.appModeSelection.Name = "appModeSelection";
-            this.appModeSelection.Size = new System.Drawing.Size(657, 456);
-            this.appModeSelection.TabIndex = 0;
-            // 
-            // settingsViewPost
-            // 
-            this.settingsViewPost.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.settingsViewPost.Location = new System.Drawing.Point(3, 43);
-            this.settingsViewPost.Name = "settingsViewPost";
-            this.settingsViewPost.Size = new System.Drawing.Size(651, 410);
-            this.settingsViewPost.TabIndex = 1;
-            // 
-            // settingsViewPre
-            // 
-            this.settingsViewPre.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.settingsViewPre.Location = new System.Drawing.Point(3, 43);
-            this.settingsViewPre.Name = "settingsViewPre";
-            this.settingsViewPre.Size = new System.Drawing.Size(651, 410);
-            this.settingsViewPre.TabIndex = 1;
-            // 
-            // clientOpts
-            // 
-            this.clientOpts.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.clientOpts.Location = new System.Drawing.Point(0, 0);
-            this.clientOpts.Name = "clientOpts";
-            this.clientOpts.Size = new System.Drawing.Size(657, 456);
-            this.clientOpts.TabIndex = 0;
-            // 
-            // serverOpts
-            // 
-            this.serverOpts.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.serverOpts.eventType = FTC_Timer_Display.MatchData.EventTypes.Qualifier;
-            this.serverOpts.Location = new System.Drawing.Point(0, 0);
-            this.serverOpts.Name = "serverOpts";
-            this.serverOpts.Size = new System.Drawing.Size(657, 456);
-            this.serverOpts.TabIndex = 0;
-            // 
-            // globalOpts
-            // 
-            this.globalOpts.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.globalOpts.Location = new System.Drawing.Point(0, 0);
-            this.globalOpts.Name = "globalOpts";
-            this.globalOpts.Size = new System.Drawing.Size(657, 456);
-            this.globalOpts.TabIndex = 0;
-            // 
             // styleManager1
             // 
             this.styleManager1.ManagerStyle = DevComponents.DotNetBar.eStyle.Office2007VistaGlass;
@@ -687,18 +702,18 @@
             this.Load += new System.EventHandler(this.frmInitialSetup_Load);
             ((System.ComponentModel.ISupportInitialize)(this.tabsMain)).EndInit();
             this.tabsMain.ResumeLayout(false);
+            this.superTabControlPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.superTabControlPanel3.ResumeLayout(false);
             this.superTabControlPanel7.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.superTabControlPanel2.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.superTabControlPanel6.ResumeLayout(false);
-            this.superTabControlPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.superTabControlPanel5.ResumeLayout(false);
             this.superTabControlPanel4.ResumeLayout(false);
-            this.superTabControlPanel3.ResumeLayout(false);
             this.tableMain.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -755,6 +770,7 @@
         private DevComponents.DotNetBar.LabelX labelX2;
         private InitializationControls.InitialSettingsView settingsViewPost;
         private DevComponents.DotNetBar.StyleManager styleManager1;
+        private DevComponents.DotNetBar.ButtonX btnClearAllSettings;
 
     }
 }
