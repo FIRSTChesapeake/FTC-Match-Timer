@@ -20,7 +20,6 @@ namespace FTC_Timer_Display
     {
         private static readonly bool isDev = Process.GetCurrentProcess().ProcessName.ToLower().Contains("vshost");
 
-        private const string logFolder = "Logs";
         private const string configFileName = "log4net.config";
 
         private static ILog _log = null;

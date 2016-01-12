@@ -290,7 +290,8 @@ namespace FTC_Timer_Display.myUdpClient
             }
             catch (Exception ex)
             {
-                log("Exception sending object", ex);
+                string ip = sendTo == null ? "NULL" : string.Format("{0}:{1}", sendTo.Address, sendTo.Port);
+                log("Exception sending object to '{0}'", ex, ip);
             }
         }
     }
