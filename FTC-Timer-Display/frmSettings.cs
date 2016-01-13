@@ -181,7 +181,7 @@ namespace FTC_Timer_Display
                     Properties.Settings.Default.customLogoPath = "";
                 }
                 Properties.Settings.Default.Save();
-                _dispForm.initializeDisplay();
+                reInitDisplay();
             }
             catch
             {
@@ -189,11 +189,16 @@ namespace FTC_Timer_Display
             }
         }
 
+        private void reInitDisplay()
+        {
+            if (_dispForm != null) _dispForm.initializeDisplay();
+        }
+
         private void chkDateTime_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.displayShowDateTime = chkDateTime.Checked;
             Properties.Settings.Default.Save();
-            _dispForm.initializeDisplay();
+            reInitDisplay();
         }
 
         private void chkAutoElimTimeout_CheckedChanged(object sender, EventArgs e)
