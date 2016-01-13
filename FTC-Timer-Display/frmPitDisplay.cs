@@ -35,8 +35,13 @@ namespace FTC_Timer_Display
             urls.Add("ranking", "http://{0}:8080/Rankings");
 
             // Setup comms
-            comms = new myUdpClient.UdpComms(DataReceived);
+            comms = new myUdpClient.UdpComms(DataReceived, CommStopExceptionHandler);
             comms.ListenControl(true);
+        }
+
+        private void CommStopExceptionHandler(object sender, myUdpClient.myUdpException e)
+        {
+            // Todo
         }
 
         private void DataReceived(object sender, PitData pitData)

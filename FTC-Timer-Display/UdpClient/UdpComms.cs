@@ -26,6 +26,8 @@ namespace FTC_Timer_Display.myUdpClient
         public event EventHandler<ScoringData> NewScoringData;
         public event EventHandler<ClientReply> NewClientReply;
 
+        public event EventHandler<myUdpException> StopExceptionEvent;
+
         public bool isListening { get { return _listening; } }
 
         private readonly string logName;
@@ -36,8 +38,9 @@ namespace FTC_Timer_Display.myUdpClient
         /// <param name="divID">The division identifier.</param>
         /// <param name="fieldID">The field identifier.</param>
         /// <param name="NewDataHandler">Handler that wants the data when it's received.</param>
-        public UdpComms(int divID, int fieldID, EventHandler<MatchData> NewDataHandler)
+        public UdpComms(int divID, int fieldID, EventHandler<MatchData> NewDataHandler, EventHandler<myUdpException> StopExceptionHandler)
         {
+            StopExceptionEvent += StopExceptionHandler;
             logName = string.Format("udpComms-{0}-{1}", divID, fieldID);
             NewMatchData += NewDataHandler;
             udpPortRecv = CreateRecvPort(divID, fieldID);
@@ -48,8 +51,9 @@ namespace FTC_Timer_Display.myUdpClient
         /// Initializes a new instance of the <see cref="UdpComms"/> class for use with pit screens.
         /// </summary>
         /// <param name="NewDataHandler">Handler that wants the data when it's received.</param>
-        public UdpComms(EventHandler<PitData> NewDataHandler)
+        public UdpComms(EventHandler<PitData> NewDataHandler, EventHandler<myUdpException> StopExceptionHandler)
         {
+            StopExceptionEvent += StopExceptionHandler;
             logName = "udpComms-Pit";
             NewPitData += NewDataHandler;
             udpPortRecv = CreateRecvPort(0, 0);
@@ -61,8 +65,9 @@ namespace FTC_Timer_Display.myUdpClient
         /// </summary>
         /// <param name="scoringPort">The scoring port.</param>
         /// <param name="NewDataHandler">Handler that wants the data when it's received.</param>
-        public UdpComms(int scoringPort, EventHandler<ScoringData> NewDataHandler)
+        public UdpComms(int scoringPort, EventHandler<ScoringData> NewDataHandler, EventHandler<myUdpException> StopExceptionHandler)
         {
+            StopExceptionEvent += StopExceptionHandler;
             logName = "udpComms-Score";
             NewScoringData += NewDataHandler;
             udpPortRecv = scoringPort;
@@ -90,7 +95,12 @@ namespace FTC_Timer_Display.myUdpClient
             {
                 _udp = new UdpClient(udpPortRecv);
                 _udp.EnableBroadcast = true;
-                log("Recv Port Configured to '{0}'", udpPortRecv);
+                EndPoint localEndpoint = _udp.Client.LocalEndPoint;
+                log("Recv Port Configured to '{0}'", localEndpoint.ToString());
+            }
+            catch (SocketException ex)
+            {
+                RaiseStopException("Port Already in use.", ex);
             }
             catch (Exception ex)
             {
@@ -231,6 +241,7 @@ namespace FTC_Timer_Display.myUdpClient
                 else if (data.packageType == UdpContainer.UdpPackageTypes.ClientReply)
                 {
                     ClientReply clientReply = (ClientReply)data.package;
+                    clientReply.fromEndpoint = data.fromEndpoint;
                     if (NewClientReply != null && clientReply != null)
                     {
                         EventHandler<ClientReply> handler = NewClientReply;
@@ -249,7 +260,7 @@ namespace FTC_Timer_Display.myUdpClient
             try
             {
                 UdpContainer pack = new UdpContainer(UdpContainer.UdpPackageTypes.ClientReply, reply);
-                SendObject(pack, reply.replyEndpoint);
+                SendObject(pack, reply.fromEndpoint);
             }
             catch (Exception ex)
             {
@@ -319,6 +330,18 @@ namespace FTC_Timer_Display.myUdpClient
             {
                 string ip = sendTo == null ? "NULL" : string.Format("{0}:{1}", sendTo.Address, sendTo.Port);
                 log("Exception sending object to '{0}'", ex, ip);
+            }
+        }
+
+        private void RaiseStopException(string message, SocketException ex)
+        {
+            myUdpException udpEx = myUdpException.Make<myUdpException>(ex);
+            udpEx.appMessage = message;
+            log("Raising Stop Exception: '{0}'.", udpEx, message);
+            if (StopExceptionEvent != null)
+            {
+                EventHandler<myUdpException> handler = StopExceptionEvent;
+                handler(this, udpEx);
             }
         }
     }

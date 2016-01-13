@@ -15,14 +15,20 @@ namespace FTC_Timer_Display
 
         public long verification = -1;
 
-        public IPEndPoint replyEndpoint = null;
+        public Version clientVersion;
+        public InitialData.RunType runType = InitialData.RunType.None;
+        public frmDisplay.DisplayStatus displayStatus = frmDisplay.DisplayStatus.Hide;
 
-        public ClientReply(int divID, int fieldID, IPEndPoint endpoint, long verify)
+        public IPEndPoint fromEndpoint = null;
+
+
+        public ClientReply(SingleClient client)
         {
-            this.divID = divID;
-            this.fieldID = fieldID;
-            this.replyEndpoint = endpoint;
-            this.verification = verify;
+            this.divID = client.matchData.divID;
+            this.fieldID = client.matchData.fieldID;
+            this.fromEndpoint = client.matchData.fromEndpoint;
+            this.verification = client.matchData.serverHeartbeat;
+            this.clientVersion = GeneralFunctions.AppFunctions.appVersion;
         }
 
         public int receivePort

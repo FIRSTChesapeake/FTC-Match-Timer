@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "VAF FTC Match Timer"
-#define MyAppVersion "15.1601.12"
+#define MyAppVersion "15.1601.13"
 #define MyAppPublisher "VirginiaFIRST"
 #define MyAppURL "http://www.virginiafirst.org"
 #define MyAppExeName "FTC-Timer-Display.exe"

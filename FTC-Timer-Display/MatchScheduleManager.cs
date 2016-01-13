@@ -20,9 +20,14 @@ namespace FTC_Timer_Display
         public static void init(int scoringPort)
         {
             if (_isInit) return;
-            comms = new myUdpClient.UdpComms(scoringPort, NewScoreDataHandler);
+            comms = new myUdpClient.UdpComms(scoringPort, NewScoreDataHandler, CommStopExceptionHandler);
 
             _isInit = true;
+        }
+
+        private static void CommStopExceptionHandler(object sender, myUdpClient.myUdpException e)
+        {
+            // TODO
         }
 
         private static void NewScoreDataHandler(object sender, ScoringData data)

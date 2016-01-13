@@ -18,13 +18,21 @@ namespace FTC_Timer_Display
             public static readonly string AppPath = AppDomain.CurrentDomain.BaseDirectory;
 
             // App Info
-            public static string appVersion
+            public static string appVersionString
             {
                 get
                 {
-                    return string.Format("Version {0}", Assembly.GetExecutingAssembly().GetName().Version.ToString());
+                    return string.Format("Version {0}", appVersion);
                 }
             }
+            public static Version appVersion
+            {
+                get
+                {
+                    return Assembly.GetExecutingAssembly().GetName().Version;
+                }
+            }
+
             public static string appName
             {
                 get
@@ -35,7 +43,7 @@ namespace FTC_Timer_Display
             // Make a window title
             public static string makeWindowTitle(string windowTitle, bool withVersion = false)
             {
-                string v = withVersion ? string.Format(" {0}", appVersion) : "";
+                string v = withVersion ? string.Format(" {0}", appVersionString) : "";
                 return string.Format("{0}{1} - {2}", appName, v, windowTitle);
             }
             // Open a link
@@ -79,6 +87,7 @@ namespace FTC_Timer_Display
             {
                 try
                 {
+                    if (!File.Exists(path)) return null;
                     Image img = Image.FromFile(path);
                     return img;
                 }
@@ -87,6 +96,7 @@ namespace FTC_Timer_Display
                     return null;
                 }
             }
+
         }
     }
 }

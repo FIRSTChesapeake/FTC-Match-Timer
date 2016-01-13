@@ -99,6 +99,12 @@
       <DependentUpon>CtrlTimeLengthEntry.cs</DependentUpon>
     </Compile>
     <Compile Include="FontLoader.cs" />
+    <Compile Include="frmFieldInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmFieldInfo.Designer.cs">
+      <DependentUpon>frmFieldInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmInitialSetup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -265,6 +271,7 @@
       <DependentUpon>SingleClientDisplay.cs</DependentUpon>
     </Compile>
     <Compile Include="SoundGenerator.cs" />
+    <Compile Include="UdpClient\myUdpException.cs" />
     <Compile Include="UdpClient\UdpComms.cs" />
     <Compile Include="UdpClient\UdpContainer.cs" />
     <EmbeddedResource Include="ClockFace.resx">
@@ -278,6 +285,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmDisplay.resx">
       <DependentUpon>frmDisplay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmFieldInfo.resx">
+      <DependentUpon>frmFieldInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmInitialSetup.resx">
       <DependentUpon>frmInitialSetup.cs</DependentUpon>
@@ -496,6 +506,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\Security_Shields_Critical_32xLG_color.png" />
+    <None Include="Resources\StatusAnnotations_Warning_32xLG_color.png" />
     <Content Include="Sounds\GameSounds\charge.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

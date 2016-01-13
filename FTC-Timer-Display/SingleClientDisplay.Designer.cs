@@ -41,6 +41,7 @@
             this.radialTimeout = new DevComponents.DotNetBar.RadialMenuItem();
             this.radialStopTimeout = new DevComponents.DotNetBar.RadialMenuItem();
             this.radialReset = new DevComponents.DotNetBar.RadialMenuItem();
+            this.radialShowInfo = new DevComponents.DotNetBar.RadialMenuItem();
             this.toolTips = new System.Windows.Forms.ToolTip(this.components);
             this.tableMain.SuspendLayout();
             this.tableIndicator.SuspendLayout();
@@ -140,7 +141,8 @@
             this.radialStop,
             this.radialTimeout,
             this.radialStopTimeout,
-            this.radialReset});
+            this.radialReset,
+            this.radialShowInfo});
             this.radial.Location = new System.Drawing.Point(3, 3);
             this.radial.Name = "radial";
             this.radial.Size = new System.Drawing.Size(28, 28);
@@ -185,6 +187,12 @@
             this.radialReset.Text = "Reset";
             this.radialReset.Click += new System.EventHandler(this.radialHandler);
             // 
+            // radialShowInfo
+            // 
+            this.radialShowInfo.Name = "radialShowInfo";
+            this.radialShowInfo.Text = "Info";
+            this.radialShowInfo.Click += new System.EventHandler(this.radialHandler);
+            // 
             // SingleClientDisplay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -216,5 +224,6 @@
         private DevComponents.DotNetBar.RadialMenuItem radialStopTimeout;
         private DevComponents.DotNetBar.RadialMenuItem radialReset;
         private System.Windows.Forms.ToolTip toolTips;
+        private DevComponents.DotNetBar.RadialMenuItem radialShowInfo;
     }
 }

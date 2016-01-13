@@ -21,7 +21,7 @@ namespace FTC_Timer_Display
             // set the title text
             this.Text = GeneralFunctions.AppFunctions.makeWindowTitle(this.Text);
             // show version
-            lblVersion.Text = GeneralFunctions.AppFunctions.appVersion;
+            lblVersion.Text = GeneralFunctions.AppFunctions.appVersionString;
             // Init the event type dropdown
             cboEventType.DataSource = Enum.GetValues(typeof(MatchData.EventTypes));
             // Set values

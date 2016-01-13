@@ -18,6 +18,7 @@ namespace FTC_Timer_Display
         private TimeoutData.SoundTypes _timeoutSounds = TimeoutData.SoundTypes.None;
 
         public SingleClientDisplay fieldDisplayObj { get; private set; }
+        public frmFieldInfo fieldInfoWindow { get; private set; }
 
         public bool allowDisplayToStart { get { return _allowDisplayToStart; } set { _allowDisplayToStart = value; } }
 
@@ -39,11 +40,24 @@ namespace FTC_Timer_Display
             get
             {
                 bool r = true;
-                if (this._isLocal) r = true;
+                // If this is a local timer and this app is controlling it, obviously we're connected.
+                if (this._isLocal && this._isEnabled) r = true;
+                // Servers use Recv to know when a client is dead. Clients use it to know when they are dead.
                 else if (_lastClientVerifyRecv.Add(verifyDelay.Add(verifyDelay)) < DateTime.Now) r = false;
-                if (!r && _wasLastOnline) log("FIELD IS NOW OFFLINE!");
-                if (r && !_wasLastOnline) log("FIELD IS NOW ONLINE!");
-                _wasLastOnline = r;
+                // Do some logging
+                if (r != _wasLastOnline)
+                {
+                    string lStr = "SYSTEM IS NOW {0} WITH {1}";
+                    // Who are we talking to
+                    string lWho = "SERVER";                                         // We're a client and talking to a server.
+                    if (this._isEnabled && this._isLocal) lWho = "LOCAL";           // We're a server and talking to ourselves.
+                    else if (this._isEnabled) lWho = "CLIENT";                      // We're a server and talking to a client.
+                    // What is the new state
+                    string lState = r ? "ONLINE" : "OFFLINE";
+                    // Write log
+                    log(lStr, lState, lWho);
+                    _wasLastOnline = r;
+                }
                 return r;
             }
         }
@@ -57,6 +71,7 @@ namespace FTC_Timer_Display
             if (_lastClientVerifySent.Add(verifyDelay) < DateTime.Now)
             {
                 _lastClientVerifySent = DateTime.Now;
+                fieldInfoWindow.Update(DateTime.Now);
                 return _lastClientVerifySent.Ticks;
             }
             else
@@ -219,7 +234,11 @@ namespace FTC_Timer_Display
             if (_data.serverHeartbeat == -1) return;
             if (ClientReplyEvent != null)
             {
-                ClientReply c = new ClientReply(_data.divID, _data.fieldID, _data.fromEndpoint, _data.serverHeartbeat);
+                // Save when we last heard a verification request so we know when we're dead
+                _lastClientVerifyRecv = DateTime.Now;
+                fieldInfoWindow.Update(DateTime.Now);
+                // Raise the request event
+                ClientReply c = new ClientReply(this);
                 EventHandler<ClientReply> handler = ClientReplyEvent;
                 handler(this, c);
             }
@@ -235,6 +254,10 @@ namespace FTC_Timer_Display
             if (_lastClientVerifySent.Ticks == reply.verification)
             {
                 _lastClientVerifyRecv = DateTime.Now;
+                // Check if the client is using the same version as the server
+                fieldDisplayObj.isVersionMismatch = (reply.clientVersion != GeneralFunctions.AppFunctions.appVersion);
+                // Update the info window
+                fieldInfoWindow.Update(reply);
             }
             else
             {
@@ -270,6 +293,9 @@ namespace FTC_Timer_Display
                 case SingleClientDisplay.RadialCommands.AbortTimeout:
                     this.ResetMatch();
                     break;
+                case SingleClientDisplay.RadialCommands.ShowInfo:
+                    this.fieldInfoWindow.Show();
+                    break;
             }
         }
 
@@ -296,6 +322,7 @@ namespace FTC_Timer_Display
             _isMultiDivision = initData.isMultiDivision;
             ResetMatch();
             this.fieldDisplayObj = new SingleClientDisplay(fieldID, this.RecvPort, _isLocal, CtrlClickHandler, CtrlRadialHandler, width);
+            this.fieldInfoWindow = new frmFieldInfo(initData.divID, fieldID, this.RecvPort);
             _timer.Interval = 1000;
             _timer.Elapsed += timer_Elapsed;
             _isEnabled = (initData.isServer || initData.runType == InitialData.RunType.Local);
@@ -309,20 +336,31 @@ namespace FTC_Timer_Display
         /// <param name="e"></param>
         private void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            if (!_isEnabled) return;
-            // Process timing
-            ProcessTiming();
-            // Add shared settings 
-            _data.useLargeActive = Properties.Settings.Default.useLargeActive;
-            _data.displayFieldNumber = Properties.Settings.Default.showDisplayFieldNumbers;
-            // Send on down the road!
-            if (SendData != null)
+            // If we're not enabled, we are a client and need to only verify we're connected.
+            if (!_isEnabled)
             {
-                EventHandler<MatchData> handler = SendData;
-                handler(this, _data);
+                // Update the display object with data
+                this.fieldDisplayObj.UpdateDisplay(_data, this.isSelected, _allowDisplayToStart);
+                // Update the display object with our online status
+                this.fieldDisplayObj.isOnline = this.isOnline;
             }
-            // Forget the sound we just played (if any)
-            _data.soundPackage = null;
+            // If we're enabled, we're a 'server' and need to do all the work.
+            else
+            {
+                // Process timing
+                ProcessTiming();
+                // Add shared settings 
+                _data.useLargeActive = Properties.Settings.Default.useLargeActive;
+                _data.displayFieldNumber = Properties.Settings.Default.showDisplayFieldNumbers;
+                // Send on down the road!
+                if (SendData != null)
+                {
+                    EventHandler<MatchData> handler = SendData;
+                    handler(this, _data);
+                }
+                // Forget the sound we just played (if any)
+                _data.soundPackage = null;
+            }
         }
         /// <summary>
         /// Called to reset the match data to start-of-match settings.
@@ -505,6 +543,14 @@ namespace FTC_Timer_Display
             None,
             SelectMe,
             TimeoutStart
+        }
+        /// <summary>
+        /// Shutdowns this instance and prepares it for collection.
+        /// </summary>
+        public void Shutdown()
+        {
+            _timer.Stop();
+            
         }
 
         public class TimeoutData

@@ -130,7 +130,7 @@ namespace FTC_Timer_Display
             // Set the titlebar
             this.Text = GeneralFunctions.AppFunctions.makeWindowTitle(this.Text);
             // show version
-            lblVer.Text = GeneralFunctions.AppFunctions.appVersion;
+            lblVer.Text = GeneralFunctions.AppFunctions.appVersionString;
             // Set the init Data
             this.initData = init;
             // Init the MatchType dropdown, default to qualification
@@ -210,7 +210,7 @@ namespace FTC_Timer_Display
             // Setup Comms if needed
             if (initData.runType != InitialData.RunType.Local)
             {
-                comms = new myUdpClient.UdpComms(initData.divID, initData.fieldID, NewDataReceived);
+                comms = new myUdpClient.UdpComms(initData.divID, initData.fieldID, NewDataReceived, CommStopExceptionHandler);
                 comms.NewClientReply += ClientReplyRecvEventHandler;
                 if (initData.runType == InitialData.RunType.Client)
                 {
@@ -220,6 +220,13 @@ namespace FTC_Timer_Display
                 comms.ListenControl(true);
             }
             frmLoading.CloseForm();
+        }
+
+        void CommStopExceptionHandler(object sender, myUdpClient.myUdpException e)
+        {
+            frmLoading.CloseForm();
+            MessageBox.Show(e.fullErrorString, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Application.Exit();
         }
 
         private void ClientDisplayRequestHandler(object sender, SingleClient.SingleClientRequest e)
@@ -259,13 +266,22 @@ namespace FTC_Timer_Display
             if (!_allClients.Contains(client)) return;
             flowFields.Controls.Clear();
             _allClients.Remove(client);
+            client.Shutdown();
             _allClients.Sort();
             foreach (SingleClient c in _allClients) flowFields.Controls.Add(c.fieldDisplayObj);
             selectFieldNumber(0);
         }
-
+        /// <summary>
+        /// Handles request by SingleClients to send replies to server for verification.
+        /// </summary>
+        /// <param name="sender">The SingleClient.</param>
+        /// <param name="e">The reply to send</param>
         private void ClientReplySendEventHandler(object sender, ClientReply e)
         {
+            // Add Application Level data.
+            e.runType = initData.runType;
+            if (display != null) e.displayStatus = display.displayStatus;
+            // Send
             comms.SendClientReply(e);
         }
 
@@ -444,6 +460,7 @@ namespace FTC_Timer_Display
             else
             {
                 picRcvTime.Image = Properties.Resources.indicator_red;
+                // tell the display window we're dead
                 if (display != null) display.deadField();
             }
             // Allow users to control the field when they should
@@ -726,8 +743,11 @@ namespace FTC_Timer_Display
                 if(!_selectedClient.isMatchActive)
                     _selectedClient.StartTimeout(SingleClient.TimeoutData.defaultEventTimeout);
             }
-            // Select the next field
-            selectFieldNumber(nextFieldNumber);
+            // Select the next field if we're not in Finals.
+            if (_currentMatchType != MatchData.MatchTypes.Finals)
+            {
+                selectFieldNumber(nextFieldNumber);
+            }
             
             bool usesMinor = false;
             int majorMax = MatchTimingData.getMatchTypeMinorMatchCount(_currentMatchType, out usesMinor);

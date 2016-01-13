@@ -23,15 +23,11 @@ namespace FTC_Timer_Display
             this.Width = width;
             string sLocal = local ? "*" : "";
             lblFieldName.Text = string.Format("FIELD {0}{1}", fieldID.ToString(), sLocal);
-            if (local)
-            {
-                this.isOnline = true;
-                toolTips.SetToolTip(lblFieldName, "Local");
-            }
-            else toolTips.SetToolTip(lblFieldName, recvPort.ToString());
+            radialShowInfo.Visible = !local;
         }
 
         public bool isOnline = false;
+        public bool isVersionMismatch = false;
 
         public void UpdateDisplay(MatchData data, bool isSelected, bool allowStart)
         {
@@ -50,7 +46,12 @@ namespace FTC_Timer_Display
                 if (!this.isOnline)
                 {
                     img = Properties.Resources.offline;
-                    lblState.Text = "OFFILINE";
+                    lblState.Text = "OFFLINE";
+                }
+                else if (this.isVersionMismatch)
+                {
+                    img = Properties.Resources.warn;
+                    lblState.Text = "BAD VER";
                 }
                 else if (data.matchStatus == MatchData.MatchStatus.Running)
                 {
@@ -102,7 +103,8 @@ namespace FTC_Timer_Display
             Stop,
             Reset,
             Timeout,
-            AbortTimeout
+            AbortTimeout,
+            ShowInfo
         }
 
         private void radialHandler(object sender, EventArgs e)
@@ -115,11 +117,16 @@ namespace FTC_Timer_Display
             else if (item.Equals(radialReset)) cmd = RadialCommands.Reset;
             else if (item.Equals(radialTimeout)) cmd = RadialCommands.Timeout;
             else if (item.Equals(radialStopTimeout)) cmd = RadialCommands.AbortTimeout;
+            else if (item.Equals(radialShowInfo)) cmd = RadialCommands.ShowInfo;
 
-            if (cmd != RadialCommands.None && RadialAction != null)
+            
+            if (cmd != RadialCommands.None)
             {
-                EventHandler<RadialCommands> handler = RadialAction;
-                handler(this, cmd);
+                if (RadialAction != null)
+                {
+                    EventHandler<RadialCommands> handler = RadialAction;
+                    handler(this, cmd);
+                }
             }
         }
     }
