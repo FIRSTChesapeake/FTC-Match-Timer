@@ -740,7 +740,7 @@ namespace FTC_Timer_Display
             if(Properties.Settings.Default.autoElimTimeouts && MatchTimingData.matchTypeAllowsTimeout(_currentMatchType))
             {
                 // Only start the timeout if the field is idle - aka not already running a timeout.
-                if(!_selectedClient.isMatchActive)
+                if(!_selectedClient.isTimerRunning)
                     _selectedClient.StartTimeout(SingleClient.TimeoutData.defaultEventTimeout);
             }
             // Select the next field if we're not in Finals.
