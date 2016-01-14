@@ -88,6 +88,7 @@ namespace FTC_Timer_Display
             get { return _isSelected; }
             set
             {
+                if (value != _isSelected && value) log("I am now the selected field.");
                 _isSelected = value;
                 fieldDisplayObj.UpdateDisplay(_data, value, _allowDisplayToStart);
                 _data.isSelectedByServer = value;
@@ -173,6 +174,7 @@ namespace FTC_Timer_Display
         /// <param name="args"></param>
         private void log(string message, params object[] args)
         {
+            if (!Properties.logging.Default.logSingleClientChanges) return;
             string myName = string.Format("SingleClient-{0}-{1}", this.matchData.divID, this.matchData.fieldID);
             LogMgr.logger.Info(LogMgr.make(message, myName, 0, args));
         }

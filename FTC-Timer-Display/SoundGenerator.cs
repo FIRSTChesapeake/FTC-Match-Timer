@@ -59,9 +59,9 @@ namespace FTC_Timer_Display
             // Handler
             soundsPercentChange += percentChangeHandler;
             // Initialize Required Sound Files
-            if (!initSoundFiles(SoundsFolder)) LogMgr.logger.Error(LogMgr.make("Failed to load Game Sounds", "SoundGen"));
+            if (!initSoundFiles(SoundsFolder)) log("Failed to load Game Sounds", new Exception());
             // Initialize optional numbers
-            if (!initSoundFiles(NumberFolder)) LogMgr.logger.Error(LogMgr.make("Failed to load Number Sounds", "SoundGen"));
+            if (!initSoundFiles(NumberFolder)) log("Failed to load Number Sounds", new Exception());
             // Load all files into memory
             loadSounds();
 
@@ -73,7 +73,7 @@ namespace FTC_Timer_Display
             }
             catch (Exception ex)
             {
-                LogMgr.logger.Error(LogMgr.make("Failed to Initialize Voice Synth.", "SoundGen"), ex);
+                log("Failed to Initialize Voice Synth.", "SoundGen", ex);
             }
             isInit = true;
         }
@@ -85,7 +85,7 @@ namespace FTC_Timer_Display
                 // Sound files - Load from given directory
                 if (!Directory.Exists(path)) return false;
                 string[] files = Directory.GetFiles(path);
-                LogMgr.logger.Info(LogMgr.make("Loading {0} sounds.", "SoundGen", 0, files.Length));
+                log("Loading {0} sounds..", files.Length);
                 foreach (string s in files)
                 {
                     string key = (Path.GetFileName(s).Split('.'))[0].ToLower();
@@ -94,15 +94,39 @@ namespace FTC_Timer_Display
                     player.LoadCompleted += SoundLoadCompleteCallback;
                     sounds.Add(key, player);
                 }
+                log("Loaded.");
                 return true;
             }
             catch(Exception ex)
             {
-                LogMgr.logger.Error(LogMgr.make("Exception initializing sound files", "SoundGen"), ex);
+                log("Exception initializing sound files", ex);
                 return false;
             }
         }
-
+        /// <summary>
+        /// Internal function to log data from the class.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="args"></param>
+        private static void log(string message, params object[] args)
+        {
+            string myName = string.Format("SoundGen");
+            LogMgr.logger.Info(LogMgr.make(message, myName, 0, args));
+        }
+        /// <summary>
+        /// Internal function to log data from this class.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="ex">The ex.</param>
+        /// <param name="args">The arguments.</param>
+        private static void log(string message, Exception ex, params object[] args)
+        {
+            string msg = LogMgr.make(message, "SoundGen", 0, args);
+            LogMgr.logger.Error(msg, ex);
+        }
+        /// <summary>
+        /// Loads the sounds from files.
+        /// </summary>
         private static void loadSounds()
         {
             int loadedCount = 0;
@@ -137,12 +161,15 @@ namespace FTC_Timer_Display
             switch (package.soundMethod)
             {
                 case SoundPackage.SoundMethods.SoundFile:
+                    log("Playing sound file '{0}'.", package.dataString);
                     PlaySoundFile(package.dataString, package.loop);
                     break;
                 case SoundPackage.SoundMethods.FileToSpeech:
+                    log("Speaking contents of file '{0}'.", package.dataString);
                     ReadFile(package.dataString);
                     break;
                 case SoundPackage.SoundMethods.TextToSpeech:
+                    log("Speaking direct TTS '{0}'.", package.dataString);
                     Speak(package.dataString);
                     break;
             }
@@ -152,7 +179,6 @@ namespace FTC_Timer_Display
         {
             SoundPlayer player = (SoundPlayer)sender;
             string file = player.Tag == null ? "UNKNOWN" : player.Tag.ToString();
-            LogMgr.logger.Debug(LogMgr.make("Load of sound {0} complete.", "SoundGen", 0, file));
             wait.Set();
         }
 
@@ -171,7 +197,7 @@ namespace FTC_Timer_Display
             }
             catch (Exception ex)
             {
-                LogMgr.logger.Error(LogMgr.make("Exception playing sound.", "SoundGen"), ex);
+                log("Exception playing sound '{0}'.", ex, name);
             }
         }
 

@@ -92,10 +92,16 @@
     <Compile Include="CtrlHeader.Designer.cs">
       <DependentUpon>CtrlHeader.cs</DependentUpon>
     </Compile>
-    <Compile Include="CtrlTimeLengthEntry.cs">
+    <Compile Include="SettingsControls\CtrlLoggingSettings.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CtrlTimeLengthEntry.Designer.cs">
+    <Compile Include="SettingsControls\CtrlLoggingSettings.Designer.cs">
+      <DependentUpon>CtrlLoggingSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsControls\CtrlTimeLengthEntry.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SettingsControls\CtrlTimeLengthEntry.Designer.cs">
       <DependentUpon>CtrlTimeLengthEntry.cs</DependentUpon>
     </Compile>
     <Compile Include="FontLoader.cs" />
@@ -141,10 +147,10 @@
     <Compile Include="frmSettings.Designer.cs">
       <DependentUpon>frmSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="CtrlSoundTest.cs">
+    <Compile Include="SettingsControls\CtrlSoundTest.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CtrlSoundTest.Designer.cs">
+    <Compile Include="SettingsControls\CtrlSoundTest.Designer.cs">
       <DependentUpon>CtrlSoundTest.cs</DependentUpon>
     </Compile>
     <Compile Include="frmStartTimeout.cs">
@@ -153,10 +159,10 @@
     <Compile Include="frmStartTimeout.Designer.cs">
       <DependentUpon>frmStartTimeout.cs</DependentUpon>
     </Compile>
-    <Compile Include="CtrlTimings.cs">
+    <Compile Include="SettingsControls\CtrlTimings.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CtrlTimings.Designer.cs">
+    <Compile Include="SettingsControls\CtrlTimings.Designer.cs">
       <DependentUpon>CtrlTimings.cs</DependentUpon>
     </Compile>
     <Compile Include="FtcMutex.cs" />
@@ -208,6 +214,11 @@
     </Compile>
     <Compile Include="InitializationControls\GenericOptionsControl.Designer.cs">
       <DependentUpon>GenericOptionsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\logging.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>logging.settings</DependentUpon>
     </Compile>
     <Compile Include="LogMgr.cs" />
     <Compile Include="MatchScheduleManager.cs" />
@@ -280,7 +291,10 @@
     <EmbeddedResource Include="CtrlHeader.resx">
       <DependentUpon>CtrlHeader.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CtrlTimeLengthEntry.resx">
+    <EmbeddedResource Include="SettingsControls\CtrlLoggingSettings.resx">
+      <DependentUpon>CtrlLoggingSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettingsControls\CtrlTimeLengthEntry.resx">
       <DependentUpon>CtrlTimeLengthEntry.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmDisplay.resx">
@@ -313,13 +327,13 @@
     <EmbeddedResource Include="frmSettings.resx">
       <DependentUpon>frmSettings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CtrlSoundTest.resx">
+    <EmbeddedResource Include="SettingsControls\CtrlSoundTest.resx">
       <DependentUpon>CtrlSoundTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmStartTimeout.resx">
       <DependentUpon>frmStartTimeout.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CtrlTimings.resx">
+    <EmbeddedResource Include="SettingsControls\CtrlTimings.resx">
       <DependentUpon>CtrlTimings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InitializationControls\AppModeOption.resx">
@@ -371,6 +385,10 @@
     <EmbeddedResource Include="SingleClientDisplay.resx">
       <DependentUpon>SingleClientDisplay.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Properties\logging.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>logging.Designer.cs</LastGenOutput>
+    </None>
     <None Include="matchDataDiagram.cd" />
     <None Include="log4net.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -507,6 +525,20 @@
     </Content>
     <None Include="Resources\Security_Shields_Critical_32xLG_color.png" />
     <None Include="Resources\StatusAnnotations_Warning_32xLG_color.png" />
+    <None Include="Resources\Bcolon.png" />
+    <None Include="Resources\Bcolonoff.png" />
+    <None Include="Resources\G0.png" />
+    <None Include="Resources\G1.png" />
+    <None Include="Resources\G2.png" />
+    <None Include="Resources\G3.png" />
+    <None Include="Resources\G4.png" />
+    <None Include="Resources\G5.png" />
+    <None Include="Resources\G6.png" />
+    <None Include="Resources\G7.png" />
+    <None Include="Resources\G8.png" />
+    <None Include="Resources\G9.png" />
+    <None Include="Resources\Gcolon.png" />
+    <None Include="Resources\Gcolonoff.png" />
     <Content Include="Sounds\GameSounds\charge.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -10,8 +10,6 @@ namespace FTC_Timer_Display
 {
     public static class MatchTimingData
     {
-        private static readonly bool isDev = Process.GetCurrentProcess().ProcessName.ToLower().Contains("vshost");
-   
         private static readonly TimeSpan _debugMatch = new TimeSpan(0, 0, 30);
         private static readonly TimeSpan _debugAuto = new TimeSpan(0, 0, 10);
         private static readonly TimeSpan _debugNoCross = new TimeSpan(0, 0, 5);
@@ -148,7 +146,7 @@ namespace FTC_Timer_Display
 
         public static void SetDefaults()
         {
-            if (!isDev)
+            if (!GeneralFunctions.AppFunctions.isDev)
             {
                 matchLength = _defaultMatch;
                 autoLength = _defaultAuto;
@@ -196,7 +194,7 @@ namespace FTC_Timer_Display
 
         public static bool editTiming()
         {
-            CtrlTimings wind = new CtrlTimings();
+            SettingsControls.CtrlTimings wind = new SettingsControls.CtrlTimings();
             //wind.ShowDialog();
             if (wind.Tag == null) return false;
             return true;

@@ -16,11 +16,56 @@ namespace FTC_Timer_Display
         public string divisionName { get { return _initData.divName; } }
         public int fieldID = 0;
         public bool displayFieldNumber = true;
-        public MatchTypes matchType = MatchTypes.Unknown;
-        public MatchPeriods matchPeriod = MatchPeriods.NotStarted;
-        public MatchStatus matchStatus = MatchStatus.Stopped;
-        public int matchNumberMajor = 1;
-        public int matchNumberMinor = 0;
+        private MatchTypes _matchType = MatchTypes.Unknown;
+        public MatchTypes matchType
+        {
+            get { return _matchType; }
+            set
+            {
+                if (value != _matchType) log("Match Type changed from '{0}' to '{1}'.",_matchType, value);
+                _matchType = value;
+            }
+        }
+        private MatchPeriods _matchPeriod = MatchPeriods.NotStarted;
+        public MatchPeriods matchPeriod
+        {
+            get { return _matchPeriod; }
+            set
+            {
+                if (value != _matchPeriod) log("Match Period changed from '{0}' to '{1}'.", _matchPeriod, value);
+                _matchPeriod = value;
+            }
+        }
+        private MatchStatus _matchStatus = MatchStatus.Stopped;
+        public MatchStatus matchStatus
+        {
+            get { return _matchStatus; }
+            set
+            {
+                if (value != _matchStatus) log("Match Status changed from '{0}' to '{1}'.", _matchStatus, value);
+                _matchStatus = value;
+            }
+        }
+        private int _matchNumberMajor = 1;
+        public int matchNumberMajor
+        {
+            get { return _matchNumberMajor; }
+            set
+            {
+                if (value != _matchNumberMajor) log("Match Number Major moved from '{0}' to '{1}'.", _matchNumberMajor, value);
+                _matchNumberMajor = value;
+            }
+        }
+        private int _matchNumberMinor = 0;
+        public int matchNumberMinor
+        {
+            get { return _matchNumberMinor; }
+            set
+            {
+                if (value != _matchNumberMinor) log("Match Number Minor moved from '{0}' to '{1}'.", _matchNumberMinor, value);
+                _matchNumberMinor = value;
+            }
+        }
         public int matchLength = 0;
         public string timeoutMessage = "";
 
@@ -229,6 +274,18 @@ namespace FTC_Timer_Display
                 sb.Append(this.matchStatus);
                 return sb.ToString();
             }
+        }
+
+        /// <summary>
+        /// Internal function to log data from the instance.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="args"></param>
+        private void log(string message, params object[] args)
+        {
+            if (!Properties.logging.Default.logMatchDataChanges) return;
+            string myName = string.Format("MatchData-{0}-{1}", this.divID, this.fieldID);
+            LogMgr.logger.Info(LogMgr.make(message, myName, 0, args));
         }
 
         /// <summary>

@@ -1,4 +1,4 @@
-namespace FTC_Timer_Display
+namespace FTC_Timer_Display.SettingsControls
 {
     partial class CtrlSoundTest
     {

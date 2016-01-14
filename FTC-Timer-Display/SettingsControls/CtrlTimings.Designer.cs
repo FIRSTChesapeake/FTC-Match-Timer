@@ -1,4 +1,4 @@
-﻿namespace FTC_Timer_Display
+﻿namespace FTC_Timer_Display.SettingsControls
 {
     partial class CtrlTimings
     {
@@ -31,37 +31,37 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CtrlTimings));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.timingMatch = new FTC_Timer_Display.CtrlTimeLengthEntry();
-            this.timingAuto = new FTC_Timer_Display.CtrlTimeLengthEntry();
-            this.timingNocross = new FTC_Timer_Display.CtrlTimeLengthEntry();
-            this.timingEndgame = new FTC_Timer_Display.CtrlTimeLengthEntry();
-            this.timingDriver = new FTC_Timer_Display.CtrlTimeLengthEntry();
-            this.timingTeamTimeout = new FTC_Timer_Display.CtrlTimeLengthEntry();
+            this.timingMatch = new FTC_Timer_Display.SettingsControls.CtrlTimeLengthEntry();
+            this.timingAuto = new FTC_Timer_Display.SettingsControls.CtrlTimeLengthEntry();
+            this.timingNocross = new FTC_Timer_Display.SettingsControls.CtrlTimeLengthEntry();
+            this.timingEndgame = new FTC_Timer_Display.SettingsControls.CtrlTimeLengthEntry();
+            this.timingDriver = new FTC_Timer_Display.SettingsControls.CtrlTimeLengthEntry();
+            this.timingTeamTimeout = new FTC_Timer_Display.SettingsControls.CtrlTimeLengthEntry();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.numQuarterfinalCount = new System.Windows.Forms.NumericUpDown();
             this.numSemifinalCount = new System.Windows.Forms.NumericUpDown();
-            this.timingEventTimeout = new FTC_Timer_Display.CtrlTimeLengthEntry();
-            this.timingCountdown = new FTC_Timer_Display.CtrlTimeLengthEntry();
+            this.timingEventTimeout = new FTC_Timer_Display.SettingsControls.CtrlTimeLengthEntry();
+            this.timingCountdown = new FTC_Timer_Display.SettingsControls.CtrlTimeLengthEntry();
             this.chkCountdown = new System.Windows.Forms.CheckBox();
-            this.btnSave = new DevComponents.DotNetBar.ButtonX();
-            this.btnDefaults = new DevComponents.DotNetBar.ButtonX();
-            this.btnRevert = new DevComponents.DotNetBar.ButtonX();
             this.ctrlHeader1 = new FTC_Timer_Display.CtrlHeader();
             this.ctrlHeader2 = new FTC_Timer_Display.CtrlHeader();
             this.ctrlHeader3 = new FTC_Timer_Display.CtrlHeader();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnSave = new DevComponents.DotNetBar.ButtonX();
+            this.btnRevert = new DevComponents.DotNetBar.ButtonX();
+            this.btnDefaults = new DevComponents.DotNetBar.ButtonX();
             this.validator = new DevComponents.DotNetBar.Validator.SuperValidator();
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.highlighter2 = new DevComponents.DotNetBar.Validator.Highlighter();
             this.validatorAuto = new DevComponents.DotNetBar.Validator.CustomValidator();
             this.validatorNocross = new DevComponents.DotNetBar.Validator.CustomValidator();
             this.validatorEndgame = new DevComponents.DotNetBar.Validator.CustomValidator();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.highlighter2 = new DevComponents.DotNetBar.Validator.Highlighter();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numQuarterfinalCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSemifinalCount)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -331,47 +331,6 @@
             this.chkCountdown.UseVisualStyleBackColor = true;
             this.chkCountdown.CheckedChanged += new System.EventHandler(this.chkCountdownChanged);
             // 
-            // btnSave
-            // 
-            this.btnSave.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnSave.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnSave.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnSave.Enabled = false;
-            this.btnSave.Location = new System.Drawing.Point(147, 3);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(144, 33);
-            this.btnSave.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnSave.TabIndex = 0;
-            this.btnSave.Text = "Save Timing";
-            this.btnSave.Click += new System.EventHandler(this.HandleButtons);
-            // 
-            // btnDefaults
-            // 
-            this.btnDefaults.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnDefaults.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnDefaults.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnDefaults.Location = new System.Drawing.Point(447, 3);
-            this.btnDefaults.Name = "btnDefaults";
-            this.btnDefaults.Size = new System.Drawing.Size(144, 33);
-            this.btnDefaults.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnDefaults.TabIndex = 1;
-            this.btnDefaults.Text = "Restore Default Timing";
-            this.btnDefaults.Click += new System.EventHandler(this.HandleButtons);
-            // 
-            // btnRevert
-            // 
-            this.btnRevert.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnRevert.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnRevert.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnRevert.Enabled = false;
-            this.btnRevert.Location = new System.Drawing.Point(297, 3);
-            this.btnRevert.Name = "btnRevert";
-            this.btnRevert.Size = new System.Drawing.Size(144, 33);
-            this.btnRevert.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnRevert.TabIndex = 17;
-            this.btnRevert.Text = "Revert Changes";
-            this.btnRevert.Click += new System.EventHandler(this.HandleButtons);
-            // 
             // ctrlHeader1
             // 
             // 
@@ -429,6 +388,66 @@
             this.ctrlHeader3.Text = "Matches in Eliminations";
             this.ctrlHeader3.TextAlignment = System.Drawing.StringAlignment.Center;
             // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 4;
+            this.tableLayoutPanel1.SetColumnSpan(this.tableLayoutPanel2, 4);
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tableLayoutPanel2.Controls.Add(this.btnSave, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnRevert, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnDefaults, 3, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 255);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(594, 39);
+            this.tableLayoutPanel2.TabIndex = 21;
+            // 
+            // btnSave
+            // 
+            this.btnSave.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnSave.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnSave.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnSave.Enabled = false;
+            this.btnSave.Location = new System.Drawing.Point(147, 3);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(144, 33);
+            this.btnSave.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnSave.TabIndex = 0;
+            this.btnSave.Text = "Save Timing";
+            this.btnSave.Click += new System.EventHandler(this.HandleButtons);
+            // 
+            // btnRevert
+            // 
+            this.btnRevert.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnRevert.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnRevert.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnRevert.Enabled = false;
+            this.btnRevert.Location = new System.Drawing.Point(297, 3);
+            this.btnRevert.Name = "btnRevert";
+            this.btnRevert.Size = new System.Drawing.Size(144, 33);
+            this.btnRevert.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnRevert.TabIndex = 17;
+            this.btnRevert.Text = "Revert Changes";
+            this.btnRevert.Click += new System.EventHandler(this.HandleButtons);
+            // 
+            // btnDefaults
+            // 
+            this.btnDefaults.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnDefaults.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnDefaults.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnDefaults.Location = new System.Drawing.Point(447, 3);
+            this.btnDefaults.Name = "btnDefaults";
+            this.btnDefaults.Size = new System.Drawing.Size(144, 33);
+            this.btnDefaults.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnDefaults.TabIndex = 1;
+            this.btnDefaults.Text = "Restore Default Timing";
+            this.btnDefaults.Click += new System.EventHandler(this.HandleButtons);
+            // 
             // validator
             // 
             this.validator.ContainerControl = this;
@@ -436,16 +455,6 @@
             this.validator.Highlighter = this.highlighter2;
             this.validator.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
             this.validator.ValidationType = DevComponents.DotNetBar.Validator.eValidationType.ValidatingEventPerControl;
-            // 
-            // errorProvider1
-            // 
-            this.errorProvider1.ContainerControl = this;
-            this.errorProvider1.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider1.Icon")));
-            // 
-            // highlighter2
-            // 
-            this.highlighter2.ContainerControl = this;
-            this.highlighter2.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
             // 
             // validatorAuto
             // 
@@ -468,24 +477,15 @@
             this.validatorEndgame.ValuePropertyName = "Value";
             this.validatorEndgame.ValidateValue += new DevComponents.DotNetBar.Validator.ValidateValueEventHandler(this.CustomValidation);
             // 
-            // tableLayoutPanel2
+            // errorProvider1
             // 
-            this.tableLayoutPanel2.ColumnCount = 4;
-            this.tableLayoutPanel1.SetColumnSpan(this.tableLayoutPanel2, 4);
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
-            this.tableLayoutPanel2.Controls.Add(this.btnSave, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.btnRevert, 2, 0);
-            this.tableLayoutPanel2.Controls.Add(this.btnDefaults, 3, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 255);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(594, 39);
-            this.tableLayoutPanel2.TabIndex = 21;
+            this.errorProvider1.ContainerControl = this;
+            this.errorProvider1.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider1.Icon")));
+            // 
+            // highlighter2
+            // 
+            this.highlighter2.ContainerControl = this;
+            this.highlighter2.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
             // 
             // CtrlTimings
             // 
@@ -498,8 +498,8 @@
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numQuarterfinalCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSemifinalCount)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
 
         }

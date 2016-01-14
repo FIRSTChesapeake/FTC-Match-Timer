@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using DevComponents.DotNetBar;
+using FTC_Timer_Display.SettingsControls;
 //using System.Diagnostics;
 
 namespace FTC_Timer_Display
@@ -147,11 +148,12 @@ namespace FTC_Timer_Display
         private void CloseHandler()
         {
             // if there are unsaved settings, warn the user.
-            string unsavedLocation = "";
-            if (timingsControl.hasChanges) unsavedLocation = "Match Timing";
-            if (unsavedLocation != "")
+            string unsavedLocations = "";
+            if (timingsControl.hasChanges) unsavedLocations += " Match Timings\n";
+            if (loggingControl.hasChanges) unsavedLocations += " Logging Settings\n";
+            if (unsavedLocations != "")
             {
-                string msg = string.Format("You have unsaved changes on tab '{0}'.\nClose without saving?", unsavedLocation);
+                string msg = string.Format("You have unsaved changes on these tab(s):\n'{0}'Close without saving?", unsavedLocations);
                 DialogResult dr = MessageBox.Show(msg, "Unsaved Changes", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
                 if (dr == System.Windows.Forms.DialogResult.No) return;
             }

@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using DevComponents.DotNetBar.Validator;
 using DevComponents.DotNetBar;
 
-namespace FTC_Timer_Display
+namespace FTC_Timer_Display.SettingsControls
 {
     public partial class CtrlTimings : UserControl
     {

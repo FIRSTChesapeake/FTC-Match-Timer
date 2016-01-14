@@ -15,6 +15,8 @@ namespace FTC_Timer_Display
     {
         public static class AppFunctions
         {
+            public static readonly bool isDev = Process.GetCurrentProcess().ProcessName.ToLower().Contains("vshost");
+
             public static readonly string AppPath = AppDomain.CurrentDomain.BaseDirectory;
 
             // App Info

@@ -941,7 +941,6 @@
             // 
             // displayTimer
             // 
-            this.displayTimer.Enabled = true;
             this.displayTimer.Interval = 200;
             this.displayTimer.Tick += new System.EventHandler(this.PerodicTick);
             // 

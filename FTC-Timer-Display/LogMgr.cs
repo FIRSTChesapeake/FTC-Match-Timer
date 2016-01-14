@@ -90,5 +90,32 @@ namespace FTC_Timer_Display
             for (int i = 1; i <= indent; i++) sb.Append("    ");
             return sb.ToString();
         }
+
+        public static string displayString(string propertyName)
+        {
+                switch (propertyName)
+                {
+                    case "logInitialSetupSteps": return "Log Initial Setup";
+                    case "logMatchDataChanges": return "Log changes at the Match Level";
+                    case "logSingleClientChanges": return "Log changes at Field Level (recommended)";
+                    default: return "Unknown Setting. Better leave this alone?";
+                }
+        }
+
+        public static List<string> LogLocation
+        {
+            get
+            {
+                List<string> ret = new List<string>();
+                IAppender[] appenders = logger.Logger.Repository.GetAppenders();
+                foreach (IAppender a in appenders)
+                {
+                    Type t = a.GetType();
+                    if (t.Equals(typeof(FileAppender))) ret.Add(((FileAppender)a).File);
+                    if (t.Equals(typeof(RollingFileAppender))) ret.Add(((RollingFileAppender)a).File);
+                }
+                return ret;
+            }
+        }
     }
 }

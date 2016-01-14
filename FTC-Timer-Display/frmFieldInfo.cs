@@ -12,7 +12,6 @@ namespace FTC_Timer_Display
 {
     public partial class frmFieldInfo : DevComponents.DotNetBar.OfficeForm
     {
-        private ClientReply _lastReply;
 
         public frmFieldInfo(int div, int field, int port)
         {

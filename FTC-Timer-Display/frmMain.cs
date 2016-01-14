@@ -126,7 +126,7 @@ namespace FTC_Timer_Display
             InitializeComponent();
             LogMgr.logger.Info(LogMgr.make("Initializing Main Form", "frmMain.Constr"));
             // Show the loading window
-            frmLoading.StartLoadScreen("Initializing Systems..");
+            if(!GeneralFunctions.AppFunctions.isDev) frmLoading.StartLoadScreen("Initializing Systems..");
             // Set the titlebar
             this.Text = GeneralFunctions.AppFunctions.makeWindowTitle(this.Text);
             // show version
@@ -206,7 +206,21 @@ namespace FTC_Timer_Display
                 AddField(initData.fieldID);
             }
             // Init the settings window. - do this after we decide whether we need a display
-            settings = new frmSettings(ref this.initData, ref display);
+            try
+            {
+                settings = new frmSettings(ref this.initData, ref display);
+            }
+            catch (Exception ex)
+            {
+                if (GeneralFunctions.AppFunctions.isDev) throw ex;
+                else
+                {
+                    string msg = "The application failed to initialize required settings. Please report this to the GitHub with Logs.\nWe will now quit.";
+                    msg = LogMgr.make(msg, "frmMain", 0);
+                    LogMgr.logger.Error(msg);
+                    Application.Exit();
+                }
+            }
             // Setup Comms if needed
             if (initData.runType != InitialData.RunType.Local)
             {
@@ -219,6 +233,9 @@ namespace FTC_Timer_Display
                 // We always listen (when not LocalOnly) so we can receive client replies on the servers.
                 comms.ListenControl(true);
             }
+            // Start the perodic timer (starting this AFTER init of form is finished to prevent race conditions.)
+            displayTimer.Start();
+            // Close the loading form
             frmLoading.CloseForm();
         }
 

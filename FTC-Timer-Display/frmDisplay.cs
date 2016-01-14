@@ -118,6 +118,8 @@ namespace FTC_Timer_Display
 
         public void SetDisplay(MatchData data)
         {
+            // Timer Color
+            clockFace.faceColor = data.matchStatus == MatchData.MatchStatus.Timeout ? ClockFace.FaceColor.Green : ClockFace.FaceColor.Red;
             // Timer Display
             clockFace.Value = data.timerValue;
             // Timer Display Colon

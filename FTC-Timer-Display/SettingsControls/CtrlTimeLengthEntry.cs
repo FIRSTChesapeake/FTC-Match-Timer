@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FTC_Timer_Display
+namespace FTC_Timer_Display.SettingsControls
 {
     public partial class CtrlTimeLengthEntry : UserControl
     {

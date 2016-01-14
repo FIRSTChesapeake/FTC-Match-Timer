@@ -223,6 +223,7 @@ namespace FTC_Timer_Display
         }
         private void log(string message, params object[] args)
         {
+            if (!Properties.logging.Default.logInitialSetupSteps) return;
             string msg = LogMgr.make(message, "InitSetup", 0, args);
             LogMgr.logger.Debug(msg);
         }
