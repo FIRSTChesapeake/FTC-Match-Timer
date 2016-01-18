@@ -10,7 +10,8 @@ namespace FTC_Timer_Display
 
     public class SingleClient : IComparable
     {
-        private System.Timers.Timer _timer = new System.Timers.Timer();
+        private System.Timers.Timer _processTimer = new System.Timers.Timer();
+        private System.Timers.Timer _senderTimer = new System.Timers.Timer();
         private MatchData _data;
         private bool _isEnabled = true;
         private bool _isMultiDivision = true;
@@ -23,6 +24,7 @@ namespace FTC_Timer_Display
         public bool allowDisplayToStart { get { return _allowDisplayToStart; } set { _allowDisplayToStart = value; } }
 
         private bool _isSelected = false;
+        private bool _firstSecond = true;
         private readonly bool _isLocal;
 
         public event EventHandler<MatchData> SendData;
@@ -325,10 +327,13 @@ namespace FTC_Timer_Display
             ResetMatch();
             this.fieldDisplayObj = new SingleClientDisplay(fieldID, this.RecvPort, _isLocal, CtrlClickHandler, CtrlRadialHandler, width);
             this.fieldInfoWindow = new frmFieldInfo(initData.divID, fieldID, this.RecvPort);
-            _timer.Interval = 1000;
-            _timer.Elapsed += timer_Elapsed;
+            _processTimer.Interval = 1000;
+            _processTimer.Elapsed += processTimerElapsed;
             _isEnabled = (initData.isServer || initData.runType == InitialData.RunType.Local);
-            _timer.Start();
+            _processTimer.Start();
+            _senderTimer.Interval = 500;
+            _senderTimer.Elapsed += senderTimerElapsed;
+            _senderTimer.Start();
             log("Client Started!");
         }
         /// <summary>
@@ -336,7 +341,7 @@ namespace FTC_Timer_Display
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        private void processTimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             // If we're not enabled, we are a client and need to only verify we're connected.
             if (!_isEnabled)
@@ -354,16 +359,21 @@ namespace FTC_Timer_Display
                 // Add shared settings 
                 _data.useLargeActive = Properties.Settings.Default.useLargeActive;
                 _data.displayFieldNumber = Properties.Settings.Default.showDisplayFieldNumbers;
-                // Send on down the road!
-                if (SendData != null)
-                {
-                    EventHandler<MatchData> handler = SendData;
-                    handler(this, _data);
-                }
-                // Forget the sound we just played (if any)
-                _data.soundPackage = null;
             }
         }
+
+        private void senderTimerElapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            // Send on down the road!
+            if (SendData != null && _isEnabled)
+            {
+                EventHandler<MatchData> handler = SendData;
+                handler(this, _data);
+            }
+            // Forget the sound we just played (if any)
+            _data.soundPackage = null;
+        }
+
         /// <summary>
         /// Called to reset the match data to start-of-match settings.
         /// </summary>
@@ -421,11 +431,13 @@ namespace FTC_Timer_Display
                         _data.matchPeriod = MatchData.MatchPeriods.Autonomous;
                         _data.matchStatus = MatchData.MatchStatus.Running;
                         _data.noCrossActive = true;
+                        this._firstSecond = true;
                         _data.soundPackage = new SoundGenerator.SoundPackage(SoundGenerator.SoundPackage.SoundMethods.SoundFile, "charge");
                     }
                     else if (_data.matchPeriod == MatchData.MatchPeriods.DriverControlled)
                     {
                         _data.soundPackage = new SoundGenerator.SoundPackage(SoundGenerator.SoundPackage.SoundMethods.SoundFile, "firebell");
+                        this._firstSecond = true;
                     }
                     _data.matchStatus = MatchData.MatchStatus.Running;
                     log("Field successfully started. Period: {0}", _data.matchPeriod);
@@ -455,7 +467,8 @@ namespace FTC_Timer_Display
             MatchData.MatchPeriods newPeriod = _data.matchPeriod;
             if (_data.matchStatus == MatchData.MatchStatus.Running)
             {
-                TimeSpan ts = _data.timerValue.Subtract(new TimeSpan(0, 0, 1));
+                TimeSpan ts = _data.timerValue;
+                if (!this._firstSecond) ts = ts.Subtract(new TimeSpan(0, 0, 1));
                 _data.timerValue = ts;
                 if (ts.TotalSeconds == MatchTimingData.whenNoCrossEnd.TotalSeconds)
                 {
@@ -464,11 +477,12 @@ namespace FTC_Timer_Display
                     _data.soundPackage = new SoundGenerator.SoundPackage(SoundGenerator.SoundPackage.SoundMethods.SoundFile, "factwhistle");
                     log("No Cross Reached");
                 }
-                else if (ts.TotalSeconds == MatchTimingData.whenAutoEnd.TotalSeconds)
+                else if (ts.TotalSeconds == MatchTimingData.whenAutoEnd.TotalSeconds && !this._firstSecond)
                 {
                     // Auto hads ended.
                     newStatus = MatchData.MatchStatus.Paused;
                     newPeriod = MatchData.MatchPeriods.DriverControlled;
+                    this._firstSecond = true;
                     _data.soundPackage = new SoundGenerator.SoundPackage(SoundGenerator.SoundPackage.SoundMethods.SoundFile, "endauto");
                 }
                 else if (ts.TotalSeconds == MatchTimingData.whenEndgameStart.TotalSeconds)
@@ -485,12 +499,12 @@ namespace FTC_Timer_Display
                     newStatus = MatchData.MatchStatus.Stopped;
                     _data.soundPackage = new SoundGenerator.SoundPackage(SoundGenerator.SoundPackage.SoundMethods.SoundFile, "endmatch");
                 }
+                if(_data.matchStatus == MatchData.MatchStatus.Running) this._firstSecond = false;
             }
             else if (_data.matchStatus == MatchData.MatchStatus.Timeout)
             {
                 // If a match isn't running and we're on timeout, decrement that.
                 TimeSpan ts = _data.timerValue.Subtract(new TimeSpan(0, 0, 1));
-                _data.timerValue = ts;
                 if (ts.TotalSeconds <= 0)
                 {
                     newStatus = MatchData.MatchStatus.Stopped;
@@ -551,7 +565,7 @@ namespace FTC_Timer_Display
         /// </summary>
         public void Shutdown()
         {
-            _timer.Stop();
+            _processTimer.Stop();
             
         }
 
