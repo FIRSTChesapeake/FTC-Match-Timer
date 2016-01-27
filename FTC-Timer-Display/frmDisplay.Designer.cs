@@ -31,6 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDisplay));
             this.lblMatchNumber = new DevComponents.DotNetBar.LabelX();
             this.tableMain = new System.Windows.Forms.TableLayoutPanel();
+            this.clockFace = new FTC_Timer_Display.ClockFace();
+            this.matchPeriodCtrl = new FTC_Timer_Display.MatchPeriodCtrl();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.picInd = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -39,8 +41,6 @@
             this.logoTableRight = new System.Windows.Forms.TableLayoutPanel();
             this.lblTime = new System.Windows.Forms.Label();
             this.lblFieldDataStatus = new DevComponents.DotNetBar.LabelX();
-            this.clockFace = new FTC_Timer_Display.ClockFace();
-            this.matchPeriodCtrl = new FTC_Timer_Display.MatchPeriodCtrl();
             this.tableMain.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picInd)).BeginInit();
@@ -91,6 +91,27 @@
             this.tableMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
             this.tableMain.Size = new System.Drawing.Size(1047, 552);
             this.tableMain.TabIndex = 1;
+            // 
+            // clockFace
+            // 
+            this.clockFace.BackColor = System.Drawing.Color.Black;
+            this.clockFace.blink = false;
+            this.clockFace.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.tableMain.SetColumnSpan(this.clockFace, 3);
+            this.clockFace.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.clockFace.Location = new System.Drawing.Point(13, 163);
+            this.clockFace.Name = "clockFace";
+            this.clockFace.Size = new System.Drawing.Size(1021, 226);
+            this.clockFace.TabIndex = 8;
+            this.clockFace.Value = System.TimeSpan.Parse("00:00:00");
+            // 
+            // matchPeriodCtrl
+            // 
+            this.matchPeriodCtrl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.matchPeriodCtrl.Location = new System.Drawing.Point(163, 395);
+            this.matchPeriodCtrl.Name = "matchPeriodCtrl";
+            this.matchPeriodCtrl.Size = new System.Drawing.Size(721, 114);
+            this.matchPeriodCtrl.TabIndex = 9;
             // 
             // tableLayoutPanel1
             // 
@@ -213,27 +234,6 @@
             this.lblFieldDataStatus.Text = "FIELD AWAITING INITIALIZATION";
             this.lblFieldDataStatus.TextAlignment = System.Drawing.StringAlignment.Center;
             this.lblFieldDataStatus.Click += new System.EventHandler(this.lblFieldDataStatus_Click);
-            // 
-            // clockFace
-            // 
-            this.clockFace.BackColor = System.Drawing.Color.Black;
-            this.clockFace.blink = false;
-            this.clockFace.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.tableMain.SetColumnSpan(this.clockFace, 3);
-            this.clockFace.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.clockFace.Location = new System.Drawing.Point(13, 163);
-            this.clockFace.Name = "clockFace";
-            this.clockFace.Size = new System.Drawing.Size(1021, 226);
-            this.clockFace.TabIndex = 8;
-            this.clockFace.Value = System.TimeSpan.Parse("00:00:00");
-            // 
-            // matchPeriodCtrl
-            // 
-            this.matchPeriodCtrl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.matchPeriodCtrl.Location = new System.Drawing.Point(163, 395);
-            this.matchPeriodCtrl.Name = "matchPeriodCtrl";
-            this.matchPeriodCtrl.Size = new System.Drawing.Size(721, 114);
-            this.matchPeriodCtrl.TabIndex = 9;
             // 
             // frmDisplay
             // 

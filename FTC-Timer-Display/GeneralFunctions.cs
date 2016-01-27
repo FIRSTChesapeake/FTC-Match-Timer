@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
 using System.Drawing;
+using System.ComponentModel;
 
 namespace FTC_Timer_Display
 {
@@ -42,6 +43,12 @@ namespace FTC_Timer_Display
                     return Application.ProductName;
                 }
             }
+
+            public static bool isRunningMode
+            {
+                get { return System.ComponentModel.LicenseManager.UsageMode == LicenseUsageMode.Runtime; }
+            }
+
             // Make a window title
             public static string makeWindowTitle(string windowTitle, bool withVersion = false)
             {

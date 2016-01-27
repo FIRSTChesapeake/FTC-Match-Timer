@@ -539,6 +539,7 @@
     <None Include="Resources\G9.png" />
     <None Include="Resources\Gcolon.png" />
     <None Include="Resources\Gcolonoff.png" />
+    <None Include="Resources\FIRST-Regional-InVirginia-Icon-v-allBlack.png" />
     <Content Include="Sounds\GameSounds\charge.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

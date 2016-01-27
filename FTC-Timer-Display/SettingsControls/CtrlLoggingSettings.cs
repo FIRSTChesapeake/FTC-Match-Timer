@@ -18,8 +18,11 @@ namespace FTC_Timer_Display.SettingsControls
         public CtrlLoggingSettings()
         {
             InitializeComponent();
-            LoadFileLocations();
-            LoadSettings();
+            if (GeneralFunctions.AppFunctions.isRunningMode)
+            {
+                LoadFileLocations();
+                LoadSettings();
+            }
         }
 
         private void LoadFileLocations()
