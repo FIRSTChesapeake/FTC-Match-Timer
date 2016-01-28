@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Drawing;
 using System.ComponentModel;
+using System.Security.Principal;
 
 namespace FTC_Timer_Display
 {
@@ -63,6 +64,24 @@ namespace FTC_Timer_Display
                 if (dr == System.Windows.Forms.DialogResult.No) return;
                 Process.Start(link);
             }
+
+            public static bool isRunningAsAdmin
+            {
+                get
+                {
+                    try
+                    {
+                        WindowsIdentity i = WindowsIdentity.GetCurrent();
+                        WindowsPrincipal p = new WindowsPrincipal(i);
+                        return p.IsInRole(WindowsBuiltInRole.Administrator);
+                    }
+                    catch
+                    {
+                        return false;
+                    }
+                }
+            }
+
         }
         public static class FileFunctions
         {

@@ -79,11 +79,11 @@
             this.lblLastRecvTime = new System.Windows.Forms.Label();
             this.picRcvTime = new System.Windows.Forms.PictureBox();
             this.tableLinks = new System.Windows.Forms.TableLayoutPanel();
-            this.picLicense = new System.Windows.Forms.PictureBox();
             this.flowBugs = new System.Windows.Forms.FlowLayoutPanel();
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.btnSettings = new System.Windows.Forms.Button();
+            this.btnShowWebserver = new DevComponents.DotNetBar.ButtonX();
             this.displayTimer = new System.Windows.Forms.Timer(this.components);
             this.styleMgr = new DevComponents.DotNetBar.StyleManager(this.components);
             this.toolTipMgr = new DevComponents.DotNetBar.SuperTooltip();
@@ -107,7 +107,6 @@
             this.tableCommStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picRcvTime)).BeginInit();
             this.tableLinks.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picLicense)).BeginInit();
             this.flowBugs.SuspendLayout();
             this.tableRight.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -867,9 +866,9 @@
             this.tableLinks.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLinks.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLinks.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLinks.Controls.Add(this.picLicense, 3, 0);
             this.tableLinks.Controls.Add(this.flowBugs, 1, 0);
             this.tableLinks.Controls.Add(this.btnSettings, 0, 0);
+            this.tableLinks.Controls.Add(this.btnShowWebserver, 3, 0);
             this.tableLinks.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLinks.Location = new System.Drawing.Point(3, 560);
             this.tableLinks.Name = "tableLinks";
@@ -878,19 +877,6 @@
             this.tableLinks.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44F));
             this.tableLinks.Size = new System.Drawing.Size(623, 44);
             this.tableLinks.TabIndex = 7;
-            // 
-            // picLicense
-            // 
-            this.picLicense.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picLicense.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.picLicense.Image = global::FTC_Timer_Display.Properties.Resources.ccShareAlike;
-            this.picLicense.Location = new System.Drawing.Point(468, 3);
-            this.picLicense.Name = "picLicense";
-            this.picLicense.Size = new System.Drawing.Size(152, 38);
-            this.picLicense.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.picLicense.TabIndex = 1;
-            this.picLicense.TabStop = false;
-            this.picLicense.Click += new System.EventHandler(this.picLicense_Click);
             // 
             // flowBugs
             // 
@@ -938,6 +924,19 @@
             this.btnSettings.Text = "Application Settings";
             this.btnSettings.UseVisualStyleBackColor = true;
             this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
+            // 
+            // btnShowWebserver
+            // 
+            this.btnShowWebserver.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnShowWebserver.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnShowWebserver.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnShowWebserver.Location = new System.Drawing.Point(468, 3);
+            this.btnShowWebserver.Name = "btnShowWebserver";
+            this.btnShowWebserver.Size = new System.Drawing.Size(152, 38);
+            this.btnShowWebserver.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnShowWebserver.TabIndex = 3;
+            this.btnShowWebserver.Text = "Android Server";
+            this.btnShowWebserver.Click += new System.EventHandler(this.btnShowWebserver_Click);
             // 
             // displayTimer
             // 
@@ -1121,7 +1120,6 @@
             this.tableCommStatus.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picRcvTime)).EndInit();
             this.tableLinks.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picLicense)).EndInit();
             this.flowBugs.ResumeLayout(false);
             this.flowBugs.PerformLayout();
             this.tableRight.ResumeLayout(false);
@@ -1175,7 +1173,6 @@
         private System.Windows.Forms.FlowLayoutPanel flowBugs;
         private DevComponents.DotNetBar.LabelX labelX1;
         private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.PictureBox picLicense;
         private DevComponents.DotNetBar.LabelX lblVer;
         private DevComponents.DotNetBar.ButtonX btnTimeoutStart;
         private DevComponents.DotNetBar.ButtonX btnTimeoutCancel;
@@ -1198,6 +1195,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label2;
         private DevComponents.DotNetBar.ButtonX btnMute;
+        private DevComponents.DotNetBar.ButtonX btnShowWebserver;
 
     }
 }

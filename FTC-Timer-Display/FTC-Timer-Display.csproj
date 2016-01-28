@@ -62,6 +62,10 @@
     <Reference Include="log4net">
       <HintPath>..\..\..\3rdPartyRefs\log4net-1.2.15\bin\net\4.5\release\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\3rdPartyRefs\JSON\Bin\Net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -77,8 +81,24 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="zxing">
+      <HintPath>..\packages\ZXing.Net.0.14.0.1\lib\net40\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.presentation">
+      <HintPath>..\packages\ZXing.Net.0.14.0.1\lib\net40\zxing.presentation.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AndroidComponents\AndroidCommandPackage.cs" />
+    <Compile Include="AndroidComponents\AndroidStatusReply.cs" />
+    <Compile Include="AndroidComponents\AndroidWebserver.cs" />
+    <Compile Include="AndroidComponents\SimpleHTTPServer.cs" />
+    <Compile Include="AndroidComponents\WebserverWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AndroidComponents\WebserverWindow.Designer.cs">
+      <DependentUpon>WebserverWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="ClientReply.cs" />
     <Compile Include="ClockFace.cs">
       <SubType>UserControl</SubType>
@@ -285,6 +305,9 @@
     <Compile Include="UdpClient\myUdpException.cs" />
     <Compile Include="UdpClient\UdpComms.cs" />
     <Compile Include="UdpClient\UdpContainer.cs" />
+    <EmbeddedResource Include="AndroidComponents\WebserverWindow.resx">
+      <DependentUpon>WebserverWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ClockFace.resx">
       <DependentUpon>ClockFace.cs</DependentUpon>
     </EmbeddedResource>
@@ -385,6 +408,10 @@
     <EmbeddedResource Include="SingleClientDisplay.resx">
       <DependentUpon>SingleClientDisplay.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="lib\TimerRemote.apk">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\logging.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>logging.Designer.cs</LastGenOutput>

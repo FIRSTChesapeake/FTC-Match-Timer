@@ -46,6 +46,9 @@ Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\F
 Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\FTC-Timer-Display\bin\Debug\FTC-Timer-Display.pdb"; DestDir: "{app}"; Flags: ignoreversion; Components: deb
 Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\FTC-Timer-Display\bin\Debug\DevComponents.DotNetBar2.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: dep
 Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\FTC-Timer-Display\bin\Debug\DevComponents.Instrumentation.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: dep
+Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\FTC-Timer-Display\bin\Debug\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: dep
+Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\FTC-Timer-Display\bin\Debug\zxing.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: dep
+Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\FTC-Timer-Display\bin\Debug\zxing.presentation.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: dep
 
 ; docs
 Source: "C:\Users\mglennon\Documents\Visual Studio 2013\Projects\FTC-Timer-App\FTC-Timer-Display\bin\Debug\docs\*"; DestDir: "{app}\docs"; Flags: ignoreversion; Components: app

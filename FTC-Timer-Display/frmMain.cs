@@ -149,6 +149,7 @@ namespace FTC_Timer_Display
             fieldButtonList.Add(btnTimeoutCancel);
             // Initialize the PacDriver if we're a server
             if (initData.isServer) PacDevices.UsbButtonDevices.init(this, pacButtonHandler);
+            
         }
 
         private void pacButtonHandler(object sender, PacDevices.UsbButtonDevices.ButtonStates buttonState)
@@ -235,6 +236,13 @@ namespace FTC_Timer_Display
             }
             // Start the perodic timer (starting this AFTER init of form is finished to prevent race conditions.)
             displayTimer.Start();
+            // setup android server if needed
+            if (initData.isServer && GeneralFunctions.AppFunctions.isRunningAsAdmin)
+            {
+                AndroidComponents.AndroidWebserver.AndroidCommandRecvd += AndroidServerRequestHandler;
+                AndroidComponents.AndroidWebserver.Start();
+            }
+            btnShowWebserver.Enabled = initData.isServer;
             // Close the loading form
             frmLoading.CloseForm();
         }
@@ -261,6 +269,32 @@ namespace FTC_Timer_Display
                     frmStartTimeout wind = new frmStartTimeout(c.matchData.matchType, ref _allClients, c);
                     wind.ShowDialog();
                     break;
+            }
+        }
+
+        private void AndroidServerRequestHandler(Object sender, AndroidComponents.AndroidCommandPackage pack)
+        {
+            if (this.InvokeRequired)
+            {
+                object o = this.Invoke(new Action(() => AndroidServerRequestHandler(sender, pack)));
+            }
+            else
+            {
+                switch (pack.cmd)
+                {
+                    case AndroidComponents.AndroidCommandPackage.AndroidCommand.Start:
+                        FieldControlButtonsHandler(btnStart, new EventArgs());
+                        break;
+                    case AndroidComponents.AndroidCommandPackage.AndroidCommand.Pause:
+                        FieldControlButtonsHandler(btnPause, new EventArgs());
+                        break;
+                    case AndroidComponents.AndroidCommandPackage.AndroidCommand.Advance:
+                        FieldControlButtonsHandler(btnAdvance, new EventArgs());
+                        break;
+                    case AndroidComponents.AndroidCommandPackage.AndroidCommand.Reset:
+                        FieldControlButtonsHandler(btnReset, new EventArgs());
+                        break;
+                }
             }
         }
 
@@ -337,6 +371,12 @@ namespace FTC_Timer_Display
                     ProcessSoundRequests(data);
                     // Add the match length to the package
                     data.matchLength = (int)MatchTimingData.matchLength.TotalSeconds;
+                    // If it's the active field, update the webserver
+                    if (data.isSelectedByServer)
+                    {
+                        AndroidComponents.AndroidWebserver.matchData = data;
+                    }
+
                     // Send the data to the right field (local or remote)
                     if (initData.isForMe(data))
                     {
@@ -721,6 +761,9 @@ namespace FTC_Timer_Display
 
         private void FieldControlButtonsHandler(object sender, EventArgs e)
         {
+            ButtonX b = (ButtonX)sender;
+            if (!b.Enabled) return;
+
             if (sender.Equals(btnStart))
             {
                 SetMatchNumber();
@@ -895,6 +938,8 @@ namespace FTC_Timer_Display
             {
                 comms.ListenControl(false);
             }
+            // Stop the android server
+            AndroidComponents.AndroidWebserver.Stop();
         }
 
         private void SoundSettingChangeHandler(object sender, EventArgs e)
@@ -992,6 +1037,11 @@ namespace FTC_Timer_Display
         {
             frmInitialSetup wind = new frmInitialSetup(this.initData);
             wind.Show();
+        }
+
+        private void btnShowWebserver_Click(object sender, EventArgs e)
+        {
+            AndroidComponents.AndroidWebserver.ConfigDisplay = true;
         }
     }
 }
