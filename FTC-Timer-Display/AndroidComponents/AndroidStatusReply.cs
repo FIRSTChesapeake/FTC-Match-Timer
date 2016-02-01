@@ -17,6 +17,7 @@ namespace FTC_Timer_Display.AndroidComponents
         public string isReadyForStart = "";
         public string cmdReply = "";
         public string period = "";
+        public string timer = "";
 
         public AndroidStatusReply(MatchData data)
         {
@@ -27,6 +28,7 @@ namespace FTC_Timer_Display.AndroidComponents
             this.isMatchRunning = data.isMatchActive.ToString().ToLower();
             this.isTimerRunning = data.isTimerRunning.ToString().ToLower();
             this.isReadyForStart = data.isWaitingForStart.ToString().ToLower();
+            this.timer = data.timerValue.ToString();
         }
 
         public static string makeJson(AndroidStatusReply statusObj, string replyStr)

@@ -76,9 +76,16 @@ namespace FTC_Timer_Display.AndroidComponents
 
         public static void GenerateKey()
         {
-            Random r = new Random();
-            int i = r.Next(10000, 99999);
-            remoteKey = i.ToString();
+            if (GeneralFunctions.AppFunctions.isDev)
+            {
+                remoteKey = "00000";
+            }
+            else
+            {
+                Random r = new Random();
+                int i = r.Next(10000, 99999);
+                remoteKey = i.ToString();
+            }
         }
 
         private static string localAddress
