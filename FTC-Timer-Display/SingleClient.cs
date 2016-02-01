@@ -505,6 +505,7 @@ namespace FTC_Timer_Display
             {
                 // If a match isn't running and we're on timeout, decrement that.
                 TimeSpan ts = _data.timerValue.Subtract(new TimeSpan(0, 0, 1));
+                _data.timerValue = ts;
                 if (ts.TotalSeconds <= 0)
                 {
                     newStatus = MatchData.MatchStatus.Stopped;
