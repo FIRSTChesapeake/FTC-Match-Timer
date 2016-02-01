@@ -134,6 +134,12 @@ namespace FTC_Timer_Display
             return true;
         }
 
+        public bool isThisField(int field)
+        {
+            if (field != _data.fieldID) return false;
+            return true;
+        }
+
         /// <summary>
         /// Whether the match data is allowed to be changed.
         /// </summary>
@@ -389,10 +395,10 @@ namespace FTC_Timer_Display
         /// Starts a 
         /// </summary>
         /// <param name="data"></param>
-        public void StartTimeout(TimeoutData data)
+        public void StartTimeout(TimeoutData data, bool allowExtend = true)
         {
             _data.timeoutMessage = data.message;
-            if (_data.matchStatus == MatchData.MatchStatus.Timeout)
+            if (_data.matchStatus == MatchData.MatchStatus.Timeout && allowExtend)
             {
                 _data.timerValue = _data.timerValue.Add(data.value);
                 this._timeoutSounds = data.soundType;
@@ -407,7 +413,7 @@ namespace FTC_Timer_Display
             }
             else
             {
-                log("Timeout request failed! Field can not timeout now. Current State: {0}", _data.matchStatus.ToString());
+                log("Timeout request failed! Field can not timeout now. Current State: {0} (Allow Extend: {1})", _data.matchStatus.ToString(), allowExtend);
             }
         }
 
@@ -572,13 +578,15 @@ namespace FTC_Timer_Display
 
         public class TimeoutData
         {
-            public static TimeoutData defaultEventTimeout
+
+            public static TimeoutData MakeDefaultTimeout(int Alliance)
             {
-                get
-                {
-                    TimeoutData t = new TimeoutData(MatchTimingData.timeoutEventLength, "Match Cooldown", SingleClient.TimeoutData.SoundTypes.None);
-                    return t;
-                }
+                return new TimeoutData(MatchTimingData.timeoutTeamLength, string.Format("Alliance {0} Timeout", Alliance), SoundTypes.None);
+            }
+
+            public static TimeoutData MakeDefaultTimeout(string EventMessage)
+            {
+                return new TimeoutData(MatchTimingData.timeoutEventLength, EventMessage, SoundTypes.None);
             }
 
             public TimeSpan value = new TimeSpan();

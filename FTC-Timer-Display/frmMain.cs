@@ -280,20 +280,81 @@ namespace FTC_Timer_Display
             }
             else
             {
-                switch (pack.cmd)
+                if (!pack.isAdvancedCommand)
                 {
-                    case AndroidComponents.AndroidCommandPackage.AndroidCommand.Start:
-                        FieldControlButtonsHandler(btnStart, new EventArgs());
-                        break;
-                    case AndroidComponents.AndroidCommandPackage.AndroidCommand.Pause:
-                        FieldControlButtonsHandler(btnPause, new EventArgs());
-                        break;
-                    case AndroidComponents.AndroidCommandPackage.AndroidCommand.Advance:
-                        FieldControlButtonsHandler(btnAdvance, new EventArgs());
-                        break;
-                    case AndroidComponents.AndroidCommandPackage.AndroidCommand.Reset:
-                        FieldControlButtonsHandler(btnReset, new EventArgs());
-                        break;
+                    switch (pack.cmd)
+                    {
+                        case AndroidComponents.AndroidCommandPackage.AndroidCommand.Start:
+                            FieldControlButtonsHandler(btnStart, new EventArgs());
+                            break;
+                        case AndroidComponents.AndroidCommandPackage.AndroidCommand.Pause:
+                            FieldControlButtonsHandler(btnPause, new EventArgs());
+                            break;
+                        case AndroidComponents.AndroidCommandPackage.AndroidCommand.Stop:
+                            FieldControlButtonsHandler(btnStop, new EventArgs());
+                            break;
+                        case AndroidComponents.AndroidCommandPackage.AndroidCommand.Advance:
+                            FieldControlButtonsHandler(btnAdvance, new EventArgs());
+                            break;
+                        case AndroidComponents.AndroidCommandPackage.AndroidCommand.Reset:
+                            FieldControlButtonsHandler(btnReset, new EventArgs());
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (pack.cmd)
+                    {
+                        case AndroidComponents.AndroidCommandPackage.AndroidCommand.ChangeField:
+                            if (_selectedClient.matchData.isMatchActive)
+                            {
+                                string logMsg = LogMgr.make("Android requested field change but match is active", "AndroidSvrHandler");
+                                LogMgr.logger.Error(logMsg);
+                                return;
+                            }
+                            bool fwdField = false;
+                            if (!bool.TryParse(pack.internalArgs.ToString(), out fwdField)) return;
+                            else if (fwdField) selectFieldNumber(nextFieldNumber);
+                            else if (!fwdField) selectFieldNumber(prevFieldNumber);
+                            break;
+                        case AndroidComponents.AndroidCommandPackage.AndroidCommand.ChangeMatch:
+                            if (_selectedClient.matchData.isMatchActive)
+                            {
+                                string logMsg = LogMgr.make("Android requested match change but match is active", "AndroidSvrHandler");
+                                LogMgr.logger.Error(logMsg);
+                                return;
+                            }
+                            bool fwdMatch = false;
+                            if (!bool.TryParse(pack.internalArgs.ToString(), out fwdMatch)) return;
+                            ChangeMatchNumber(fwdMatch);
+                            break;
+                        case AndroidComponents.AndroidCommandPackage.AndroidCommand.Timeout:
+                            string args = pack.cmdArgs.ToString();
+                            if (args.Length != 6) return;
+                            int field = -1;
+                            int type = -1;
+                            int extend = -1;
+                            int time = -1;
+                            if (!int.TryParse(args.Substring(0, 1).ToString(), out field)) return;
+                            if (!int.TryParse(args.Substring(1, 1).ToString(), out type)) return;
+                            if (!int.TryParse(args.Substring(2, 1).ToString(), out extend)) return;
+                            if (!int.TryParse(args.Substring(3, 3).ToString(), out time)) return;
+                            if (!fieldExists(field)) return;
+                            SingleClient.TimeoutData timeoutData;
+                            if (type == 0) timeoutData = SingleClient.TimeoutData.MakeDefaultTimeout("Event Timeout");
+                            else timeoutData = SingleClient.TimeoutData.MakeDefaultTimeout(type);
+                            bool allowExtend = extend == 0 ? false : true;
+                            if (time != 0) timeoutData.value = TimeSpan.FromSeconds(time);
+                            foreach (SingleClient c in _allClients)
+                            {
+                                if (c.isThisField(field))
+                                {
+                                    c.StartTimeout(timeoutData, allowExtend);
+                                    break;
+                                }
+                            }
+                            break;
+                    }
                 }
             }
         }
@@ -309,6 +370,7 @@ namespace FTC_Timer_Display
             _allClients.Add(client);
             _allClients.Sort();
             foreach (SingleClient c in _allClients) flowFields.Controls.Add(c.fieldDisplayObj);
+            UpdateWebserverWithFieldList();
             selectFieldNumber(0);
         }
 
@@ -320,8 +382,17 @@ namespace FTC_Timer_Display
             client.Shutdown();
             _allClients.Sort();
             foreach (SingleClient c in _allClients) flowFields.Controls.Add(c.fieldDisplayObj);
+            UpdateWebserverWithFieldList();
             selectFieldNumber(0);
         }
+
+        private void UpdateWebserverWithFieldList()
+        {
+            List<int> l = new List<int>();
+            foreach (SingleClient c in _allClients) l.Add(c.matchData.fieldID);
+            AndroidComponents.AndroidWebserver.fieldIDs = l;
+        }
+
         /// <summary>
         /// Handles request by SingleClients to send replies to server for verification.
         /// </summary>
@@ -612,11 +683,36 @@ namespace FTC_Timer_Display
             if (_allClients.Count == 0) return;
             // Return to the first field if asked for field zero
             if (field == 0) field = _allClients[0].matchData.fieldID;
-
+            if (!fieldExists(field))
+            {
+                string logMsg = LogMgr.make("Tried to change to non-existant field ID", "selectFieldNumber");
+                LogMgr.logger.Error(logMsg);
+                return;
+            }
             foreach (SingleClient c in _allClients)
             {
                 if (c.matchData.fieldID == field) c.isSelected = true;
                 else c.isSelected = false;
+            }
+        }
+
+        private int prevFieldNumber
+        {
+            get
+            {
+                if (_selectedClient == null) return -1;
+                int currentField = _selectedClient.matchData.fieldID;
+                int ret = currentField;
+                List<int> fieldIDs = new List<int>();
+                foreach (SingleClient cc in _allClients) fieldIDs.Add(cc.matchData.fieldID);
+                fieldIDs.Sort();
+                foreach (int i in fieldIDs)
+                {
+                    if (i < currentField) ret = i;
+                    else return ret;
+                }
+                // if no field is lower than the first one, wrap to the last one.
+                return fieldIDs[fieldIDs.Count - 1];
             }
         }
 
@@ -626,11 +722,17 @@ namespace FTC_Timer_Display
             {
                 if (_selectedClient == null) return -1;
                 int currentField = _selectedClient.matchData.fieldID;
-                foreach (SingleClient cc in _allClients)
+                int ret = -1;
+                List<int> fieldIDs = new List<int>();
+                foreach (SingleClient cc in _allClients) fieldIDs.Add(cc.matchData.fieldID);
+                fieldIDs.Sort();
+                foreach (int i in fieldIDs)
                 {
-                    if (cc.matchData.fieldID > currentField) return cc.matchData.fieldID;
+                    if (i <= currentField) ret = i;
+                    else return i;
                 }
-                return _allClients[0].matchData.fieldID;
+                // If no field is higher than the one selected, wrap to the first one.
+                return fieldIDs[0];
             }
         }
 
@@ -801,37 +903,69 @@ namespace FTC_Timer_Display
             {
                 // Only start the timeout if the field is idle - aka not already running a timeout.
                 if(!_selectedClient.isTimerRunning)
-                    _selectedClient.StartTimeout(SingleClient.TimeoutData.defaultEventTimeout);
+                    _selectedClient.StartTimeout(SingleClient.TimeoutData.MakeDefaultTimeout("Match Cooldown"));
             }
             // Select the next field if we're not in Finals.
             if (_currentMatchType != MatchData.MatchTypes.Finals)
             {
                 selectFieldNumber(nextFieldNumber);
             }
-            
+            // Change the match number forward 1 match
+            ChangeMatchNumber(true);
+        }
+
+        private void ChangeMatchNumber(bool forward)
+        {
             bool usesMinor = false;
             int majorMax = MatchTimingData.getMatchTypeMinorMatchCount(_currentMatchType, out usesMinor);
             if (usesMinor)
             {
-                int major = (int)numMatchNumberMajor.Value;
-                int minor = (int)numMatchNumberMinor.Value;
-                if (major == majorMax)
+                if (forward)
                 {
-                    major = 1;
-                    minor++;
+                    int major = (int)numMatchNumberMajor.Value;
+                    int minor = (int)numMatchNumberMinor.Value;
+                    if (major == majorMax)
+                    {
+                        major = 1;
+                        minor++;
+                    }
+                    else
+                    {
+                        major++;
+                    }
+                    numMatchNumberMajor.Value = major;
+                    numMatchNumberMinor.Value = minor;
                 }
                 else
                 {
-                    major++;
+                    int major = (int)numMatchNumberMajor.Value;
+                    int minor = (int)numMatchNumberMinor.Value;
+                    if (major == 1)
+                    {
+                        major = majorMax;
+                        minor--;
+                    }
+                    else
+                    {
+                        major--;
+                    }
+                    numMatchNumberMajor.Value = major;
+                    numMatchNumberMinor.Value = minor;
                 }
-                numMatchNumberMajor.Value = major;
-                numMatchNumberMinor.Value = minor;
             }
             else
             {
-                numMatchNumberMajor.Value++;
+                if (forward)
+                {
+                    if (numMatchNumberMajor.Value == numMatchNumberMajor.Maximum) return;
+                    numMatchNumberMajor.Value++;
+                }
+                else
+                {
+                    if (numMatchNumberMajor.Value == numMatchNumberMajor.Minimum) return;
+                    numMatchNumberMajor.Value--;
+                }
             }
-
             SetMatchNumber();
             // if the field is idle, reset for this match. (if it's not, it's likely on a timeout and that'll reset it when it ends)
             if (!_selectedClient.isTimerRunning) _selectedClient.ResetMatch();

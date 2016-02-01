@@ -17,6 +17,7 @@ namespace FTC_Timer_Display.AndroidComponents
         private static bool _halt = false;
 
         private static AndroidStatusReply _lastStatus = null;
+        private static List<int> _allFieldIDs = new List<int>();
         private static WebserverWindow _configWindow = new WebserverWindow();
 
         private static string remoteKey = "";
@@ -72,6 +73,14 @@ namespace FTC_Timer_Display.AndroidComponents
             _listenThread = new Thread(new ThreadStart(ListenerLoop));
             _listenThread.Start();
             _configWindow.AddLogEvent("HttpServer Started");
+        }
+
+        public static List<int> fieldIDs
+        {
+            set
+            {
+                _allFieldIDs = value;
+            }
         }
 
         public static void GenerateKey()
@@ -176,19 +185,12 @@ namespace FTC_Timer_Display.AndroidComponents
                         RespondToStatus(context);
                         break;
                     case "control":
-                        AndroidCommandPackage pack = new AndroidCommandPackage(args["args"], username);
-                        log("Android Remote '{0}' sent command '{1}'", true, username, pack.cmd);
-                        _configWindow.AddLogAction(username, context.Request.RemoteEndPoint.Address.ToString(), pack.cmd.ToString());
-                        string reply = "NOT HANDLED";
-                        if (AndroidCommandRecvd != null)
-                        {
-                            EventHandler<AndroidCommandPackage> handler = AndroidCommandRecvd;
-                            handler(null, pack);
-                            reply = "HANDLED";
-                        }
-                        // sleep 1 second to allow the timer system to give us a new match data packet before we send it to the client
-                        Thread.Sleep(1000);
-                        RespondToStatus(context, reply);
+                        AndroidCommandPackage packCtrl = new AndroidCommandPackage(args["args"], username);
+                        ProcessPackage(packCtrl, username, context);
+                        break;
+                    case "timeout":
+                        AndroidCommandPackage packTimeout = new AndroidCommandPackage("timeout", username, args["args"]);
+                        ProcessPackage(packTimeout, username, context);
                         break;
                 }
             }
@@ -196,6 +198,22 @@ namespace FTC_Timer_Display.AndroidComponents
             {
                 log("Exception Parsing Command", ex);
             }
+        }
+
+        private static void ProcessPackage(AndroidCommandPackage pack, string username, HttpListenerContext context)
+        {
+            log("Android Remote '{0}' sent command '{1}'", true, username, pack.cmd);
+            _configWindow.AddLogAction(username, context.Request.RemoteEndPoint.Address.ToString(), pack.cmd.ToString());
+            string reply = "NOT HANDLED";
+            if (AndroidCommandRecvd != null)
+            {
+                EventHandler<AndroidCommandPackage> handler = AndroidCommandRecvd;
+                handler(null, pack);
+                reply = "HANDLED";
+            }
+            // sleep 1 second to allow the timer system to give us a new match data packet before we send it to the client
+            Thread.Sleep(1000);
+            RespondToStatus(context, reply);
         }
 
         private static void SendAPK(HttpListenerContext context)
@@ -236,7 +254,7 @@ namespace FTC_Timer_Display.AndroidComponents
         private static void RespondToStatus(HttpListenerContext context, string cmdReply = "")
         {
             InitializeResponse(ref context);
-            string json = AndroidStatusReply.makeJson(_lastStatus, cmdReply);
+            string json = AndroidStatusReply.makeJson(_lastStatus, _allFieldIDs, cmdReply);
             byte[] bytes = Encoding.ASCII.GetBytes(json);
             context.Response.OutputStream.Write(bytes, 0, bytes.Length);
             context.Response.OutputStream.Flush();

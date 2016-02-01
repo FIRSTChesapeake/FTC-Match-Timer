@@ -13,26 +13,50 @@ namespace FTC_Timer_Display.AndroidComponents
             switch (value.ToLower())
             {
                 case "start":
-                    cmd = AndroidCommand.Start;
+                    this.cmd = AndroidCommand.Start;
                     break;
                 case "pause":
-                    cmd = AndroidCommand.Pause;
+                    this.cmd = AndroidCommand.Pause;
+                    break;
+                case "stop":
+                case "abort":
+                    this.cmd = AndroidCommand.Stop;
                     break;
                 case "advance":
-                    cmd = AndroidCommand.Advance;
+                    this.cmd = AndroidCommand.Advance;
                     break;
                 case "reset":
-                    cmd = AndroidCommand.Reset;
+                    this.cmd = AndroidCommand.Reset;
+                    break;
+                case "fieldprev":
+                    this.cmd = AndroidCommand.ChangeField;
+                    this.isAdvancedCommand = true;
+                    this.internalArgs = false;
+                    break;
+                case "fieldnext":
+                    this.cmd = AndroidCommand.ChangeField;
+                    this.isAdvancedCommand = true;
+                    this.internalArgs = true;
+                    break;
+                case "matchprev":
+                    this.cmd = AndroidCommand.ChangeMatch;
+                    this.isAdvancedCommand = true;
+                    this.internalArgs = false;
+                    break;
+                case "matchnext":
+                    this.cmd = AndroidCommand.ChangeMatch;
+                    this.isAdvancedCommand = true;
+                    this.internalArgs = true;
+                    break;
+                case "timeout":
+                    this.cmd = AndroidCommand.Timeout;
+                    this.isAdvancedCommand = true;
                     break;
             }
-            CompleteConstruction(user, args);
+            this.CompleteConstruction(user, args);
         }
 
-        public AndroidCommandPackage(AndroidCommand value, string user, object args = null)
-        {
-            this.cmd = value;
-            CompleteConstruction(user, args);
-        }
+
 
         private void CompleteConstruction(string user, object args)
         {
@@ -45,11 +69,17 @@ namespace FTC_Timer_Display.AndroidComponents
             None,
             Start,
             Pause,
+            Stop,
             Advance,
-            Reset
+            Reset,
+            ChangeField,
+            ChangeMatch,
+            Timeout
         }
         public AndroidCommand cmd = AndroidCommand.None;
         public object cmdArgs = null;
+        public object internalArgs = null;
         public string username = "";
+        public bool isAdvancedCommand = false;
     }
 }
