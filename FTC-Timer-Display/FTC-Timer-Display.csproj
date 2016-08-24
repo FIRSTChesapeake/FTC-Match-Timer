@@ -53,12 +53,8 @@
     <ApplicationIcon>Resources\gamecontroller.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevComponents.DotNetBar2, Version=12.5.0.3, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="DevComponents.Instrumentation, Version=12.5.0.3, Culture=neutral, PublicKeyToken=f90dc37c26666a67, processorArchitecture=MSIL">
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="DevComponents.DotNetBar2, Version=12.8.0.19, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL" />
+    <Reference Include="DevComponents.Instrumentation, Version=12.8.0.19, Culture=neutral, PublicKeyToken=f90dc37c26666a67, processorArchitecture=MSIL" />
     <Reference Include="log4net">
       <HintPath>..\..\..\3rdPartyRefs\log4net-1.2.15\bin\net\4.5\release\log4net.dll</HintPath>
     </Reference>
