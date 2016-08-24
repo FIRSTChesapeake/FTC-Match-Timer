@@ -245,7 +245,8 @@ namespace FTC_Timer_Display
                 sb.Append(Environment.NewLine);
                 if (this.matchStatus != MatchStatus.Timeout)
                 {
-                    sb.Append(this.matchType);
+                    if (this._matchPeriod == MatchPeriods.Complete) sb.Append("Finished ");
+                    else sb.Append(this.matchType);
                     sb.Append(" Match ");
                     sb.Append(this.matchNumberString);
                 }

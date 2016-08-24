@@ -898,6 +898,7 @@ namespace FTC_Timer_Display
         private void AutoAdvanceMatch()
         {
             if(_selectedClient == null) return;
+
             // If timeouts are available and it's enabled, call an automatic timeout on the current field.
             if(Properties.Settings.Default.autoElimTimeouts && MatchTimingData.matchTypeAllowsTimeout(_currentMatchType))
             {
@@ -985,7 +986,7 @@ namespace FTC_Timer_Display
             {
                 if (initData.isForMe(_selectedClient.matchData))
                 {
-                    string msg = "Can not remove local field.\nIf you do not want a local field, hold shift while restarting the application and select Server Only.";
+                    string msg = "Can not remove local field.\nIf you do not want a local field, restart the application and select Server Only.";
                     MessageBox.Show(msg, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
@@ -1176,6 +1177,11 @@ namespace FTC_Timer_Display
         private void btnShowWebserver_Click(object sender, EventArgs e)
         {
             AndroidComponents.AndroidWebserver.ConfigDisplay = true;
+        }
+
+        private void progressDisplay_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
