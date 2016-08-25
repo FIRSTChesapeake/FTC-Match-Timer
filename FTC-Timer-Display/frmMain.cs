@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevComponents.DotNetBar;
+using DevComponents.Instrumentation;
 using System.Diagnostics;
 
 namespace FTC_Timer_Display
@@ -658,8 +659,13 @@ namespace FTC_Timer_Display
             PacDevices.UsbButtonDevices.setColor(new PacDevices.UsbButtonDevices.ButtonColorSettings(nextExpectedButton.BackColor, Color.Empty));
             // Update Match Progress
             progressDisplay.SetMatchProgress(_selectedClient.matchData);
+            // Do the playful little gauge
+            gaugeCtrl.SetPointerValue("pntrTimeLeft", _selectedClient.matchData.percentRemain);
+            GaugeIndicator gi = gaugeCtrl.GaugeItems[0] as StateIndicator;
+            gi.Value = _selectedClient.matchData.percentRemain <= 20 ? 100 : 0;
+            
             // Send the pit data
-            SendPitData();
+            //SendPitData();
         }
 
         private void setLocalDisplayControlButtons()

@@ -107,6 +107,14 @@ namespace FTC_Timer_Display
             }
         }
 
+        public int percentRemain
+        {
+            get
+            {
+                return 100 - this.percentComplete;
+            }
+        }
+
         public MatchData() { }
 
         public MatchData(InitialData initData, int field)

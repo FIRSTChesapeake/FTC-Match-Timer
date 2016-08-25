@@ -18,8 +18,29 @@ namespace FTC_Timer_Display
             InitializeComponent();
         }
 
+        public int percentValue
+        {
+            get
+            {
+                double v = 0;
+                double t = 0;
+                foreach (StepItem b in progressSteps.Items)
+                {
+                    if (b.Equals(stepWait)) continue;
+                    if (b.Equals(stepComplete)) continue;
+                    v += b.Value;
+                    t += b.Maximum;
+                }
+                double d = (v / t) * 100;
+                return (int)d;
+            }
+        }
+
         public void SetMatchProgress(MatchData data)
         {
+            // If the match is not running, allow clicking
+            //this.Enabled = !data.isMatchActive;
+
             if (data.matchStatus == MatchData.MatchStatus.Timeout)
             {
                 // If we're in timeout, we'll set this to 0

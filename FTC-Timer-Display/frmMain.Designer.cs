@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            DevComponents.Instrumentation.GaugeCircularScale gaugeCircularScale1 = new DevComponents.Instrumentation.GaugeCircularScale();
+            DevComponents.Instrumentation.GaugePointer gaugePointer1 = new DevComponents.Instrumentation.GaugePointer();
+            DevComponents.Instrumentation.GradientFillColor gradientFillColor1 = new DevComponents.Instrumentation.GradientFillColor();
+            DevComponents.Instrumentation.GradientFillColor gradientFillColor2 = new DevComponents.Instrumentation.GradientFillColor();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.tableLeft = new System.Windows.Forms.TableLayoutPanel();
             this.tableCurrentConfig = new System.Windows.Forms.TableLayoutPanel();
@@ -69,6 +73,7 @@
             this.btnAdvance = new DevComponents.DotNetBar.ButtonX();
             this.btnTimeoutStart = new DevComponents.DotNetBar.ButtonX();
             this.btnTimeoutCancel = new DevComponents.DotNetBar.ButtonX();
+            this.gaugeCtrl = new DevComponents.Instrumentation.GaugeControl();
             this.tableCommStatus = new System.Windows.Forms.TableLayoutPanel();
             this.btnCycleListener = new DevComponents.DotNetBar.ButtonX();
             this.label13 = new System.Windows.Forms.Label();
@@ -104,6 +109,7 @@
             this.tableFieldControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMatchNumberMajor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMatchNumberMinor)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gaugeCtrl)).BeginInit();
             this.tableCommStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picRcvTime)).BeginInit();
             this.tableLinks.SuspendLayout();
@@ -445,6 +451,7 @@
             this.tableFieldControl.Controls.Add(this.btnTimeoutStart, 0, 9);
             this.tableFieldControl.Controls.Add(this.btnTimeoutCancel, 1, 9);
             this.tableFieldControl.Controls.Add(this.headerFieldHead, 0, 0);
+            this.tableFieldControl.Controls.Add(this.gaugeCtrl, 2, 7);
             this.tableFieldControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableFieldControl.Location = new System.Drawing.Point(3, 103);
             this.tableFieldControl.Name = "tableFieldControl";
@@ -731,6 +738,46 @@
             this.btnTimeoutCancel.TabIndex = 24;
             this.btnTimeoutCancel.Text = "Cancel Timeout\r\n(F7)";
             this.btnTimeoutCancel.Click += new System.EventHandler(this.FieldControlButtonsHandler);
+            // 
+            // gaugeCtrl
+            // 
+            gaugeCircularScale1.MaxPin.Name = "MaxPin";
+            gaugeCircularScale1.MinPin.Name = "MinPin";
+            gaugeCircularScale1.Name = "Scale1";
+            gaugePointer1.CapFillColor.BorderColor = System.Drawing.Color.DimGray;
+            gaugePointer1.CapFillColor.BorderWidth = 1;
+            gaugePointer1.CapFillColor.Color1 = System.Drawing.Color.WhiteSmoke;
+            gaugePointer1.CapFillColor.Color2 = System.Drawing.Color.DimGray;
+            gaugePointer1.FillColor.BorderColor = System.Drawing.Color.DimGray;
+            gaugePointer1.FillColor.BorderWidth = 1;
+            gaugePointer1.FillColor.Color1 = System.Drawing.Color.WhiteSmoke;
+            gaugePointer1.FillColor.Color2 = System.Drawing.Color.Red;
+            gaugePointer1.Length = 0.358F;
+            gaugePointer1.Name = "pntrTimeLeft";
+            gaugePointer1.Style = DevComponents.Instrumentation.PointerStyle.Needle;
+            gaugePointer1.Value = 0D;
+            gaugeCircularScale1.Pointers.AddRange(new DevComponents.Instrumentation.GaugePointer[] {
+            gaugePointer1});
+            gaugeCircularScale1.Reversed = true;
+            this.gaugeCtrl.CircularScales.AddRange(new DevComponents.Instrumentation.GaugeCircularScale[] {
+            gaugeCircularScale1});
+            this.gaugeCtrl.Dock = System.Windows.Forms.DockStyle.Fill;
+            gradientFillColor1.Color1 = System.Drawing.Color.Gainsboro;
+            gradientFillColor1.Color2 = System.Drawing.Color.DarkGray;
+            this.gaugeCtrl.Frame.BackColor = gradientFillColor1;
+            gradientFillColor2.BorderColor = System.Drawing.Color.Gainsboro;
+            gradientFillColor2.BorderWidth = 1;
+            gradientFillColor2.Color1 = System.Drawing.Color.White;
+            gradientFillColor2.Color2 = System.Drawing.Color.DimGray;
+            this.gaugeCtrl.Frame.FrameColor = gradientFillColor2;
+            this.gaugeCtrl.Frame.Style = DevComponents.Instrumentation.GaugeFrameStyle.Rectangular;
+            this.gaugeCtrl.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
+            this.gaugeCtrl.Location = new System.Drawing.Point(313, 238);
+            this.gaugeCtrl.Name = "gaugeCtrl";
+            this.tableFieldControl.SetRowSpan(this.gaugeCtrl, 2);
+            this.gaugeCtrl.Size = new System.Drawing.Size(149, 134);
+            this.gaugeCtrl.TabIndex = 27;
+            this.gaugeCtrl.Text = "gaugeControl1";
             // 
             // tableCommStatus
             // 
@@ -1117,6 +1164,7 @@
             this.tableFieldControl.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMatchNumberMajor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMatchNumberMinor)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gaugeCtrl)).EndInit();
             this.tableCommStatus.ResumeLayout(false);
             this.tableCommStatus.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picRcvTime)).EndInit();
@@ -1197,6 +1245,7 @@
         private System.Windows.Forms.Label label2;
         private DevComponents.DotNetBar.ButtonX btnMute;
         private DevComponents.DotNetBar.ButtonX btnShowWebserver;
+        private DevComponents.Instrumentation.GaugeControl gaugeCtrl;
 
     }
 }
