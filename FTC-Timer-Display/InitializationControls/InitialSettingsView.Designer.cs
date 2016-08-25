@@ -37,6 +37,7 @@
             this.lineFieldID = new FTC_Timer_Display.InitializationControls.InitialSettingsLine();
             this.lineEventName = new FTC_Timer_Display.InitializationControls.InitialSettingsLine();
             this.ctrlHead = new FTC_Timer_Display.CtrlHeader();
+            this.lineFieldCount = new FTC_Timer_Display.InitializationControls.InitialSettingsLine();
             this.tableMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,13 +51,14 @@
             this.tableMain.Controls.Add(this.lineDivID, 0, 3);
             this.tableMain.Controls.Add(this.lineDivName, 0, 5);
             this.tableMain.Controls.Add(this.lineEventType, 0, 6);
-            this.tableMain.Controls.Add(this.lineFieldID, 0, 7);
+            this.tableMain.Controls.Add(this.lineFieldID, 0, 8);
             this.tableMain.Controls.Add(this.lineEventName, 0, 4);
             this.tableMain.Controls.Add(this.ctrlHead, 0, 0);
+            this.tableMain.Controls.Add(this.lineFieldCount, 0, 7);
             this.tableMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableMain.Location = new System.Drawing.Point(0, 0);
             this.tableMain.Name = "tableMain";
-            this.tableMain.RowCount = 9;
+            this.tableMain.RowCount = 10;
             this.tableMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -65,8 +67,8 @@
             this.tableMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableMain.Size = new System.Drawing.Size(599, 450);
             this.tableMain.TabIndex = 0;
             // 
@@ -139,7 +141,7 @@
             // 
             this.lineFieldID.description = "The ID of the field that will be displayed from this computer.";
             this.lineFieldID.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lineFieldID.Location = new System.Drawing.Point(4, 346);
+            this.lineFieldID.Location = new System.Drawing.Point(4, 397);
             this.lineFieldID.Name = "lineFieldID";
             this.lineFieldID.Size = new System.Drawing.Size(591, 44);
             this.lineFieldID.TabIndex = 5;
@@ -180,6 +182,18 @@
             this.ctrlHead.Text = "Current Settings";
             this.ctrlHead.TextAlignment = System.Drawing.StringAlignment.Center;
             // 
+            // lineFieldCount
+            // 
+            this.lineFieldCount.description = "How many fields are in this division.";
+            this.lineFieldCount.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lineFieldCount.Location = new System.Drawing.Point(4, 346);
+            this.lineFieldCount.Name = "lineFieldCount";
+            this.lineFieldCount.Size = new System.Drawing.Size(591, 44);
+            this.lineFieldCount.TabIndex = 9;
+            this.lineFieldCount.title = "Division Field Count";
+            this.lineFieldCount.value = "This is the Data";
+            this.lineFieldCount.varName = "";
+            // 
             // InitialSettingsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -203,5 +217,6 @@
         private InitialSettingsLine lineFieldID;
         private InitialSettingsLine lineEventName;
         private CtrlHeader ctrlHead;
+        private InitialSettingsLine lineFieldCount;
     }
 }

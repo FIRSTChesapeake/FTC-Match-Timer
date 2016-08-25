@@ -13,7 +13,7 @@ namespace FTC_Timer_Display
         public bool isMultiDivision = true;
         public string divName = "";
         public int fieldID = 0;
-        //public int fieldCount = 0;  - Might use this later
+        public int fieldCount = 2;
         public RunType runType = RunType.None;
         public MatchData.EventTypes eventType = MatchData.EventTypes.Qualifier;
         public int scoringPort = Properties.Settings.Default.DefaultScoringPort;

@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDisplay));
             this.lblMatchNumber = new DevComponents.DotNetBar.LabelX();
             this.tableMain = new System.Windows.Forms.TableLayoutPanel();
-            this.clockFace = new FTC_Timer_Display.ClockFace();
             this.matchPeriodCtrl = new FTC_Timer_Display.MatchPeriodCtrl();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.picInd = new System.Windows.Forms.PictureBox();
@@ -41,6 +40,7 @@
             this.logoTableRight = new System.Windows.Forms.TableLayoutPanel();
             this.lblTime = new System.Windows.Forms.Label();
             this.lblFieldDataStatus = new DevComponents.DotNetBar.LabelX();
+            this.clockFace = new FTC_Timer_Display.ClockFace();
             this.tableMain.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picInd)).BeginInit();
@@ -72,13 +72,13 @@
             this.tableMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.tableMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 10F));
             this.tableMain.Controls.Add(this.lblMatchNumber, 2, 1);
-            this.tableMain.Controls.Add(this.clockFace, 1, 2);
             this.tableMain.Controls.Add(this.matchPeriodCtrl, 2, 3);
             this.tableMain.Controls.Add(this.tableLayoutPanel1, 3, 1);
             this.tableMain.Controls.Add(this.tableLayoutPanel2, 1, 1);
             this.tableMain.Controls.Add(this.logoTableLeft, 1, 3);
             this.tableMain.Controls.Add(this.logoTableRight, 3, 3);
             this.tableMain.Controls.Add(this.lblFieldDataStatus, 2, 4);
+            this.tableMain.Controls.Add(this.clockFace, 1, 2);
             this.tableMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableMain.Location = new System.Drawing.Point(0, 0);
             this.tableMain.Name = "tableMain";
@@ -91,19 +91,6 @@
             this.tableMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
             this.tableMain.Size = new System.Drawing.Size(1047, 552);
             this.tableMain.TabIndex = 1;
-            // 
-            // clockFace
-            // 
-            this.clockFace.BackColor = System.Drawing.Color.Black;
-            this.clockFace.blink = false;
-            this.clockFace.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.tableMain.SetColumnSpan(this.clockFace, 3);
-            this.clockFace.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.clockFace.Location = new System.Drawing.Point(13, 163);
-            this.clockFace.Name = "clockFace";
-            this.clockFace.Size = new System.Drawing.Size(1021, 226);
-            this.clockFace.TabIndex = 8;
-            this.clockFace.Value = System.TimeSpan.Parse("00:00:00");
             // 
             // matchPeriodCtrl
             // 
@@ -235,6 +222,18 @@
             this.lblFieldDataStatus.TextAlignment = System.Drawing.StringAlignment.Center;
             this.lblFieldDataStatus.Click += new System.EventHandler(this.lblFieldDataStatus_Click);
             // 
+            // clockFace
+            // 
+            this.clockFace.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.clockFace.blink = false;
+            this.tableMain.SetColumnSpan(this.clockFace, 3);
+            this.clockFace.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.clockFace.Location = new System.Drawing.Point(13, 163);
+            this.clockFace.Name = "clockFace";
+            this.clockFace.Size = new System.Drawing.Size(1021, 226);
+            this.clockFace.TabIndex = 17;
+            this.clockFace.Value = System.TimeSpan.Parse("00:00:00");
+            // 
             // frmDisplay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -263,7 +262,6 @@
         #endregion
 
         private DevComponents.DotNetBar.LabelX lblMatchNumber;
-        private ClockFace clockFace;
         private System.Windows.Forms.TableLayoutPanel tableMain;
         private MatchPeriodCtrl matchPeriodCtrl;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
@@ -274,6 +272,7 @@
         private System.Windows.Forms.Label lblTime;
         private DevComponents.DotNetBar.LabelX lblFieldDataStatus;
         private System.Windows.Forms.PictureBox picInd;
+        private ClockFace clockFace;
     }
 }
 

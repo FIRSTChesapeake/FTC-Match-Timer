@@ -148,40 +148,7 @@ namespace FTC_Timer_Display
             fieldButtonList.Add(btnAdvance);
             fieldButtonList.Add(btnTimeoutStart);
             fieldButtonList.Add(btnTimeoutCancel);
-            // Initialize the PacDriver if we're a server
-            if (initData.isServer) PacDevices.UsbButtonDevices.init(this, pacButtonHandler);
             
-        }
-
-        private void pacButtonHandler(object sender, PacDevices.UsbButtonDevices.ButtonStates buttonState)
-        {
-            if (this.InvokeRequired)
-            {
-                object o = this.Invoke(new Action(() => pacButtonHandler(sender, buttonState)));
-            }
-            else
-            {
-                lblPacButtonState.Text = string.Format("<div align='center'>{0}</div>", buttonState.ToString());
-                switch (buttonState)
-                {
-                    case PacDevices.UsbButtonDevices.ButtonStates.NotFound:
-                        lblPacButtonState.BackColor = Color.Red;
-                        break;
-                    case PacDevices.UsbButtonDevices.ButtonStates.InitialPress:
-                    case PacDevices.UsbButtonDevices.ButtonStates.PressedWaiting:
-                        lblPacButtonState.BackColor = Color.Yellow;
-                        break;
-                    case PacDevices.UsbButtonDevices.ButtonStates.InitialRelease:
-                    case PacDevices.UsbButtonDevices.ButtonStates.Released:
-                        lblPacButtonState.BackColor = Color.Green;
-                        break;
-                }
-                if (nextExpectedButton == null || !nextExpectedButton.Enabled) return;
-                if (buttonState == PacDevices.UsbButtonDevices.ButtonStates.InitialRelease)
-                {
-                    FieldControlButtonsHandler(nextExpectedButton, new EventArgs());
-                }
-            }
         }
 
         private void soundLoadChange(object sender, int newPercent)
@@ -199,12 +166,22 @@ namespace FTC_Timer_Display
             // Init the local timer if needed.
             if (initData.runType == InitialData.RunType.Server)
             {
+                // We aren't using a display here.
                 tableDisplayControl.Enabled = false;
             }
             else
             {
-                
+                // init the local display.
                 display = new frmDisplay(initData);
+            }
+            if (initData.isServer)
+            {
+                // Add a field object for each field
+                for (int i = 1; i <= initData.fieldCount; i++) AddField(i);
+            }
+            else
+            {
+                // Add just the local field
                 AddField(initData.fieldID);
             }
             // Init the settings window. - do this after we decide whether we need a display
@@ -611,12 +588,10 @@ namespace FTC_Timer_Display
             if (initData.isServer)
             {
                 bool canSelectField = _selectedClient == null || !_selectedClient.matchData.isMatchActive || !Properties.Settings.Default.preventRunningMovement;
-                tableFiledListMgmt.Enabled = canSelectField && initData.isServer;
                 foreach (SingleClient c in _allClients) c.allowDisplayToStart = canSelectField;
             }
             else
             {
-                tableFiledListMgmt.Enabled = false;
                 flowFields.Enabled = false;
             }
 
@@ -655,15 +630,12 @@ namespace FTC_Timer_Display
 
             // Pulse the button we're expecting to use
             ActivateNextButton();
-            // Set the color of the Pac Button if it exists based on the Activate above
-            PacDevices.UsbButtonDevices.setColor(new PacDevices.UsbButtonDevices.ButtonColorSettings(nextExpectedButton.BackColor, Color.Empty));
             // Update Match Progress
             progressDisplay.SetMatchProgress(_selectedClient.matchData);
             // Do the playful little gauge
-            gaugeCtrl.SetPointerValue("pntrTimeLeft", _selectedClient.matchData.percentRemain);
-            GaugeIndicator gi = gaugeCtrl.GaugeItems[0] as StateIndicator;
-            gi.Value = _selectedClient.matchData.percentRemain <= 20 ? 100 : 0;
-            
+            gaugeCtrl.SetPointerValue("pntrMin", _selectedClient.matchData.timerValue.Minutes);
+            gaugeCtrl.SetPointerValue("pntrSec", _selectedClient.matchData.timerValue.Seconds);
+
             // Send the pit data
             //SendPitData();
         }
@@ -978,30 +950,6 @@ namespace FTC_Timer_Display
             if (!_selectedClient.isTimerRunning) _selectedClient.ResetMatch();
         }
 
-        private void HandleFieldListMgmtButtons(object sender, EventArgs e)
-        {
-            if (sender.Equals(btnAddField))
-            {
-                frmRemoteFieldCreate wind = new frmRemoteFieldCreate(_allClients.Count + 1);
-                wind.ShowDialog();
-                if (wind.Tag == null) return;
-                int newID = (int)wind.Tag;
-                AddField(newID);
-            }
-            else
-            {
-                if (initData.isForMe(_selectedClient.matchData))
-                {
-                    string msg = "Can not remove local field.\nIf you do not want a local field, restart the application and select Server Only.";
-                    MessageBox.Show(msg, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    RemoveField(_selectedClient);
-                }
-            }
-        }
-
         private void btnCycleListener_Click(object sender, EventArgs e)
         {
             if (comms == null) return;
@@ -1074,7 +1022,6 @@ namespace FTC_Timer_Display
                 }
             }
             SaveSettings();
-            PacDevices.UsbButtonDevices.shutdown();
             if (comms != null)
             {
                 comms.ListenControl(false);

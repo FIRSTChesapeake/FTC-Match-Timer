@@ -25,12 +25,14 @@ namespace FTC_Timer_Display.InitializationControls
             this.txtDivName.Text = data.divName;
             this.cboEventType.SelectedItem = data.eventType;
             this.numScorePort.Value = data.scoringPort;
+            this.numFieldCount.Value = data.fieldCount;
         }
         public void GetData(ref InitialData data)
         {
             data.divName = this.txtDivName.Text;
             data.eventType = (MatchData.EventTypes)cboEventType.SelectedItem;
             data.scoringPort = this.numScorePort.Value;
+            data.fieldCount = this.numFieldCount.Value;
         }
 
         private bool isMultiDivision

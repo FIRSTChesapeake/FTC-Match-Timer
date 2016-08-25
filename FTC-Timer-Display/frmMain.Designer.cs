@@ -31,6 +31,9 @@
             this.components = new System.ComponentModel.Container();
             DevComponents.Instrumentation.GaugeCircularScale gaugeCircularScale1 = new DevComponents.Instrumentation.GaugeCircularScale();
             DevComponents.Instrumentation.GaugePointer gaugePointer1 = new DevComponents.Instrumentation.GaugePointer();
+            DevComponents.Instrumentation.GaugeCircularScale gaugeCircularScale2 = new DevComponents.Instrumentation.GaugeCircularScale();
+            DevComponents.Instrumentation.GaugePointer gaugePointer2 = new DevComponents.Instrumentation.GaugePointer();
+            DevComponents.Instrumentation.GaugeSection gaugeSection1 = new DevComponents.Instrumentation.GaugeSection();
             DevComponents.Instrumentation.GradientFillColor gradientFillColor1 = new DevComponents.Instrumentation.GradientFillColor();
             DevComponents.Instrumentation.GradientFillColor gradientFillColor2 = new DevComponents.Instrumentation.GradientFillColor();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
@@ -47,14 +50,10 @@
             this.btnDisplayFullscreen = new DevComponents.DotNetBar.ButtonX();
             this.btnDisplayHide = new DevComponents.DotNetBar.ButtonX();
             this.btnDisplayWindow = new DevComponents.DotNetBar.ButtonX();
-            this.tableFiledListMgmt = new System.Windows.Forms.TableLayoutPanel();
-            this.btnAddField = new DevComponents.DotNetBar.ButtonX();
-            this.btnRemoveField = new DevComponents.DotNetBar.ButtonX();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.lblPacButtonState = new DevComponents.DotNetBar.LabelX();
             this.btnMute = new DevComponents.DotNetBar.ButtonX();
             this.tableFieldControl = new System.Windows.Forms.TableLayoutPanel();
+            this.lblTimerValue = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -62,7 +61,6 @@
             this.label12 = new System.Windows.Forms.Label();
             this.lblCurrentPeriod = new System.Windows.Forms.Label();
             this.lblMatchStatus = new System.Windows.Forms.Label();
-            this.lblTimerValue = new System.Windows.Forms.Label();
             this.numMatchNumberMajor = new System.Windows.Forms.NumericUpDown();
             this.numMatchNumberMinor = new System.Windows.Forms.NumericUpDown();
             this.cboMatchType = new System.Windows.Forms.ComboBox();
@@ -104,7 +102,6 @@
             this.tableCurrentConfig.SuspendLayout();
             this.tableDisplayControl.SuspendLayout();
             this.tableDisplayButtons.SuspendLayout();
-            this.tableFiledListMgmt.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableFieldControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMatchNumberMajor)).BeginInit();
@@ -126,7 +123,6 @@
             this.tableLeft.Controls.Add(this.flowFields, 0, 2);
             this.tableLeft.Controls.Add(this.tableDisplayControl, 0, 5);
             this.tableLeft.Controls.Add(this.ctrlHeader3, 0, 1);
-            this.tableLeft.Controls.Add(this.tableFiledListMgmt, 0, 3);
             this.tableLeft.Controls.Add(this.tableLayoutPanel1, 0, 4);
             this.tableLeft.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLeft.Location = new System.Drawing.Point(3, 3);
@@ -317,95 +313,20 @@
             this.btnDisplayWindow.Text = "Windowed";
             this.btnDisplayWindow.Click += new System.EventHandler(this.changeDisplayStateButtonHandler);
             // 
-            // tableFiledListMgmt
-            // 
-            this.tableFiledListMgmt.ColumnCount = 2;
-            this.tableFiledListMgmt.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableFiledListMgmt.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableFiledListMgmt.Controls.Add(this.btnAddField, 0, 0);
-            this.tableFiledListMgmt.Controls.Add(this.btnRemoveField, 1, 0);
-            this.tableFiledListMgmt.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableFiledListMgmt.Location = new System.Drawing.Point(3, 417);
-            this.tableFiledListMgmt.Name = "tableFiledListMgmt";
-            this.tableFiledListMgmt.RowCount = 1;
-            this.tableFiledListMgmt.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableFiledListMgmt.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44F));
-            this.tableFiledListMgmt.Size = new System.Drawing.Size(258, 44);
-            this.tableFiledListMgmt.TabIndex = 8;
-            // 
-            // btnAddField
-            // 
-            this.btnAddField.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnAddField.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnAddField.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnAddField.Location = new System.Drawing.Point(3, 3);
-            this.btnAddField.Name = "btnAddField";
-            this.btnAddField.Size = new System.Drawing.Size(123, 38);
-            this.btnAddField.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.toolTipMgr.SetSuperTooltip(this.btnAddField, new DevComponents.DotNetBar.SuperTooltipInfo("Add Field", "Turn off help in Misc Options", "Adds a field to this server so it may be controlled.", null, null, DevComponents.DotNetBar.eTooltipColor.Green));
-            this.btnAddField.TabIndex = 0;
-            this.btnAddField.Text = "Add Field";
-            this.btnAddField.Click += new System.EventHandler(this.HandleFieldListMgmtButtons);
-            // 
-            // btnRemoveField
-            // 
-            this.btnRemoveField.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnRemoveField.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnRemoveField.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnRemoveField.Location = new System.Drawing.Point(132, 3);
-            this.btnRemoveField.Name = "btnRemoveField";
-            this.btnRemoveField.Size = new System.Drawing.Size(123, 38);
-            this.btnRemoveField.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.toolTipMgr.SetSuperTooltip(this.btnRemoveField, new DevComponents.DotNetBar.SuperTooltipInfo("Remove Field", "Turn off help in Misc Options", "Removes a field from this server.\r\n(This feature currently bugged.)", null, null, DevComponents.DotNetBar.eTooltipColor.Green));
-            this.btnRemoveField.TabIndex = 1;
-            this.btnRemoveField.Text = "Remove Field";
-            this.btnRemoveField.Click += new System.EventHandler(this.HandleFieldListMgmtButtons);
-            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.lblPacButtonState, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.btnMute, 1, 0);
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.btnMute, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 467);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(258, 59);
             this.tableLayoutPanel1.TabIndex = 13;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(3, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(202, 29);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Ctrlr Button Status";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblPacButtonState
-            // 
-            this.lblPacButtonState.BackColor = System.Drawing.Color.Red;
-            // 
-            // 
-            // 
-            this.lblPacButtonState.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.lblPacButtonState.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblPacButtonState.Location = new System.Drawing.Point(3, 32);
-            this.lblPacButtonState.Name = "lblPacButtonState";
-            this.lblPacButtonState.Size = new System.Drawing.Size(202, 24);
-            this.toolTipMgr.SetSuperTooltip(this.lblPacButtonState, new DevComponents.DotNetBar.SuperTooltipInfo("Control Button Status", "Turn off help in Misc Options", "This only applies if you\'re using a USB Button to control the matches. See the ta" +
-            "b in Application Settings for more information.", null, null, DevComponents.DotNetBar.eTooltipColor.Green));
-            this.lblPacButtonState.TabIndex = 27;
-            this.lblPacButtonState.Text = "<div align=\'center\'>\r\nNotFound\r\n</div>";
-            this.lblPacButtonState.TextAlignment = System.Drawing.StringAlignment.Center;
             // 
             // btnMute
             // 
@@ -413,15 +334,13 @@
             this.btnMute.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnMute.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnMute.Image = global::FTC_Timer_Display.Properties.Resources.mute_off;
-            this.btnMute.ImageFixedSize = new System.Drawing.Size(32, 32);
-            this.btnMute.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnMute.Location = new System.Drawing.Point(211, 3);
+            this.btnMute.Location = new System.Drawing.Point(3, 3);
             this.btnMute.Name = "btnMute";
-            this.tableLayoutPanel1.SetRowSpan(this.btnMute, 2);
-            this.btnMute.Size = new System.Drawing.Size(44, 53);
+            this.btnMute.Size = new System.Drawing.Size(123, 53);
             this.btnMute.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnMute.TabIndex = 28;
-            this.btnMute.Text = "Mute";
+            this.toolTipMgr.SetSuperTooltip(this.btnMute, new DevComponents.DotNetBar.SuperTooltipInfo("Local Mute", "Turn off help in Misc Options", "This will locally mute game sounds if any are played here.\r\nGreen: Sounds will be" +
+            " played.\r\nRed: Sounds are not played.", null, null, DevComponents.DotNetBar.eTooltipColor.Green));
+            this.btnMute.TabIndex = 0;
             this.btnMute.Click += new System.EventHandler(this.LocalMuteHandler);
             // 
             // tableFieldControl
@@ -431,14 +350,14 @@
             this.tableFieldControl.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableFieldControl.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableFieldControl.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableFieldControl.Controls.Add(this.label6, 0, 1);
-            this.tableFieldControl.Controls.Add(this.label7, 0, 2);
-            this.tableFieldControl.Controls.Add(this.label8, 0, 3);
-            this.tableFieldControl.Controls.Add(this.label10, 0, 4);
-            this.tableFieldControl.Controls.Add(this.label12, 0, 5);
+            this.tableFieldControl.Controls.Add(this.lblTimerValue, 2, 5);
+            this.tableFieldControl.Controls.Add(this.label6, 1, 1);
+            this.tableFieldControl.Controls.Add(this.label7, 1, 2);
+            this.tableFieldControl.Controls.Add(this.label8, 1, 3);
+            this.tableFieldControl.Controls.Add(this.label10, 1, 4);
+            this.tableFieldControl.Controls.Add(this.label12, 1, 5);
             this.tableFieldControl.Controls.Add(this.lblCurrentPeriod, 2, 2);
             this.tableFieldControl.Controls.Add(this.lblMatchStatus, 2, 3);
-            this.tableFieldControl.Controls.Add(this.lblTimerValue, 2, 5);
             this.tableFieldControl.Controls.Add(this.numMatchNumberMajor, 2, 4);
             this.tableFieldControl.Controls.Add(this.numMatchNumberMinor, 3, 4);
             this.tableFieldControl.Controls.Add(this.cboMatchType, 2, 1);
@@ -451,7 +370,7 @@
             this.tableFieldControl.Controls.Add(this.btnTimeoutStart, 0, 9);
             this.tableFieldControl.Controls.Add(this.btnTimeoutCancel, 1, 9);
             this.tableFieldControl.Controls.Add(this.headerFieldHead, 0, 0);
-            this.tableFieldControl.Controls.Add(this.gaugeCtrl, 2, 7);
+            this.tableFieldControl.Controls.Add(this.gaugeCtrl, 0, 1);
             this.tableFieldControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableFieldControl.Location = new System.Drawing.Point(3, 103);
             this.tableFieldControl.Name = "tableFieldControl";
@@ -470,70 +389,78 @@
             this.tableFieldControl.Size = new System.Drawing.Size(623, 451);
             this.tableFieldControl.TabIndex = 3;
             // 
+            // lblTimerValue
+            // 
+            this.lblTimerValue.AutoSize = true;
+            this.tableFieldControl.SetColumnSpan(this.lblTimerValue, 2);
+            this.lblTimerValue.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblTimerValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTimerValue.Location = new System.Drawing.Point(313, 155);
+            this.lblTimerValue.Name = "lblTimerValue";
+            this.lblTimerValue.Size = new System.Drawing.Size(307, 30);
+            this.lblTimerValue.TabIndex = 28;
+            this.lblTimerValue.Text = "Unknown";
+            this.lblTimerValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.tableFieldControl.SetColumnSpan(this.label6, 2);
             this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(3, 30);
+            this.label6.Location = new System.Drawing.Point(158, 30);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(304, 35);
+            this.label6.Size = new System.Drawing.Size(149, 35);
             this.label6.TabIndex = 1;
             this.label6.Text = "Match Type:";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.tableFieldControl.SetColumnSpan(this.label7, 2);
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(3, 65);
+            this.label7.Location = new System.Drawing.Point(158, 65);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(304, 30);
+            this.label7.Size = new System.Drawing.Size(149, 30);
             this.label7.TabIndex = 2;
             this.label7.Text = "Current Period:";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.tableFieldControl.SetColumnSpan(this.label8, 2);
             this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(3, 95);
+            this.label8.Location = new System.Drawing.Point(158, 95);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(304, 30);
+            this.label8.Size = new System.Drawing.Size(149, 30);
             this.label8.TabIndex = 3;
             this.label8.Text = "Match Status:";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.tableFieldControl.SetColumnSpan(this.label10, 2);
             this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(3, 125);
+            this.label10.Location = new System.Drawing.Point(158, 125);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(304, 30);
+            this.label10.Size = new System.Drawing.Size(149, 30);
             this.label10.TabIndex = 4;
             this.label10.Text = "Match Number:";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.tableFieldControl.SetColumnSpan(this.label12, 2);
             this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(3, 155);
+            this.label12.Location = new System.Drawing.Point(158, 155);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(304, 30);
+            this.label12.Size = new System.Drawing.Size(149, 30);
             this.label12.TabIndex = 6;
             this.label12.Text = "Timer Value:";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblCurrentPeriod
             // 
@@ -560,18 +487,6 @@
             this.lblMatchStatus.TabIndex = 9;
             this.lblMatchStatus.Text = "Unknown";
             this.lblMatchStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblTimerValue
-            // 
-            this.lblTimerValue.AutoSize = true;
-            this.lblTimerValue.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblTimerValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTimerValue.Location = new System.Drawing.Point(313, 155);
-            this.lblTimerValue.Name = "lblTimerValue";
-            this.lblTimerValue.Size = new System.Drawing.Size(149, 30);
-            this.lblTimerValue.TabIndex = 12;
-            this.lblTimerValue.Text = "Unknown";
-            this.lblTimerValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // numMatchNumberMajor
             // 
@@ -741,9 +656,13 @@
             // 
             // gaugeCtrl
             // 
+            gaugeCircularScale1.BorderColor = System.Drawing.Color.Red;
+            gaugeCircularScale1.BorderWidth = 1;
+            gaugeCircularScale1.MajorTickMarks.Interval = 1D;
             gaugeCircularScale1.MaxPin.Name = "MaxPin";
+            gaugeCircularScale1.MaxValue = 10D;
             gaugeCircularScale1.MinPin.Name = "MinPin";
-            gaugeCircularScale1.Name = "Scale1";
+            gaugeCircularScale1.Name = "Mins";
             gaugePointer1.CapFillColor.BorderColor = System.Drawing.Color.DimGray;
             gaugePointer1.CapFillColor.BorderWidth = 1;
             gaugePointer1.CapFillColor.Color1 = System.Drawing.Color.WhiteSmoke;
@@ -753,14 +672,44 @@
             gaugePointer1.FillColor.Color1 = System.Drawing.Color.WhiteSmoke;
             gaugePointer1.FillColor.Color2 = System.Drawing.Color.Red;
             gaugePointer1.Length = 0.358F;
-            gaugePointer1.Name = "pntrTimeLeft";
+            gaugePointer1.Name = "pntrMin";
             gaugePointer1.Style = DevComponents.Instrumentation.PointerStyle.Needle;
             gaugePointer1.Value = 0D;
             gaugeCircularScale1.Pointers.AddRange(new DevComponents.Instrumentation.GaugePointer[] {
             gaugePointer1});
-            gaugeCircularScale1.Reversed = true;
+            gaugeCircularScale1.Radius = 0.297F;
+            gaugeCircularScale1.StartAngle = 130F;
+            gaugeCircularScale1.SweepAngle = 280F;
+            gaugeCircularScale2.MaxPin.Name = "MaxPin";
+            gaugeCircularScale2.MaxValue = 59D;
+            gaugeCircularScale2.MinPin.Name = "MinPin";
+            gaugeCircularScale2.Name = "Secs";
+            gaugePointer2.CapFillColor.BorderColor = System.Drawing.Color.DimGray;
+            gaugePointer2.CapFillColor.BorderWidth = 1;
+            gaugePointer2.CapFillColor.Color1 = System.Drawing.Color.WhiteSmoke;
+            gaugePointer2.CapFillColor.Color2 = System.Drawing.Color.DimGray;
+            gaugePointer2.FillColor.BorderColor = System.Drawing.Color.DimGray;
+            gaugePointer2.FillColor.BorderWidth = 1;
+            gaugePointer2.FillColor.Color1 = System.Drawing.Color.WhiteSmoke;
+            gaugePointer2.FillColor.Color2 = System.Drawing.Color.YellowGreen;
+            gaugePointer2.Name = "pntrSec";
+            gaugePointer2.Style = DevComponents.Instrumentation.PointerStyle.Needle;
+            gaugePointer2.ThermoBackColor.BorderColor = System.Drawing.Color.Black;
+            gaugePointer2.ThermoBackColor.BorderWidth = 1;
+            gaugePointer2.ThermoBackColor.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            gaugePointer2.Value = 0D;
+            gaugeCircularScale2.Pointers.AddRange(new DevComponents.Instrumentation.GaugePointer[] {
+            gaugePointer2});
+            gaugeCircularScale2.Radius = 0.418F;
+            gaugeSection1.FillColor.Color1 = System.Drawing.Color.CornflowerBlue;
+            gaugeSection1.Name = "Section1";
+            gaugeCircularScale2.Sections.AddRange(new DevComponents.Instrumentation.GaugeSection[] {
+            gaugeSection1});
+            gaugeCircularScale2.StartAngle = 130F;
+            gaugeCircularScale2.SweepAngle = 280F;
             this.gaugeCtrl.CircularScales.AddRange(new DevComponents.Instrumentation.GaugeCircularScale[] {
-            gaugeCircularScale1});
+            gaugeCircularScale1,
+            gaugeCircularScale2});
             this.gaugeCtrl.Dock = System.Windows.Forms.DockStyle.Fill;
             gradientFillColor1.Color1 = System.Drawing.Color.Gainsboro;
             gradientFillColor1.Color2 = System.Drawing.Color.DarkGray;
@@ -772,10 +721,10 @@
             this.gaugeCtrl.Frame.FrameColor = gradientFillColor2;
             this.gaugeCtrl.Frame.Style = DevComponents.Instrumentation.GaugeFrameStyle.Rectangular;
             this.gaugeCtrl.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
-            this.gaugeCtrl.Location = new System.Drawing.Point(313, 238);
+            this.gaugeCtrl.Location = new System.Drawing.Point(3, 33);
             this.gaugeCtrl.Name = "gaugeCtrl";
-            this.tableFieldControl.SetRowSpan(this.gaugeCtrl, 2);
-            this.gaugeCtrl.Size = new System.Drawing.Size(149, 134);
+            this.tableFieldControl.SetRowSpan(this.gaugeCtrl, 5);
+            this.gaugeCtrl.Size = new System.Drawing.Size(149, 149);
             this.gaugeCtrl.TabIndex = 27;
             this.gaugeCtrl.Text = "gaugeControl1";
             // 
@@ -1157,9 +1106,7 @@
             this.tableCurrentConfig.PerformLayout();
             this.tableDisplayControl.ResumeLayout(false);
             this.tableDisplayButtons.ResumeLayout(false);
-            this.tableFiledListMgmt.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
             this.tableFieldControl.ResumeLayout(false);
             this.tableFieldControl.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMatchNumberMajor)).EndInit();
@@ -1195,7 +1142,6 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label lblCurrentPeriod;
         private System.Windows.Forms.Label lblMatchStatus;
-        private System.Windows.Forms.Label lblTimerValue;
         private System.Windows.Forms.NumericUpDown numMatchNumberMajor;
         private System.Windows.Forms.NumericUpDown numMatchNumberMinor;
         private System.Windows.Forms.ComboBox cboMatchType;
@@ -1204,7 +1150,6 @@
         private DevComponents.DotNetBar.ButtonX btnStop;
         private DevComponents.DotNetBar.ButtonX btnReset;
         private DevComponents.DotNetBar.ButtonX btnAdvance;
-        private DevComponents.DotNetBar.ButtonX btnAddField;
         private System.Windows.Forms.TableLayoutPanel tableCommStatus;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label lblListenStatus;
@@ -1214,8 +1159,6 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label lblLastSvrIP;
         private System.Windows.Forms.TableLayoutPanel tableLinks;
-        private System.Windows.Forms.TableLayoutPanel tableFiledListMgmt;
-        private DevComponents.DotNetBar.ButtonX btnRemoveField;
         private PeriodProgressBar progressDisplay;
         private DevComponents.DotNetBar.StyleManager styleMgr;
         private System.Windows.Forms.PictureBox picRcvTime;
@@ -1240,12 +1183,11 @@
         private DevComponents.DotNetBar.ButtonX btnDisplayWindow;
         private DevComponents.DotNetBar.ButtonX btnDisplayFullscreen;
         private System.Windows.Forms.TableLayoutPanel tableDisplayButtons;
-        private DevComponents.DotNetBar.LabelX lblPacButtonState;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Label label2;
-        private DevComponents.DotNetBar.ButtonX btnMute;
         private DevComponents.DotNetBar.ButtonX btnShowWebserver;
         private DevComponents.Instrumentation.GaugeControl gaugeCtrl;
+        private System.Windows.Forms.Label lblTimerValue;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private DevComponents.DotNetBar.ButtonX btnMute;
 
     }
 }
