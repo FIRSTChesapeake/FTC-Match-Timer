@@ -112,6 +112,7 @@
     <Compile Include="CtrlHeader.Designer.cs">
       <DependentUpon>CtrlHeader.cs</DependentUpon>
     </Compile>
+    <Compile Include="RemoteDriver\RemoteController.cs" />
     <Compile Include="SettingsControls\CtrlLoggingSettings.cs">
       <SubType>UserControl</SubType>
     </Compile>
