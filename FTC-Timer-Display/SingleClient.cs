@@ -337,7 +337,7 @@ namespace FTC_Timer_Display
             _processTimer.Elapsed += processTimerElapsed;
             _isEnabled = (initData.isServer || initData.runType == InitialData.RunType.Local);
             _processTimer.Start();
-            _senderTimer.Interval = 500;
+            _senderTimer.Interval = 200;        // Adjust sending speed to remove display lag of time.
             _senderTimer.Elapsed += senderTimerElapsed;
             _senderTimer.Start();
             log("Client Started!");

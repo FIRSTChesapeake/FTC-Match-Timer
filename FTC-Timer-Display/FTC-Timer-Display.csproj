@@ -53,8 +53,12 @@
     <ApplicationIcon>Resources\gamecontroller.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevComponents.DotNetBar2, Version=12.8.0.19, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL" />
-    <Reference Include="DevComponents.Instrumentation, Version=12.8.0.19, Culture=neutral, PublicKeyToken=f90dc37c26666a67, processorArchitecture=MSIL" />
+    <Reference Include="DevComponents.DotNetBar2, Version=12.8.0.19, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevComponents.Instrumentation, Version=12.8.0.19, Culture=neutral, PublicKeyToken=f90dc37c26666a67, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\..\3rdPartyRefs\log4net-1.2.15\bin\net\4.5\release\log4net.dll</HintPath>
     </Reference>
@@ -266,14 +270,6 @@
     <Compile Include="InitialData.cs" />
     <Compile Include="MatchData.cs" />
     <Compile Include="MutexGenerator.cs" />
-    <Compile Include="PacDevices\UsbButtonDevice.cs" />
-    <Compile Include="PacDevices\PacDeviceSettings.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PacDevices\PacDeviceSettings.Designer.cs">
-      <DependentUpon>PacDeviceSettings.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PacDevices\PacDrive.cs" />
     <Compile Include="PeriodProgressBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -381,9 +377,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MatchPeriodCtrl.resx">
       <DependentUpon>MatchPeriodCtrl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PacDevices\PacDeviceSettings.resx">
-      <DependentUpon>PacDeviceSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PeriodProgressBar.resx">
       <DependentUpon>PeriodProgressBar.cs</DependentUpon>

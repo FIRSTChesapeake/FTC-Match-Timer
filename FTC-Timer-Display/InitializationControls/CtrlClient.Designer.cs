@@ -103,7 +103,7 @@
             this.numFieldID.Dock = System.Windows.Forms.DockStyle.Fill;
             this.numFieldID.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numFieldID.Location = new System.Drawing.Point(233, 63);
-            this.numFieldID.MaxValue = 9;
+            this.numFieldID.MaxValue = 4;
             this.numFieldID.MinValue = 1;
             this.numFieldID.Name = "numFieldID";
             this.numFieldID.ShowUpDown = true;

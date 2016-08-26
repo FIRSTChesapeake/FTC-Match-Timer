@@ -29,6 +29,7 @@ namespace FTC_Timer_Display.InitializationControls
             lineEventName.setData(data.divName, !data.isMultiDivision);
             lineDivName.setData(data.divName, data.isMultiDivision && data.isServer);
             lineEventType.setData(data.eventType, data.isServer);
+            lineFieldCount.setData(data.fieldCount, data.isServer);
             lineFieldID.setData(data.fieldID, data.hasLocalClock);
         }
 

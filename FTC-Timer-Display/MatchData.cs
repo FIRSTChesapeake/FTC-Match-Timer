@@ -121,6 +121,7 @@ namespace FTC_Timer_Display
         {
             _initData = initData;
             fieldID = field;
+            this.matchNumberMajor = field;
         }
 
         public void SetMatchTimer(MatchTypes type, int major, int minor, TimeSpan timer, MatchPeriods period, MatchStatus status)

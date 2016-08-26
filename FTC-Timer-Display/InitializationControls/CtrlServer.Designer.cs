@@ -29,15 +29,18 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.labelX1 = new DevComponents.DotNetBar.LabelX();
+            this.ctrlHeader1 = new FTC_Timer_Display.CtrlHeader();
             this.lblDivNameLabel = new DevComponents.DotNetBar.LabelX();
             this.labelX2 = new DevComponents.DotNetBar.LabelX();
             this.labelX3 = new DevComponents.DotNetBar.LabelX();
             this.numScorePort = new DevComponents.Editors.IntegerInput();
             this.cboEventType = new System.Windows.Forms.ComboBox();
             this.txtDivName = new DevComponents.DotNetBar.Controls.TextBoxX();
-            this.ctrlHeader1 = new FTC_Timer_Display.CtrlHeader();
+            this.numFieldCount = new DevComponents.Editors.IntegerInput();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numScorePort)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numFieldCount)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -46,17 +49,20 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 163F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.labelX1, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.ctrlHeader1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.lblDivNameLabel, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.labelX2, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.labelX3, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.numScorePort, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.labelX3, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.numScorePort, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.cboEventType, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.txtDivName, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.numFieldCount, 1, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 5;
+            this.tableLayoutPanel1.RowCount = 6;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
@@ -64,6 +70,39 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(494, 372);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // labelX1
+            // 
+            // 
+            // 
+            // 
+            this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelX1.FontBold = true;
+            this.labelX1.Location = new System.Drawing.Point(3, 93);
+            this.labelX1.Name = "labelX1";
+            this.labelX1.Size = new System.Drawing.Size(157, 24);
+            this.labelX1.TabIndex = 7;
+            this.labelX1.Text = "Number of Division Fields:";
+            // 
+            // ctrlHeader1
+            // 
+            // 
+            // 
+            // 
+            this.ctrlHeader1.BackgroundStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.ctrlHeader1.BackgroundStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(132)))));
+            this.ctrlHeader1.BackgroundStyle.BackColorGradientType = DevComponents.DotNetBar.eGradientType.Radial;
+            this.ctrlHeader1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tableLayoutPanel1.SetColumnSpan(this.ctrlHeader1, 3);
+            this.ctrlHeader1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ctrlHeader1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.ctrlHeader1.Location = new System.Drawing.Point(3, 3);
+            this.ctrlHeader1.Name = "ctrlHeader1";
+            this.ctrlHeader1.Size = new System.Drawing.Size(488, 24);
+            this.ctrlHeader1.TabIndex = 0;
+            this.ctrlHeader1.Text = "Controller (server) Options";
+            this.ctrlHeader1.TextAlignment = System.Drawing.StringAlignment.Center;
             // 
             // lblDivNameLabel
             // 
@@ -101,7 +140,7 @@
             this.labelX3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelX3.FontBold = true;
-            this.labelX3.Location = new System.Drawing.Point(3, 93);
+            this.labelX3.Location = new System.Drawing.Point(3, 123);
             this.labelX3.Name = "labelX3";
             this.labelX3.Size = new System.Drawing.Size(157, 24);
             this.labelX3.TabIndex = 3;
@@ -118,7 +157,7 @@
             this.numScorePort.Dock = System.Windows.Forms.DockStyle.Fill;
             this.numScorePort.Enabled = false;
             this.numScorePort.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numScorePort.Location = new System.Drawing.Point(166, 93);
+            this.numScorePort.Location = new System.Drawing.Point(166, 123);
             this.numScorePort.MaxValue = 65535;
             this.numScorePort.MinValue = 1;
             this.numScorePort.Name = "numScorePort";
@@ -154,24 +193,23 @@
             this.txtDivName.Size = new System.Drawing.Size(325, 23);
             this.txtDivName.TabIndex = 6;
             // 
-            // ctrlHeader1
+            // numFieldCount
             // 
             // 
             // 
             // 
-            this.ctrlHeader1.BackgroundStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.ctrlHeader1.BackgroundStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(132)))));
-            this.ctrlHeader1.BackgroundStyle.BackColorGradientType = DevComponents.DotNetBar.eGradientType.Radial;
-            this.ctrlHeader1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tableLayoutPanel1.SetColumnSpan(this.ctrlHeader1, 3);
-            this.ctrlHeader1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ctrlHeader1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.ctrlHeader1.Location = new System.Drawing.Point(3, 3);
-            this.ctrlHeader1.Name = "ctrlHeader1";
-            this.ctrlHeader1.Size = new System.Drawing.Size(488, 24);
-            this.ctrlHeader1.TabIndex = 0;
-            this.ctrlHeader1.Text = "Controller (server) Options";
-            this.ctrlHeader1.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.numFieldCount.BackgroundStyle.Class = "DateTimeInputBackground";
+            this.numFieldCount.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.numFieldCount.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
+            this.numFieldCount.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.numFieldCount.Location = new System.Drawing.Point(166, 93);
+            this.numFieldCount.MaxValue = 4;
+            this.numFieldCount.MinValue = 1;
+            this.numFieldCount.Name = "numFieldCount";
+            this.numFieldCount.ShowUpDown = true;
+            this.numFieldCount.Size = new System.Drawing.Size(94, 20);
+            this.numFieldCount.TabIndex = 8;
+            this.numFieldCount.Value = 1;
             // 
             // CtrlServer
             // 
@@ -182,6 +220,7 @@
             this.Size = new System.Drawing.Size(494, 372);
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numScorePort)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numFieldCount)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -196,5 +235,7 @@
         private DevComponents.Editors.IntegerInput numScorePort;
         private System.Windows.Forms.ComboBox cboEventType;
         private DevComponents.DotNetBar.Controls.TextBoxX txtDivName;
+        private DevComponents.DotNetBar.LabelX labelX1;
+        private DevComponents.Editors.IntegerInput numFieldCount;
     }
 }

@@ -124,15 +124,6 @@
   <data name="gamelogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\gamelogo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="R4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\R4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="R8" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\R8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="R3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\R3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="vaflogoold" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\vaf-logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -145,17 +136,8 @@
   <data name="ccShareAlike" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ccShareAlike.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Rcolon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Rcolon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="vaflogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\vaflogo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="R5" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\R5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Rdigitoff" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Rdigitoff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="indicator_green" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\indicator-green.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -163,32 +145,11 @@
   <data name="indicator_yellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\indicator-yellow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Rcolonoff" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Rcolonoff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="R0" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\R0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="R7" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\R7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="mute_on" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mute-on.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="indicator_blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\indicator-blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="R6" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\R6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="R2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\R2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="R9" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\R9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="R1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\R1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="mute_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mute_off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -198,42 +159,6 @@
   </data>
   <data name="warn" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\StatusAnnotations_Warning_32xLG_color.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="G0" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\G0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="G1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\G1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="G2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\G2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="G3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\G3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="G4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\G4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="G5" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\G5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="G6" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\G6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="G7" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\G7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="G8" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\G8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="G9" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\G9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Gcolon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Gcolon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Gcolonoff" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Gcolonoff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="vaflogo_new" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FIRST-Regional-InVirginia-Icon-v-allBlack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

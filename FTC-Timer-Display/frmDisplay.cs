@@ -119,8 +119,9 @@ namespace FTC_Timer_Display
         public void SetDisplay(MatchData data)
         {
             // Timer Color
-            clockFace.faceColor = data.matchStatus == MatchData.MatchStatus.Timeout ? ClockFace.FaceColor.Green : ClockFace.FaceColor.Red;
+            clockFace.faceColor(data.matchStatus == MatchData.MatchStatus.Timeout);
             // Timer Display
+            clockFace.play = !data.isSelectedByServer && data.matchStatus == MatchData.MatchStatus.Stopped;
             clockFace.Value = data.timerValue;
             // Timer Display Colon
             clockFace.blink = data.isTimerRunning;
@@ -147,7 +148,9 @@ namespace FTC_Timer_Display
 
         public void deadField()
         {
-            lblFieldDataStatus.Text = "ERROR: FIELD NOT RECEIVING DATA!";
+            lblFieldDataStatus.Text = "FIELD NOT RECEIVING DATA!";
+            clockFace.play = false;
+            clockFace.TextOver("Eror");
             lblFieldDataStatus.BackColor = Color.Red;
             picInd.Image = Properties.Resources.indicator_red;
         }
