@@ -142,8 +142,11 @@ namespace FTC_Timer_Display
             SoundGenerator.init(soundLoadChange);
             // Init the Android Controller
             remoteController.Init();
+            // Open the COM port
             remoteController.portStatus = true;
-            remoteController.moduleStatus = (ArduinoComm.ArduinoController.ModuleStatus)initData.divID;
+            // If we're multi-division, use division # as Module Status. If not, just use status 1.
+            if (initData.isMultiDivision) remoteController.moduleStatus = (ArduinoComm.ArduinoController.ModuleStatus)initData.divID;
+            else remoteController.moduleStatus = ArduinoComm.ArduinoController.ModuleStatus.Div1;
             // Init the list of field buttons for mass changes.
             fieldButtonList.Add(btnStart);
             fieldButtonList.Add(btnStop);
