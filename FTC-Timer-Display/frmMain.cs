@@ -140,6 +140,10 @@ namespace FTC_Timer_Display
             // Init the sound generator
             frmLoading.UpdateDisplay("Loading pre-generated sounds..");
             SoundGenerator.init(soundLoadChange);
+            // Init the Android Controller
+            remoteController.Init();
+            remoteController.portStatus = true;
+            remoteController.moduleStatus = (ArduinoComm.ArduinoController.ModuleStatus)initData.divID;
             // Init the list of field buttons for mass changes.
             fieldButtonList.Add(btnStart);
             fieldButtonList.Add(btnStop);
@@ -212,15 +216,9 @@ namespace FTC_Timer_Display
                 // We always listen (when not LocalOnly) so we can receive client replies on the servers.
                 comms.ListenControl(true);
             }
+            
             // Start the perodic timer (starting this AFTER init of form is finished to prevent race conditions.)
             displayTimer.Start();
-            // setup android server if needed
-            if (initData.isServer && GeneralFunctions.AppFunctions.isRunningAsAdmin)
-            {
-                AndroidComponents.AndroidWebserver.AndroidCommandRecvd += AndroidServerRequestHandler;
-                AndroidComponents.AndroidWebserver.Start();
-            }
-            btnShowWebserver.Enabled = initData.isServer;
             // Close the loading form
             frmLoading.CloseForm();
         }
@@ -1026,8 +1024,8 @@ namespace FTC_Timer_Display
             {
                 comms.ListenControl(false);
             }
-            // Stop the android server
-            AndroidComponents.AndroidWebserver.Stop();
+            // Stop COM port
+            remoteController.portStatus = false;
         }
 
         private void SoundSettingChangeHandler(object sender, EventArgs e)
@@ -1104,7 +1102,7 @@ namespace FTC_Timer_Display
 
         private void picVafLogoClickHandler(object sender, EventArgs e)
         {
-            OpenLink(@"http://www.virginiafirst.org", "VirginiaFIRST Homepage");
+            OpenLink(@"http://www.firstchesapeake.org", "FIRST Chesapeake Homepage");
         }
 
         private void btnSettings_Click(object sender, EventArgs e)
@@ -1135,6 +1133,25 @@ namespace FTC_Timer_Display
         private void progressDisplay_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void remoteController_DataReceived(object sender, ArduinoComm.ArduinoMessage e)
+        {
+            if (this.InvokeRequired)
+            {
+                object o = this.Invoke(new Action(() => remoteController_DataReceived(sender, e)));
+            }
+            else
+            {
+                ButtonX b = null;
+                if (e.buttonID == 1) b = btnStart;
+                if (e.buttonID == 2) b = btnAdvance;
+                if (b != null && b.Enabled)
+                {
+                    FieldControlButtonsHandler(b, new EventArgs());
+                    return;
+                }
+            }
         }
     }
 }

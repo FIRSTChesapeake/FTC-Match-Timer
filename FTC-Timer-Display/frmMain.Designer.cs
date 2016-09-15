@@ -55,6 +55,7 @@
             this.ctrlHeader3 = new FTC_Timer_Display.CtrlHeader();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btnMute = new DevComponents.DotNetBar.ButtonX();
+            this.remoteController = new FTC_Timer_Display.ArduinoComm.ArduinoController();
             this.tableFieldControl = new System.Windows.Forms.TableLayoutPanel();
             this.lblTimerValue = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -92,7 +93,6 @@
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.btnSettings = new DevComponents.DotNetBar.ButtonX();
-            this.btnShowWebserver = new DevComponents.DotNetBar.ButtonX();
             this.displayTimer = new System.Windows.Forms.Timer(this.components);
             this.styleMgr = new DevComponents.DotNetBar.StyleManager(this.components);
             this.toolTipMgr = new DevComponents.DotNetBar.SuperTooltip();
@@ -124,6 +124,7 @@
             this.tableLeft.Controls.Add(this.tableDisplayControl, 0, 5);
             this.tableLeft.Controls.Add(this.ctrlHeader3, 0, 1);
             this.tableLeft.Controls.Add(this.tableLayoutPanel1, 0, 4);
+            this.tableLeft.Controls.Add(this.remoteController, 0, 3);
             this.tableLeft.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLeft.Location = new System.Drawing.Point(3, 3);
             this.tableLeft.Name = "tableLeft";
@@ -134,6 +135,7 @@
             this.tableLeft.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLeft.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 65F));
             this.tableLeft.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 78F));
+            this.tableLeft.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLeft.Size = new System.Drawing.Size(264, 607);
             this.tableLeft.TabIndex = 0;
             // 
@@ -397,6 +399,16 @@
             " played.\r\nRed: Sounds are not played.", null, null, DevComponents.DotNetBar.eTooltipColor.Green));
             this.btnMute.TabIndex = 0;
             this.btnMute.Click += new System.EventHandler(this.LocalMuteHandler);
+            // 
+            // remoteController
+            // 
+            this.remoteController.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.remoteController.Location = new System.Drawing.Point(3, 417);
+            this.remoteController.Name = "remoteController";
+            this.remoteController.portStatus = false;
+            this.remoteController.Size = new System.Drawing.Size(258, 44);
+            this.remoteController.TabIndex = 29;
+            this.remoteController.DataReceived += new System.EventHandler<FTC_Timer_Display.ArduinoComm.ArduinoMessage>(this.remoteController_DataReceived);
             // 
             // tableFieldControl
             // 
@@ -967,7 +979,6 @@
             this.tableLinks.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLinks.Controls.Add(this.flowBugs, 1, 0);
             this.tableLinks.Controls.Add(this.btnSettings, 0, 0);
-            this.tableLinks.Controls.Add(this.btnShowWebserver, 3, 0);
             this.tableLinks.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLinks.Location = new System.Drawing.Point(3, 560);
             this.tableLinks.Name = "tableLinks";
@@ -1025,19 +1036,6 @@
             this.btnSettings.TabIndex = 2;
             this.btnSettings.Text = "Application Settings";
             this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
-            // 
-            // btnShowWebserver
-            // 
-            this.btnShowWebserver.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnShowWebserver.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnShowWebserver.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnShowWebserver.Location = new System.Drawing.Point(468, 3);
-            this.btnShowWebserver.Name = "btnShowWebserver";
-            this.btnShowWebserver.Size = new System.Drawing.Size(152, 38);
-            this.btnShowWebserver.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnShowWebserver.TabIndex = 3;
-            this.btnShowWebserver.Text = "Android Server";
-            this.btnShowWebserver.Click += new System.EventHandler(this.btnShowWebserver_Click);
             // 
             // displayTimer
             // 
@@ -1185,11 +1183,11 @@
         private DevComponents.DotNetBar.ButtonX btnDisplayWindow;
         private DevComponents.DotNetBar.ButtonX btnDisplayFullscreen;
         private System.Windows.Forms.TableLayoutPanel tableDisplayButtons;
-        private DevComponents.DotNetBar.ButtonX btnShowWebserver;
         private DevComponents.Instrumentation.GaugeControl gaugeCtrl;
         private System.Windows.Forms.Label lblTimerValue;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private DevComponents.DotNetBar.ButtonX btnMute;
+        private ArduinoComm.ArduinoController remoteController;
 
     }
 }
