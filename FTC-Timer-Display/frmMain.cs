@@ -251,93 +251,6 @@ namespace FTC_Timer_Display
             }
         }
 
-        private void AndroidServerRequestHandler(Object sender, AndroidComponents.AndroidCommandPackage pack)
-        {
-            if (this.InvokeRequired)
-            {
-                object o = this.Invoke(new Action(() => AndroidServerRequestHandler(sender, pack)));
-            }
-            else
-            {
-                if (!pack.isAdvancedCommand)
-                {
-                    switch (pack.cmd)
-                    {
-                        case AndroidComponents.AndroidCommandPackage.AndroidCommand.Start:
-                            FieldControlButtonsHandler(btnStart, new EventArgs());
-                            break;
-                        case AndroidComponents.AndroidCommandPackage.AndroidCommand.Pause:
-                            FieldControlButtonsHandler(btnPause, new EventArgs());
-                            break;
-                        case AndroidComponents.AndroidCommandPackage.AndroidCommand.Stop:
-                            FieldControlButtonsHandler(btnStop, new EventArgs());
-                            break;
-                        case AndroidComponents.AndroidCommandPackage.AndroidCommand.Advance:
-                            FieldControlButtonsHandler(btnAdvance, new EventArgs());
-                            break;
-                        case AndroidComponents.AndroidCommandPackage.AndroidCommand.Reset:
-                            FieldControlButtonsHandler(btnReset, new EventArgs());
-                            break;
-                    }
-                }
-                else
-                {
-                    switch (pack.cmd)
-                    {
-                        case AndroidComponents.AndroidCommandPackage.AndroidCommand.ChangeField:
-                            if (_selectedClient.matchData.isMatchActive)
-                            {
-                                string logMsg = LogMgr.make("Android requested field change but match is active", "AndroidSvrHandler");
-                                LogMgr.logger.Error(logMsg);
-                                return;
-                            }
-                            bool fwdField = false;
-                            if (!bool.TryParse(pack.internalArgs.ToString(), out fwdField)) return;
-                            else if (fwdField) selectFieldNumber(nextFieldNumber);
-                            else if (!fwdField) selectFieldNumber(prevFieldNumber);
-                            break;
-                        case AndroidComponents.AndroidCommandPackage.AndroidCommand.ChangeMatch:
-                            if (_selectedClient.matchData.isMatchActive)
-                            {
-                                string logMsg = LogMgr.make("Android requested match change but match is active", "AndroidSvrHandler");
-                                LogMgr.logger.Error(logMsg);
-                                return;
-                            }
-                            bool fwdMatch = false;
-                            if (!bool.TryParse(pack.internalArgs.ToString(), out fwdMatch)) return;
-                            ChangeMatchNumber(fwdMatch);
-                            break;
-                        case AndroidComponents.AndroidCommandPackage.AndroidCommand.Timeout:
-                            string args = pack.cmdArgs.ToString();
-                            if (args.Length != 6) return;
-                            int field = -1;
-                            int type = -1;
-                            int extend = -1;
-                            int time = -1;
-                            if (!int.TryParse(args.Substring(0, 1).ToString(), out field)) return;
-                            if (!int.TryParse(args.Substring(1, 1).ToString(), out type)) return;
-                            if (!int.TryParse(args.Substring(2, 1).ToString(), out extend)) return;
-                            if (!int.TryParse(args.Substring(3, 3).ToString(), out time)) return;
-                            if (!fieldExists(field)) return;
-                            SingleClient.TimeoutData timeoutData;
-                            if (type == 0) timeoutData = SingleClient.TimeoutData.MakeDefaultTimeout("Event Timeout");
-                            else timeoutData = SingleClient.TimeoutData.MakeDefaultTimeout(type);
-                            bool allowExtend = extend == 0 ? false : true;
-                            if (time != 0) timeoutData.value = TimeSpan.FromSeconds(time);
-                            foreach (SingleClient c in _allClients)
-                            {
-                                if (c.isThisField(field))
-                                {
-                                    c.StartTimeout(timeoutData, allowExtend);
-                                    break;
-                                }
-                            }
-                            break;
-                    }
-                }
-            }
-        }
-
         private void AddField(int fieldID)
         {
             if (fieldExists(fieldID)) return;
@@ -349,7 +262,6 @@ namespace FTC_Timer_Display
             _allClients.Add(client);
             _allClients.Sort();
             foreach (SingleClient c in _allClients) flowFields.Controls.Add(c.fieldDisplayObj);
-            UpdateWebserverWithFieldList();
             selectFieldNumber(0);
         }
 
@@ -361,15 +273,7 @@ namespace FTC_Timer_Display
             client.Shutdown();
             _allClients.Sort();
             foreach (SingleClient c in _allClients) flowFields.Controls.Add(c.fieldDisplayObj);
-            UpdateWebserverWithFieldList();
             selectFieldNumber(0);
-        }
-
-        private void UpdateWebserverWithFieldList()
-        {
-            List<int> l = new List<int>();
-            foreach (SingleClient c in _allClients) l.Add(c.matchData.fieldID);
-            AndroidComponents.AndroidWebserver.fieldIDs = l;
         }
 
         /// <summary>
@@ -421,11 +325,6 @@ namespace FTC_Timer_Display
                     ProcessSoundRequests(data);
                     // Add the match length to the package
                     data.matchLength = (int)MatchTimingData.matchLength.TotalSeconds;
-                    // If it's the active field, update the webserver
-                    if (data.isSelectedByServer)
-                    {
-                        AndroidComponents.AndroidWebserver.matchData = data;
-                    }
 
                     // Send the data to the right field (local or remote)
                     if (initData.isForMe(data))
@@ -1126,11 +1025,6 @@ namespace FTC_Timer_Display
         {
             frmInitialSetup wind = new frmInitialSetup(this.initData);
             wind.Show();
-        }
-
-        private void btnShowWebserver_Click(object sender, EventArgs e)
-        {
-            AndroidComponents.AndroidWebserver.ConfigDisplay = true;
         }
 
         private void progressDisplay_Load(object sender, EventArgs e)
