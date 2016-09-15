@@ -42,7 +42,7 @@ namespace FTC_Timer_Display.ArduinoComm
 
         void port_PinChanged(object sender, SerialPinChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            // Nada
         }
 
         void port_ErrorReceived(object sender, SerialErrorReceivedEventArgs e)
@@ -102,37 +102,44 @@ namespace FTC_Timer_Display.ArduinoComm
 
         private void processSerialData(string data)
         {
-            if (data.Length != 4) return;
-            lastTime = DateTime.Now;
-            int ap = int.Parse(data.Substring(0, 1));
-            int b1 = int.Parse(data.Substring(1, 1));
-            int b2 = int.Parse(data.Substring(2, 1));
-            int pr = int.Parse(data.Substring(3, 1));
-            // Actual processing
-            if (pr == 1)
+            try
             {
-                if (!isPressed)
+                if (data.Length != 4) return;
+                lastTime = DateTime.Now;
+                int ap = int.Parse(data.Substring(0, 1));
+                int b1 = int.Parse(data.Substring(1, 1));
+                int b2 = int.Parse(data.Substring(2, 1));
+                int pr = int.Parse(data.Substring(3, 1));
+                // Actual processing
+                if (pr == 1)
                 {
-                    int b = 0;
-                    if (b1 == 1) b = 1;
-                    if (b2 == 1) b = 2;
-                    if (b != 0)
+                    if (!isPressed)
                     {
-                        isPressed = true;
-                        // Raise event
-                        ModuleStatus status = (ModuleStatus)ap;
-                        ArduinoMessage msg = new ArduinoMessage(status, b);
-                        if (DataReceived != null)
+                        int b = 0;
+                        if (b1 == 1) b = 1;
+                        if (b2 == 1) b = 2;
+                        if (b != 0)
                         {
-                            EventHandler<ArduinoMessage> handler = DataReceived;
-                            handler(this, msg);
+                            isPressed = true;
+                            // Raise event
+                            ModuleStatus status = (ModuleStatus)ap;
+                            ArduinoMessage msg = new ArduinoMessage(status, b);
+                            if (DataReceived != null)
+                            {
+                                EventHandler<ArduinoMessage> handler = DataReceived;
+                                handler(this, msg);
+                            }
                         }
                     }
                 }
+                else
+                {
+                    isPressed = false;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                isPressed = false;
+                LogMgr.logger.Error(LogMgr.make("Exception Processing Data.", "ArduinoCtrl", 0), ex);
             }
         }
 
@@ -182,7 +189,7 @@ namespace FTC_Timer_Display.ArduinoComm
                     string devID = item["DeviceID"].ToString();
                     if (desc.Contains("Arduino"))
                     {
-                        Dump(item);
+                        //Dump(item);
                         return devID;
                     }
                 }
@@ -223,16 +230,6 @@ namespace FTC_Timer_Display.ArduinoComm
                     }
                 }
             }
-        }
-
-        private void buttonX1_Click(object sender, EventArgs e)
-        {
-            this.portStatus = !this.portStatus;
-        }
-
-        private void buttonX2_Click(object sender, EventArgs e)
-        {
-            this.moduleStatus = ModuleStatus.Div1;
         }
 
         public static void Dump(object obj)
