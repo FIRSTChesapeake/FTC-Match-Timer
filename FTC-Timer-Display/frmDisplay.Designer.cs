@@ -130,7 +130,7 @@
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.BackgroundImage = global::FTC_Timer_Display.Properties.Resources.gamelogo;
+            this.tableLayoutPanel2.BackgroundImage = global::FTC_Timer_Display.Properties.Resources.vortexlogo;
             this.tableLayoutPanel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -230,6 +230,7 @@
             this.clockFace.Dock = System.Windows.Forms.DockStyle.Fill;
             this.clockFace.Location = new System.Drawing.Point(13, 163);
             this.clockFace.Name = "clockFace";
+            this.clockFace.play = false;
             this.clockFace.Size = new System.Drawing.Size(1021, 226);
             this.clockFace.TabIndex = 17;
             this.clockFace.Value = System.TimeSpan.Parse("00:00:00");
