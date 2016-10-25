@@ -171,7 +171,6 @@ namespace FTC_Timer_Display
             this.timeValue.Caption = "Length";
             this.tableLayoutPanel1.SetColumnSpan(this.timeValue, 2);
             this.timeValue.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timeValue.IndicatorColor = System.Drawing.Color.Empty;
             this.timeValue.Location = new System.Drawing.Point(3, 214);
             this.timeValue.MaximumValue = System.TimeSpan.Parse("00:48:05");
             this.timeValue.MinimumValue = System.TimeSpan.Parse("00:00:00");
@@ -179,7 +178,6 @@ namespace FTC_Timer_Display
             this.timeValue.Readonly = false;
             this.timeValue.Size = new System.Drawing.Size(312, 24);
             this.timeValue.TabIndex = 6;
-            this.timeValue.useColorPicker = false;
             this.timeValue.Value = System.TimeSpan.Parse("00:00:00");
             // 
             // groupBox1

@@ -61,8 +61,8 @@ namespace FTC_Timer_Display
             this.chkShowFieldNumber = new System.Windows.Forms.CheckBox();
             this.toolTipMgr = new DevComponents.DotNetBar.SuperTooltip();
             this.superTabControl1 = new DevComponents.DotNetBar.SuperTabControl();
-            this.superTabControlPanel5 = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.superTabItem5 = new DevComponents.DotNetBar.SuperTabItem();
+            this.superTabControlPanel3 = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.superTabItem3 = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.superTabItem1 = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
@@ -71,11 +71,11 @@ namespace FTC_Timer_Display
             this.superTabControlPanel4 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.soundControl = new FTC_Timer_Display.SettingsControls.CtrlSoundTest();
             this.superTabItem4 = new DevComponents.DotNetBar.SuperTabItem();
-            this.superTabControlPanel3 = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.superTabItem3 = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel6 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.loggingControl = new FTC_Timer_Display.SettingsControls.CtrlLoggingSettings();
             this.superTabItem6 = new DevComponents.DotNetBar.SuperTabItem();
+            this.superTabControlPanel5 = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.superTabItem5 = new DevComponents.DotNetBar.SuperTabItem();
             this.btnClose = new DevComponents.DotNetBar.ButtonItem();
             this.flowSoundLocation.SuspendLayout();
             this.flowPit.SuspendLayout();
@@ -86,10 +86,10 @@ namespace FTC_Timer_Display
             this.flowServerOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).BeginInit();
             this.superTabControl1.SuspendLayout();
+            this.superTabControlPanel3.SuspendLayout();
             this.superTabControlPanel1.SuspendLayout();
             this.superTabControlPanel2.SuspendLayout();
             this.superTabControlPanel4.SuspendLayout();
-            this.superTabControlPanel3.SuspendLayout();
             this.superTabControlPanel6.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -544,12 +544,12 @@ namespace FTC_Timer_Display
             this.superTabControl1.ControlBox.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.superTabControl1.ControlBox.MenuBox,
             this.superTabControl1.ControlBox.CloseBox});
-            this.superTabControl1.Controls.Add(this.superTabControlPanel3);
             this.superTabControl1.Controls.Add(this.superTabControlPanel1);
-            this.superTabControl1.Controls.Add(this.superTabControlPanel2);
             this.superTabControl1.Controls.Add(this.superTabControlPanel4);
             this.superTabControl1.Controls.Add(this.superTabControlPanel6);
+            this.superTabControl1.Controls.Add(this.superTabControlPanel3);
             this.superTabControl1.Controls.Add(this.superTabControlPanel5);
+            this.superTabControl1.Controls.Add(this.superTabControlPanel2);
             this.superTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.superTabControl1.Location = new System.Drawing.Point(0, 0);
             this.superTabControl1.Name = "superTabControl1";
@@ -570,21 +570,22 @@ namespace FTC_Timer_Display
             this.btnClose});
             this.superTabControl1.Text = "superTabControl1";
             // 
-            // superTabControlPanel5
+            // superTabControlPanel3
             // 
-            this.superTabControlPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel5.Location = new System.Drawing.Point(97, 0);
-            this.superTabControlPanel5.Name = "superTabControlPanel5";
-            this.superTabControlPanel5.Size = new System.Drawing.Size(553, 418);
-            this.superTabControlPanel5.TabIndex = 0;
-            this.superTabControlPanel5.TabItem = this.superTabItem5;
+            this.superTabControlPanel3.Controls.Add(this.tableBranding);
+            this.superTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanel3.Location = new System.Drawing.Point(100, 0);
+            this.superTabControlPanel3.Name = "superTabControlPanel3";
+            this.superTabControlPanel3.Size = new System.Drawing.Size(550, 418);
+            this.superTabControlPanel3.TabIndex = 0;
+            this.superTabControlPanel3.TabItem = this.superTabItem3;
             // 
-            // superTabItem5
+            // superTabItem3
             // 
-            this.superTabItem5.AttachedControl = this.superTabControlPanel5;
-            this.superTabItem5.GlobalItem = false;
-            this.superTabItem5.Name = "superTabItem5";
-            this.superTabItem5.Text = "Remote Control";
+            this.superTabItem3.AttachedControl = this.superTabControlPanel3;
+            this.superTabItem3.GlobalItem = false;
+            this.superTabItem3.Name = "superTabItem3";
+            this.superTabItem3.Text = "Branding";
             // 
             // superTabControlPanel1
             // 
@@ -607,9 +608,9 @@ namespace FTC_Timer_Display
             // 
             this.superTabControlPanel2.Controls.Add(this.timingsControl);
             this.superTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel2.Location = new System.Drawing.Point(97, 0);
+            this.superTabControlPanel2.Location = new System.Drawing.Point(100, 0);
             this.superTabControlPanel2.Name = "superTabControlPanel2";
-            this.superTabControlPanel2.Size = new System.Drawing.Size(553, 418);
+            this.superTabControlPanel2.Size = new System.Drawing.Size(550, 418);
             this.superTabControlPanel2.TabIndex = 0;
             this.superTabControlPanel2.TabItem = this.superTabItem2;
             // 
@@ -618,7 +619,7 @@ namespace FTC_Timer_Display
             this.timingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.timingsControl.Location = new System.Drawing.Point(0, 0);
             this.timingsControl.Name = "timingsControl";
-            this.timingsControl.Size = new System.Drawing.Size(553, 418);
+            this.timingsControl.Size = new System.Drawing.Size(550, 418);
             this.timingsControl.TabIndex = 10;
             // 
             // superTabItem2
@@ -632,9 +633,9 @@ namespace FTC_Timer_Display
             // 
             this.superTabControlPanel4.Controls.Add(this.soundControl);
             this.superTabControlPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel4.Location = new System.Drawing.Point(94, 0);
+            this.superTabControlPanel4.Location = new System.Drawing.Point(100, 0);
             this.superTabControlPanel4.Name = "superTabControlPanel4";
-            this.superTabControlPanel4.Size = new System.Drawing.Size(556, 418);
+            this.superTabControlPanel4.Size = new System.Drawing.Size(550, 418);
             this.superTabControlPanel4.TabIndex = 0;
             this.superTabControlPanel4.TabItem = this.superTabItem4;
             // 
@@ -643,7 +644,7 @@ namespace FTC_Timer_Display
             this.soundControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.soundControl.Location = new System.Drawing.Point(0, 0);
             this.soundControl.Name = "soundControl";
-            this.soundControl.Size = new System.Drawing.Size(556, 418);
+            this.soundControl.Size = new System.Drawing.Size(550, 418);
             this.soundControl.TabIndex = 0;
             // 
             // superTabItem4
@@ -653,30 +654,13 @@ namespace FTC_Timer_Display
             this.superTabItem4.Name = "superTabItem4";
             this.superTabItem4.Text = "Sound Testing";
             // 
-            // superTabControlPanel3
-            // 
-            this.superTabControlPanel3.Controls.Add(this.tableBranding);
-            this.superTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel3.Location = new System.Drawing.Point(100, 0);
-            this.superTabControlPanel3.Name = "superTabControlPanel3";
-            this.superTabControlPanel3.Size = new System.Drawing.Size(550, 418);
-            this.superTabControlPanel3.TabIndex = 0;
-            this.superTabControlPanel3.TabItem = this.superTabItem3;
-            // 
-            // superTabItem3
-            // 
-            this.superTabItem3.AttachedControl = this.superTabControlPanel3;
-            this.superTabItem3.GlobalItem = false;
-            this.superTabItem3.Name = "superTabItem3";
-            this.superTabItem3.Text = "Branding";
-            // 
             // superTabControlPanel6
             // 
             this.superTabControlPanel6.Controls.Add(this.loggingControl);
             this.superTabControlPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel6.Location = new System.Drawing.Point(91, 0);
+            this.superTabControlPanel6.Location = new System.Drawing.Point(100, 0);
             this.superTabControlPanel6.Name = "superTabControlPanel6";
-            this.superTabControlPanel6.Size = new System.Drawing.Size(559, 418);
+            this.superTabControlPanel6.Size = new System.Drawing.Size(550, 418);
             this.superTabControlPanel6.TabIndex = 0;
             this.superTabControlPanel6.TabItem = this.superTabItem6;
             // 
@@ -685,7 +669,7 @@ namespace FTC_Timer_Display
             this.loggingControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.loggingControl.Location = new System.Drawing.Point(0, 0);
             this.loggingControl.Name = "loggingControl";
-            this.loggingControl.Size = new System.Drawing.Size(559, 418);
+            this.loggingControl.Size = new System.Drawing.Size(550, 418);
             this.loggingControl.TabIndex = 0;
             // 
             // superTabItem6
@@ -694,6 +678,22 @@ namespace FTC_Timer_Display
             this.superTabItem6.GlobalItem = false;
             this.superTabItem6.Name = "superTabItem6";
             this.superTabItem6.Text = "Logging";
+            // 
+            // superTabControlPanel5
+            // 
+            this.superTabControlPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanel5.Location = new System.Drawing.Point(100, 0);
+            this.superTabControlPanel5.Name = "superTabControlPanel5";
+            this.superTabControlPanel5.Size = new System.Drawing.Size(550, 418);
+            this.superTabControlPanel5.TabIndex = 0;
+            this.superTabControlPanel5.TabItem = this.superTabItem5;
+            // 
+            // superTabItem5
+            // 
+            this.superTabItem5.AttachedControl = this.superTabControlPanel5;
+            this.superTabItem5.GlobalItem = false;
+            this.superTabItem5.Name = "superTabItem5";
+            this.superTabItem5.Text = "Remote Control";
             // 
             // btnClose
             // 
@@ -731,10 +731,10 @@ namespace FTC_Timer_Display
             this.flowServerOptions.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).EndInit();
             this.superTabControl1.ResumeLayout(false);
+            this.superTabControlPanel3.ResumeLayout(false);
             this.superTabControlPanel1.ResumeLayout(false);
             this.superTabControlPanel2.ResumeLayout(false);
             this.superTabControlPanel4.ResumeLayout(false);
-            this.superTabControlPanel3.ResumeLayout(false);
             this.superTabControlPanel6.ResumeLayout(false);
             this.ResumeLayout(false);
 

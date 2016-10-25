@@ -37,17 +37,6 @@ namespace FTC_Timer_Display.SettingsControls
             }
         }
 
-        public bool useColorPicker
-        {
-            get
-            {
-                return clrPicker.Visible;
-            }
-            set
-            {
-                clrPicker.Visible = value;
-            }
-        }
 
         public string Caption
         {
@@ -121,12 +110,6 @@ namespace FTC_Timer_Display.SettingsControls
             int MaxSecs = Math.Min(diff.Seconds, 59);
             if (numSec.Value > MaxSecs) numSec.Value = MaxSecs;
             numSec.Maximum = MaxSecs;
-        }
-
-        public Color IndicatorColor
-        {
-            get { return clrPicker.SelectedColor; }
-            set { clrPicker.SelectedColor = value; }
         }
 
         private void NumsChangedHandler(object sender, EventArgs e)

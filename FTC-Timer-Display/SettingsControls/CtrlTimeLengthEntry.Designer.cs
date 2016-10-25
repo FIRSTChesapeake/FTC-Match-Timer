@@ -28,12 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CtrlTimeLengthEntry));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lblCaption = new System.Windows.Forms.Label();
             this.numMin = new System.Windows.Forms.NumericUpDown();
             this.numSec = new System.Windows.Forms.NumericUpDown();
-            this.clrPicker = new DevComponents.DotNetBar.ColorPickerButton();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSec)).BeginInit();
@@ -41,15 +39,14 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 4;
+            this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Controls.Add(this.lblCaption, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.numMin, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.numSec, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.clrPicker, 3, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -65,7 +62,7 @@
             this.lblCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCaption.Location = new System.Drawing.Point(3, 0);
             this.lblCaption.Name = "lblCaption";
-            this.lblCaption.Size = new System.Drawing.Size(143, 30);
+            this.lblCaption.Size = new System.Drawing.Size(193, 30);
             this.lblCaption.TabIndex = 0;
             this.lblCaption.Text = "Unset";
             this.lblCaption.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -73,7 +70,7 @@
             // numMin
             // 
             this.numMin.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numMin.Location = new System.Drawing.Point(152, 3);
+            this.numMin.Location = new System.Drawing.Point(202, 3);
             this.numMin.Maximum = new decimal(new int[] {
             99,
             0,
@@ -89,7 +86,7 @@
             // numSec
             // 
             this.numSec.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numSec.Location = new System.Drawing.Point(217, 3);
+            this.numSec.Location = new System.Drawing.Point(267, 3);
             this.numSec.Maximum = new decimal(new int[] {
             59,
             0,
@@ -100,19 +97,6 @@
             this.numSec.TabIndex = 2;
             this.numSec.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.numSec.ValueChanged += new System.EventHandler(this.NumsChangedHandler);
-            // 
-            // clrPicker
-            // 
-            this.clrPicker.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.clrPicker.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.clrPicker.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.clrPicker.Image = ((System.Drawing.Image)(resources.GetObject("clrPicker.Image")));
-            this.clrPicker.Location = new System.Drawing.Point(282, 3);
-            this.clrPicker.Name = "clrPicker";
-            this.clrPicker.SelectedColorImageRectangle = new System.Drawing.Rectangle(2, 2, 12, 12);
-            this.clrPicker.Size = new System.Drawing.Size(44, 24);
-            this.clrPicker.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.clrPicker.TabIndex = 3;
             // 
             // CtrlTimeLengthEntry
             // 
@@ -135,6 +119,5 @@
         private System.Windows.Forms.Label lblCaption;
         private System.Windows.Forms.NumericUpDown numMin;
         private System.Windows.Forms.NumericUpDown numSec;
-        private DevComponents.DotNetBar.ColorPickerButton clrPicker;
     }
 }

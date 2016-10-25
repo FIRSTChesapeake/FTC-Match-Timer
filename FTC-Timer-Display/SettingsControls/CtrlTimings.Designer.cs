@@ -111,7 +111,6 @@
             this.timingMatch.Caption = "Entire Match";
             this.tableLayoutPanel1.SetColumnSpan(this.timingMatch, 2);
             this.timingMatch.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timingMatch.IndicatorColor = System.Drawing.SystemColors.Control;
             this.timingMatch.Location = new System.Drawing.Point(3, 33);
             this.timingMatch.MaximumValue = System.TimeSpan.Parse("00:09:00");
             this.timingMatch.MinimumValue = System.TimeSpan.Parse("00:00:00");
@@ -119,7 +118,6 @@
             this.timingMatch.Readonly = false;
             this.timingMatch.Size = new System.Drawing.Size(294, 24);
             this.timingMatch.TabIndex = 0;
-            this.timingMatch.useColorPicker = false;
             this.timingMatch.Value = System.TimeSpan.Parse("00:00:00");
             this.timingMatch.ValueChanged += new System.EventHandler<System.TimeSpan>(this.TimingValueChanged);
             // 
@@ -128,7 +126,6 @@
             this.timingAuto.Caption = "Autonomous";
             this.tableLayoutPanel1.SetColumnSpan(this.timingAuto, 2);
             this.timingAuto.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timingAuto.IndicatorColor = System.Drawing.Color.Red;
             this.timingAuto.Location = new System.Drawing.Point(3, 63);
             this.timingAuto.MaximumValue = System.TimeSpan.Parse("00:10:00");
             this.timingAuto.MinimumValue = System.TimeSpan.Parse("00:00:00");
@@ -136,7 +133,6 @@
             this.timingAuto.Readonly = false;
             this.timingAuto.Size = new System.Drawing.Size(294, 24);
             this.timingAuto.TabIndex = 1;
-            this.timingAuto.useColorPicker = true;
             this.validator.SetValidator1(this.timingAuto, this.validatorAuto);
             this.timingAuto.Value = System.TimeSpan.Parse("00:00:00");
             this.timingAuto.ValueChanged += new System.EventHandler<System.TimeSpan>(this.TimingValueChanged);
@@ -146,7 +142,6 @@
             this.timingNocross.Caption = "No Cross";
             this.tableLayoutPanel1.SetColumnSpan(this.timingNocross, 2);
             this.timingNocross.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timingNocross.IndicatorColor = System.Drawing.Color.Yellow;
             this.timingNocross.Location = new System.Drawing.Point(3, 123);
             this.timingNocross.MaximumValue = System.TimeSpan.Parse("00:10:00");
             this.timingNocross.MinimumValue = System.TimeSpan.Parse("00:00:00");
@@ -154,7 +149,6 @@
             this.timingNocross.Readonly = false;
             this.timingNocross.Size = new System.Drawing.Size(294, 24);
             this.timingNocross.TabIndex = 2;
-            this.timingNocross.useColorPicker = true;
             this.validator.SetValidator1(this.timingNocross, this.validatorNocross);
             this.timingNocross.Value = System.TimeSpan.Parse("00:00:00");
             this.timingNocross.ValueChanged += new System.EventHandler<System.TimeSpan>(this.TimingValueChanged);
@@ -164,7 +158,6 @@
             this.timingEndgame.Caption = "End Game";
             this.tableLayoutPanel1.SetColumnSpan(this.timingEndgame, 2);
             this.timingEndgame.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timingEndgame.IndicatorColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.timingEndgame.Location = new System.Drawing.Point(3, 153);
             this.timingEndgame.MaximumValue = System.TimeSpan.Parse("00:10:00");
             this.timingEndgame.MinimumValue = System.TimeSpan.Parse("00:00:00");
@@ -172,7 +165,6 @@
             this.timingEndgame.Readonly = false;
             this.timingEndgame.Size = new System.Drawing.Size(294, 24);
             this.timingEndgame.TabIndex = 3;
-            this.timingEndgame.useColorPicker = true;
             this.validator.SetValidator1(this.timingEndgame, this.validatorEndgame);
             this.timingEndgame.Value = System.TimeSpan.Parse("00:00:00");
             this.timingEndgame.ValueChanged += new System.EventHandler<System.TimeSpan>(this.TimingValueChanged);
@@ -182,7 +174,6 @@
             this.timingDriver.Caption = "Driver Ctrl";
             this.tableLayoutPanel1.SetColumnSpan(this.timingDriver, 2);
             this.timingDriver.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timingDriver.IndicatorColor = System.Drawing.Color.Lime;
             this.timingDriver.Location = new System.Drawing.Point(3, 93);
             this.timingDriver.MaximumValue = System.TimeSpan.Parse("00:48:05");
             this.timingDriver.MinimumValue = System.TimeSpan.Parse("00:00:00");
@@ -190,7 +181,6 @@
             this.timingDriver.Readonly = true;
             this.timingDriver.Size = new System.Drawing.Size(294, 24);
             this.timingDriver.TabIndex = 4;
-            this.timingDriver.useColorPicker = true;
             this.timingDriver.Value = System.TimeSpan.Parse("00:00:00");
             this.timingDriver.ValueChanged += new System.EventHandler<System.TimeSpan>(this.TimingValueChanged);
             // 
@@ -199,7 +189,6 @@
             this.timingTeamTimeout.Caption = "Team Timeout";
             this.tableLayoutPanel1.SetColumnSpan(this.timingTeamTimeout, 2);
             this.timingTeamTimeout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timingTeamTimeout.IndicatorColor = System.Drawing.Color.Empty;
             this.timingTeamTimeout.Location = new System.Drawing.Point(303, 33);
             this.timingTeamTimeout.MaximumValue = System.TimeSpan.Parse("00:48:05");
             this.timingTeamTimeout.MinimumValue = System.TimeSpan.Parse("00:00:00");
@@ -207,7 +196,6 @@
             this.timingTeamTimeout.Readonly = false;
             this.timingTeamTimeout.Size = new System.Drawing.Size(294, 24);
             this.timingTeamTimeout.TabIndex = 6;
-            this.timingTeamTimeout.useColorPicker = false;
             this.timingTeamTimeout.Value = System.TimeSpan.Parse("00:00:00");
             this.timingTeamTimeout.ValueChanged += new System.EventHandler<System.TimeSpan>(this.TimingValueChanged);
             // 
@@ -288,7 +276,6 @@
             this.timingEventTimeout.Caption = "Event Timeout";
             this.tableLayoutPanel1.SetColumnSpan(this.timingEventTimeout, 2);
             this.timingEventTimeout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timingEventTimeout.IndicatorColor = System.Drawing.Color.Empty;
             this.timingEventTimeout.Location = new System.Drawing.Point(303, 63);
             this.timingEventTimeout.MaximumValue = System.TimeSpan.Parse("00:48:05");
             this.timingEventTimeout.MinimumValue = System.TimeSpan.Parse("00:00:00");
@@ -296,7 +283,6 @@
             this.timingEventTimeout.Readonly = false;
             this.timingEventTimeout.Size = new System.Drawing.Size(294, 24);
             this.timingEventTimeout.TabIndex = 12;
-            this.timingEventTimeout.useColorPicker = false;
             this.timingEventTimeout.Value = System.TimeSpan.Parse("00:00:00");
             this.timingEventTimeout.ValueChanged += new System.EventHandler<System.TimeSpan>(this.TimingValueChanged);
             // 
@@ -305,7 +291,6 @@
             this.timingCountdown.Caption = "       When?";
             this.tableLayoutPanel1.SetColumnSpan(this.timingCountdown, 2);
             this.timingCountdown.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timingCountdown.IndicatorColor = System.Drawing.Color.Empty;
             this.timingCountdown.Location = new System.Drawing.Point(303, 123);
             this.timingCountdown.MaximumValue = System.TimeSpan.Parse("00:48:05");
             this.timingCountdown.MinimumValue = System.TimeSpan.Parse("00:00:00");
@@ -313,7 +298,6 @@
             this.timingCountdown.Readonly = false;
             this.timingCountdown.Size = new System.Drawing.Size(294, 24);
             this.timingCountdown.TabIndex = 13;
-            this.timingCountdown.useColorPicker = false;
             this.timingCountdown.Value = System.TimeSpan.Parse("00:00:00");
             this.timingCountdown.ValueChanged += new System.EventHandler<System.TimeSpan>(this.TimingValueChanged);
             // 

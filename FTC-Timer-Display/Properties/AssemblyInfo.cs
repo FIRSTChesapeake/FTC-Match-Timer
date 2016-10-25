@@ -9,8 +9,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("VirginiaFIRST FTC Match Timer")]
-[assembly: AssemblyCopyright("Copyright © Matthew Glennon 2015")]
+[assembly: AssemblyProduct("FIRST Chesapeake FTC Match Timer")]
+[assembly: AssemblyCopyright("Copyright © Matthew Glennon 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

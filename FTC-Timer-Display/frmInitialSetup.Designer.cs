@@ -186,8 +186,8 @@
             this.reflectionLabel1.Name = "reflectionLabel1";
             this.reflectionLabel1.Size = new System.Drawing.Size(351, 70);
             this.reflectionLabel1.TabIndex = 2;
-            this.reflectionLabel1.Text = "<div align=\'center\'><b><font size=\"+12\"><i>FIRST in Virginia</i><br/><font color=" +
-    "\"green\">FTC Match Timer</font></font></b></div>";
+            this.reflectionLabel1.Text = "<div align=\'center\'><b><font size=\"+12\"><i>FIRST Chesapeake</i><br/><font color=\"" +
+    "green\">FTC Match Timer</font></font></b></div>";
             // 
             // pictureBox1
             // 
