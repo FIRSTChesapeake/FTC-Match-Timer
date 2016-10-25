@@ -179,7 +179,7 @@ namespace FTC_Timer_Display
                 }
                 else if (sender.Equals(btnResetLogo))
                 {
-                    picCurrentLogo.Image = Properties.Resources.vaflogo_new;
+                    picCurrentLogo.Image = Properties.Resources.FCLogoBlack;
                     Properties.Settings.Default.customLogoPath = "";
                 }
                 Properties.Settings.Default.Save();

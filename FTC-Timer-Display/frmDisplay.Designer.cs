@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDisplay));
             this.lblMatchNumber = new DevComponents.DotNetBar.LabelX();
             this.tableMain = new System.Windows.Forms.TableLayoutPanel();
             this.matchPeriodCtrl = new FTC_Timer_Display.MatchPeriodCtrl();
@@ -146,7 +145,7 @@
             // 
             // logoTableLeft
             // 
-            this.logoTableLeft.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("logoTableLeft.BackgroundImage")));
+            this.logoTableLeft.BackgroundImage = global::FTC_Timer_Display.Properties.Resources.FCLogoBlack;
             this.logoTableLeft.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.logoTableLeft.ColumnCount = 1;
             this.logoTableLeft.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -176,7 +175,7 @@
             // 
             // logoTableRight
             // 
-            this.logoTableRight.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("logoTableRight.BackgroundImage")));
+            this.logoTableRight.BackgroundImage = global::FTC_Timer_Display.Properties.Resources.FCLogoBlack;
             this.logoTableRight.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.logoTableRight.ColumnCount = 1;
             this.logoTableRight.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));

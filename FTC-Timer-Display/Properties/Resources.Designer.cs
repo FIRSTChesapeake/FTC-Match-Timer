@@ -73,6 +73,16 @@ namespace FTC_Timer_Display.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap FCLogoBlack {
+            get {
+                object obj = ResourceManager.GetObject("FCLogoBlack", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ftc_logo_new {
             get {
                 object obj = ResourceManager.GetObject("ftc_logo_new", resourceCulture);

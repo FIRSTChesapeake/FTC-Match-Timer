@@ -186,13 +186,13 @@
             this.reflectionLabel1.Name = "reflectionLabel1";
             this.reflectionLabel1.Size = new System.Drawing.Size(351, 70);
             this.reflectionLabel1.TabIndex = 2;
-            this.reflectionLabel1.Text = "<div align=\'center\'><b><font size=\"+12\"><i>VirginiaFIRST</i><br/><font color=\"gre" +
-    "en\">FTC Match Timer</font></font></b></div>";
+            this.reflectionLabel1.Text = "<div align=\'center\'><b><font size=\"+12\"><i>FIRST in Virginia</i><br/><font color=" +
+    "\"green\">FTC Match Timer</font></font></b></div>";
             // 
             // pictureBox1
             // 
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Image = global::FTC_Timer_Display.Properties.Resources.vaflogo_new;
+            this.pictureBox1.Image = global::FTC_Timer_Display.Properties.Resources.FCLogoBlack;
             this.pictureBox1.Location = new System.Drawing.Point(3, 3);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(144, 70);
