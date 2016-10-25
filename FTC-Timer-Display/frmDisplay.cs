@@ -41,8 +41,8 @@ namespace FTC_Timer_Display
             }
             else
             {
-                logoTableLeft.BackgroundImage = Properties.Resources.vaflogo_new;
-                logoTableRight.BackgroundImage = Properties.Resources.vaflogo_new;
+                logoTableLeft.BackgroundImage = Properties.Resources.FCLogoBlack;
+                logoTableRight.BackgroundImage = Properties.Resources.FCLogoBlack;
             }
             lblDate.Visible = Properties.Settings.Default.displayShowDateTime;
             lblTime.Visible = Properties.Settings.Default.displayShowDateTime;
