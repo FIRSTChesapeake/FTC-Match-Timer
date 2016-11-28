@@ -90,7 +90,11 @@ namespace FTC_Timer_Display
             get { return _isSelected; }
             set
             {
-                if (value != _isSelected && value) log("I am now the selected field.");
+                if (value != _isSelected)
+                {
+                    if (value) log("I am now the selected field.");
+                    if (!value) log("I am no longer selected.");
+                }
                 _isSelected = value;
                 fieldDisplayObj.UpdateDisplay(_data, value, _allowDisplayToStart);
                 _data.isSelectedByServer = value;
