@@ -782,7 +782,7 @@ namespace FTC_Timer_Display
             {
                 // Only start the timeout if the field is idle - aka not already running a timeout.
                 if(!_selectedClient.isTimerRunning)
-                    _selectedClient.StartTimeout(SingleClient.TimeoutData.MakeDefaultTimeout("Match Cooldown"));
+                    _selectedClient.StartTimeout(SingleClient.TimeoutData.MakeAutoTimeout("Match Cooldown", true));
             }
             // Select the next field if we're not in Finals.
             if (_currentMatchType != MatchData.MatchTypes.Finals)

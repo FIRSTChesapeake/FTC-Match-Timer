@@ -27,6 +27,7 @@ namespace FTC_Timer_Display.SettingsControls
             timingEndgame.Value = MatchTimingData.endgameLength;
             timingTeamTimeout.Value = MatchTimingData.timeoutTeamLength;
             timingEventTimeout.Value = MatchTimingData.timeoutEventLength;
+            timingElimTimeout.Value = MatchTimingData.timeoutElimLength;
             timingDriver.Value = driverPeriod;
 
             chkCountdown.Checked = Properties.Settings.Default.useCountdown;
@@ -35,6 +36,10 @@ namespace FTC_Timer_Display.SettingsControls
 
             numQuarterfinalCount.Value = MatchTimingData.quarterfinalAlliances;
             numSemifinalCount.Value = MatchTimingData.semifinalAlliances;
+
+            chkUseElimTimeout.Checked = Properties.Settings.Default.autoElimTimeouts;
+            timingElimTimeout.Enabled = chkUseElimTimeout.Checked;
+            
             btnSave.Enabled = false;
             btnRevert.Enabled = false;
         }
@@ -57,6 +62,7 @@ namespace FTC_Timer_Display.SettingsControls
                 MatchTimingData.endgameLength = timingEndgame.Value;
                 MatchTimingData.timeoutTeamLength = timingTeamTimeout.Value;
                 MatchTimingData.timeoutEventLength = timingEventTimeout.Value;
+                MatchTimingData.timeoutElimLength = timingElimTimeout.Value;
 
                 MatchTimingData.countdownStart = timingCountdown.Value;
 
@@ -65,6 +71,7 @@ namespace FTC_Timer_Display.SettingsControls
 
                 // save the countdown preference
                 Properties.Settings.Default.useCountdown = chkCountdown.Checked;
+                Properties.Settings.Default.autoElimTimeouts = chkUseElimTimeout.Checked;
                 Properties.Settings.Default.Save();
 
                 btnSave.Enabled = false;
@@ -122,9 +129,10 @@ namespace FTC_Timer_Display.SettingsControls
             btnRevert.Enabled = true;
         }
 
-        private void chkCountdownChanged(object sender, EventArgs e)
+        private void chkBoxChanged(object sender, EventArgs e)
         {
             timingCountdown.Enabled = chkCountdown.Checked;
+            timingElimTimeout.Enabled = chkUseElimTimeout.Checked;
             btnSave.Enabled = true;
             btnRevert.Enabled = true;
         }

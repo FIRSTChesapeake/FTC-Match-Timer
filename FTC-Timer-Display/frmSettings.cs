@@ -77,7 +77,7 @@ namespace FTC_Timer_Display
             // misc options
             chkDateTime.Checked = Properties.Settings.Default.displayShowDateTime;
             chkShowHelp.Checked = Properties.Settings.Default.showHelp;
-            chkAutoElimTimeout.Checked = Properties.Settings.Default.autoElimTimeouts;
+            
             chkPreventMovement.Checked = Properties.Settings.Default.preventRunningMovement;
             chkUseLargeActive.Checked = Properties.Settings.Default.useLargeActive;
             chkShowFieldNumber.Checked = Properties.Settings.Default.showDisplayFieldNumbers;
@@ -201,12 +201,6 @@ namespace FTC_Timer_Display
             Properties.Settings.Default.displayShowDateTime = chkDateTime.Checked;
             Properties.Settings.Default.Save();
             reInitDisplay();
-        }
-
-        private void chkAutoElimTimeout_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.autoElimTimeouts = chkAutoElimTimeout.Checked;
-            Properties.Settings.Default.Save();
         }
 
         private void frmSettings_VisibleChanged(object sender, EventArgs e)

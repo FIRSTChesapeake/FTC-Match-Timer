@@ -589,9 +589,10 @@ namespace FTC_Timer_Display
                 return new TimeoutData(MatchTimingData.timeoutTeamLength, string.Format("Alliance {0} Timeout", Alliance), SoundTypes.None);
             }
 
-            public static TimeoutData MakeDefaultTimeout(string EventMessage)
+            public static TimeoutData MakeAutoTimeout(string EventMessage, bool isElim)
             {
-                return new TimeoutData(MatchTimingData.timeoutEventLength, EventMessage, SoundTypes.None);
+                TimeSpan ts = isElim ? MatchTimingData.timeoutElimLength : MatchTimingData.timeoutEventLength;
+                return new TimeoutData(ts, EventMessage, SoundTypes.None);
             }
 
             public TimeSpan value = new TimeSpan();

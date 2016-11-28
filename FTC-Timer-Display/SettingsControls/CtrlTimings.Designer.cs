@@ -51,6 +51,8 @@
             this.btnSave = new DevComponents.DotNetBar.ButtonX();
             this.btnRevert = new DevComponents.DotNetBar.ButtonX();
             this.btnDefaults = new DevComponents.DotNetBar.ButtonX();
+            this.timingElimTimeout = new FTC_Timer_Display.SettingsControls.CtrlTimeLengthEntry();
+            this.chkUseElimTimeout = new DevComponents.DotNetBar.Controls.CheckBoxX();
             this.validator = new DevComponents.DotNetBar.Validator.SuperValidator();
             this.validatorAuto = new DevComponents.DotNetBar.Validator.CustomValidator();
             this.validatorNocross = new DevComponents.DotNetBar.Validator.CustomValidator();
@@ -73,25 +75,29 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.Controls.Add(this.timingMatch, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.timingAuto, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.timingNocross, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.timingEndgame, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.timingDriver, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.timingNocross, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.timingEndgame, 0, 7);
+            this.tableLayoutPanel1.Controls.Add(this.timingDriver, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.timingTeamTimeout, 2, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 2, 6);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 2, 7);
-            this.tableLayoutPanel1.Controls.Add(this.numQuarterfinalCount, 3, 6);
-            this.tableLayoutPanel1.Controls.Add(this.numSemifinalCount, 3, 7);
+            this.tableLayoutPanel1.Controls.Add(this.label1, 2, 8);
+            this.tableLayoutPanel1.Controls.Add(this.label2, 2, 9);
+            this.tableLayoutPanel1.Controls.Add(this.numQuarterfinalCount, 3, 8);
+            this.tableLayoutPanel1.Controls.Add(this.numSemifinalCount, 3, 9);
             this.tableLayoutPanel1.Controls.Add(this.timingEventTimeout, 2, 2);
-            this.tableLayoutPanel1.Controls.Add(this.timingCountdown, 2, 4);
-            this.tableLayoutPanel1.Controls.Add(this.chkCountdown, 2, 3);
+            this.tableLayoutPanel1.Controls.Add(this.timingCountdown, 2, 6);
+            this.tableLayoutPanel1.Controls.Add(this.chkCountdown, 2, 5);
             this.tableLayoutPanel1.Controls.Add(this.ctrlHeader1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.ctrlHeader2, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.ctrlHeader3, 2, 5);
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 9);
+            this.tableLayoutPanel1.Controls.Add(this.ctrlHeader3, 2, 7);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 11);
+            this.tableLayoutPanel1.Controls.Add(this.timingElimTimeout, 2, 4);
+            this.tableLayoutPanel1.Controls.Add(this.chkUseElimTimeout, 2, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 10;
+            this.tableLayoutPanel1.RowCount = 12;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
@@ -102,8 +108,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(600, 297);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(600, 370);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // timingMatch
@@ -142,7 +147,7 @@
             this.timingNocross.Caption = "No Cross";
             this.tableLayoutPanel1.SetColumnSpan(this.timingNocross, 2);
             this.timingNocross.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timingNocross.Location = new System.Drawing.Point(3, 123);
+            this.timingNocross.Location = new System.Drawing.Point(3, 183);
             this.timingNocross.MaximumValue = System.TimeSpan.Parse("00:10:00");
             this.timingNocross.MinimumValue = System.TimeSpan.Parse("00:00:00");
             this.timingNocross.Name = "timingNocross";
@@ -158,7 +163,7 @@
             this.timingEndgame.Caption = "End Game";
             this.tableLayoutPanel1.SetColumnSpan(this.timingEndgame, 2);
             this.timingEndgame.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timingEndgame.Location = new System.Drawing.Point(3, 153);
+            this.timingEndgame.Location = new System.Drawing.Point(3, 213);
             this.timingEndgame.MaximumValue = System.TimeSpan.Parse("00:10:00");
             this.timingEndgame.MinimumValue = System.TimeSpan.Parse("00:00:00");
             this.timingEndgame.Name = "timingEndgame";
@@ -174,7 +179,7 @@
             this.timingDriver.Caption = "Driver Ctrl";
             this.tableLayoutPanel1.SetColumnSpan(this.timingDriver, 2);
             this.timingDriver.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timingDriver.Location = new System.Drawing.Point(3, 93);
+            this.timingDriver.Location = new System.Drawing.Point(3, 153);
             this.timingDriver.MaximumValue = System.TimeSpan.Parse("00:48:05");
             this.timingDriver.MinimumValue = System.TimeSpan.Parse("00:00:00");
             this.timingDriver.Name = "timingDriver";
@@ -204,7 +209,7 @@
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(303, 180);
+            this.label1.Location = new System.Drawing.Point(303, 240);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(144, 30);
             this.label1.TabIndex = 7;
@@ -216,7 +221,7 @@
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(303, 210);
+            this.label2.Location = new System.Drawing.Point(303, 270);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(144, 30);
             this.label2.TabIndex = 8;
@@ -226,7 +231,7 @@
             // numQuarterfinalCount
             // 
             this.numQuarterfinalCount.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numQuarterfinalCount.Location = new System.Drawing.Point(453, 183);
+            this.numQuarterfinalCount.Location = new System.Drawing.Point(453, 243);
             this.numQuarterfinalCount.Maximum = new decimal(new int[] {
             9,
             0,
@@ -250,7 +255,7 @@
             // numSemifinalCount
             // 
             this.numSemifinalCount.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.numSemifinalCount.Location = new System.Drawing.Point(453, 213);
+            this.numSemifinalCount.Location = new System.Drawing.Point(453, 273);
             this.numSemifinalCount.Maximum = new decimal(new int[] {
             9,
             0,
@@ -291,7 +296,7 @@
             this.timingCountdown.Caption = "       When?";
             this.tableLayoutPanel1.SetColumnSpan(this.timingCountdown, 2);
             this.timingCountdown.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timingCountdown.Location = new System.Drawing.Point(303, 123);
+            this.timingCountdown.Location = new System.Drawing.Point(303, 183);
             this.timingCountdown.MaximumValue = System.TimeSpan.Parse("00:48:05");
             this.timingCountdown.MinimumValue = System.TimeSpan.Parse("00:00:00");
             this.timingCountdown.Name = "timingCountdown";
@@ -307,13 +312,13 @@
             this.tableLayoutPanel1.SetColumnSpan(this.chkCountdown, 2);
             this.chkCountdown.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chkCountdown.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCountdown.Location = new System.Drawing.Point(303, 93);
+            this.chkCountdown.Location = new System.Drawing.Point(303, 153);
             this.chkCountdown.Name = "chkCountdown";
             this.chkCountdown.Size = new System.Drawing.Size(294, 24);
             this.chkCountdown.TabIndex = 16;
             this.chkCountdown.Text = "Enable Time Remaining Countdown";
             this.chkCountdown.UseVisualStyleBackColor = true;
-            this.chkCountdown.CheckedChanged += new System.EventHandler(this.chkCountdownChanged);
+            this.chkCountdown.CheckedChanged += new System.EventHandler(this.chkBoxChanged);
             // 
             // ctrlHeader1
             // 
@@ -365,7 +370,7 @@
             this.tableLayoutPanel1.SetColumnSpan(this.ctrlHeader3, 2);
             this.ctrlHeader3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ctrlHeader3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.ctrlHeader3.Location = new System.Drawing.Point(303, 153);
+            this.ctrlHeader3.Location = new System.Drawing.Point(303, 213);
             this.ctrlHeader3.Name = "ctrlHeader3";
             this.ctrlHeader3.Size = new System.Drawing.Size(294, 24);
             this.ctrlHeader3.TabIndex = 20;
@@ -384,7 +389,7 @@
             this.tableLayoutPanel2.Controls.Add(this.btnRevert, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.btnDefaults, 3, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 255);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 328);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -432,6 +437,38 @@
             this.btnDefaults.Text = "Restore Default Timing";
             this.btnDefaults.Click += new System.EventHandler(this.HandleButtons);
             // 
+            // timingElimTimeout
+            // 
+            this.timingElimTimeout.Caption = "Elim. Auto Timeout";
+            this.tableLayoutPanel1.SetColumnSpan(this.timingElimTimeout, 2);
+            this.timingElimTimeout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.timingElimTimeout.Location = new System.Drawing.Point(303, 123);
+            this.timingElimTimeout.MaximumValue = System.TimeSpan.Parse("00:48:05");
+            this.timingElimTimeout.MinimumValue = System.TimeSpan.Parse("00:00:00");
+            this.timingElimTimeout.Name = "timingElimTimeout";
+            this.timingElimTimeout.Readonly = false;
+            this.timingElimTimeout.Size = new System.Drawing.Size(294, 24);
+            this.timingElimTimeout.TabIndex = 22;
+            this.timingElimTimeout.Value = System.TimeSpan.Parse("00:00:00");
+            this.timingElimTimeout.ValueChanged += new System.EventHandler<System.TimeSpan>(this.TimingValueChanged);
+            // 
+            // chkUseElimTimeout
+            // 
+            // 
+            // 
+            // 
+            this.chkUseElimTimeout.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.tableLayoutPanel1.SetColumnSpan(this.chkUseElimTimeout, 2);
+            this.chkUseElimTimeout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chkUseElimTimeout.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkUseElimTimeout.Location = new System.Drawing.Point(303, 93);
+            this.chkUseElimTimeout.Name = "chkUseElimTimeout";
+            this.chkUseElimTimeout.Size = new System.Drawing.Size(294, 24);
+            this.chkUseElimTimeout.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.chkUseElimTimeout.TabIndex = 23;
+            this.chkUseElimTimeout.Text = "Automatically Start Elim Cooldown Timer";
+            this.chkUseElimTimeout.CheckedChanged += new System.EventHandler(this.chkBoxChanged);
+            // 
             // validator
             // 
             this.validator.ContainerControl = this;
@@ -477,7 +514,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "CtrlTimings";
-            this.Size = new System.Drawing.Size(600, 297);
+            this.Size = new System.Drawing.Size(600, 370);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numQuarterfinalCount)).EndInit();
@@ -517,5 +554,7 @@
         private CtrlHeader ctrlHeader2;
         private CtrlHeader ctrlHeader3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private CtrlTimeLengthEntry timingElimTimeout;
+        private DevComponents.DotNetBar.Controls.CheckBoxX chkUseElimTimeout;
     }
 }

@@ -21,7 +21,7 @@ namespace FTC_Timer_Display
         private static readonly TimeSpan _defaultEndgame = new TimeSpan(0, 0, 30);
         private static readonly TimeSpan _defaultTeamTimeout = new TimeSpan(0, 3, 0);
         private static readonly TimeSpan _defaultEventTimeout = new TimeSpan(0, 5, 0);
-
+        private static readonly TimeSpan _defaultElimTimeout = new TimeSpan(0, 5, 0);
         private static readonly TimeSpan _defaultCountdownStart = new TimeSpan(0, 0, 5);
 
 
@@ -36,6 +36,7 @@ namespace FTC_Timer_Display
         public static TimeSpan endgameLength { get; set; }
         public static TimeSpan timeoutTeamLength { get; set; }
         public static TimeSpan timeoutEventLength { get; set; }
+        public static TimeSpan timeoutElimLength { get; set; }
 
         public static TimeSpan countdownStart { get; set; }
 
@@ -163,6 +164,7 @@ namespace FTC_Timer_Display
             // Timeout lengths
             timeoutTeamLength = _defaultTeamTimeout;
             timeoutEventLength = _defaultEventTimeout;
+            timeoutElimLength = _defaultElimTimeout;
 
             // Countdown Start
             countdownStart = _defaultCountdownStart;
