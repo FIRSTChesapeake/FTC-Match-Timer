@@ -582,6 +582,7 @@ namespace FTC_Timer_Display
 
         public class TimeoutData
         {
+            public static string lastTimeoutText { get; private set; }
 
             public static TimeoutData MakeDefaultTimeout(int Alliance)
             {
@@ -602,6 +603,7 @@ namespace FTC_Timer_Display
                 this.value = val;
                 this.message = msg;
                 this.soundType = snd;
+                lastTimeoutText = msg;
             }
 
             public enum SoundTypes

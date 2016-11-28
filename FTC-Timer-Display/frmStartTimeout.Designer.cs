@@ -35,7 +35,6 @@ namespace FTC_Timer_Display
             this.txtCustomMsg = new System.Windows.Forms.TextBox();
             this.btnStart = new DevComponents.DotNetBar.ButtonX();
             this.btnCancel = new DevComponents.DotNetBar.ButtonX();
-            this.timeValue = new FTC_Timer_Display.SettingsControls.CtrlTimeLengthEntry();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.rdoSoundNone = new System.Windows.Forms.RadioButton();
@@ -49,6 +48,7 @@ namespace FTC_Timer_Display
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.rdoAddTime = new System.Windows.Forms.RadioButton();
             this.rdoReplaceTime = new System.Windows.Forms.RadioButton();
+            this.timeValue = new FTC_Timer_Display.SettingsControls.CtrlTimeLengthEntry();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -165,20 +165,6 @@ namespace FTC_Timer_Display
             this.btnCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "Cancel";
-            // 
-            // timeValue
-            // 
-            this.timeValue.Caption = "Length";
-            this.tableLayoutPanel1.SetColumnSpan(this.timeValue, 2);
-            this.timeValue.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timeValue.Location = new System.Drawing.Point(3, 214);
-            this.timeValue.MaximumValue = System.TimeSpan.Parse("00:48:05");
-            this.timeValue.MinimumValue = System.TimeSpan.Parse("00:00:00");
-            this.timeValue.Name = "timeValue";
-            this.timeValue.Readonly = false;
-            this.timeValue.Size = new System.Drawing.Size(312, 24);
-            this.timeValue.TabIndex = 6;
-            this.timeValue.Value = System.TimeSpan.Parse("00:00:00");
             // 
             // groupBox1
             // 
@@ -337,6 +323,20 @@ namespace FTC_Timer_Display
             this.rdoReplaceTime.TabStop = true;
             this.rdoReplaceTime.Text = "Replace Timeout";
             this.rdoReplaceTime.UseVisualStyleBackColor = true;
+            // 
+            // timeValue
+            // 
+            this.timeValue.Caption = "Length";
+            this.tableLayoutPanel1.SetColumnSpan(this.timeValue, 2);
+            this.timeValue.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.timeValue.Location = new System.Drawing.Point(3, 214);
+            this.timeValue.MaximumValue = System.TimeSpan.Parse("00:48:05");
+            this.timeValue.MinimumValue = System.TimeSpan.Parse("00:00:00");
+            this.timeValue.Name = "timeValue";
+            this.timeValue.Readonly = false;
+            this.timeValue.Size = new System.Drawing.Size(312, 24);
+            this.timeValue.TabIndex = 6;
+            this.timeValue.Value = System.TimeSpan.Parse("00:00:00");
             // 
             // frmStartTimeout
             // 

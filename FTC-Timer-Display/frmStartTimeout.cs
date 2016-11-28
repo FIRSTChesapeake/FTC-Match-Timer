@@ -20,6 +20,7 @@ namespace FTC_Timer_Display
             _fields = availableFields;
             cboFields.DisplayMember = "DisplayString";
             cboFields.DataSource = _fields;
+            txtCustomMsg.Text = SingleClient.TimeoutData.lastTimeoutText;
             if (forcedSelected == null)
             {
                 foreach (SingleClient c in _fields) if (c.isSelected) cboFields.SelectedItem = c;
