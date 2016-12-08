@@ -49,6 +49,7 @@ namespace FTC_Timer_Display
             this.rdoAddTime = new System.Windows.Forms.RadioButton();
             this.rdoReplaceTime = new System.Windows.Forms.RadioButton();
             this.timeValue = new FTC_Timer_Display.SettingsControls.CtrlTimeLengthEntry();
+            this.chkAllFields = new DevComponents.DotNetBar.Controls.CheckBoxX();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -61,23 +62,25 @@ namespace FTC_Timer_Display
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.rdoAllianceCalled, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.rdoOther, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.cboAlliance, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.txtCustomMsg, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.btnStart, 0, 10);
-            this.tableLayoutPanel1.Controls.Add(this.btnCancel, 1, 10);
-            this.tableLayoutPanel1.Controls.Add(this.timeValue, 0, 7);
-            this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 8);
-            this.tableLayoutPanel1.Controls.Add(this.lblAlreadyRunning, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.rdoAllianceCalled, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.rdoOther, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.cboAlliance, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.txtCustomMsg, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.btnStart, 0, 11);
+            this.tableLayoutPanel1.Controls.Add(this.btnCancel, 1, 11);
+            this.tableLayoutPanel1.Controls.Add(this.timeValue, 0, 8);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 9);
+            this.tableLayoutPanel1.Controls.Add(this.lblAlreadyRunning, 0, 6);
             this.tableLayoutPanel1.Controls.Add(this.cboFields, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.lblCantTimeout, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.grpModify, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.lblCantTimeout, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.grpModify, 0, 7);
+            this.tableLayoutPanel1.Controls.Add(this.chkAllFields, 1, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 11;
+            this.tableLayoutPanel1.RowCount = 12;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
@@ -98,7 +101,7 @@ namespace FTC_Timer_Display
             this.rdoAllianceCalled.AutoSize = true;
             this.rdoAllianceCalled.Checked = true;
             this.rdoAllianceCalled.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rdoAllianceCalled.Location = new System.Drawing.Point(3, 63);
+            this.rdoAllianceCalled.Location = new System.Drawing.Point(3, 93);
             this.rdoAllianceCalled.Name = "rdoAllianceCalled";
             this.rdoAllianceCalled.Size = new System.Drawing.Size(153, 24);
             this.rdoAllianceCalled.TabIndex = 0;
@@ -111,7 +114,7 @@ namespace FTC_Timer_Display
             // 
             this.rdoOther.AutoSize = true;
             this.rdoOther.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rdoOther.Location = new System.Drawing.Point(3, 93);
+            this.rdoOther.Location = new System.Drawing.Point(3, 123);
             this.rdoOther.Name = "rdoOther";
             this.rdoOther.Size = new System.Drawing.Size(153, 24);
             this.rdoOther.TabIndex = 1;
@@ -124,7 +127,7 @@ namespace FTC_Timer_Display
             this.cboAlliance.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cboAlliance.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboAlliance.FormattingEnabled = true;
-            this.cboAlliance.Location = new System.Drawing.Point(162, 63);
+            this.cboAlliance.Location = new System.Drawing.Point(162, 93);
             this.cboAlliance.Name = "cboAlliance";
             this.cboAlliance.Size = new System.Drawing.Size(153, 21);
             this.cboAlliance.TabIndex = 2;
@@ -134,7 +137,7 @@ namespace FTC_Timer_Display
             this.tableLayoutPanel1.SetColumnSpan(this.txtCustomMsg, 2);
             this.txtCustomMsg.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtCustomMsg.Enabled = false;
-            this.txtCustomMsg.Location = new System.Drawing.Point(3, 123);
+            this.txtCustomMsg.Location = new System.Drawing.Point(3, 153);
             this.txtCustomMsg.Name = "txtCustomMsg";
             this.txtCustomMsg.Size = new System.Drawing.Size(312, 20);
             this.txtCustomMsg.TabIndex = 3;
@@ -173,7 +176,7 @@ namespace FTC_Timer_Display
             this.groupBox1.Controls.Add(this.flowLayoutPanel1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(3, 244);
+            this.groupBox1.Location = new System.Drawing.Point(3, 274);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(312, 42);
             this.groupBox1.TabIndex = 7;
@@ -231,7 +234,7 @@ namespace FTC_Timer_Display
             this.lblAlreadyRunning.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblAlreadyRunning.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAlreadyRunning.ForeColor = System.Drawing.Color.Red;
-            this.lblAlreadyRunning.Location = new System.Drawing.Point(3, 150);
+            this.lblAlreadyRunning.Location = new System.Drawing.Point(3, 180);
             this.lblAlreadyRunning.Name = "lblAlreadyRunning";
             this.lblAlreadyRunning.Size = new System.Drawing.Size(312, 13);
             this.lblAlreadyRunning.TabIndex = 8;
@@ -268,7 +271,7 @@ namespace FTC_Timer_Display
             this.lblCantTimeout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblCantTimeout.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCantTimeout.ForeColor = System.Drawing.Color.Red;
-            this.lblCantTimeout.Location = new System.Drawing.Point(3, 30);
+            this.lblCantTimeout.Location = new System.Drawing.Point(3, 60);
             this.lblCantTimeout.Name = "lblCantTimeout";
             this.lblCantTimeout.Size = new System.Drawing.Size(312, 30);
             this.lblCantTimeout.TabIndex = 11;
@@ -283,7 +286,7 @@ namespace FTC_Timer_Display
             this.tableLayoutPanel1.SetColumnSpan(this.grpModify, 2);
             this.grpModify.Controls.Add(this.flowLayoutPanel2);
             this.grpModify.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpModify.Location = new System.Drawing.Point(3, 166);
+            this.grpModify.Location = new System.Drawing.Point(3, 196);
             this.grpModify.Name = "grpModify";
             this.grpModify.Size = new System.Drawing.Size(312, 42);
             this.grpModify.TabIndex = 12;
@@ -329,7 +332,7 @@ namespace FTC_Timer_Display
             this.timeValue.Caption = "Length";
             this.tableLayoutPanel1.SetColumnSpan(this.timeValue, 2);
             this.timeValue.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timeValue.Location = new System.Drawing.Point(3, 214);
+            this.timeValue.Location = new System.Drawing.Point(3, 244);
             this.timeValue.MaximumValue = System.TimeSpan.Parse("00:48:05");
             this.timeValue.MinimumValue = System.TimeSpan.Parse("00:00:00");
             this.timeValue.Name = "timeValue";
@@ -337,6 +340,21 @@ namespace FTC_Timer_Display
             this.timeValue.Size = new System.Drawing.Size(312, 24);
             this.timeValue.TabIndex = 6;
             this.timeValue.Value = System.TimeSpan.Parse("00:00:00");
+            // 
+            // chkAllFields
+            // 
+            // 
+            // 
+            // 
+            this.chkAllFields.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.chkAllFields.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chkAllFields.Location = new System.Drawing.Point(162, 33);
+            this.chkAllFields.Name = "chkAllFields";
+            this.chkAllFields.Size = new System.Drawing.Size(153, 24);
+            this.chkAllFields.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.chkAllFields.TabIndex = 13;
+            this.chkAllFields.Text = "Start on All Fields";
+            this.chkAllFields.CheckedChanged += new System.EventHandler(this.chkAllFields_CheckedChanged);
             // 
             // frmStartTimeout
             // 
@@ -387,5 +405,6 @@ namespace FTC_Timer_Display
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private System.Windows.Forms.RadioButton rdoAddTime;
         private System.Windows.Forms.RadioButton rdoReplaceTime;
+        private DevComponents.DotNetBar.Controls.CheckBoxX chkAllFields;
     }
 }

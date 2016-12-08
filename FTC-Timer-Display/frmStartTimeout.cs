@@ -74,12 +74,28 @@ namespace FTC_Timer_Display
         {
             if (sender.Equals(btnStart))
             {
-                SingleClient c = (SingleClient)cboFields.SelectedItem;
-                SingleClient.TimeoutData data = new SingleClient.TimeoutData(timeValue.Value, timeoutMessage, soundType);
-                if (rdoReplaceTime.Checked) c.ResetMatch();
-                c.StartTimeout(data);
+                if (chkAllFields.Checked)
+                {
+                    foreach (SingleClient c in _fields)
+                    {
+                        StartTimeout(c);
+                    }
+                }
+                else
+                {
+                    SingleClient c = (SingleClient)cboFields.SelectedItem;
+                    StartTimeout(c);
+                }
             }
             this.Close();
+        }
+
+        private void StartTimeout(SingleClient c)
+        {
+            
+            SingleClient.TimeoutData data = new SingleClient.TimeoutData(timeValue.Value, timeoutMessage, soundType);
+            if (rdoReplaceTime.Checked) c.ResetMatch();
+            c.StartTimeout(data);
         }
 
         private void cboFields_SelectedIndexChanged(object sender, EventArgs e)
@@ -118,6 +134,11 @@ namespace FTC_Timer_Display
             lblAlreadyRunning.Visible = c.matchData.matchStatus == MatchData.MatchStatus.Timeout;
             grpModify.Visible = c.matchData.matchStatus == MatchData.MatchStatus.Timeout;
             btnStart.Text = c.matchData.matchStatus == MatchData.MatchStatus.Timeout ? "Edit Timeout" : "Start Timeout";
+        }
+
+        private void chkAllFields_CheckedChanged(object sender, EventArgs e)
+        {
+            cboFields.Enabled = !chkAllFields.Checked;
         }
     }
 }
