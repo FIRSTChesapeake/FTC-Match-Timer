@@ -185,3 +185,4 @@ UpgradeLog*.htm
 FakesAssemblies/
 *.iss
 *.iss
+/FTC-Timer-App.userprefs
