@@ -98,6 +98,7 @@
             this.toolTipMgr = new DevComponents.DotNetBar.SuperTooltip();
             this.tableRight = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnAndroid = new DevComponents.DotNetBar.ButtonX();
             this.tableLeft.SuspendLayout();
             this.tableCurrentConfig.SuspendLayout();
             this.tableDisplayControl.SuspendLayout();
@@ -979,6 +980,7 @@
             this.tableLinks.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLinks.Controls.Add(this.flowBugs, 1, 0);
             this.tableLinks.Controls.Add(this.btnSettings, 0, 0);
+            this.tableLinks.Controls.Add(this.btnAndroid, 3, 0);
             this.tableLinks.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLinks.Location = new System.Drawing.Point(3, 560);
             this.tableLinks.Name = "tableLinks";
@@ -1085,6 +1087,19 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(905, 613);
             this.tableLayoutPanel2.TabIndex = 9;
             // 
+            // btnAndroid
+            // 
+            this.btnAndroid.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnAndroid.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnAndroid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnAndroid.Location = new System.Drawing.Point(468, 3);
+            this.btnAndroid.Name = "btnAndroid";
+            this.btnAndroid.Size = new System.Drawing.Size(152, 38);
+            this.btnAndroid.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnAndroid.TabIndex = 3;
+            this.btnAndroid.Text = "Android Webserver\r\nOptions";
+            this.btnAndroid.Click += new System.EventHandler(this.btnAndroid_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1188,6 +1203,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private DevComponents.DotNetBar.ButtonX btnMute;
         private ArduinoComm.ArduinoController remoteController;
+        private DevComponents.DotNetBar.ButtonX btnAndroid;
 
     }
 }

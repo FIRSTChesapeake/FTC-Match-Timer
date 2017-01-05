@@ -90,6 +90,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AndroidComponents\AndroidCommandPackage.cs" />
+    <Compile Include="AndroidComponents\AndroidStatusReply.cs" />
+    <Compile Include="AndroidComponents\AndroidWebserver.cs" />
+    <Compile Include="AndroidComponents\SimpleHTTPServer.cs" />
+    <Compile Include="AndroidComponents\WebserverWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AndroidComponents\WebserverWindow.Designer.cs" />
     <Compile Include="ArduinoComm\ArduinoController.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -296,6 +304,7 @@
     <Compile Include="UdpClient\myUdpException.cs" />
     <Compile Include="UdpClient\UdpComms.cs" />
     <Compile Include="UdpClient\UdpContainer.cs" />
+    <EmbeddedResource Include="AndroidComponents\WebserverWindow.resx" />
     <EmbeddedResource Include="ArduinoComm\ArduinoController.resx">
       <DependentUpon>ArduinoController.cs</DependentUpon>
     </EmbeddedResource>
