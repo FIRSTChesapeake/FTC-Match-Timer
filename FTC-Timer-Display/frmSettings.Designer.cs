@@ -41,8 +41,8 @@ namespace FTC_Timer_Display
             this.rdoPitAll = new System.Windows.Forms.RadioButton();
             this.linkSetScoring = new System.Windows.Forms.LinkLabel();
             this.tableBranding = new System.Windows.Forms.TableLayoutPanel();
-            this.picCurrentLogo = new System.Windows.Forms.PictureBox();
-            this.btnChangeLogo = new DevComponents.DotNetBar.ButtonX();
+            this.picCurrentLogo1 = new System.Windows.Forms.PictureBox();
+            this.btnChangeLogo1 = new DevComponents.DotNetBar.ButtonX();
             this.btnResetLogo = new DevComponents.DotNetBar.ButtonX();
             this.chkDateTime = new System.Windows.Forms.CheckBox();
             this.lblBrandingWarnings = new DevComponents.DotNetBar.LabelX();
@@ -70,16 +70,18 @@ namespace FTC_Timer_Display
             this.superTabItem6 = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel3 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.superTabItem3 = new DevComponents.DotNetBar.SuperTabItem();
-            this.superTabControlPanel5 = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.superTabItem5 = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.timingsControl = new FTC_Timer_Display.SettingsControls.CtrlTimings();
             this.superTabItem2 = new DevComponents.DotNetBar.SuperTabItem();
+            this.superTabControlPanel5 = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.superTabItem5 = new DevComponents.DotNetBar.SuperTabItem();
             this.btnClose = new DevComponents.DotNetBar.ButtonItem();
+            this.picCurrentLogo2 = new System.Windows.Forms.PictureBox();
+            this.btnChangeLogo2 = new DevComponents.DotNetBar.ButtonX();
             this.flowSoundLocation.SuspendLayout();
             this.flowPit.SuspendLayout();
             this.tableBranding.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picCurrentLogo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCurrentLogo1)).BeginInit();
             this.tableAppSettings.SuspendLayout();
             this.flowOtherOptions.SuspendLayout();
             this.flowServerOptions.SuspendLayout();
@@ -90,6 +92,7 @@ namespace FTC_Timer_Display
             this.superTabControlPanel6.SuspendLayout();
             this.superTabControlPanel3.SuspendLayout();
             this.superTabControlPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picCurrentLogo2)).BeginInit();
             this.SuspendLayout();
             // 
             // flowSoundLocation
@@ -221,62 +224,63 @@ namespace FTC_Timer_Display
             // 
             // tableBranding
             // 
-            this.tableBranding.ColumnCount = 3;
-            this.tableBranding.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableBranding.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
-            this.tableBranding.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
-            this.tableBranding.Controls.Add(this.picCurrentLogo, 0, 2);
-            this.tableBranding.Controls.Add(this.btnChangeLogo, 1, 5);
-            this.tableBranding.Controls.Add(this.btnResetLogo, 2, 5);
-            this.tableBranding.Controls.Add(this.chkDateTime, 0, 3);
+            this.tableBranding.ColumnCount = 2;
+            this.tableBranding.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableBranding.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableBranding.Controls.Add(this.picCurrentLogo1, 0, 2);
+            this.tableBranding.Controls.Add(this.chkDateTime, 0, 6);
             this.tableBranding.Controls.Add(this.lblBrandingWarnings, 0, 1);
             this.tableBranding.Controls.Add(this.ctrlHeader4, 0, 0);
+            this.tableBranding.Controls.Add(this.btnChangeLogo1, 0, 3);
+            this.tableBranding.Controls.Add(this.btnResetLogo, 1, 6);
+            this.tableBranding.Controls.Add(this.picCurrentLogo2, 1, 2);
+            this.tableBranding.Controls.Add(this.btnChangeLogo2, 1, 3);
             this.tableBranding.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableBranding.Location = new System.Drawing.Point(0, 0);
             this.tableBranding.Name = "tableBranding";
-            this.tableBranding.RowCount = 6;
+            this.tableBranding.RowCount = 7;
             this.tableBranding.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableBranding.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableBranding.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 145F));
+            this.tableBranding.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableBranding.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableBranding.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableBranding.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableBranding.Size = new System.Drawing.Size(550, 418);
             this.tableBranding.TabIndex = 0;
             // 
-            // picCurrentLogo
+            // picCurrentLogo1
             // 
-            this.tableBranding.SetColumnSpan(this.picCurrentLogo, 3);
-            this.picCurrentLogo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.picCurrentLogo.Image = global::FTC_Timer_Display.Properties.Resources.FCLogoBlack;
-            this.picCurrentLogo.Location = new System.Drawing.Point(3, 78);
-            this.picCurrentLogo.Name = "picCurrentLogo";
-            this.picCurrentLogo.Size = new System.Drawing.Size(544, 139);
-            this.picCurrentLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picCurrentLogo.TabIndex = 1;
-            this.picCurrentLogo.TabStop = false;
+            this.picCurrentLogo1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picCurrentLogo1.Image = global::FTC_Timer_Display.Properties.Resources.FCLogoBlack;
+            this.picCurrentLogo1.Location = new System.Drawing.Point(3, 78);
+            this.picCurrentLogo1.Name = "picCurrentLogo1";
+            this.picCurrentLogo1.Size = new System.Drawing.Size(269, 139);
+            this.picCurrentLogo1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picCurrentLogo1.TabIndex = 1;
+            this.picCurrentLogo1.TabStop = false;
             // 
-            // btnChangeLogo
+            // btnChangeLogo1
             // 
-            this.btnChangeLogo.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnChangeLogo.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnChangeLogo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnChangeLogo.Location = new System.Drawing.Point(253, 381);
-            this.btnChangeLogo.Name = "btnChangeLogo";
-            this.btnChangeLogo.Size = new System.Drawing.Size(144, 34);
-            this.btnChangeLogo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnChangeLogo.TabIndex = 2;
-            this.btnChangeLogo.Text = "Change";
-            this.btnChangeLogo.Click += new System.EventHandler(this.LogoChangeHandler);
+            this.btnChangeLogo1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnChangeLogo1.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnChangeLogo1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnChangeLogo1.Location = new System.Drawing.Point(3, 223);
+            this.btnChangeLogo1.Name = "btnChangeLogo1";
+            this.btnChangeLogo1.Size = new System.Drawing.Size(269, 34);
+            this.btnChangeLogo1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnChangeLogo1.TabIndex = 2;
+            this.btnChangeLogo1.Text = "Change";
+            this.btnChangeLogo1.Click += new System.EventHandler(this.LogoChangeHandler);
             // 
             // btnResetLogo
             // 
             this.btnResetLogo.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnResetLogo.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnResetLogo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnResetLogo.Location = new System.Drawing.Point(403, 381);
+            this.btnResetLogo.Location = new System.Drawing.Point(278, 381);
             this.btnResetLogo.Name = "btnResetLogo";
-            this.btnResetLogo.Size = new System.Drawing.Size(144, 34);
+            this.btnResetLogo.Size = new System.Drawing.Size(269, 34);
             this.btnResetLogo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnResetLogo.TabIndex = 3;
             this.btnResetLogo.Text = "Reset";
@@ -288,9 +292,9 @@ namespace FTC_Timer_Display
             this.chkDateTime.Checked = true;
             this.chkDateTime.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkDateTime.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chkDateTime.Location = new System.Drawing.Point(3, 223);
+            this.chkDateTime.Location = new System.Drawing.Point(3, 381);
             this.chkDateTime.Name = "chkDateTime";
-            this.chkDateTime.Size = new System.Drawing.Size(244, 17);
+            this.chkDateTime.Size = new System.Drawing.Size(269, 34);
             this.chkDateTime.TabIndex = 5;
             this.chkDateTime.Text = "Show Date && Time on Clock Display";
             this.chkDateTime.UseVisualStyleBackColor = true;
@@ -302,7 +306,7 @@ namespace FTC_Timer_Display
             // 
             // 
             this.lblBrandingWarnings.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tableBranding.SetColumnSpan(this.lblBrandingWarnings, 3);
+            this.tableBranding.SetColumnSpan(this.lblBrandingWarnings, 2);
             this.lblBrandingWarnings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblBrandingWarnings.Location = new System.Drawing.Point(3, 28);
             this.lblBrandingWarnings.Name = "lblBrandingWarnings";
@@ -323,7 +327,7 @@ namespace FTC_Timer_Display
             this.ctrlHeader4.BackgroundStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(130)))), ((int)(((byte)(132)))));
             this.ctrlHeader4.BackgroundStyle.BackColorGradientType = DevComponents.DotNetBar.eGradientType.Radial;
             this.ctrlHeader4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.tableBranding.SetColumnSpan(this.ctrlHeader4, 3);
+            this.tableBranding.SetColumnSpan(this.ctrlHeader4, 2);
             this.ctrlHeader4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ctrlHeader4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
             this.ctrlHeader4.Location = new System.Drawing.Point(3, 3);
@@ -528,10 +532,10 @@ namespace FTC_Timer_Display
             this.superTabControl1.ControlBox.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.superTabControl1.ControlBox.MenuBox,
             this.superTabControl1.ControlBox.CloseBox});
+            this.superTabControl1.Controls.Add(this.superTabControlPanel3);
             this.superTabControl1.Controls.Add(this.superTabControlPanel1);
             this.superTabControl1.Controls.Add(this.superTabControlPanel4);
             this.superTabControl1.Controls.Add(this.superTabControlPanel6);
-            this.superTabControl1.Controls.Add(this.superTabControlPanel3);
             this.superTabControl1.Controls.Add(this.superTabControlPanel2);
             this.superTabControl1.Controls.Add(this.superTabControlPanel5);
             this.superTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -638,22 +642,6 @@ namespace FTC_Timer_Display
             this.superTabItem3.Name = "superTabItem3";
             this.superTabItem3.Text = "Branding";
             // 
-            // superTabControlPanel5
-            // 
-            this.superTabControlPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel5.Location = new System.Drawing.Point(100, 0);
-            this.superTabControlPanel5.Name = "superTabControlPanel5";
-            this.superTabControlPanel5.Size = new System.Drawing.Size(550, 418);
-            this.superTabControlPanel5.TabIndex = 0;
-            this.superTabControlPanel5.TabItem = this.superTabItem5;
-            // 
-            // superTabItem5
-            // 
-            this.superTabItem5.AttachedControl = this.superTabControlPanel5;
-            this.superTabItem5.GlobalItem = false;
-            this.superTabItem5.Name = "superTabItem5";
-            this.superTabItem5.Text = "Remote Control";
-            // 
             // superTabControlPanel2
             // 
             this.superTabControlPanel2.Controls.Add(this.timingsControl);
@@ -679,6 +667,22 @@ namespace FTC_Timer_Display
             this.superTabItem2.Name = "superTabItem2";
             this.superTabItem2.Text = "Match Timing";
             // 
+            // superTabControlPanel5
+            // 
+            this.superTabControlPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanel5.Location = new System.Drawing.Point(100, 0);
+            this.superTabControlPanel5.Name = "superTabControlPanel5";
+            this.superTabControlPanel5.Size = new System.Drawing.Size(550, 418);
+            this.superTabControlPanel5.TabIndex = 0;
+            this.superTabControlPanel5.TabItem = this.superTabItem5;
+            // 
+            // superTabItem5
+            // 
+            this.superTabItem5.AttachedControl = this.superTabControlPanel5;
+            this.superTabItem5.GlobalItem = false;
+            this.superTabItem5.Name = "superTabItem5";
+            this.superTabItem5.Text = "Remote Control";
+            // 
             // btnClose
             // 
             this.btnClose.BeginGroup = true;
@@ -687,6 +691,30 @@ namespace FTC_Timer_Display
             this.btnClose.Name = "btnClose";
             this.btnClose.Text = "Close Window";
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // picCurrentLogo2
+            // 
+            this.picCurrentLogo2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picCurrentLogo2.Image = global::FTC_Timer_Display.Properties.Resources.FCLogoBlack;
+            this.picCurrentLogo2.Location = new System.Drawing.Point(278, 78);
+            this.picCurrentLogo2.Name = "picCurrentLogo2";
+            this.picCurrentLogo2.Size = new System.Drawing.Size(269, 139);
+            this.picCurrentLogo2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picCurrentLogo2.TabIndex = 8;
+            this.picCurrentLogo2.TabStop = false;
+            // 
+            // btnChangeLogo2
+            // 
+            this.btnChangeLogo2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnChangeLogo2.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
+            this.btnChangeLogo2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnChangeLogo2.Location = new System.Drawing.Point(278, 223);
+            this.btnChangeLogo2.Name = "btnChangeLogo2";
+            this.btnChangeLogo2.Size = new System.Drawing.Size(269, 34);
+            this.btnChangeLogo2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnChangeLogo2.TabIndex = 9;
+            this.btnChangeLogo2.Text = "Change";
+            this.btnChangeLogo2.Click += new System.EventHandler(this.LogoChangeHandler);
             // 
             // frmSettings
             // 
@@ -707,7 +735,7 @@ namespace FTC_Timer_Display
             this.flowPit.PerformLayout();
             this.tableBranding.ResumeLayout(false);
             this.tableBranding.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picCurrentLogo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picCurrentLogo1)).EndInit();
             this.tableAppSettings.ResumeLayout(false);
             this.flowOtherOptions.ResumeLayout(false);
             this.flowOtherOptions.PerformLayout();
@@ -720,6 +748,7 @@ namespace FTC_Timer_Display
             this.superTabControlPanel6.ResumeLayout(false);
             this.superTabControlPanel3.ResumeLayout(false);
             this.superTabControlPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picCurrentLogo2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -736,8 +765,8 @@ namespace FTC_Timer_Display
         private System.Windows.Forms.RadioButton rdoPitAll;
         private System.Windows.Forms.LinkLabel linkSetScoring;
         private System.Windows.Forms.TableLayoutPanel tableBranding;
-        private System.Windows.Forms.PictureBox picCurrentLogo;
-        private DevComponents.DotNetBar.ButtonX btnChangeLogo;
+        private System.Windows.Forms.PictureBox picCurrentLogo1;
+        private DevComponents.DotNetBar.ButtonX btnChangeLogo1;
         private DevComponents.DotNetBar.ButtonX btnResetLogo;
         private System.Windows.Forms.TableLayoutPanel tableAppSettings;
         private System.Windows.Forms.FlowLayoutPanel flowOtherOptions;
@@ -773,5 +802,7 @@ namespace FTC_Timer_Display
         private SettingsControls.CtrlLoggingSettings loggingControl;
         private DevComponents.DotNetBar.SuperTabControlPanel superTabControlPanel5;
         private DevComponents.DotNetBar.SuperTabItem superTabItem5;
+        private System.Windows.Forms.PictureBox picCurrentLogo2;
+        private DevComponents.DotNetBar.ButtonX btnChangeLogo2;
     }
 }

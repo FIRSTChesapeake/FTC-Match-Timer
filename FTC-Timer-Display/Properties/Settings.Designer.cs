@@ -140,12 +140,12 @@ namespace FTC_Timer_Display.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string customLogoPath {
+        public string customLogoPath1 {
             get {
-                return ((string)(this["customLogoPath"]));
+                return ((string)(this["customLogoPath1"]));
             }
             set {
-                this["customLogoPath"] = value;
+                this["customLogoPath1"] = value;
             }
         }
         
@@ -254,6 +254,18 @@ namespace FTC_Timer_Display.Properties {
             }
             set {
                 this["showDisplayFieldNumbers"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string customLogoPath2 {
+            get {
+                return ((string)(this["customLogoPath2"]));
+            }
+            set {
+                this["customLogoPath2"] = value;
             }
         }
     }

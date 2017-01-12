@@ -26,24 +26,21 @@ namespace FTC_Timer_Display
         public void initializeDisplay()
         {
             lblMatchNumber.Text = String.Format("DIVISION {0} FIELD {1} INITIALIZED", initData.divID, initData.fieldID);
-            loadCustomLogo();
+            loadCustomLogos();
         }
 
-        private void loadCustomLogo()
+        private void loadCustomLogos()
         {
-            // load custom logo if defined.
-            string logoPath = Properties.Settings.Default.customLogoPath;
-            Image img = GeneralFunctions.FileFunctions.LoadImgFromFile(logoPath);
-            if (img != null)
-            {
-                logoTableLeft.BackgroundImage = img;
-                logoTableRight.BackgroundImage = img;
-            }
-            else
-            {
-                logoTableLeft.BackgroundImage = Properties.Resources.FCLogoBlack;
-                logoTableRight.BackgroundImage = Properties.Resources.FCLogoBlack;
-            }
+            // Load Left Image
+            Image img1 = GeneralFunctions.FileFunctions.LoadImgFromFile(Properties.Settings.Default.customLogoPath1);
+            if (img1 != null) logoTableLeft.BackgroundImage = img1;
+            else logoTableLeft.BackgroundImage = Properties.Resources.FCLogoBlack;
+
+            // Load Right Image
+            Image img2 = GeneralFunctions.FileFunctions.LoadImgFromFile(Properties.Settings.Default.customLogoPath2);
+            if (img2 != null) logoTableRight.BackgroundImage = img2;
+            else logoTableRight.BackgroundImage = Properties.Resources.FCLogoBlack;
+
             lblDate.Visible = Properties.Settings.Default.displayShowDateTime;
             lblTime.Visible = Properties.Settings.Default.displayShowDateTime;
         }
@@ -177,7 +174,7 @@ namespace FTC_Timer_Display
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void frmDisplay_VisibleChanged(object sender, EventArgs e)
         {
-            loadCustomLogo();
+            loadCustomLogos();
         }
 
         private void lblFieldDataStatus_Click(object sender, EventArgs e)

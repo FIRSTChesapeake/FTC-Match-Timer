@@ -63,12 +63,11 @@ namespace FTC_Timer_Display
             // Load custom image if it exists and we have a display.
             if (_dispForm != null)
             {
-                string customPath = Properties.Settings.Default.customLogoPath;
-                Image img = GeneralFunctions.FileFunctions.LoadImgFromFile(customPath);
-                if (img != null)
-                {
-                    picCurrentLogo.Image = img;
-                }
+                Image img1 = GeneralFunctions.FileFunctions.LoadImgFromFile(Properties.Settings.Default.customLogoPath1);
+                if (img1 != null) picCurrentLogo1.Image = img1;
+
+                Image img2 = GeneralFunctions.FileFunctions.LoadImgFromFile(Properties.Settings.Default.customLogoPath2);
+                if (img2 != null) picCurrentLogo1.Image = img2;
             }
             else
             {
@@ -165,7 +164,14 @@ namespace FTC_Timer_Display
         {
             try
             {
-                if (sender.Equals(btnChangeLogo))
+                if (sender.Equals(btnResetLogo))
+                {
+                    picCurrentLogo1.Image = Properties.Resources.FCLogoBlack;
+                    picCurrentLogo2.Image = Properties.Resources.FCLogoBlack;
+                    Properties.Settings.Default.customLogoPath1 = "";
+                    Properties.Settings.Default.customLogoPath2 = "";
+                }
+                else
                 {
                     OpenFileDialog dial = new OpenFileDialog();
                     dial.Filter = "PNG Files (*.png)|*.png";
@@ -174,14 +180,19 @@ namespace FTC_Timer_Display
                     if (dial.FileName == null || dial.FileName == "") return;
                     Image img = GeneralFunctions.FileFunctions.LoadImgFromFile(dial.FileName);
                     if (img == null) return;
-                    picCurrentLogo.Image = img;
-                    Properties.Settings.Default.customLogoPath = dial.FileName;
+
+                    if (sender.Equals(btnChangeLogo1))
+                    {
+                        picCurrentLogo1.Image = img;
+                        Properties.Settings.Default.customLogoPath1 = dial.FileName;
+                    }
+                    if (sender.Equals(btnChangeLogo2))
+                    {
+                        picCurrentLogo2.Image = img;
+                        Properties.Settings.Default.customLogoPath2 = dial.FileName;
+                    }
                 }
-                else if (sender.Equals(btnResetLogo))
-                {
-                    picCurrentLogo.Image = Properties.Resources.FCLogoBlack;
-                    Properties.Settings.Default.customLogoPath = "";
-                }
+
                 Properties.Settings.Default.Save();
                 reInitDisplay();
             }
