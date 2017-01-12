@@ -260,12 +260,6 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmModeSelection.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmModeSelection.Designer.cs">
-      <DependentUpon>frmModeSelection.cs</DependentUpon>
-    </Compile>
     <Compile Include="InitialData.cs" />
     <Compile Include="MatchData.cs" />
     <Compile Include="MutexGenerator.cs" />
@@ -325,9 +319,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmModeSelection.resx">
-      <DependentUpon>frmModeSelection.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmPitDisplay.resx">
       <DependentUpon>frmPitDisplay.cs</DependentUpon>

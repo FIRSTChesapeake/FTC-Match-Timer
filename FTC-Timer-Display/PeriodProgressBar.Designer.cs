@@ -94,7 +94,7 @@
             this.stepEndgame.Name = "stepEndgame";
             this.stepEndgame.SymbolSize = 13F;
             this.stepEndgame.Tag = "3";
-            this.stepEndgame.Text = "<b>End Game</b>\r\n<br/>Mountain Climbing";
+            this.stepEndgame.Text = "<b>End Game</b>\r\n<br/>Cap Ball Time";
             // 
             // stepComplete
             // 

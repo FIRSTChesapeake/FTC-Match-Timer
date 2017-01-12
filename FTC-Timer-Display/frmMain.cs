@@ -62,27 +62,7 @@ namespace FTC_Timer_Display
             // Only saved if we're in server mode.
             if (initData.isServer)
             {
-                // Save the fields we have added.
-                if (_allClients.Count > 0)
-                {
-                    StringBuilder sb = new StringBuilder();
-                    bool first = true;
-
-                    LogMgr.logger.Debug(LogMgr.make("Saving Fields", "frmMain.SaveSettings"));
-                    foreach (SingleClient c in _allClients)
-                    {
-                        LogMgr.logger.Debug(LogMgr.make("Saving Field {0}", "frmMain.SaveSettings", 1, c.matchData.fieldID));
-                        if (!first) sb.Append(",");
-                        first = false;
-                        sb.Append(c.matchData.fieldID.ToString());
-                    }
-                    Properties.Settings.Default.FieldList = sb.ToString();
-                    LogMgr.logger.Debug(LogMgr.make("Fields Saved", "frmMain.SaveSettings"));
-                }
-            }
-            else
-            {
-                Properties.Settings.Default.FieldList = "";
+                // Used to save field list here, but we generate those on the fly now.
             }
             // Save these settings
             Properties.Settings.Default.Save();
@@ -95,31 +75,6 @@ namespace FTC_Timer_Display
             lblMode.Text = initData.runTypeString;
             if (!initData.isMultiDivision) lblDivIDLabel.Text = "Event:";
             setDivisionDisplay(initData.divID, initData.divName);
-            // Load the last used fields
-            if (initData.isServer && initData.loadPreviousFields)
-            {
-                string csv = Properties.Settings.Default.FieldList;
-                string[] list = csv.Split(',');
-                if (list.Length > 0)
-                {
-                    LogMgr.logger.Info(LogMgr.make("Loading Fields", "frmMain.LoadSettings"));
-                    foreach (string s in list)
-                    {
-                        try
-                        {
-                            if (s == "") continue;
-                            LogMgr.logger.Debug(LogMgr.make("Loading Field {0}", "frmMain.LoadSettings", 1, s));
-                            int i = int.Parse(s);
-                            this.AddField(i);
-                        }
-                        catch (Exception ex)
-                        {
-                            LogMgr.logger.Error(LogMgr.make("Exception loading fields", "frmMain.LoadSettings"), ex);
-                        }
-                    }
-                    LogMgr.logger.Info(LogMgr.make("{0} Field(s) loaded.", "frmMain.LoadSettings", 0, list.Length));
-                }
-            }
         }
 
         public frmMain(InitialData init)

@@ -12,12 +12,53 @@ namespace FTC_Timer_Display
         private int _divID = 1;
         public bool isMultiDivision = true;
         public string divName = "";
-        public int fieldID = 0;
+        private int _fieldID = 0;
         public int fieldCount = 2;
-        public RunType runType = RunType.None;
+        private RunType _runType = RunType.None;
         public MatchData.EventTypes eventType = MatchData.EventTypes.Qualifier;
         public int scoringPort = Properties.Settings.Default.DefaultScoringPort;
-        public bool loadPreviousFields = true;
+
+        /// <summary>
+        /// Public access to the current run type.
+        /// Used to reset some defaults if the type is changed
+        /// </summary>
+        /// <value>
+        /// The type of the run.
+        /// </value>
+        public RunType runType
+        {
+            get
+            {
+                return _runType;
+            }
+            set
+            {
+                _runType = value;
+                switch (value)
+                {
+                    case RunType.Server:
+                        _fieldID = 0;
+                        break;
+                }
+            }
+        }
+        /// <summary>
+        /// Gets or sets the field identifier.
+        /// Used as a filter so the rest of the app never receives a field ID if we don't have a local field.
+        /// (This is a double-safeguard).
+        /// </summary>
+        /// <value>
+        /// The field identifier.
+        /// </value>
+        public int fieldID
+        {
+            get
+            {
+                if (this.isClient) return _fieldID;
+                return 0;
+            }
+            set { _fieldID = value; }
+        }
 
         public int divID
         {
@@ -38,7 +79,12 @@ namespace FTC_Timer_Display
             Local = 4,
             PitDisplay = 5
         }
-
+        /// <summary>
+        /// Gets the human friendly version of the run type.
+        /// </summary>
+        /// <value>
+        /// The run type string.
+        /// </value>
         public string runTypeString
         {
             get
@@ -116,27 +162,6 @@ namespace FTC_Timer_Display
             {
                 errorID = -1;
                 return null;
-            }
-            errorID = 0;
-            return data;
-        }
-
-        // Slated for Demolition
-        [Obsolete("Method is Obsolete. use startWizard Method Instead.")]
-        public static InitialData GetInitialData(InitialData template, out int errorID)
-        {
-            frmModeSelection wnd = new frmModeSelection(template);
-            wnd.ShowDialog();
-            if (wnd.Tag == null)
-            {
-                errorID = 1;
-                return null;
-            }
-            InitialData data = (InitialData)wnd.Tag;
-            if (data.runType == InitialData.RunType.None)
-            {
-                errorID = -1;
-                return template;
             }
             errorID = 0;
             return data;

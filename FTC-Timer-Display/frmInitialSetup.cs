@@ -64,8 +64,6 @@ namespace FTC_Timer_Display
             }
             else if (sender.Equals(btnFinish))
             {
-                // if we've changed the mode, clear the saved fields.
-                _workData.loadPreviousFields = (_workData.runType == _lastRunType);
                 this.Tag = _workData;
                 this.Visible = false;
             }
