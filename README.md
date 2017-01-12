@@ -1,6 +1,5 @@
 # FTC-Match-Timer
 Custom Match Timer for FTC
 
-Setup and use instructions can be found on YouTube:
-
-https://www.youtube.com/playlist?list=PLoIwbjOrXHO2u7fisFEqm67_e1r9LEQ74
+If you need instruction on how to setup or use the software, please contact me directly.
+mglennon@firstchesapeake.org
