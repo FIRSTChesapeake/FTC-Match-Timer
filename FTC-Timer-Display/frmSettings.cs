@@ -67,7 +67,7 @@ namespace FTC_Timer_Display
                 if (img1 != null) picCurrentLogo1.Image = img1;
 
                 Image img2 = GeneralFunctions.FileFunctions.LoadImgFromFile(Properties.Settings.Default.customLogoPath2);
-                if (img2 != null) picCurrentLogo1.Image = img2;
+                if (img2 != null) picCurrentLogo2.Image = img2;
             }
             else
             {
