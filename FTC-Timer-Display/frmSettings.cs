@@ -80,6 +80,7 @@ namespace FTC_Timer_Display
             chkPreventMovement.Checked = Properties.Settings.Default.preventRunningMovement;
             chkUseLargeActive.Checked = Properties.Settings.Default.useLargeActive;
             chkShowFieldNumber.Checked = Properties.Settings.Default.showDisplayFieldNumbers;
+            chkExtraSecond.Checked = Properties.Settings.Default.extraSecond;
             // Timing
             timingsControl.LoadValues();
             // Sound Testing
@@ -255,6 +256,12 @@ namespace FTC_Timer_Display
         private void chkDontShowFieldNumber_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.showDisplayFieldNumbers = chkShowFieldNumber.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void chkExtraSecond_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.extraSecond = chkExtraSecond.Checked;
             Properties.Settings.Default.Save();
         }
     }

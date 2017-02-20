@@ -24,7 +24,22 @@ namespace FTC_Timer_Display
         public bool allowDisplayToStart { get { return _allowDisplayToStart; } set { _allowDisplayToStart = value; } }
 
         private bool _isSelected = false;
-        private bool _firstSecond = true;
+        
+        private bool _firstSecondFlag = true;
+
+        private bool _firstSecond
+        {
+            get
+            {
+                if (Properties.Settings.Default.extraSecond) return _firstSecondFlag;
+                else return false;
+            }
+            set
+            {
+                _firstSecondFlag = value;
+            }
+        }
+
         private readonly bool _isLocal;
 
         public event EventHandler<MatchData> SendData;

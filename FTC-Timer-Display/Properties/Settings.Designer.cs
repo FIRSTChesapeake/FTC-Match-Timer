@@ -268,5 +268,17 @@ namespace FTC_Timer_Display.Properties {
                 this["customLogoPath2"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool extraSecond {
+            get {
+                return ((bool)(this["extraSecond"]));
+            }
+            set {
+                this["extraSecond"] = value;
+            }
+        }
     }
 }
