@@ -15,7 +15,7 @@ namespace FTC_Timer_Display
         {
             // LOGGING!
             LogMgr.init("FTC-Timer-App");
-
+            LogMgr.logger.Info(LogMgr.make("Application {0} Starting..", "Main", 0, GeneralFunctions.AppFunctions.appVersionString));
             if (Control.ModifierKeys == Keys.Shift)
             {
                 Properties.Settings.Default.Reset();
