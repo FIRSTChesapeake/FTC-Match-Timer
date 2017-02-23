@@ -454,7 +454,6 @@ namespace FTC_Timer_Display
                     if (_data.matchPeriod == MatchData.MatchPeriods.NotStarted)
                     {
                         _data.matchPeriod = MatchData.MatchPeriods.Autonomous;
-                        _data.matchStatus = MatchData.MatchStatus.Running;
                         _data.noCrossActive = true;
                         this._firstSecond = true;
                         _data.soundPackage = new SoundGenerator.SoundPackage(SoundGenerator.SoundPackage.SoundMethods.SoundFile, "charge");
@@ -482,7 +481,7 @@ namespace FTC_Timer_Display
             }
             else
             {
-                log("Field stop requested but it {0} is not a running status.", _data.matchStatus);
+                log("Field stop requested but status '{0}' is not a running status.", _data.matchStatus);
             }
         }
 
